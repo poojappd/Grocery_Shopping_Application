@@ -1,0 +1,2 @@
+//Max limit on items
+fruits & veggies - 10
