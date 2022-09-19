@@ -1,8 +1,7 @@
 package com.example.groceryshoppingapplication.Other
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.groceryshoppingapplication.GroceryItem
+import com.example.groceryshoppingapplication.models.GroceryItem
 import com.example.groceryshoppingapplication.enums.*
 
 @Entity(tableName = "store_inventory")

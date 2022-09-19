@@ -1,8 +1,8 @@
 package com.example.groceryshoppingapplication.data
 
 import androidx.room.*
-import com.example.groceryshoppingapplication.CartItem
-import com.example.groceryshoppingapplication.CartItemAndProduct
+import com.example.groceryshoppingapplication.models.CartItem
+import com.example.groceryshoppingapplication.relations.CartItemAndProduct
 
 @Dao
 interface CartDao{

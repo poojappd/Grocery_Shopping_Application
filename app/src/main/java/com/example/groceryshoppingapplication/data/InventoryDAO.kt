@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.groceryshoppingapplication.GroceryItem
+import com.example.groceryshoppingapplication.models.GroceryItem
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 
 @Dao
