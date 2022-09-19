@@ -2,5 +2,18 @@
     <string name="app_name">Grocery Shopping Application</string>
 
     <string name="enter_mobile_number"> Enter mobile number</string>
+    <string-array name="categories">
+        <item> Dairy and bakery</item>
+        <item> Meat</item>
+        <item> Beverages</item>
+        <item> Staples</item>
+        <item> Fruits</item>
+        <item> Vegetables</item>
+        <item> Hair care</item>
+        <item> Skin care</item>
+        <item> Packaged foods</item>
+        <item> Home needs</item>
+
+    </string-array>
 
 </resources>

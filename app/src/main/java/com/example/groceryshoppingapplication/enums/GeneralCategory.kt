@@ -1,6 +1,6 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.enums
 
-enum class Category {
+enum class GeneralCategory {
     DAIRY_AND_BAKERY,
     BEVERAGES,
     SNACKS,
@@ -10,5 +10,6 @@ enum class Category {
     MEAT,
     SKIN_CARE,
     HAIR_CARE,
-    FRUITS_AND_VEGETABLES,
+    FRUITS,
+    VEGETABLES,
 }

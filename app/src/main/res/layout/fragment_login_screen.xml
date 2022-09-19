@@ -5,49 +5,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="@drawable/sample"
     tools:context=".MainActivity"
-    android:background="@color/white"
+
     >
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signInButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="244dp"
-        android:backgroundTint="@color/white"
-        android:text="Sign In"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#C38543"
-        app:strokeWidth="2dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signUpButton"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/cart_icon_launching_page"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:rotation="-17"
+        android:layout_marginBottom="-25dp"
+        android:src="@drawable/app_cart_icon"
+        app:layout_constraintBottom_toTopOf="@id/white_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView_Gro"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="144dp"
-        android:backgroundTint="#C38543"
-        android:text="Sign Up"
-        android:textAllCaps="false"
-        app:cornerRadius="30dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/montserrat_alternates"
+        android:includeFontPadding="true"
+        android:text="Gro"
+        android:layout_marginBottom="9dp"
+        android:textColor="#7584e7"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/cart_icon_launching_page"
+        app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/montserrat_alternates"
+        android:layout_marginBottom="9dp"
+        android:text="cero"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/cart_icon_launching_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/textView_Gro"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/white_shape"
+        android:layout_width="0dp"
+        android:layout_height="460dp"
+        android:background="@drawable/launching_page_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButton"
-        app:layout_constraintVertical_bias="0.557" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:fontFamily="@font/montserrat_alternates"
+            android:text="Let's get started!"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/signInButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="216dp"
+            android:backgroundTint="#7584e7"
+            android:text="Sign In"
+            android:textAllCaps="false"
+
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:shadowColor="@color/button_color"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="144dp"
+            android:backgroundTint="@color/white"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            app:cornerRadius="30dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInButton"
+            app:layout_constraintVertical_bias="1.0"
+            app:strokeColor="#7584e7"
+            app:strokeWidth="2dp" />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/login_fragment_container"
+        android:clipChildren="true"
+        android:id="@+id/signIn_up_frg_cont"
+        android:layout_width="396dp"
+        android:layout_height="389dp"
+        android:background="@drawable/signin_pg_bg_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         />
 
 

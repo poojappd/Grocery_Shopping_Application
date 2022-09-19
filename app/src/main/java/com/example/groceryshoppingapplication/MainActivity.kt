@@ -3,6 +3,7 @@ package com.example.groceryshoppingapplication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.example.groceryshoppingapplication.fragments.LoginScreenFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         val fm: FragmentManager = supportFragmentManager
         val fragment = LoginScreenFragment()
         fm.beginTransaction().apply {
-            add(R.id.main_fragment_container, fragment).commit()
+            add(R.id.main_fragment_container, fragment)
+            commit()
 
         }
 

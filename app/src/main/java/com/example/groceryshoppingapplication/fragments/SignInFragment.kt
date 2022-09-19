@@ -1,8 +1,6 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.enums.Response
 
 class SignInFragment : Fragment() {
 
@@ -43,7 +43,7 @@ class SignInFragment : Fragment() {
 
         return when {
             mobileNumberInputField.text.length < 10 -> Response.MOBILE_NUMBER_LENGTH_SHORT
-            mobileNumberInputField.text[0].digitToInt() in 1..5 -> Response.MOBILE_NUMBER_NOT_VALID
+            mobileNumberInputField.text[0].digitToInt() in 0..5 -> Response.MOBILE_NUMBER_NOT_VALID
             else -> Response.MOBILE_NUMBER_VALID
         }
     }

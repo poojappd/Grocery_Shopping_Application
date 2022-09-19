@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="images">
+        <item>@drawable/milk_icon</item>
+        <item>@drawable/meat_icon</item>
+        <item>@drawable/fruits_icon</item>
+        <item>@drawable/vegetables_icon</item>
+
+        <item>@drawable/beverage_icon</item>
+        <item>@drawable/snacks_icon_1</item>
+        <item>@drawable/staples_icon1</item>
+        <item>@drawable/home_needs_icon1</item>
+        <item>@drawable/ic__skin_care_icon</item>
+        <item>@drawable/hair_care_icon1</item>
+
+    </array>
+</resources>

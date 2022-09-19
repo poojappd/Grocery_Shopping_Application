@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import com.example.groceryshoppingapplication.R
 
 class LoginScreenFragment : Fragment() {
 
@@ -20,16 +19,24 @@ class LoginScreenFragment : Fragment() {
         val loginScreenFragmentView = inflater.inflate(R.layout.fragment_login_screen, container, false)
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
+
+
         signInButton.setOnClickListener{
                 refActivity?.supportFragmentManager?.apply {
                     beginTransaction().apply {
-                        refActivity.supportFragmentManager.popBackStack()
-                        add(R.id.main_fragment_container, SignInFragment())
+                        setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            R.anim.fade_in,
+                            R.anim.fade_out
+                        )
+                        add(R.id.signIn_up_frg_cont, SignInFragment())
                         addToBackStack("one")
                         Log.e(
                             ContentValues.TAG,
                             refActivity.supportFragmentManager.backStackEntryCount.toString()
                         )
+
                         commit()
                     }
                 }

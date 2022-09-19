@@ -4,20 +4,31 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.187" />
+        <entry key="app/src/main/res/drawable/beverage_icon.xml" value="0.135" />
         <entry key="app/src/main/res/drawable/edittext_shadow.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/fruits_backdrop_background.xml" value="0.187" />
+        <entry key="app/src/main/res/drawable/home_needs_icon1.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/input_text_bg1.xml" value="0.123" />
+        <entry key="app/src/main/res/drawable/launching_page_bg.xml" value="0.1043975830078125" />
+        <entry key="app/src/main/res/drawable/launching_page_image2_background.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/launching_page_image3_background.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/launching_page_image_background.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/mobile_country_code_bg.xml" value="0.164" />
         <entry key="app/src/main/res/drawable/mobile_input_text_bg1.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/otp_dialog_bg.xml" value="0.1005" />
         <entry key="app/src/main/res/drawable/otp_input_background.xml" value="0.164" />
         <entry key="app/src/main/res/drawable/sample.xml" value="0.165" />
+        <entry key="app/src/main/res/drawable/signin_pg_bg_shape.xml" value="0.138" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/all_category_layout.xml" value="0.140625" />
+        <entry key="app/src/main/res/layout/category_single_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.403035413153457" />
-        <entry key="app/src/main/res/layout/fragment_login_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_login_screen.xml" value="0.15466766357421877" />
         <entry key="app/src/main/res/layout/fragment_otp_dialog.xml" value="0.23523406982421874" />
-        <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.2189361572265625" />
+        <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.375" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/launching_page_image.xml" value="0.167" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/launching_page_image2.xml" value="0.185" />
       </map>
     </option>
   </component>

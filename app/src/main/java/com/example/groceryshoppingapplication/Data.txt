@@ -1,2 +1,6 @@
 //Max limit on items
 fruits & veggies - 10
+
+
+Use cases:
+1. If items are in cart, but someone has already emptied inventory, has to show message item out of stock... before payment.
