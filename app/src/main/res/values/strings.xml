@@ -1,19 +1,122 @@
 <resources>
-    <string name="app_name">Grocery Shopping Application</string>
-
-    <string name="enter_mobile_number"> Enter mobile number</string>
+    <string name="app_name">DemoAppTester</string>
     <string-array name="categories">
         <item> Dairy and bakery</item>
-        <item> Meat</item>
+        <item> Meat and Eggs</item>
         <item> Beverages</item>
         <item> Staples</item>
-        <item> Fruits</item>
-        <item> Vegetables</item>
-        <item> Hair care</item>
-        <item> Skin care</item>
-        <item> Packaged foods</item>
-        <item> Home needs</item>
+        <item> Fruits and Vegetables</item>
+        <item> Kitchen, Garden and Pets</item>
+        <item> Beauty and Hygiene</item>
+        <item> Packaged foods and Snacks</item>
+        <item> Cleaning and Household</item>
+    </string-array>
+
+    <string-array name="fruits_veggie">
+        <item> Herbs and Seasonings </item>
+        <item> Fresh Fruits </item>
+        <item> Organic Fruits and Vegetables </item>
+        <item> Cuts and Sprouts </item>
+        <item> Exotic Fruits and Veggies </item>
+        <item> Flower Bouquets, Bunches </item>
+    </string-array>
+
+    <string-array name="staples">
+        <item> Atta Flours and Sooji </item>
+        <item> Rice and Rice Products </item>
+        <item> Dals and Pulses </item>
+        <item> Organic Staples </item>
+        <item> Edible Oils and Ghee </item>
+        <item> Salt Sugar and Jaggery </item>
+        <item> Masalas and Spices </item>
+        <item> Dry Fruits</item>
+    </string-array>
+
+    <string-array name="dairy_bakery">
+        <item> Dairy </item>
+        <item> Breads and Buns </item>
+        <item> Non Dairy </item>
+        <item> Gourmet Breads </item>
+        <item> Cookies, Rusk and Khari </item>
+        <item> Ice Creams and Desserts </item>
+        <item> Bakery Snacks </item>
+        <item> Cakes and Pastries </item>
+    </string-array>
+
+    <string-array name="beverages">
+        <item> Energy and Soft Drinks </item>
+        <item> Water </item>
+        <item> Health Drinks and Supplement </item>
+        <item> Tea </item>
+        <item> Coffee </item>
+        <item> Fruit Juices and Drinks </item>
 
     </string-array>
+
+    <string-array name="snacks_packed_foods">
+        <item> Noodles, Pasta, Vermicelli</item>
+        <item> Breakfast Cereals </item>
+        <item> Frozen Veggies and Snacks </item>
+        <item> Biscuits and Cookies </item>
+        <item> Snacks and Namkeen </item>
+        <item> Spreads, Sauces, Ketchup </item>
+        <item> Ready To Cook and Eat </item>
+        <item> Chocolates and Candies </item>
+        <item> Pickles and Chutney </item>
+        <item> Indian Mithai</item>
+        <item> Pasta, Soup and Noodles </item>
+        <item> Cooking and Baking Needs </item>
+    </string-array>
+
+    <string-array name="beauty_and_hygiene">
+        <item> Oral Care </item>
+        <item> Feminine Hygiene </item>
+        <item> Bath and Hand Wash </item>
+        <item> Hair Care </item>
+        <item> Health and Medicine </item>
+        <item> Men\'s Grooming </item>
+        <item> Skin Care </item>
+        <item> Makeup </item>
+        <item> Fragrances and Deos </item>
+    </string-array>
+
+    <string-array name="cleaning_and_household">
+        <item> Detergents and Dishwash </item>
+        <item> All Purpose Cleaners </item>
+        <item> Disposables, Garbage Bag </item>
+        <item> Fresheners and Repellents </item>
+        <item> Mops, Brushes and Scrubs </item>
+        <item> Car and Shoe Care </item>
+        <item> Pooja Needs </item>
+        <item> Stationery </item>
+        <item> Bins and Bathroom Ware </item>
+        <item> Party and Festive Needs </item>
+    </string-array>
+
+    <string-array name="kitchen_garden_pets">
+        <item> Pet Food and Accessories </item>
+        <item> Appliances and Electricals </item>
+        <item> Steel Utensils </item>
+        <item> Gardening </item>
+        <item> Kitchen Accessories </item>
+        <item> Cookware and Non Stick </item>
+        <item> Flask and Casserole </item>
+        <item> Bakeware </item>
+        <item> Crockery and Cutlery </item>
+        <item> Storage and Accessories </item>
+    </string-array>
+
+    <string-array name="meat_and_eggs">
+        <item> Eggs </item>
+        <item> Poultry </item>
+        <item> Sausages, Bacon and Salami </item>
+        <item> Mutton and Lamb </item>
+        <item> Marinades </item>
+        <item> Fish and Seafood </item>
+        <item> Pork and Other Meats </item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

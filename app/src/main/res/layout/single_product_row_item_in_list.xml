@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/single_product_row_item_in_list_bg"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_margin="10dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/productt_image_container"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background = "@drawable/product_image_list_container_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="2dp"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView        android:layout_marginStart="10dp"
+
+            android:id="@+id/product_image_in_list"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic__skin_care_icon"
+
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/product_data_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="40dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/product_price_textView"
+        app:layout_constraintEnd_toStartOf="@+id/product_count_container"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/productt_image_container"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/product_brand_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Maaza"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/product_name_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:text="Soft Drink that exceeds" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_price_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rs. 109.23"
+        android:layout_marginStart="10dp"
+        android:textSize="30sp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/productt_image_container" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/product_count_container"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+
+            android:id="@+id/add_to_cart_button_productList"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/product_list_add_to_cart_icon_bg"
+            android:padding="9dp"
+            android:src="@drawable/app_cart_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#a4bff6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

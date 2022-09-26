@@ -2,15 +2,15 @@ package com.example.groceryshoppingapplication.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.groceryshoppingapplication.models.Cart
-import com.example.groceryshoppingapplication.models.CartItem
+import com.example.groceryshoppingapplication.models.CartEntity
+import com.example.groceryshoppingapplication.models.CartItemEntity
 
 data class CartAndCartItem(
     @Embedded
-    val cart: Cart,
+    val cartEntity: CartEntity,
     @Relation(
         parentColumn = "cartId",
         entityColumn = "cartId"
     )
-    val cartItem: CartItem
+    val cartItemEntity: CartItemEntity
 )

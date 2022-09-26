@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.R
 import java.util.*
 
 
 class OtpDialogFragment :DialogFragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +35,7 @@ class OtpDialogFragment :DialogFragment() {
     override fun onResume() {
         super.onResume()
         val timer = Timer()
+
         timer.schedule(object : TimerTask() {
             override fun run() {
                 val otp = CodeGeneratorUtil.generateOtp()
@@ -43,8 +45,16 @@ class OtpDialogFragment :DialogFragment() {
                 view?.findViewById<TextView>(R.id.otp_4)?.text = otp[3].toString()
                 dismiss()
                 timer.cancel()
+
             }
         }, 1000)
+        findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
+
+
+
+
+
+//8689798799
 
 
     }

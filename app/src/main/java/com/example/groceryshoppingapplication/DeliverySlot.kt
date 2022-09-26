@@ -7,7 +7,6 @@ import java.sql.Time
 
 @Entity
 data class DeliverySlot(
-    val time:Time,
     val Date:Date) {
     @PrimaryKey val id:Int = 0
 

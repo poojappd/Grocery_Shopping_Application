@@ -1,32 +1,32 @@
 package com.example.groceryshoppingapplication.data
 
 import androidx.room.*
-import com.example.groceryshoppingapplication.models.CartItem
+import com.example.groceryshoppingapplication.models.CartItemEntity
 import com.example.groceryshoppingapplication.relations.CartItemAndProduct
 
 @Dao
 interface CartDao{
 
     @Insert
-    suspend fun addToCart(cartItem: CartItem)
+    suspend fun addToCart(cartItemEntity: CartItemEntity)
 
-    @Query("update CartItem set quantity = quantity + 1 where productCode = :productCode and cartId=:cartId")
+    @Query("update CartItemEntity set quantity = quantity + 1 where productCode = :productCode and cartId=:cartId")
     suspend fun increaseQuantity(productCode: Int, cartId: Int)
 
-    @Query("update CartItem set quantity = quantity - 1 where productCode = :productCode and cartId=:cartId")
+    @Query("update CartItemEntity set quantity = quantity - 1 where productCode = :productCode and cartId=:cartId")
     suspend fun decreaseQuantity(productCode: Int, cartId: Int)
 
-    @Query("select quantity from CartItem where productCode = :productCode and cartId = :cartId")
-    suspend fun getQuantity(productCode: Int, cartId: Int)
+    @Query("select quantity from CartItemEntity where productCode = :productCode and cartId = :cartId")
+    suspend fun getQuantity(productCode: Int, cartId: Int):Int
 
     @Delete
-    suspend fun removeFromCart(cartItem: CartItem)
+    suspend fun removeFromCart(cartItemEntity: CartItemEntity)
 
-    @Query("delete from CartItem where cartId = :cartId")
+    @Query("delete from CartItemEntity where cartId = :cartId")
     suspend fun emptyCart(cartId: Int)
 
-    @Transaction
-    @Query("select * from Inventory ")
-    fun getCartItems(cartId: Int): List<CartItemAndProduct>
+//    @Transaction
+//    @Query("select * from Inventory where ")
+//    fun getCartItems(cartId: Int): List<CartItemAndProduct>
 
 }

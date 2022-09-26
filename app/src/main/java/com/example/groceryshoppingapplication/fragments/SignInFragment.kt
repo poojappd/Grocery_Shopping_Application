@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,5 +48,11 @@ class SignInFragment : Fragment() {
             mobileNumberInputField.text[0].digitToInt() in 0..5 -> Response.MOBILE_NUMBER_NOT_VALID
             else -> Response.MOBILE_NUMBER_VALID
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG,"ONRESUME SIGIN (MOBILE)")
+
     }
 }
