@@ -23,19 +23,6 @@ class HomePageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_home_page, container, false)
         val someButton = view.findViewById<Button>(R.id.goTo)
-        val db = AppDatabase.getDatabase(requireContext())
-        val dao = db.getInventoryDao()
-        Log.e(
-            TAG,
-            "Item is " + dao.getAllUsers()
-        )
-        for (user in dao.getAllUsers()) {
-            Log.e(
-                "USERINFO",
-                "Item is " + user.name
-            )
-        }
-
 
         someButton.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_allCategoriesFragment)

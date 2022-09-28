@@ -7,10 +7,10 @@ import java.text.DateFormat
 import java.util.*
 
 @Entity
-class Order(val cartId:Int,
+data class OrderDetail(
             @PrimaryKey val orderId: String,
             val userId: Int,
-            val total: Double,
+            val totalPrice: Double,
             val createdAt: String = Date().formatDate("yyyy-MM-dd HH:mm"),
             val modifiedAt: String = Date().formatDate("yyyy-MM-dd HH:mm"),
             val isDelivered: Boolean = false,

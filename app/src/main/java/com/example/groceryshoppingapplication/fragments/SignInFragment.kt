@@ -10,11 +10,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.SharedViewModel
+import com.example.groceryshoppingapplication.SharedViewModelFactory
 import com.example.groceryshoppingapplication.enums.Response
 
 class SignInFragment : Fragment() {
 
+    val viewModel:SharedViewModel by viewModels {
+        SharedViewModelFactory(requireActivity().applicationContext)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

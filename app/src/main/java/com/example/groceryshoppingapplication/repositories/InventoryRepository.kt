@@ -6,7 +6,6 @@ import com.example.groceryshoppingapplication.models.GroceryItemEntity
 
 class InventoryRepository(private val inventoryDAO: InventoryDAO) {
     val productsInInventory: LiveData<List<GroceryItemEntity>> = inventoryDAO.getAllItemsData()
-    //to be deleted
-   // val staticProducts:List<GroceryItemEntity> = inventoryDAO.getAllUsers()
 
+    fun getProduct(productCode:Int):LiveData<GroceryItemEntity> = inventoryDAO.getItemDetails(productCode)
 }

@@ -1,115 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/single_product_row_item_in_list_bg"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_margin="10dp"
-    android:orientation="horizontal">
-
-    <LinearLayout
-        android:id="@+id/productt_image_container"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:background = "@drawable/product_image_list_container_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="2dp"
-        >
-
-        <com.google.android.material.imageview.ShapeableImageView        android:layout_marginStart="10dp"
-
-            android:id="@+id/product_image_in_list"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic__skin_care_icon"
-
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-
-        android:id="@+id/product_data_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="40dp"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/product_price_textView"
-        app:layout_constraintEnd_toStartOf="@+id/product_count_container"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/productt_image_container"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/product_brand_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Maaza"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/product_name_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="200dp"
-            android:text="Soft Drink that exceeds" />
-
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/product_price_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rs. 109.23"
-        android:layout_marginStart="10dp"
-        android:textSize="30sp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/productt_image_container" />
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/product_count_container"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-
-            android:id="@+id/add_to_cart_button_productList"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/product_list_add_to_cart_icon_bg"
-            android:padding="9dp"
-            android:src="@drawable/app_cart_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/product_list_item_container"
+            android:background="@drawable/single_product_row_item_in_list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="#a4bff6" />
+            android:layout_margin="20dp"
+
+            android:orientation="horizontal">
+
+        <LinearLayout
+                android:id="@+id/productt_image_container"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/product_image_list_container_shape"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:padding="7dp"
+                    android:id="@+id/product_image_in_list"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/beverage_icon"
+                    android:layout_gravity="center"
+
+
+                    />
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_marginTop="12dp"
+                android:id="@+id/product_brand_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:text="Maaza"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/product_name_textView"
+                app:layout_constraintStart_toEndOf="@+id/productt_image_container" />
+
+        <TextView
+                android:id="@+id/product_name_textView"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="159dp"
+                android:maxHeight="50dp"
+                android:text="Soft Drink that exceeds\nihihf\n eiuhiu\skjbfjbjhbjkbjkbkbkjbbj"
+                android:maxLines="2"
+                app:layout_constraintTop_toBottomOf="@+id/product_brand_textView"
+                app:layout_constraintBottom_toTopOf="@+id/product_price_textView"
+                app:layout_constraintStart_toStartOf="@+id/product_brand_textView" />
+
+        <TextView
+                android:id="@+id/product_price_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 109.23"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:layout_marginBottom="15dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_name_textView"
+                app:layout_constraintStart_toStartOf="@+id/product_name_textView" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/product_count_container"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/product_list_item_container"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+
+                    android:id="@+id/add_to_cart_button_productList"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/product_list_add_to_cart_icon_bg"
+                    android:padding="9dp"
+                    android:src="@drawable/app_cart_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="#a4bff6"
+
+
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@id/product_list_item_container"
+
+                />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

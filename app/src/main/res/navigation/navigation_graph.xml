@@ -39,6 +39,24 @@
         android:id="@+id/productsListFragment"
         android:name="com.example.groceryshoppingapplication.fragments.ProductsListFragment"
         android:label="fragment_products_list"
-        tools:layout="@layout/fragment_products_list" />
+        tools:layout="@layout/fragment_products_list" >
+        <action
+            android:id="@+id/action_productsListFragment_to_singleProductViewFragment"
+            app:destination="@id/singleProductViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleProductViewFragment"
+        android:name="com.example.groceryshoppingapplication.SingleProductViewFragment"
+        android:label="SingleProductViewFragment"
+        tools:layout="@layout/fragment_single_product_view"
+        >
+        <argument
+            android:name="displayProductCode"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_singleProductViewFragment_to_productsListFragment"
+            app:destination="@id/productsListFragment" />
+    </fragment>
 
 </navigation>

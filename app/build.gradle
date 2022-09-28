@@ -1,14 +1,16 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
 
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.groceryshoppingapplication"
@@ -19,6 +21,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -37,13 +40,14 @@ android {
 
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
-
     implementation "androidx.room:room-ktx:2.4.3"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     kapt "androidx.room:room-compiler:2.4.3"
     androidTestImplementation "androidx.room:room-testing:2.4.3"
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -55,6 +59,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation 'androidx.fragment:fragment-ktx:1.6.0-alpha02'
+
+    //view pager(swipe image)
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    //circle indicator(that highlighted circle below the view pager
+    implementation 'me.relex:circleindicator:2.1.6'
+
 
 
 }

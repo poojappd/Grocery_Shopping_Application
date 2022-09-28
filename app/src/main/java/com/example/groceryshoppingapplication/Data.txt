@@ -4,3 +4,10 @@ fruits & veggies - 10
 
 Use cases:
 1. If items are in cart, but someone has already emptied inventory, has to show message item out of stock... before payment.
+
+TODO:
+1.            android:id="@+id/add_to_cart_button_productList" add animation like.. go right and bounce left
+2. add product rating, darkmode support for tha button described above
+3. custom toast msg...
+/////4. delete cartItems(transaction), cart and orders and orderItems from table
+        when deleting user... dont delete orders, instead unlink order from user
