@@ -17,7 +17,7 @@ data class GroceryItemEntity(
     val capacity: Double,
     val unitPrice: Double,
     val productAvailability: ProductAvailability,
-    val minimumQuantity:Int = 1,
+    val minimumOrderQuantity:Int = 1,
     val availableQuantity:Int,
     val itemDescription: String,
 )

@@ -23,6 +23,8 @@ import com.example.groceryshoppingapplication.models.User
 abstract class AppDatabase : RoomDatabase(){
     abstract fun getInventoryDao(): InventoryDAO
     abstract fun getCartDao(): CartDAO
+    abstract fun getUserDao(): UserDAO
+    abstract fun getOrdersDao(): OrdersDAO
 
     companion object{
         @Volatile

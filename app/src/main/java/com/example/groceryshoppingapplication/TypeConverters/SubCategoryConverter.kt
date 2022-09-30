@@ -13,7 +13,7 @@ class SubCategoryConverter {
     @TypeConverter
     fun toSubCategory(value: String): SubCategory = getEnum(value)
 
-    fun getEnum(value: String): SubCategory {
+    private fun getEnum(value: String): SubCategory {
         for (i in SubCategory.values()) {
             if (i.value == value)
                 return i

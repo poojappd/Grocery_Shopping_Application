@@ -1,17 +1,27 @@
 package com.example.groceryshoppingapplication.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.groceryshoppingapplication.DeliverySlot
 import com.example.groceryshoppingapplication.Utils.DateTimeFormatter.formatDate
+import com.example.groceryshoppingapplication.enums.OrderStatus
 import java.text.DateFormat
 import java.util.*
 
 @Entity
 data class OrderDetail(
-            @PrimaryKey val orderId: String,
-            val userId: Int,
-            val totalPrice: Double,
-            val createdAt: String = Date().formatDate("yyyy-MM-dd HH:mm"),
-            val modifiedAt: String = Date().formatDate("yyyy-MM-dd HH:mm"),
-            val isDelivered: Boolean = false,
-           )
+    @PrimaryKey val orderId: String,
+    val userId: Int,
+    val subTotal:Double,
+    val orderDate: String = Date().formatDate("yyyy-MM-dd HH:mm"),
+    val numberOfItems:Int,
+    val deliverySlot: String,
+    @Embedded
+    val deliveryAddress: Address,
+    val contactNumber: String,
+    val deliveryCharges:Double,
+    val totalPrice: Double,
+
+    val orderStatus: OrderStatus = OrderStatus.ORDERED,
+)

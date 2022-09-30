@@ -12,6 +12,10 @@ enum class Response(val message:String) {
     ITEMS_REMOVED_FROM_INVENTORY("Item removed from inventory"),
     INSUFFICIENT_QUANTITY_IN_INVENTORY("Given quantity exceeds that of inventory"),
     NO_SUCH_ITEM_IN_INVENTORY("No such items in inventory"),
+    RESTORED_TO_INVENTORY("Inventory has been restored"),
+    INVALID_VALUE_PASSED("Invalid value has been passed"),
+    NO_SUCH_USER("No users found"),
+    LOGGED_IN_SUCCESSFULLY("Logged in successfully")
 
 
 

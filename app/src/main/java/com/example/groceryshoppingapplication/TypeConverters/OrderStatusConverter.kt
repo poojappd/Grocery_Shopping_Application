@@ -3,18 +3,18 @@ package com.example.groceryshoppingapplication.TypeConverters
 import android.content.ContentValues
 import android.util.Log
 import androidx.room.TypeConverter
-import com.example.groceryshoppingapplication.enums.GeneralCategory
+import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.enums.Packaging
 
-class PackagingConverter {
+class OrderStatusConverter {
     @TypeConverter
-    fun fromPackaging(packaging: Packaging) = packaging.value
+    fun fromOrderStatus(orderStatus: OrderStatus) = orderStatus.value
 
     @TypeConverter
-    fun toPackaging(value:String) = getEnum(value)
+    fun toOrderStatus(value: String) = getEnum(value)
 
-    private fun getEnum(value: String): Packaging {
-        for (i in Packaging.values()) {
+    private fun getEnum(value: String): OrderStatus {
+        for (i in OrderStatus.values()) {
             if (i.value == value)
                 return i
         }
@@ -22,5 +22,4 @@ class PackagingConverter {
         throw IllegalArgumentException("No such enum constant?? $value")
 
     }
-
 }

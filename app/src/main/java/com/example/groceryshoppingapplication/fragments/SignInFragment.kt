@@ -12,14 +12,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.SharedViewModel
-import com.example.groceryshoppingapplication.SharedViewModelFactory
+import com.example.groceryshoppingapplication.InventoryViewModel
+import com.example.groceryshoppingapplication.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.enums.Response
 
 class SignInFragment : Fragment() {
 
-    val viewModel:SharedViewModel by viewModels {
-        SharedViewModelFactory(requireActivity().applicationContext)
+    val viewModel:InventoryViewModel by viewModels {
+        InventoryViewModelFactory(requireActivity().applicationContext)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

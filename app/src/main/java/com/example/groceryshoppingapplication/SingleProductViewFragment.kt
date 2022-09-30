@@ -15,8 +15,8 @@ import java.text.DecimalFormat
 
 class SingleProductViewFragment : Fragment() {
 
-    private val sharedViewModel: SharedViewModel by activityViewModels {
-        SharedViewModelFactory(requireActivity().applicationContext)
+    private val inventoryViewModel: InventoryViewModel by activityViewModels {
+        InventoryViewModelFactory(requireActivity().applicationContext)
     }
     private val args: SingleProductViewFragmentArgs by navArgs()
 
@@ -29,7 +29,7 @@ class SingleProductViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_single_product_view, container, false)
         var imagePathList: Array<String>
         val decimal = DecimalFormat("0.#")
-        sharedViewModel.getProduct(args.displayProductCode).observe(viewLifecycleOwner) {
+        inventoryViewModel.getProduct(args.displayProductCode).observe(viewLifecycleOwner) {
             val productCode = it.productCode
             imagePathList =
                 requireActivity().applicationContext.assets.list("product_images/${productCode.toString()}") as Array<String>

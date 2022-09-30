@@ -1,12 +1,10 @@
 package com.example.groceryshoppingapplication.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
+import com.example.groceryshoppingapplication.relations.CartItemAndProduct
 
 
 @Dao
@@ -29,4 +27,9 @@ interface InventoryDAO {
     @Query("select * from Inventory")
     fun getAllItemsData(): LiveData<List<GroceryItemEntity>>
 
+    @Transaction
+    @Query("select * from Inventory")
+    suspend fun fetchCartItemDetails(productCode: Int): CartItemAndProduct
+
 }
+

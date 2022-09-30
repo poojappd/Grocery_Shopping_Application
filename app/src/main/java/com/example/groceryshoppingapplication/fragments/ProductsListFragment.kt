@@ -1,6 +1,5 @@
 package com.example.groceryshoppingapplication.fragments
 
-import android.app.Application
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -13,15 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.SharedViewModel
-import com.example.groceryshoppingapplication.SharedViewModelFactory
+import com.example.groceryshoppingapplication.InventoryViewModel
+import com.example.groceryshoppingapplication.InventoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 
 class ProductsListFragment : Fragment() {
     private lateinit var productsInCategoriesAdapter: ProductsInCategoriesAdapter
-    private val sharedViewModel: SharedViewModel by activityViewModels {
-            SharedViewModelFactory(requireActivity().applicationContext)
+    private val inventoryViewModel: InventoryViewModel by activityViewModels {
+            InventoryViewModelFactory(requireActivity().applicationContext)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +30,7 @@ class ProductsListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         val recyclerView = view.products_list_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        sharedViewModel.allProductsInInventory.observe(viewLifecycleOwner){
+        inventoryViewModel.allProductsInInventory.observe(viewLifecycleOwner){
             Log.e(TAG, "INSIDE VIEWMODEL OBSERVE $it")
             productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),findNavController())
             recyclerView.adapter = productsInCategoriesAdapter

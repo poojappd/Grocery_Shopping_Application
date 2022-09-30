@@ -1,12 +1,13 @@
 package com.example.groceryshoppingapplication.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.groceryshoppingapplication.models.User
 import com.example.groceryshoppingapplication.relations.UserAndCart
 import com.example.groceryshoppingapplication.relations.UserAndOrders
 
 @Dao
-interface userDAO{
+interface UserDAO{
 
     @Insert
     suspend fun addUser(user:User)
@@ -18,12 +19,12 @@ interface userDAO{
     suspend fun deleteUser(user: User)
 
     @Query("select * from User where mobileNumber = :mobileNumber")
-    suspend fun getUserAccount(mobileNumber:String)
+    fun getUserAccount(mobileNumber:String):LiveData<User>?
 
     @Query("select * from User")
-    suspend fun getUserCartId(userId:String):UserAndCart
+    fun getUserCartDetails(userId:String):UserAndCart
 
     @Query("select * from OrderDetail")
-    suspend fun getAllOrderDetails(userId: String): UserAndOrders
+    fun getUserOrderDetails(userId: String): UserAndOrders
 
 }
