@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.UserNameFormFragment"
+        android:background="#f2f1f6">
+
+
+    <com.google.android.material.textview.MaterialTextView
+            android:gravity="center"
+            android:layout_width="291dp"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textSize="30dp"
+            android:fontFamily="@font/cabin"
+            app:layout_constraintStart_toStartOf="@+id/materialTextView4"
+            app:layout_constraintEnd_toEndOf="@+id/materialTextView4"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/materialTextView3"
+            app:layout_constraintVertical_chainStyle="spread"
+            android:layout_marginTop="124dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:gravity="center"
+
+            android:layout_width="291dp"
+            android:layout_height="wrap_content"
+            android:text="Help us get to know you more"
+            android:textSize="19dp"
+            android:fontFamily="@font/cabin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView3"
+            android:id="@+id/materialTextView4" />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_marginTop="68dp"
+            android:id="@+id/fname_signUp"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="50dp"
+            android:background="@drawable/signup_edittext_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Enter your first name"
+            android:fontFamily="@font/cabin"
+            android:paddingStart="20dp"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="50dp"
+            android:fontFamily="@font/cabin"
+            android:hint="Enter your last name"
+            android:paddingStart="20dp"
+            android:background="@drawable/signup_edittext_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/lName_signUp"
+            app:layout_constraintTop_toBottomOf="@+id/fname_signUp"
+            android:layout_marginTop="44dp" />
+
+    <Button
+            android:id="@+id/proceedButton_signUp"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/cabin"
+            android:textSize="25sp"
+            android:text="Get Started!"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@+id/lName_signUp"
+            app:layout_constraintStart_toStartOf="@+id/lName_signUp"
+            app:layout_constraintTop_toBottomOf="@+id/lName_signUp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.205" />
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/signup_proceedbutton_bg"
+            app:layout_constraintStart_toStartOf="@+id/proceedButton_signUp"
+            app:layout_constraintEnd_toEndOf="@+id/proceedButton_signUp"
+            app:layout_constraintTop_toBottomOf="@+id/proceedButton_signUp"
+            app:layout_constraintHorizontal_bias="0.498" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

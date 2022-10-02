@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.adapters
 
 import android.content.ContentValues
 import android.graphics.Bitmap
@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
+import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
 import kotlinx.android.synthetic.main.view_pager_item_image.view.*
 import java.io.IOException
 import java.io.InputStream
@@ -27,22 +29,11 @@ class ProductViewPagerAdapter(private val productCode:Int,private val imagesList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap = getBitmapFromAsset(imagesList.get(position))
+        val bitmap = getBitmapFromAsset(productCode.toString(), false, imagesList.get(position))
         holder.image.setImageBitmap(bitmap)
     }
 
     override fun getItemCount() = imagesList.size
 
 
-    private fun getBitmapFromAsset(path: String): Bitmap? {
-        val assetManager = AssetManagerUtil.assetManager
-        var istr: InputStream? = null
-        try {
-            istr = assetManager.open("product_images/$productCode/$path")
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Log.e(ContentValues.TAG, "IO EXCEPTION IN GETBITMAP METHOD  -->$path")
-        }
-        return BitmapFactory.decodeStream(istr)
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,6 +11,9 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.example.groceryshoppingapplication.ChildCategoryRowData
+import com.example.groceryshoppingapplication.ParentCategoryRowData
+import com.example.groceryshoppingapplication.R
 
 class ParentCategoryAdapter (
     private val navController: NavController,

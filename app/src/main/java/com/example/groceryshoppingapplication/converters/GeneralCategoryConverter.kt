@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication.TypeConverters
+package com.example.groceryshoppingapplication.converters
 
 import android.content.ContentValues.TAG
 import android.util.Log

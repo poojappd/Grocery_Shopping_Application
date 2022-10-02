@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@id/mobile_number_input_field"
         app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/mobile_number_input_field"
         android:layout_width="0dp"
         android:layout_height="39dp"

@@ -1,10 +1,9 @@
-package com.example.groceryshoppingapplication.TypeConverters
+package com.example.groceryshoppingapplication.converters
 
 import android.content.ContentValues
 import android.util.Log
 import androidx.room.TypeConverter
 import com.example.groceryshoppingapplication.enums.OrderStatus
-import com.example.groceryshoppingapplication.enums.Packaging
 
 class OrderStatusConverter {
     @TypeConverter

@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.groceryshoppingapplication.ProductsInCategoriesAdapter
+import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.InventoryViewModel
-import com.example.groceryshoppingapplication.InventoryViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
+import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.UserViewModel
+import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 
@@ -21,6 +23,9 @@ class ProductsListFragment : Fragment() {
     private lateinit var productsInCategoriesAdapter: ProductsInCategoriesAdapter
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
             InventoryViewModelFactory(requireActivity().applicationContext)
+    }
+    private val viewmodel : UserViewModel by activityViewModels {
+        UserViewModelFactory(requireActivity().applicationContext)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +37,7 @@ class ProductsListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         inventoryViewModel.allProductsInInventory.observe(viewLifecycleOwner){
             Log.e(TAG, "INSIDE VIEWMODEL OBSERVE $it")
-            productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),findNavController())
+            productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),findNavController(), viewmodel)
             recyclerView.adapter = productsInCategoriesAdapter
         }
         return view

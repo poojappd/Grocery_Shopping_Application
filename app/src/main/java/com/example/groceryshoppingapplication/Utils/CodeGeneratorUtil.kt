@@ -4,8 +4,9 @@ import kotlin.random.Random
 
 object CodeGeneratorUtil {
     private var productCode = "001"
-    private var userCode = "001"
-    private val userCodePrefix = "#user_"
+    private var cartCode = 1002
+    private var userCode = 2
+    private val userCodePrefix = "#user_A"
 
 
     fun generateOtp() = Random.nextInt(1000, 9999).toString()
@@ -19,11 +20,15 @@ object CodeGeneratorUtil {
         return pdCode
     }
 
-    fun userIdGenerator():String{
-        val newUserCode = userCodePrefix + userCode
-        val nextCodeValue = (userCode.toInt()+1)
-        userCode = (if (nextCodeValue <10) "00$nextCodeValue" else if (nextCodeValue<100) "0$nextCodeValue" else "$nextCodeValue")
+    fun generateUserId():String{
+        userCode++
+        val appendString = (if (userCode <10) "00$userCode" else if (userCode<100) "0$userCode" else "$userCode")
+        val newUserCode = userCodePrefix + appendString
         return newUserCode
+    }
+
+    fun generateCartId():Int{
+        return cartCode++
     }
 
 

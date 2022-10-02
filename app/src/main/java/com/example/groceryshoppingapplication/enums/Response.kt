@@ -1,10 +1,13 @@
 package com.example.groceryshoppingapplication.enums
 
 enum class Response(val message:String) {
+    NOT_LOGGED_IN("No user is logged in"),
+    ITEM_PRESENT_IN_CART("Item is in cart"),
     MOBILE_NUMBER_NOT_VALID("Invalid mobile number"),
     MOBILE_NUMBER_NOT_ENTERED("Mobile number not entered"),
     MOBILE_NUMBER_LENGTH_SHORT("Mobile number length is short"),
     MOBILE_NUMBER_VALID("Valid mobile number"),
+    ITEM_ADDED_TO_CART("Added to cart!"),
     ITEM_REMOVED_FROM_CART("Item sucessfully removed from cart"),
     NO_SUCH_ITEM_IN_CART("Item not found in cart"),
     ITEMS_NOT_AVAILABLE_IN_STOCK("Some items are out of stock"),

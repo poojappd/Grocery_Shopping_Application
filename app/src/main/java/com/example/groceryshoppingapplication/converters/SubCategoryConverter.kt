@@ -1,9 +1,8 @@
-package com.example.groceryshoppingapplication.TypeConverters
+package com.example.groceryshoppingapplication.converters
 
 import android.content.ContentValues
 import android.util.Log
 import androidx.room.TypeConverter
-import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
 
 class SubCategoryConverter {

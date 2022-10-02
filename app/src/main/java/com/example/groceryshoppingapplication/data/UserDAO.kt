@@ -1,6 +1,5 @@
 package com.example.groceryshoppingapplication.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.groceryshoppingapplication.models.User
 import com.example.groceryshoppingapplication.relations.UserAndCart
@@ -19,12 +18,14 @@ interface UserDAO{
     suspend fun deleteUser(user: User)
 
     @Query("select * from User where mobileNumber = :mobileNumber")
-    fun getUserAccount(mobileNumber:String):LiveData<User>?
+    fun getUserAccount(mobileNumber:String):User?
 
-    @Query("select * from User")
-    fun getUserCartDetails(userId:String):UserAndCart
+    @Transaction
+    @Query("select * from User where userId = :userId")
+    fun getUserCartDetails(userId:String): UserAndCart
 
+    @Transaction
     @Query("select * from OrderDetail")
-    fun getUserOrderDetails(userId: String): UserAndOrders
+    fun getUserOrderDetails(): UserAndOrders?
 
 }

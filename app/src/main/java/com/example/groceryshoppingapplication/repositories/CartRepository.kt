@@ -1,47 +1,39 @@
 package com.example.groceryshoppingapplication.repositories
 
+import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.data.CartDAO
 import com.example.groceryshoppingapplication.models.CartEntity
 import com.example.groceryshoppingapplication.models.CartItemEntity
-import com.example.groceryshoppingapplication.models.GroceryItemEntity
 
-class CartRepository(private val cartDAO: CartDAO) {
-
+class CartRepository(database: AppDatabase) {
+    private val cartDAO: CartDAO = database.getCartDao()
     suspend fun createCartForNewUser(cart:CartEntity) = cartDAO.createCart(cart)
 
-    suspend fun addToCart(cartItemEntity: CartItemEntity){
-        val items = cartDAO.getCartItemsFromCart(cartItemEntity.cartId)
-        var itemInCart = false
-        for (i in items.cartItemEntity){
-            if (i.productCode == cartItemEntity.productCode) {
-                cartDAO.increaseQuantity(cartItemEntity.productCode, cartItemEntity.cartId)
-                itemInCart = true
-                break
-            }
-        }
-        if(!itemInCart){
-            cartDAO.addToCart(cartItemEntity)
-        }
+    suspend fun getCartItemsFromCart(cartId:Int) = cartDAO.getCartItemsFromCart(cartId)
 
+    suspend fun increaseQuantity(cartItemEntity: CartItemEntity) = cartDAO.increaseQuantity(cartItemEntity.productCode, cartItemEntity.cartId)
+
+
+    suspend fun addToCart(cartItemEntity: CartItemEntity){
+            cartDAO.addToCart(cartItemEntity)
     }
 
+    suspend fun getLastCartItemId(cartId: Int) = cartDAO.getLastId(cartId)
 
+
+    fun getCartItem(productCode:Int, cartId:Int) = cartDAO.getCartItem(productCode, cartId)
+
+    fun getCartItemQuantity(productCode: Int, cartId: Int) = cartDAO.getCartItemQuantity(productCode, cartId)
     suspend fun removeFromCart(cartItemEntity: CartItemEntity) = cartDAO.removeFromCart(cartItemEntity)
 
     suspend fun decreaseQuantity(cartItemEntity: CartItemEntity) {
-        if(cartDAO.getCartItemQuantity(cartItemEntity.productCode, cartItemEntity.cartId) > 1)
-            cartDAO.decreaseQuantity(cartItemEntity.productCode, cartItemEntity.cartId)
-        else
-            cartDAO.removeFromCart(cartItemEntity)
-
-
+       cartDAO.decreaseQuantity(cartItemEntity.productCode, cartItemEntity.cartId)
     }
 
 
 
     suspend fun emptyCart(cartId:Int) = cartDAO.emptyCart(cartId)
 
-    suspend fun getUserCartItems(cartId: Int) = cartDAO.getCartItemsFromCart(cartId)
 
 
 

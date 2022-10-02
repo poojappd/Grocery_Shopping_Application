@@ -12,5 +12,5 @@ data class CartAndCartItem(
         parentColumn = "cartId",
         entityColumn = "cartId"
     )
-    val cartItemEntity: List<CartItemEntity>
+    val cartItemEntity: List<CartItemEntity> = listOf()
 )

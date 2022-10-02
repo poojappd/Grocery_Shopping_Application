@@ -5,14 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.groceryshoppingapplication.TypeConverters.*
-import com.example.groceryshoppingapplication.models.CartEntity
-import com.example.groceryshoppingapplication.models.CartItemEntity
-import com.example.groceryshoppingapplication.models.GroceryItemEntity
-import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.converters.*
+import com.example.groceryshoppingapplication.models.*
 
 
-@Database(entities = arrayOf(GroceryItemEntity::class, CartEntity::class, CartItemEntity::class, User::class), version = 1, exportSchema = true)
+@Database(entities = arrayOf(GroceryItemEntity::class, CartEntity::class, CartItemEntity::class, User::class,
+    OrderDetail::class,OrderedItemEntity::class), version = 1, exportSchema = true)
 @TypeConverters(
     GeneralCategoryConverter::class,
     SubCategoryConverter::class,
@@ -41,7 +39,8 @@ abstract class AppDatabase : RoomDatabase(){
                     context,
                     AppDatabase::class.java,
                     "grocery_db2"
-                ).allowMainThreadQueries()
+                )   .allowMainThreadQueries()
+
                     .createFromAsset("database/grocery_db.db")
                     .fallbackToDestructiveMigration()
                     .build()

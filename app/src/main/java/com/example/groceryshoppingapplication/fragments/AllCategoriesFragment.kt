@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.groceryshoppingapplication.ParentCategoryAdapter
+import com.example.groceryshoppingapplication.adapters.ParentCategoryAdapter
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CategoriesUtil
-import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 
 
 class AllCategoriesFragment : Fragment() {

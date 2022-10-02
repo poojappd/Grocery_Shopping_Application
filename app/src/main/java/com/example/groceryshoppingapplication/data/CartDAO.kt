@@ -5,7 +5,6 @@ import androidx.room.*
 import com.example.groceryshoppingapplication.models.CartEntity
 import com.example.groceryshoppingapplication.models.CartItemEntity
 import com.example.groceryshoppingapplication.relations.CartAndCartItem
-import com.example.groceryshoppingapplication.relations.CartItemAndProduct
 
 @Dao
 interface CartDAO {
@@ -20,12 +19,12 @@ interface CartDAO {
     suspend fun decreaseQuantity(productCode: Int, cartId: Int)
 
     @Query("select * from CartItemEntity where cartId = :cartId and productCode = :productCode")
-    suspend fun getCartItem(productCode: Int, cartId: Int): LiveData<CartItemEntity>
+    fun getCartItem(productCode: Int, cartId: Int): CartItemEntity?
 
 
     //testing if quantity increases
-    @Query("select quantity from CartItemEntity where cartId = :cartId and productCode = productCode")
-    fun getCartItemQuantity(productCode: Int, cartId: Int): Int
+    @Query("select quantity from CartItemEntity where cartId = :cartId and productCode = :productCode")
+    fun getCartItemQuantity(productCode: Int, cartId: Int): LiveData<Int>
 
     @Delete
     suspend fun removeFromCart(cartItemEntity: CartItemEntity)
@@ -36,9 +35,12 @@ interface CartDAO {
     @Insert
     suspend fun createCart(cart: CartEntity)
 
+    @Query("SELECT id FROM cartitementity where cartId = :cartId ORDER BY id DESC LIMIT 1;\n")
+    suspend fun getLastId(cartId: Int): Int?
+
 
     @Transaction
-    @Query("select * from CartEntity")
+    @Query("select * from CartEntity where cartId = :cartId")
     suspend fun getCartItemsFromCart(cartId: Int): CartAndCartItem
 
 

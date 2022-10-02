@@ -16,7 +16,7 @@ import com.example.groceryshoppingapplication.R
 import java.util.*
 
 
-class OtpDialogFragment :DialogFragment() {
+class OtpDialogFragment(private val signingMode:Boolean) :DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,7 +48,10 @@ class OtpDialogFragment :DialogFragment() {
 
             }
         }, 1000)
-        findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
+        if(signingMode)
+            findNavController().navigate(R.id.homePageFragment)
+        else
+            findNavController().navigate(R.id.userNameFormFragment)
 
 
 

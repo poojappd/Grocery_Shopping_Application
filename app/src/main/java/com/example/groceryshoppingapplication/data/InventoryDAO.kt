@@ -28,7 +28,7 @@ interface InventoryDAO {
     fun getAllItemsData(): LiveData<List<GroceryItemEntity>>
 
     @Transaction
-    @Query("select * from Inventory")
+    @Query("select * from Inventory where productCode=:productCode")
     suspend fun fetchCartItemDetails(productCode: Int): CartItemAndProduct
 
 }

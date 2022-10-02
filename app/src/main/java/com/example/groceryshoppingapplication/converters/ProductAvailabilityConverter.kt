@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication.TypeConverters
+package com.example.groceryshoppingapplication.converters
 
 import androidx.room.TypeConverter
 import com.example.groceryshoppingapplication.enums.ProductAvailability

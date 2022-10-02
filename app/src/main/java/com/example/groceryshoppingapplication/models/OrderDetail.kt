@@ -12,14 +12,14 @@ import java.util.*
 @Entity
 data class OrderDetail(
     @PrimaryKey val orderId: String,
-    val userId: Int,
+    val userId: String,
     val subTotal:Double,
     val orderDate: String = Date().formatDate("yyyy-MM-dd HH:mm"),
     val numberOfItems:Int,
     val deliverySlot: String,
     @Embedded
     val deliveryAddress: Address,
-    val contactNumber: String,
+    val mobileNumber: String,
     val deliveryCharges:Double,
     val totalPrice: Double,
 

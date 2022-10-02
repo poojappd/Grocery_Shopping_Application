@@ -1,153 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-<ScrollView
 
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        >
+    <ScrollView
 
-
-    <androidx.viewpager2.widget.ViewPager2
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/product_image_viewPager"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator" />
+            android:layout_height="match_parent">
 
-    <FrameLayout
-
-            app:layout_constraintTop_toBottomOf="@id/product_image_viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#B8BCFF"
-            app:layout_constraintBottom_toTopOf="@+id/guidelinetop_margin"
-            android:id="@+id/frameLayout_circle_indicator">
-
-        <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/circle_indicator"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="15dp"
-                android:foregroundTint="@color/black"
-             />
-    </FrameLayout>
+                android:paddingVertical="10dp">
 
 
+            <androidx.viewpager2.widget.ViewPager2
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/product_image_viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator" />
 
-    <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelinetop_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.39"
-            app:layout_constraintTop_toBottomOf="@id/frameLayout_circle_indicator" />
+            <FrameLayout
 
-    <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineleft_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="25dp" />
+                    app:layout_constraintTop_toBottomOf="@id/product_image_viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#B8BCFF"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelinetop_margin"
+                    android:id="@+id/frameLayout_circle_indicator">
 
-    <TextView
-            android:layout_marginTop="30dp"
-            android:id="@+id/product_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Homemade Cookies"
-            android:fontFamily="@font/montserrat_alternates"
-            android:textSize="25dp"
-            app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-            app:layout_constraintTop_toBottomOf="@id/guidelinetop_margin" />
+                <me.relex.circleindicator.CircleIndicator3
+                        android:id="@+id/circle_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="15dp"
+                        android:foregroundTint="@color/black" />
+            </FrameLayout>
 
 
-    <TextView
-            android:layout_marginTop="8dp"
-            android:id="@+id/rs_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs."
-            android:fontFamily="@font/montserrat_alternates"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-            app:layout_constraintTop_toBottomOf="@id/product_title_tv" />
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelinetop_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.47"
+                    app:layout_constraintTop_toBottomOf="@id/frameLayout_circle_indicator" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineleft_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="25dp" />
 
 
-    <TextView
-            android:id="@+id/product_price_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="44"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/montserrat_alternates"
-            android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@id/rs_textView"
-            app:layout_constraintBaseline_toBaselineOf="@+id/rs_textView" />
+            <TextView
+                    android:layout_marginTop="28dp"
+                    android:id="@+id/product_title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Homemade Cookies"
+                    android:layout_marginEnd="20dp"
 
-    <TextView
-            android:id="@+id/quantity_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:text="Net Quantity"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="25dp"
+                    app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
+                    app:layout_constraintTop_toBottomOf="@id/guidelinetop_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0" />
 
-            app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-            app:layout_constraintTop_toBottomOf="@id/rs_textView" />
-
-    <TextView
-            android:id="@+id/quantity_value_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100ml"
-            app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-            app:layout_constraintTop_toBottomOf="@id/quantity_tv"
-            android:layout_marginTop="4dp" />
+            <TextView
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/rs_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs."
+                    android:fontFamily="@font/cabin"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
+                    app:layout_constraintTop_toBottomOf="@id/product_title_tv" />
 
 
-    <LinearLayout
-            android:layout_marginTop="26dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-            app:layout_constraintTop_toBottomOf="@id/quantity_value_tv"
-            app:layout_constraintHorizontal_bias="0.0">
+            <TextView
+                    android:id="@+id/product_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="44"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toEndOf="@id/rs_textView"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/rs_textView" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Product description" />
+            <TextView
+                    android:id="@+id/quantity_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:text="Net Quantity"
+android:fontFamily="@font/cabin"
+                    app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
+                    app:layout_constraintTop_toBottomOf="@id/rs_textView" />
 
-        <TextView
-                android:id="@+id/product_description_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="300g Assorted Cookies Gift Tin with Chocolate Chip, Double Chocolate Chip, Butter Cashew,
-            Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for gifting for any special occasions"
-                android:layout_marginTop="8dp" />
-
-    </LinearLayout>
-
-
+            <TextView
+                    android:id="@+id/quantity_value_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100ml"
+                    android:fontFamily="@font/cabin"
+                    app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
+                    app:layout_constraintTop_toBottomOf="@id/quantity_tv"
+                    android:layout_marginTop="4dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <LinearLayout
+                    android:layout_marginTop="26dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
+                    app:layout_constraintTop_toBottomOf="@id/quantity_value_tv"
+                    app:layout_constraintHorizontal_bias="0.0">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Product description"
+                        android:fontFamily="@font/cabin"
+                        />
+
+                <TextView
+                        android:id="@+id/product_description_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cabin"
+                        android:text="300g Assorted Cookies Gift Tin with Chocolate Chip, Double Chocolate Chip, Butter Cashew,
+Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for gifting for any special occasions"
+                        android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -155,6 +160,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout
+                android:id="@+id/saveForLater_single_product_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -167,18 +173,21 @@
                     android:layout_gravity="center">
 
                 <ImageView
+                        android:id="@+id/wishlistIcon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:layout_marginStart="10dp"
                         android:src="@drawable/wishlist_icon_star"
                         app:tint="@color/black" />
 
                 <TextView
+                        android:id="@+id/saveForLater_textView"
                         android:layout_marginStart="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/cabin"
                         android:text="Save for later"
                         android:textSize="20sp" />
             </LinearLayout>
@@ -186,33 +195,99 @@
         </FrameLayout>
 
         <FrameLayout
+                android:id="@+id/addToCart_single_product_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#B9BCFF">
 
             <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:id="@+id/increaseQuantity_Toggle_visibility"
+                    android:visibility="gone"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/sample">
 
                 <ImageView
+                        android:id="@+id/decreaseQuantity_single_product"
                         android:layout_width="wrap_content"
-
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/add_to_cart_icon1" />
+                        android:padding="8dp"
+
+                        android:src="@drawable/remove_icon" />
+
 
                 <TextView
+                        android:id="@+id/itemCount_textView_singleProductView"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="4"
+                        android:background="@color/white"
+                        android:layout_marginVertical="2dp"
+                        android:textSize="28dp"
+                        android:text="1" />
+
+                <ImageView
+                        android:id="@+id/increaseQuantity_single_product"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/increase_icon"
                         android:layout_gravity="center"
-                        android:shadowColor="@color/white"
-                        android:shadowRadius="12"
-                        android:text="Add to cart"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:padding="8dp"
+                        android:layout_weight="2" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/addTocart_Toggle_visibility"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_marginEnd="10dp"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/add_to_cart_icon1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:id="@+id/imageView"
+                            app:layout_constraintEnd_toStartOf="@+id/textView"
+                            app:layout_constraintTop_toTopOf="@+id/textView"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView"
+                            app:layout_constraintHorizontal_chainStyle="packed" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:shadowColor="@color/white"
+                            android:shadowRadius="12"
+                            android:text="Add to cart"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/cabin"
+                            android:id="@+id/textView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </LinearLayout>
         </FrameLayout>
 

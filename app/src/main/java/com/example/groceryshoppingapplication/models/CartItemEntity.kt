@@ -11,7 +11,4 @@ data class CartItemEntity(
     @PrimaryKey(autoGenerate = true)
     val id:Int = 1
 )
-{
-
-}
 

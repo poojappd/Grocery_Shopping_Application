@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.*
@@ -14,6 +14,7 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
     fun getProduct(productCode:Int): LiveData<GroceryItemEntity> {
        return repo.getProductDetails(productCode)
     }
+
 
 }
 

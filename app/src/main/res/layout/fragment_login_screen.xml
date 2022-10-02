@@ -125,15 +125,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:clipChildren="true"
-        android:id="@+id/signIn_up_frg_cont"
-        android:layout_width="396dp"
-        android:layout_height="389dp"
-        android:background="@drawable/signin_pg_bg_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+            android:clipChildren="true"
+            android:id="@+id/signIn_up_frg_cont"
+            android:layout_width="0dp"
+            android:layout_height="389dp"
+            android:background="@drawable/signin_pg_bg_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
-        />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

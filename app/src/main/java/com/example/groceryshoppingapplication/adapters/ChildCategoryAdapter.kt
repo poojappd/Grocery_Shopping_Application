@@ -1,4 +1,4 @@
-package com.example.groceryshoppingapplication
+package com.example.groceryshoppingapplication.adapters
 
 import android.content.ContentValues
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.groceryshoppingapplication.ChildCategoryRowData
+import com.example.groceryshoppingapplication.R
 
 class ChildCategoryAdapter(private val navController: NavController, val categoryDataHolder: List<ChildCategoryRowData>) : RecyclerView.Adapter<ChildCategoryAdapter.ViewHolder>(){
 

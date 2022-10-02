@@ -1,14 +1,13 @@
 package com.example.groceryshoppingapplication.repositories
 
-import androidx.room.Insert
-import androidx.room.Query
+import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.data.OrdersDAO
 import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 
-class OrdersRepository(private val ordersDAO: OrdersDAO) {
-
+class OrdersRepository(database: AppDatabase) {
+    private val ordersDAO: OrdersDAO = database.getOrdersDao()
 
     suspend fun createOrder(order: OrderDetail) = ordersDAO.createOrder(order)
 

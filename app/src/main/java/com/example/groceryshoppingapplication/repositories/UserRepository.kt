@@ -1,9 +1,7 @@
 package com.example.groceryshoppingapplication.repositories
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.groceryshoppingapplication.data.AppDatabase
-import com.example.groceryshoppingapplication.data.UserDAO
 import com.example.groceryshoppingapplication.models.User
 
 class UserRepository(database: AppDatabase) {
@@ -13,10 +11,9 @@ class UserRepository(database: AppDatabase) {
     val currentUser = _currentUser
 
 
-    fun loginUser(mobileNumber: String): LiveData<User>? {
-        return userDao.getUserAccount(mobileNumber)
+    fun loginUser(mobileNumber: String) = userDao.getUserAccount(mobileNumber)
 
-    }
+
 
 
    // val allUsers = database.getUserDao().
@@ -30,5 +27,5 @@ class UserRepository(database: AppDatabase) {
 
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 
-    fun getUserOrderDetails(userId: String) = userDao.getUserOrderDetails(userId)
+    fun getUserOrderDetails(userId: String) = userDao.getUserOrderDetails()
 }
