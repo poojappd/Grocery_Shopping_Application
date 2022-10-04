@@ -44,7 +44,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             _currentUser.value = it
             _currentUserCart.value = repo.getUserCartDetails(it.userId).cartEntity
             _currentUserOrders.value = repo.getUserOrderDetails(it.userId)?.ordersInfo
+            viewModelScope.launch {
             updateCartItemsFromCart()
+            }
             Log.e(TAG, _allCartItems.value.toString())
             return Response.LOGGED_IN_SUCCESSFULLY
         }
@@ -57,10 +59,8 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         }
     }
 
-    fun updateCartItemsFromCart(){
-        viewModelScope.launch {
+    suspend fun updateCartItemsFromCart(){
             _allCartItems.value = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
-        }
     }
 
     private suspend fun updateLastId() {
@@ -104,6 +104,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     fun removeFromCart(productCode: Int) {
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
+           items.cartItemEntity.forEach {
+               Log.e(TAG,"-----------------------------"+ "now in cart: ->"+ it.toString()) }
+
             val response = checkItemInCart(productCode)
             Log.e(TAG, response.message)
             if (response == Response.ITEM_PRESENT_IN_CART) {
@@ -111,7 +114,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     if (i.productCode == productCode) {
                         if (i.quantity > 1) {
                             myCartRepo.decreaseQuantity(i)
-                            currentUserCart.value!!.totalItemsInCart--
+                            Log.e(TAG,"***********"+ "decreased ->"+ i.productCode.toString())
+
+                        currentUserCart.value!!.totalItemsInCart--
                             _isRemovedFromCart.value = false
                             break
                         } else {
@@ -121,14 +126,17 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                                     productCode,
                                     currentUserCart.value!!.cartId
                                 )
-                            )
 
-                        }
+                            )
+                        Log.e(TAG,"***********"+ "removed ->"+ i.productCode.toString())
+
+
+                }
                     }
                 }
             }
+            updateCartItemsFromCart()
         }
-        updateCartItemsFromCart()
 
     }
 

@@ -24,7 +24,7 @@ class CartRepository(database: AppDatabase) {
     fun getCartItem(productCode:Int, cartId:Int) = cartDAO.getCartItem(productCode, cartId)
 
     fun getCartItemQuantity(productCode: Int, cartId: Int) = cartDAO.getCartItemQuantity(productCode, cartId)
-    suspend fun removeFromCart(cartItemEntity: CartItemEntity) = cartDAO.removeFromCart(cartItemEntity)
+    suspend fun removeFromCart(cartItemEntity: CartItemEntity) = cartDAO.removeFromCart(cartItemEntity.cartId, cartItemEntity.productCode)
 
     suspend fun decreaseQuantity(cartItemEntity: CartItemEntity) {
        cartDAO.decreaseQuantity(cartItemEntity.productCode, cartItemEntity.cartId)

@@ -26,8 +26,8 @@ interface CartDAO {
     @Query("select quantity from CartItemEntity where cartId = :cartId and productCode = :productCode")
     fun getCartItemQuantity(productCode: Int, cartId: Int): LiveData<Int>
 
-    @Delete
-    suspend fun removeFromCart(cartItemEntity: CartItemEntity)
+    @Query("delete from CartItemEntity where cartId = :cartId and productCode = :productCode")
+    suspend fun removeFromCart(cartId: Int,productCode: Int )
 
     @Query("delete from CartItemEntity where cartId = :cartId")
     suspend fun emptyCart(cartId: Int)

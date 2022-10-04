@@ -39,12 +39,7 @@ class HomePageFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(com.example.groceryshoppingapplication.R.id.bottomNavigationView).visibility = View.VISIBLE
         val view =  inflater.inflate(com.example.groceryshoppingapplication.R.layout.fragment_home_page, container, false)
         val someButton = view.findViewById<Button>(com.example.groceryshoppingapplication.R.id.goTo)
-        val text = view.userNamme
-        val res = viewmodel.loginUser("6000000000")
-         viewmodel.currentUser.observe(viewLifecycleOwner) {
-            text.setText(it.firstName.toString())
-             Log.e(TAG, viewmodel.currentUserCart.value.toString())
-        }
+
 
         val recyclerView = view.homePageFragment_category_rv
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext(), RecyclerView.HORIZONTAL,false)

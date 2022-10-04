@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.room.Index
 import java.io.IOException
 import java.io.InputStream
-
+//
 object BitmapConverter {
     val categImgHome = AssetManagerUtil.assetManager.list("category_images")
 

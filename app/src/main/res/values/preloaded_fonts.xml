@@ -4,5 +4,7 @@
         <item>@font/cabin</item>
         <item>@font/montserrat_alternates</item>
         <item>@font/montserrat_alternates_thin</item>
+        <item>@font/palanquin_dark</item>
+        <item>@font/palanquin_dark_medium</item>
     </array>
 </resources>

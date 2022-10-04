@@ -58,10 +58,41 @@ class SingleProductViewFragment : Fragment() {
                     ProductViewPagerAdapter(it.productCode, imagePathList)
                 product_image_viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 circle_indicator.setViewPager(product_image_viewPager)
-                userViewmodel.getCartItemQuantity(it.productCode)?.observe(viewLifecycleOwner){
-                    if(it!=null) {
-                        view.itemCount_textView_singleProductView.text = it.toString()
+
+
+                userViewmodel.getCartItemQuantity(it.productCode)?.observe(viewLifecycleOwner){ qty->
+                    if(qty!=null) {
+                        view.itemCount_textView_singleProductView.text = qty.toString()
                         toggleAddToCartVisibility(true)
+
+                        increaseQuantity_single_product.setOnClickListener { buttonview ->
+
+                            userViewmodel.currentUserCart.value?.cartId?.let { id ->
+
+                                    userViewmodel.addToCart(it.productCode)
+                                    Log.e(TAG, userViewmodel.getCartItemQuantity(it.productCode).toString())
+                                    Toast.makeText(this@SingleProductViewFragment.requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
+
+
+
+                            }
+
+                        }
+                        decreaseQuantity_single_product.setOnClickListener { buttonView->
+                            userViewmodel.currentUserCart.value?.cartId?.let { id ->
+
+                                    userViewmodel.removeFromCart(it.productCode)
+                                    Log.e(TAG, userViewmodel.getCartItemQuantity(it.productCode).toString())
+
+                                            Toast.makeText(
+                                                this@SingleProductViewFragment.requireContext(),
+                                                "Removed from cart ${it.brandName}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+
+
+                            }
+                        }
 
                     }
                     else{
@@ -80,46 +111,11 @@ class SingleProductViewFragment : Fragment() {
 
                 }
 
-                increaseQuantity_single_product.setOnClickListener { buttonview ->
 
-                    userViewmodel.currentUserCart.value?.cartId?.let { id ->
-
-                        lifecycleScope.launch {
-                            userViewmodel.addToCart(it.productCode)
-                            Log.e(TAG, userViewmodel.getCartItemQuantity(it.productCode).toString())
-                            Toast.makeText(this@SingleProductViewFragment.requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
-
-                        }
-
-                    }
-
-                }
-                decreaseQuantity_single_product.setOnClickListener { buttonView->
-                    userViewmodel.currentUserCart.value?.cartId?.let { id ->
-
-                        lifecycleScope.launch {
-                            userViewmodel.removeFromCart(it.productCode)
-                            Log.e(TAG, userViewmodel.getCartItemQuantity(it.productCode).toString())
-                            if(userViewmodel.isRemovedFromCart.value == true){
-                             run {toggleAddToCartVisibility(false)
-                                    Toast.makeText(
-                                        this@SingleProductViewFragment.requireContext(),
-                                        "Removed from cart",
-                                        Toast.LENGTH_SHORT
-                                    ).show()}
-                            }
-
-
-                        }
-
-                    }
-                }
             //addTocartButtonListener
             }
         }
-        userViewmodel.currentUser.observe(viewLifecycleOwner) {
-            Log.e(TAG, userViewmodel.currentUserCart.value.toString())
-        }
+
 
         return view
     }
