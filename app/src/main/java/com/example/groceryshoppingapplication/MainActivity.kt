@@ -3,18 +3,11 @@ package com.example.groceryshoppingapplication
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
-import com.example.groceryshoppingapplication.fragments.LoginScreenFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -54,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
 

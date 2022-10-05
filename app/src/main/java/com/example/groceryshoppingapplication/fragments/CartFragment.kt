@@ -61,7 +61,7 @@ class CartFragment : Fragment() {
                     val recyclerView = view.cart_recyclerView
                         recyclerView.addOnScrollListener(FabExtendingOnScrollListener(view.extFloatingActionButton))
 
-                        val adapter = CartItemsAdapter(it, cartItemDataList)
+                        val adapter = CartItemsAdapter(it, cartItemDataList, viewmodel)
                     recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                     recyclerView.adapter = adapter
                 }

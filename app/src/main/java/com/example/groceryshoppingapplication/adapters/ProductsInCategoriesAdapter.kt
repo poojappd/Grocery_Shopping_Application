@@ -83,6 +83,10 @@ class ProductsInCategoriesAdapter(
             toggleAddToCartButton(buttonState, addToCartButton)
 
             addToCartButton.setOnClickListener {
+                response = viewModel.checkItemInCart(productCode)
+                buttonState = response != Response.NO_SUCH_ITEM_IN_CART
+                toggleAddToCartButton(!buttonState, addToCartButton,productCode)
+
                 it.startAnimation(
                     AnimationUtils.loadAnimation(
                         context,
@@ -90,9 +94,8 @@ class ProductsInCategoriesAdapter(
                     )
                 )
                 Log.e(TAG, "button clicked to cart ${products.get(position).brandName}")
-                response = viewModel.checkItemInCart(productCode)
-                buttonState = response != Response.NO_SUCH_ITEM_IN_CART
-                toggleAddToCartButton(buttonState, addToCartButton)
+                //viewModel.addToCart(productCode)
+
 
             }
 
@@ -114,14 +117,16 @@ class ProductsInCategoriesAdapter(
         return position
     }
 
-    private fun toggleAddToCartButton(state:Boolean, addToCartButton:ImageView){
+    private fun toggleAddToCartButton(state:Boolean, addToCartButton:ImageView, productCode:Int=-1){
         if (state) {
             addToCartButton.setColorFilter(Color.argb(255, 255, 255, 255));
             addToCartButton.setBackgroundResource(R.drawable.product_list_add_to_cart_icon_clicked_bg)
+            if(productCode!=-1) viewModel.addToCart(productCode)
         } else {
             addToCartButton.setColorFilter(Color.argb(255, 164, 191, 246));
-
             addToCartButton.setBackgroundResource(R.drawable.product_list_add_to_cart_icon_bg)
+            if(productCode!=-1) viewModel.removeFromCart(productCode)
+
         }
     }
 

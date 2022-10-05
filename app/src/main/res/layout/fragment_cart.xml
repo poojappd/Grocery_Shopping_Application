@@ -111,12 +111,12 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cart is Empty!"
+                android:text="Your cart is empty!"
                 app:layout_constraintTop_toBottomOf="@id/circle"
                 android:layout_marginTop="92dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="35dp"
+                android:textSize="25dp"
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/black"
                 android:id="@+id/textView2" />
@@ -196,9 +196,10 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5"
-                    android:nestedScrollingEnabled="false"
+                    android:nestedScrollingEnabled="true"
                     tools:layout_editor_absoluteX="-26dp"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"
+                    />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
