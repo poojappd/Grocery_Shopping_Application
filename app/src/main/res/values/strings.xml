@@ -1,4 +1,197 @@
 <resources>
+    <string name="hint_houseNo"><font color='#FF0000'>*</font> House no</string>
+    <string name="hint_street"><font color='#FF0000'>*</font> Street Details</string>
+    <string name="hint_area"><font color='#FF0000'>*</font> Area Details</string>
+    <string name="hint_pincode"><font color='#FF0000'>*</font> Pincode</string>
+
+    <string name="hint_lmk">Landmark</string>
+
+    <string-array name="cities">
+        <item> Agartala </item>
+        <item> Agra </item>
+        <item> Ahmadabad </item>
+        <item> Ahmadnagar </item>
+        <item> Aizawl </item>
+        <item> Ajmer </item>
+        <item> Akola </item>
+        <item> Aligarh </item>
+        <item> Allahabad </item>
+        <item> Alwar </item>
+        <item> Amravati </item>
+        <item> Amritsar </item>
+        <item> Anand </item>
+        <item> Anantapur </item>
+        <item> Arrah </item>
+        <item> Asansol </item>
+        <item> Aurangabad </item>
+        <item> Baharampur </item>
+        <item> Bangalore </item>
+        <item> Barddhaman </item>
+        <item> Bareilly </item>
+        <item> Bathinda </item>
+        <item> Begusarai </item>
+        <item> Belgaum </item>
+        <item> Bellary </item>
+        <item> Bhagalpur </item>
+        <item> Bhavnagar </item>
+        <item> Bhilwara </item>
+        <item> Bhiwandi </item>
+        <item> Bhopal </item>
+        <item> Bhubaneswar </item>
+        <item> Bihar Sharif </item>
+        <item> Bijapur </item>
+        <item> Bikaner </item>
+        <item> Bilaspur </item>
+        <item> Bokaro Steel City </item>
+        <item> Brahmapur </item>
+        <item> Chandigarh </item>
+        <item> Chandrapur </item>
+        <item> Chennai </item>
+        <item> Cherthala </item>
+        <item> Coimbatore </item>
+        <item> Cuttack </item>
+        <item> Darbhanga </item>
+        <item> Davanagere </item>
+        <item> Dehradun </item>
+        <item> Delhi </item>
+        <item> Deoghar </item>
+        <item> Dewas </item>
+        <item> Dhanbad </item>
+        <item> Dhule </item>
+        <item> Dhulian </item>
+        <item> Dindigul </item>
+        <item> Durg-Bhilainagar </item>
+        <item> Durgapur </item>
+        <item> English Bazar </item>
+        <item> Erode </item>
+        <item> Farrukhabad</item>
+        <item> Firozabad </item>
+        <item> Gandhidham </item>
+        <item> Gaya </item>
+        <item> Gorakhpur </item>
+        <item> Gulbarga </item>
+        <item> Guntur </item>
+        <item> Guwahati (Gauhati) </item>
+        <item> Gwalior </item>
+        <item> Habra </item>
+        <item> Haldwani-cum-kathgodam </item>
+        <item> Hapur </item>
+        <item> Hardwar </item>
+        <item> Hisar </item>
+        <item> Hosur </item>
+        <item> Hubli-Dharwad </item>
+        <item> Hyderabad </item>
+        <item> Ichalkaranji </item>
+        <item> Imphal </item>
+        <item> Indore </item>
+        <item> Jabalpur </item>
+        <item> Jaipur </item>
+        <item> Jalandhar </item>
+        <item> Jalgaon </item>
+        <item> Jalna </item>
+        <item> Jammu </item>
+        <item> Jamnagar </item>
+        <item> Jamshedpur </item>
+        <item> Jhansi </item>
+        <item> Jodhpur </item>
+        <item> Junagadh </item>
+        <item> Kadapa </item>
+        <item> Kakinada </item>
+        <item> Kanhangad </item>
+        <item> Kannur </item>
+        <item> Kanpur </item>
+        <item> Karimnagar </item>
+        <item> Karnal </item>
+        <item> Karur </item>
+        <item> Kayamkulam </item>
+        <item> Khammam </item>
+        <item> Kharagpur </item>
+        <item> Kochi (Cochin) </item>
+        <item> Kolhapur </item>
+        <item> Kolkata (Calcutta) </item>
+        <item> Kollam </item>
+        <item> Korba </item>
+        <item> Kota </item>
+        <item> Kottayam </item>
+        <item> Kozhikode (Calicut) </item>
+        <item> Kurnool </item>
+        <item> Latur </item>
+        <item> Lucknow </item>
+        <item> Ludhiana </item>
+        <item> Madurai </item>
+        <item> Malappuram </item>
+        <item> Malegaon </item>
+        <item> Mangalore </item>
+        <item> Mathura </item>
+        <item> Maunath Bhanjan </item>
+        <item> Meerut </item>
+        <item> Moradabad </item>
+        <item> Morvi </item>
+        <item> Mumbai (Bombay) </item>
+        <item> Muzaffarnagar </item>
+        <item> Muzaffarpur </item>
+        <item> Mysore </item>
+        <item> Nagpur </item>
+        <item> Nanded Waghala </item>
+        <item> Nashik </item>
+        <item> Navsari </item>
+        <item> Nellore </item>
+        <item> Nizamabad </item>
+        <item> Ottappalam </item>
+        <item> Palakkad </item>
+        <item> Panipat </item>
+        <item> Parbhani </item>
+        <item> Patiala </item>
+        <item> Patna </item>
+        <item> Puducherry </item>
+        <item> Pune (Poona) </item>
+        <item> Purnia </item>
+        <item> Raipur </item>
+        <item> Rajahmundry </item>
+        <item> Rajkot </item>
+        <item> Rampur </item>
+        <item> Ranchi </item>
+        <item> Raniganj </item>
+        <item> Ranipet </item>
+        <item> Ratlam </item>
+        <item> Raurkela </item>
+        <item> Rohtak </item>
+        <item> Roorkee </item>
+        <item> Sagar </item>
+        <item> Saharanpur </item>
+        <item> Salem </item>
+        <item> Sangli </item>
+        <item> Santipur </item>
+        <item> Satna </item>
+        <item> Shahjahanpur </item>
+        <item> Shillong </item>
+        <item> Shimoga </item>
+        <item> Siliguri </item>
+        <item> Solapur </item>
+        <item> Srinagar </item>
+        <item> Surat </item>
+        <item> Thanjavur </item>
+        <item> Thiruvananthapuram </item>
+        <item> Thoothukkudi (Tuticorin) </item>
+        <item> Thrissur </item>
+        <item> Tiruchirappalli </item>
+        <item> Tirunelveli </item>
+        <item> Tirupati </item>
+        <item> Tiruppur </item>
+        <item> Tumkur </item>
+        <item> Udaipur </item>
+        <item> Ujjain </item>
+        <item> Vadodara </item>
+        <item> Varanasi (Benares) </item>
+        <item> Vellore </item>
+        <item> Vijayawada </item>
+        <item> Visakhapatnam </item>
+        <item> Warangal </item>
+        <item> Yamunanagar </item>
+    </string-array>
+
+
+
     <string name="app_name">DemoAppTester</string>
     <string-array name="categories">
         <item> Dairy and bakery</item>

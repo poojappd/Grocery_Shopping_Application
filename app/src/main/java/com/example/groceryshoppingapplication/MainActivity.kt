@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.homePageFragment -> {navController.navigate(R.id.homePageFragment)}
                 R.id.allCategoriesFragment -> navController.navigate(R.id.allCategoriesFragment)
+                R.id.userAccountFragment -> navController.navigate(R.id.userAccountFragment)
                 else -> navController.navigate(R.id.cartFragment)
             }
             return@setOnItemSelectedListener true

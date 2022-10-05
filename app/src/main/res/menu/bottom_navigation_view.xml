@@ -18,7 +18,8 @@
             app:actionViewClass="android.widget.SearchView" ></item>
     <item
             android:title="Profile"
-            android:icon="@drawable/profile_icon" />
+            android:icon="@drawable/profile_icon"
+            android:id="@+id/userAccountFragment"/>
 
     <item
             android:title="Cart"

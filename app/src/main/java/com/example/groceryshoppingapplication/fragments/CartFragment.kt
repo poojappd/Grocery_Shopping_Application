@@ -44,6 +44,7 @@ class CartFragment : Fragment() {
         viewmodel.allCartItems.observe(this.viewLifecycleOwner){
             if (it.size > 0){
                 view.empty_cart_layout.visibility = View.GONE
+                view.extFloatingActionButton.visibility = View.VISIBLE
                 view.notEmptycart_layout.visibility = View.VISIBLE
                 val cartItemDataList =  mutableListOf<CartItemData>()
                 for(i in it) {
@@ -69,6 +70,8 @@ class CartFragment : Fragment() {
             }
             else{
                 view.empty_cart_layout.visibility = View.VISIBLE
+                view.extFloatingActionButton.visibility = View.GONE
+
                 view.notEmptycart_layout.visibility = View.GONE
 
             }

@@ -30,6 +30,7 @@ class UserNameFormFragment() : Fragment() {
         userFromView.apply {
             proceedButton_signUp.setOnClickListener {
                 val firstName = this.fname_signUp
+
                 if (TextUtils.isEmpty(firstName.text)) {
                     firstName.setError("First name is required!")
 

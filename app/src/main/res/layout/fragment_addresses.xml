@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEEEE"
+
+        tools:context=".fragments.AddressesFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Saved Addresses"
+            android:fontFamily="@font/cabin"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/materialTextView5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:id="@+id/address_recyclerView"
+            tools:listitem="@layout/address_recyclerview_layout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_address"
+            android:visibility="visible"
+            android:paddingHorizontal="14dp"
+            android:background="@drawable/start_shopping_button_bg"
+            android:backgroundTint="#C1BFED"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/noto_sans"
+            android:textSize="16sp"
+            android:text="Add an address"
+            android:drawableLeft="@drawable/increase_icon"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_recyclerView"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0.497"
+            android:layout_marginTop="20dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

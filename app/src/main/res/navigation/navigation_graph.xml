@@ -79,5 +79,28 @@
                 android:id="@+id/action_cartFragment_to_homePageFragment"
                 app:destination="@id/homePageFragment" />
     </fragment>
+    <fragment
+            android:id="@+id/userAccountFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.UserAccountFragment"
+            android:label="fragment_user_account"
+            tools:layout="@layout/fragment_user_account" >
+        <action
+                android:id="@+id/action_userAccountFragment_to_addressesFragment"
+                app:destination="@id/addressesFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/addressesFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.AddressesFragment"
+            android:label="fragment_addresses"
+            tools:layout="@layout/fragment_addresses" >
+        <action
+                android:id="@+id/action_addressesFragment_to_editAddressFragment"
+                app:destination="@id/editAddressFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/editAddressFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.EditAddressFragment"
+            android:label="fragment_edit_address"
+            tools:layout="@layout/fragment_edit_address" />
 
 </navigation>
