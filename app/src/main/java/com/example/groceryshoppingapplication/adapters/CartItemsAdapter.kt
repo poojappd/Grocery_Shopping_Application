@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.cart_single_item.view.*
 
 class CartItemsAdapter(
     private val cartItems: List<CartItemEntity>,
-    private val cartItemData: List<CartItemData>,
+    private val cartItemData: Map<Int,CartItemData>,
     private val userViewModel: UserViewModel
 ) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
@@ -24,9 +25,10 @@ class CartItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
+        val productCode = cartItems[position].productCode
         holder.apply {
-            title.text = cartItemData.get(position).productTitle
-            price.text = cartItemData.get(position).productPrice.toString()
+            title.text = cartItemData.get(productCode)!!.productTitle
+            price.text = cartItemData.get(productCode)!!.productPrice.toString()
             count.text = cartItems.get(position).quantity.toString()
             image.setImageBitmap(
                 getBitmapFromAsset(
@@ -35,11 +37,12 @@ class CartItemsAdapter(
                 )
             )
             increaseButton.setOnClickListener {
-                userViewModel.addToCart(cartItems.get(position).productCode)
+                userViewModel.addToCart(productCode)
+
             }
 
             decreaseButton.setOnClickListener {
-                userViewModel.removeFromCart(cartItems.get(position).productCode)
+                userViewModel.removeFromCart(productCode)
             }
 
         }

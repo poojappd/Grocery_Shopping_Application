@@ -42,16 +42,17 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
         viewmodel.allCartItems.observe(this.viewLifecycleOwner){
+            view.cartItems_count.text = StringBuilder().append("(${it.size})")
             if (it.size > 0){
                 view.empty_cart_layout.visibility = View.GONE
                 view.extFloatingActionButton.visibility = View.VISIBLE
                 view.notEmptycart_layout.visibility = View.VISIBLE
-                val cartItemDataList =  mutableListOf<CartItemData>()
+                val cartItemDataList =  mutableMapOf<Int,CartItemData>()
                 for(i in it) {
                     inventoryViewModel.getProduct(i.productCode).observe(viewLifecycleOwner) { product ->
 
                         Log.e(TAG, product.itemName+" "+product.brandName)
-                        cartItemDataList.add(
+                        cartItemDataList.put(product.productCode,
                             CartItemData(
                                 product.brandName + " " + product.itemName,
                                 product.unitPrice

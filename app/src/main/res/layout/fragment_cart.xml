@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.CartFragment">
+        tools:context=".fragments.CartFragment"
+        >
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -162,8 +163,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-               >
+                android:layout_height="500dp">
 
 
             <TextView
@@ -175,7 +175,7 @@
                     android:textSize="20sp"
                     android:id="@+id/textView5"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="34dp"
                     app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -185,21 +185,29 @@
                     android:layout_height="wrap_content"
                     android:text="(22)"
                     android:textSize="18sp"
-                    android:id="@+id/textView6"
+                    android:id="@+id/cartItems_count"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
                     app:layout_constraintStart_toEndOf="@+id/textView5" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cart_recyclerView"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5"
                     android:nestedScrollingEnabled="true"
-                    tools:layout_editor_absoluteX="-26dp"
                     app:layout_constraintVertical_bias="0.0"
-                    />
+                    tools:listitem="@layout/cart_single_item"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            <Space
+                    app:layout_constraintTop_toBottomOf="@id/cart_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/space" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
