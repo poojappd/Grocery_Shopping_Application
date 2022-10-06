@@ -28,7 +28,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:paddingVertical="28dp"
 
-            android:backgroundTint="#32724CB5"
+            android:backgroundTint="#142808D3"
             android:background="@drawable/otp_dialog_bg"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
