@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="96dp"
@@ -34,10 +34,11 @@
                 android:layout_marginStart="36dp"
                 android:id="@+id/textView8" />
 
-        <TextView
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Pooja"
+                android:textSize = "14sp"
                 android:fontFamily="@font/cabin"
                 android:padding="10dp"
                 android:background="@drawable/signup_edittext_bg"
@@ -48,10 +49,12 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/textView11" />
 
-        <TextView
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Priyadarshni P S"
+                android:textSize = "14sp"
+
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/cabin"
                 android:padding="10dp"
@@ -66,14 +69,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mobile"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 android:id="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView11"
                 android:layout_marginTop="20dp" />
 
-        <TextView
+        <com.google.android.material.textfield.TextInputEditText
+                android:textSize = "14sp"
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="9892653178"

@@ -15,6 +15,8 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
        return repo.getProductDetails(productCode)
     }
 
+    fun getProductDetailsSynchronously(productCode: Int): GroceryItemEntity =
+        repo.getProductDetailsSynchronously(productCode)
 
 }
 

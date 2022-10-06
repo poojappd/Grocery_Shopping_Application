@@ -17,8 +17,10 @@ class InventoryRepository(appDatabase: AppDatabase) {
     private suspend fun updateInventory(groceryItemEntity: GroceryItemEntity) =
         inventoryDAO.restockItem(groceryItemEntity)
 
-
+    fun getProductDetailsSynchronously(productCode: Int): GroceryItemEntity =
+        inventoryDAO.getItemDetailsSynchronously(productCode)
     //to be called at checkout phase
+
     suspend fun fetchProductFromInventory(productCode: Int, quantity: Int): Response {
         val product = getProductDetails(productCode)
         product.value?.let {

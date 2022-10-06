@@ -47,12 +47,12 @@ class SingleProductViewFragment : Fragment() {
             imagePathList =
                 requireActivity().applicationContext.assets.list("product_images/${productCode.toString()}") as Array<String>
             view.apply {
-                product_title_tv.text = it.brandName + " - " + it.itemName
+                product_title_tv.text = StringBuilder().append(it.brandName + " - " + it.itemName)
                 val capacityValue = it.capacity
                 val appendString = if (capacityValue > 1 && it.capacityUnit.value.length > 2) "s" else ""
                 product_price_tv.text = decimal.format(it.unitPrice)
-                quantity_value_tv.text =
-                    decimal.format(capacityValue) + " " + it.capacityUnit.value + appendString
+                quantity_value_tv.text = StringBuilder().append(
+                    decimal.format(capacityValue) + " " + it.capacityUnit.value + appendString).toString()
                 product_description_tv.text = it.itemDescription
                 product_image_viewPager.adapter =
                     ProductViewPagerAdapter(it.productCode, imagePathList)

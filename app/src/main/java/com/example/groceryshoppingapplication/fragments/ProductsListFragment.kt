@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.groceryshoppingapplication.ProductListTouchListener
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
@@ -34,13 +36,36 @@ class ProductsListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         val recyclerView = view.products_list_recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
+         recyclerView.layoutManager = LinearLayoutManager(context)
         inventoryViewModel.allProductsInInventory.observe(viewLifecycleOwner){
             Log.e(TAG, "INSIDE VIEWMODEL OBSERVE $it")
-            productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),findNavController(), viewmodel)
+            productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),ProductListTouchListenerImpl())
             recyclerView.adapter = productsInCategoriesAdapter
         }
         return view
+    }
+
+    private inner class ProductListTouchListenerImpl : ProductListTouchListener{
+        override fun addToCart(productCode: Int) {
+            viewmodel.addToCart(productCode)
+        }
+
+        override fun removeFromCart(productCode: Int) {
+            viewmodel.removeFromCart(productCode)
+        }
+
+        override fun checkItemInCart(productCode: Int): Response {
+            return viewmodel.checkItemInCart(productCode)
+        }
+
+        override fun navigate(productCode: Int) {
+            val action =
+                ProductsListFragmentDirections.actionProductsListFragmentToSingleProductViewFragment(
+                    productCode
+                )
+            findNavController().navigate(action)
+        }
+
     }
 
 

@@ -8,20 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.CartItemData
+import com.example.groceryshoppingapplication.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.CartItemsAdapter
-import com.example.groceryshoppingapplication.models.CartItemEntity
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cart.view.*
@@ -34,6 +31,7 @@ class CartFragment : Fragment() {
     val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().application)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +60,7 @@ class CartFragment : Fragment() {
                     val recyclerView = view.cart_recyclerView
                         recyclerView.addOnScrollListener(FabExtendingOnScrollListener(view.extFloatingActionButton))
 
-                        val adapter = CartItemsAdapter(it, cartItemDataList, viewmodel)
+                        val adapter = CartItemsAdapter(it, CartItemTouchListenerImplementation())
                     recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                     recyclerView.adapter = adapter
                 }
@@ -109,6 +107,21 @@ class CartFragment : Fragment() {
             }
 
             super.onScrolled(recyclerView, dx, dy)
+        }
+    }
+
+    private inner class CartItemTouchListenerImplementation:CartItemTouchListener{
+        override fun addToCart(productCode: Int) {
+            viewmodel.addToCart(productCode)
+        }
+
+        override fun removeFromCart(productCode: Int) {
+            viewmodel.removeFromCart(productCode)
+        }
+
+        override fun getCartItemExtraData(productCode: Int): CartItemData {
+            val product = inventoryViewModel.getProductDetailsSynchronously(productCode)
+            return CartItemData(product.itemName +" "+ product.brandName, product.unitPrice)
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.CartItemData
+import com.example.groceryshoppingapplication.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
 import com.example.groceryshoppingapplication.models.CartItemEntity
@@ -14,8 +15,7 @@ import kotlinx.android.synthetic.main.cart_single_item.view.*
 
 class CartItemsAdapter(
     private val cartItems: List<CartItemEntity>,
-    private val cartItemData: Map<Int,CartItemData>,
-    private val userViewModel: UserViewModel
+    private val cartItemTouchListener: CartItemTouchListener
 ) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsViewHolder {
@@ -26,9 +26,10 @@ class CartItemsAdapter(
 
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
         val productCode = cartItems[position].productCode
+        val extras = cartItemTouchListener.getCartItemExtraData(productCode)
         holder.apply {
-            title.text = cartItemData.get(productCode)!!.productTitle
-            price.text = cartItemData.get(productCode)!!.productPrice.toString()
+            title.text = extras.productTitle
+            price.text = extras.productPrice.toString()
             count.text = cartItems.get(position).quantity.toString()
             image.setImageBitmap(
                 getBitmapFromAsset(
@@ -37,12 +38,13 @@ class CartItemsAdapter(
                 )
             )
             increaseButton.setOnClickListener {
-                userViewModel.addToCart(productCode)
+                //userViewModel.addToCart(productCode)
+                cartItemTouchListener.addToCart(productCode)
 
             }
 
             decreaseButton.setOnClickListener {
-                userViewModel.removeFromCart(productCode)
+                cartItemTouchListener.removeFromCart(productCode)
             }
 
         }

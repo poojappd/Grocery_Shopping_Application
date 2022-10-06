@@ -59,6 +59,8 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         }
     }
 
+
+
     suspend fun updateCartItemsFromCart(){
             _allCartItems.value = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
     }

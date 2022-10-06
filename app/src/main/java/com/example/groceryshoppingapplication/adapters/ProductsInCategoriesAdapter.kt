@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.groceryshoppingapplication.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
 import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
@@ -24,12 +25,13 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.single_product_row_item_in_list.view.*
 import java.io.IOException
 import java.io.InputStream
+import java.lang.StringBuilder
+import java.text.DecimalFormat
 
 class ProductsInCategoriesAdapter(
     private val products: List<GroceryItemEntity>,
     private val context: Context,
-    private val navController: NavController,
-    private val viewModel:UserViewModel
+    private val productListTouchListener: ProductListTouchListener
 ) :
     RecyclerView.Adapter<ProductsInCategoriesAdapter.ProductViewHolder>() {
     private val mItemSelected = -1
@@ -52,10 +54,13 @@ class ProductsInCategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        val decimal = DecimalFormat("0.##")
+
         holder.apply {
             brandName.text = products.get(position).brandName
             productName.text = products.get(position).itemName
-            price.text = products.get(position).unitPrice.toString()
+
+            price.text =StringBuilder().append("Rs. "+decimal.format(products.get(position).unitPrice))
             Log.e(
                 TAG,
                 "position - ${products.get(position).brandName}  ${
@@ -69,21 +74,16 @@ class ProductsInCategoriesAdapter(
                 getBitmapFromAsset(products.get(position).productCode.toString(),true)
             )
             container.setOnClickListener {
-                val productCode = products.get(position).productCode
-                val action =
-                    ProductsListFragmentDirections.actionProductsListFragmentToSingleProductViewFragment(
-                        productCode
-                    )
-                navController.navigate(action)
+               productListTouchListener.navigate(products.get(position).productCode)
             }
 
             val productCode = products.get(position).productCode
-            var response = viewModel.checkItemInCart(productCode)
+            var response = productListTouchListener.checkItemInCart(productCode)
             var buttonState = response != Response.NO_SUCH_ITEM_IN_CART
             toggleAddToCartButton(buttonState, addToCartButton)
 
             addToCartButton.setOnClickListener {
-                response = viewModel.checkItemInCart(productCode)
+                response = productListTouchListener.checkItemInCart(productCode)
                 buttonState = response != Response.NO_SUCH_ITEM_IN_CART
                 toggleAddToCartButton(!buttonState, addToCartButton,productCode)
 
@@ -121,11 +121,11 @@ class ProductsInCategoriesAdapter(
         if (state) {
             addToCartButton.setColorFilter(Color.argb(255, 255, 255, 255));
             addToCartButton.setBackgroundResource(R.drawable.product_list_add_to_cart_icon_clicked_bg)
-            if(productCode!=-1) viewModel.addToCart(productCode)
+            if(productCode!=-1) productListTouchListener.addToCart(productCode)
         } else {
             addToCartButton.setColorFilter(Color.argb(255, 164, 191, 246));
             addToCartButton.setBackgroundResource(R.drawable.product_list_add_to_cart_icon_bg)
-            if(productCode!=-1) viewModel.removeFromCart(productCode)
+            if(productCode!=-1) productListTouchListener.removeFromCart(productCode)
 
         }
     }
