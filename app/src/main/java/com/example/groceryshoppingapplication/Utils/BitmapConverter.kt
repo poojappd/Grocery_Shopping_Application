@@ -28,7 +28,7 @@ object BitmapConverter {
         return BitmapFactory.decodeStream(istr)
     }
 
-    fun getBitmapFromImageAsset(index: Int): Bitmap? {
+    fun getBitmapForCategory(index: Int): Bitmap? {
         val imgPath = categImgHome!!.get(index)
         val assetManager = AssetManagerUtil.assetManager
         var istr: InputStream? = null

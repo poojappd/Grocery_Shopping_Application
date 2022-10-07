@@ -52,7 +52,7 @@
         <entry key="app/src/main/res/layout/cities_array_adapter.xml" value="0.3203125" />
         <entry key="app/src/main/res/layout/fragment_addresses.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_all_categories.xml" value="0.23233695652173914" />
-        <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_edit_address.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.3025936599423631" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.403035413153457" />

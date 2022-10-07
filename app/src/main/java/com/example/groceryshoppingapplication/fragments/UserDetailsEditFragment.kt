@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_user_details_edit.view.*
 import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
 import java.lang.StringBuilder
 import java.util.*
-
+import com.example.groceryshoppingapplication.Utils.ValidationService
 
 class UserDetailsEditFragment : Fragment() {
 
@@ -92,6 +92,12 @@ class UserDetailsEditFragment : Fragment() {
             }
         }
         view.saveButton.setOnClickListener {
+            val firstNameValid = ValidationService.validateName(firstNameEditText.text.toString())
+            val lastNameValid = if (lastNameEditText.text.toString().trim() != "" || lastNameEditText.text.toString().trim()!=" ") ValidationService.validateName(lastNameEditText.text.toString()) else true
+
+            if(!firstNameValid){
+                firstNameEditText.setError("First")
+            }
             userViewModel.currentUser.observe(viewLifecycleOwner){
                 userViewModel.updateUser(
                 it.apply {
@@ -99,6 +105,7 @@ class UserDetailsEditFragment : Fragment() {
                     lastName = lastNameEditText.text.toString()
                     dob = dateTextView.text.toString()
                     mobileNumber = mobileNumberEditText.text.toString()
+
                 }
                 )
             }

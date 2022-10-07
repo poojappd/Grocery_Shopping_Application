@@ -201,13 +201,45 @@
                     tools:listitem="@layout/cart_single_item"
 
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0" />
+
+
+            <LinearLayout
+                    android:background="@drawable/signup_edittext_bg"
+                    android:backgroundTint="#E9E0FF"
+                    android:paddingVertical="5dp"
+
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cart_recyclerView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/linearLayout3"
+                    app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintVertical_bias="0.2">
+
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Total: " />
+
+                <com.google.android.material.textview.MaterialTextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹ 100"
+                        android:textColor="@color/black"/>
+
+            </LinearLayout>
 
             <Space
-                    app:layout_constraintTop_toBottomOf="@id/cart_recyclerView"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayout3"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/space" />
+                    android:layout_height="90dp"
+                    android:id="@+id/space2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

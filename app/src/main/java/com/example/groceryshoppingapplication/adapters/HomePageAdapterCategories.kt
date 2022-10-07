@@ -1,18 +1,13 @@
 package com.example.groceryshoppingapplication.adapters
 
-import android.app.Application
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.ShapeDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapConverter
-import com.example.groceryshoppingapplication.enums.GeneralCategory
 import kotlinx.android.synthetic.main.homepage_image_categories_layout.view.*
 
 class HomePageAdapterCategories() :
@@ -37,7 +32,7 @@ class HomePageAdapterCategories() :
     override fun getItemCount() = BitmapConverter.categImgHome!!.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap = BitmapConverter.getBitmapFromImageAsset(position)
+        val bitmap = BitmapConverter.getBitmapForCategory(position)
         holder.image.setImageBitmap(bitmap)
         val title =  categoryNames.get(position).replace("_", " ")
         holder.title.text = title

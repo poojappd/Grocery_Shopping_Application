@@ -42,7 +42,6 @@ abstract class AppDatabase : RoomDatabase(){
                 )   .allowMainThreadQueries()
 
                     .createFromAsset("database/grocery_db.db")
-                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 val sdb = INSTANCE!!.openHelper.writableDatabase
