@@ -22,6 +22,9 @@ class UserAccountFragment : Fragment() {
         view.textView17.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountFragment_to_addressesFragment)
         }
+        view.EditButton.setOnClickListener {
+            findNavController().navigate(R.id.action_userAccountFragment_to_userDetailsEditFragment)
+        }
         return view
     }
 }

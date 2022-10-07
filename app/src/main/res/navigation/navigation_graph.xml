@@ -87,6 +87,9 @@
         <action
                 android:id="@+id/action_userAccountFragment_to_addressesFragment"
                 app:destination="@id/addressesFragment" />
+        <action
+                android:id="@+id/action_userAccountFragment_to_userDetailsEditFragment"
+                app:destination="@id/userDetailsEditFragment" />
     </fragment>
     <fragment
             android:id="@+id/addressesFragment"
@@ -102,5 +105,10 @@
             android:name="com.example.groceryshoppingapplication.fragments.EditAddressFragment"
             android:label="fragment_edit_address"
             tools:layout="@layout/fragment_edit_address" />
+    <fragment
+            android:id="@+id/userDetailsEditFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.UserDetailsEditFragment"
+            android:label="UserDetailsEditFragment"
+            tools:layout="@layout/fragment_user_details_edit"/>
 
 </navigation>

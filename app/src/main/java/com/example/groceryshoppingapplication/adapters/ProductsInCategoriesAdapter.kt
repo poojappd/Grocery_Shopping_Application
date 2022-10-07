@@ -32,10 +32,9 @@ class ProductsInCategoriesAdapter(
     private val products: List<GroceryItemEntity>,
     private val context: Context,
     private val productListTouchListener: ProductListTouchListener
+
 ) :
     RecyclerView.Adapter<ProductsInCategoriesAdapter.ProductViewHolder>() {
-    private val mItemSelected = -1
-
     private val buttonClickedStates = mutableMapOf<Int, Boolean>()
 
     class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,17 +1,22 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_details_edit.view.*
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
+import java.lang.StringBuilder
 import java.util.*
 
 
@@ -27,34 +32,76 @@ class UserDetailsEditFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_details_edit, container, false)
-        userViewModel.currentUser.observe(viewLifecycleOwner) {
-            view.textView10.setText(it.firstName)
-            view.textView13.setText(it.mobileNumber)
-            view.textView13.setOnClickListener {
+        val firstNameEditText = view.textView10
+        val lastNameEditText = view.textView11
+        val mobileNumberEditText = view.textView13
+        val dateTextView = view.textView15
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)
+        dialogBuilder.setView(dialogView)
+        val yesButtonDialog = dialogView.button
+        val noButtonDialog = dialogView.no
+        val alertDialog = dialogBuilder.create()
 
-            }
+
+        userViewModel.currentUser.observe(viewLifecycleOwner) {
+            firstNameEditText.setText(it.firstName)
+            mobileNumberEditText.setText(it.mobileNumber)
             it.lastName?.let { lastName ->
-                view.textView11.setText(lastName)
+                lastNameEditText.setText(lastName)
             } ?: run {
-                view.textView11.text?.clear()
+                lastNameEditText.text?.clear()
             }
             it.dob?.let { dob ->
-                view.textView15.text = dob
-//            } ?: run {
-//                val calendar = Calendar.getInstance()
-//                val day = calendar.get(Calendar.DAY_OF_MONTH)
-//                val month = calendar.get(Calendar.MONTH)
-//                val year = calendar.get(Calendar.YEAR)
-//                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-//                val datePickerDialog = DatePickerDialog(
-//                    this,
-//                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-//                        view.textView15.text = dateFormat.
-//                    })
-//            }
-
+                dateTextView.text = dob
             }
 
+        }
+
+        dateTextView.setOnClickListener{
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val currentMonth = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val datePickerDialog = DatePickerDialog(
+                this.requireContext(),
+                { view, year, month, dayOfMonth ->
+                    dateTextView.setText(StringBuilder().append("$dayOfMonth/$month/$year").toString())
+                }, year, currentMonth, day)
+            calendar.add(Calendar.YEAR, -120)
+
+            datePickerDialog.datePicker.minDate = calendar.timeInMillis
+            calendar.add(Calendar.YEAR,102)
+            datePickerDialog.datePicker.maxDate =calendar.timeInMillis
+
+            datePickerDialog.show()
+        }
+
+        var mobileNumberChangeInvoked = false
+        mobileNumberEditText.setOnClickListener {
+            if(!mobileNumberChangeInvoked) {
+                alertDialog.show()
+                mobileNumberChangeInvoked = true
+                it.isFocusableInTouchMode = true
+                mobileNumberEditText.requestFocus()
+                val imm: InputMethodManager =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(mobileNumberEditText, InputMethodManager.SHOW_IMPLICIT);
+                mobileNumberEditText.setSelection(1)
+
+            }
+        }
+        view.saveButton.setOnClickListener {
+            userViewModel.currentUser.observe(viewLifecycleOwner){
+                userViewModel.updateUser(
+                it.apply {
+                    firstName = firstNameEditText.text.toString()
+                    lastName = lastNameEditText.text.toString()
+                    dob = dateTextView.text.toString()
+                    mobileNumber = mobileNumberEditText.text.toString()
+                }
+                )
+            }
         }
 
         return view
