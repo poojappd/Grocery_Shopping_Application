@@ -5,166 +5,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/profile_bg"
        >
-
-
-    <TextView
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MY ACCOUNT"
-            android:fontFamily="@font/cabin"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/textView23"
-            android:layout_marginTop="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="28dp"
-
-            android:backgroundTint="#142808D3"
-            android:background="@drawable/otp_dialog_bg"
-            android:layout_marginHorizontal="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_deck"
-            android:id="@+id/constraintLayout3"
-            app:layout_constraintVertical_bias="0.169"
-            app:layout_constraintTop_toBottomOf="@+id/textView23">
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="vertical"
-
-                android:id="@+id/EditButton">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:paddingTop="5dp"
-                    android:src="@drawable/edit_icon" />
-        </LinearLayout>
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Pooja Priyadarshni P S"
-                android:textStyle="bold"
-                android:shadowColor="@color/black"
-
-                android:textColor="@color/white"
-                android:fontFamily="@font/cabin"
-                android:paddingVertical="10dp"
-                android:id="@+id/textView20"
-                android:layout_marginHorizontal="10dp"
-                app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintEnd_toStartOf="@+id/frameLayout4" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/profile_icon"
-                android:tint="@color/white"
-                android:id="@+id/shapeableImageView3"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@+id/textView20"
-                app:layout_constraintBottom_toBottomOf="@+id/textView20" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/call_icon"
-                android:tint="@color/white"
-                android:id="@+id/shapeableImageView4"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
-                app:layout_constraintVertical_bias="0.586"
-                app:layout_constraintStart_toStartOf="@+id/shapeableImageView3" />
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="9832478927"
-                android:shadowRadius="0.1"
-                android:textStyle="bold"
-
-                android:layout_marginHorizontal="10dp"
-                android:textColor="@color/white"
-                android:shadowColor="@color/black"
-                android:fontFamily="@font/cabin"
-                android:paddingVertical="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView20"
-                android:id="@+id/textView21"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/shapeableImageView4" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/location_icon1"
-                android:tint="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/shapeableImageView4"
-                app:layout_constraintTop_toTopOf="@+id/textView9"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                android:id="@+id/shapeableImageView5"
-                app:layout_constraintVertical_bias="0.6" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pammal"
-                android:fontFamily="@font/cabin"
-                android:textColor="@color/white"
-                android:shadowRadius="0.1"
-                android:textStyle="bold"
-                android:shadowColor="@color/black"
-
-                android:paddingVertical="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
-                android:id="@+id/textView9" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chennai - 600075"
-                android:fontFamily="@font/cabin"
-                android:textColor="@color/white"
-                android:shadowColor="@color/black"
-                android:textStyle="bold"
-                android:shadowRadius="0.1"
-                android:paddingBottom="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView9" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_deck"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/otp_dialog_bg"
+            android:layout_width="411dp"
+            android:layout_height="347dp"
+            android:background="@color/white"
             android:padding="20dp"
-            app:layout_constraintStart_toStartOf="@id/constraintLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout3">
+            app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -173,7 +24,9 @@
                 android:text="My Orders"
                 android:id="@+id/textView16"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="28dp"
+                android:layout_marginStart="20dp" />
 
         <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -251,10 +104,176 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete Account"
-                app:layout_constraintStart_toStartOf="@+id/materialDivider5"
+                app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/materialDivider5" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:background="@drawable/account_irregular_gradient"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/account_irregular_gradient"
+                android:backgroundTint="#142808D3"
+                android:id="@+id/frameLayout5" />
+
+        <TextView
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MY ACCOUNT"
+                android:fontFamily="@font/cabin"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/textView23"
+                android:layout_marginTop="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="28dp"
+                android:background="@drawable/otp_dialog_bg"
+                android:backgroundTint="#142808D3"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout5"
+                android:id="@+id/constraintLayout3"
+                app:layout_constraintVertical_bias="0.169"
+                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                app:layout_constraintStart_toStartOf="@+id/frameLayout5">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:orientation="vertical"
+
+                    android:id="@+id/EditButton">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:paddingTop="5dp"
+                        android:src="@drawable/edit_icon" />
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pooja Priyadarshni P S"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/black"
+android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/cabin"
+                    android:paddingVertical="10dp"
+                    android:id="@+id/textView20"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/profile_icon"
+                    android:tint="@color/white"
+                    android:id="@+id/shapeableImageView3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/textView20"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView20" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/call_icon"
+                    android:tint="@color/white"
+                    android:id="@+id/shapeableImageView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView21"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                    app:layout_constraintVertical_bias="0.586"
+                    app:layout_constraintStart_toStartOf="@+id/shapeableImageView3" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="9832478927"
+                    android:shadowRadius="0.1"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColor="@color/white"
+                    android:shadowColor="@color/black"
+                    android:fontFamily="@font/cabin"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20"
+                    android:id="@+id/textView21"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/shapeableImageView4" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/location_icon1"
+                    android:tint="@color/white"
+                    app:layout_constraintStart_toStartOf="@+id/shapeableImageView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    android:id="@+id/shapeableImageView5"
+                    app:layout_constraintVertical_bias="0.6" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pammal"
+                    android:textSize="18sp"
+
+                    android:fontFamily="@font/cabin"
+                    android:textColor="@color/white"
+                    android:shadowRadius="0.1"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/black"
+
+                    android:paddingVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21"
+                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                    android:id="@+id/textView9" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chennai - 600075"
+                    android:fontFamily="@font/cabin"
+                    android:textColor="@color/white"
+                    android:shadowColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+
+                    android:shadowRadius="0.1"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textView9" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
