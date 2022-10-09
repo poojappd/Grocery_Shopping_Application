@@ -11,8 +11,6 @@ data class User(
     var mobileNumber: String,
 
 ) {
-    @Embedded
-    var address: Address? = null
     var firstName: String? = null
     var lastName:String? = null
     var dob:String? = null

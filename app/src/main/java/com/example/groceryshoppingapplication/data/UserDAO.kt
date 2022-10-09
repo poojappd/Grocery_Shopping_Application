@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.data
 
 import androidx.room.*
+import com.example.groceryshoppingapplication.models.Address
 import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.relations.UserAndAddresses
 import com.example.groceryshoppingapplication.relations.UserAndCart
 import com.example.groceryshoppingapplication.relations.UserAndOrders
 
@@ -19,6 +21,16 @@ interface UserDAO{
 
     @Query("select * from User where mobileNumber = :mobileNumber")
     fun getUserAccount(mobileNumber:String):User?
+
+    @Transaction
+    @Query("select * from User where userId = :userId")
+    fun getUserAddresses(userId:String): UserAndAddresses
+
+    @Insert
+    fun addUserAddress(address: Address)
+
+    @Update
+    fun updateUserAddress(address: Address)
 
     @Transaction
     @Query("select * from User where userId = :userId")

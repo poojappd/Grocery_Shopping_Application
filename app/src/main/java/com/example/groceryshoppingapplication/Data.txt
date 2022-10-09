@@ -11,3 +11,7 @@ TODO:
 3. custom toast msg...
 /////4. delete cartItems(transaction), cart and orders and orderItems from table
         when deleting user... dont delete orders, instead unlink order from user
+5. add addresses as separate entity... and make list<addresses> in user entity or create relation
+6. onbackPressed highlight actual bottom navigation icon
+7. in codegenerator, directluy get id from db and increment..don use static
+8. increase total items in cart

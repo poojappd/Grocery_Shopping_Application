@@ -1,13 +1,18 @@
 package com.example.groceryshoppingapplication.Utils
 
+import com.example.groceryshoppingapplication.data.IdDAO
 import kotlin.random.Random
 
 object CodeGeneratorUtil {
+    private lateinit var idDAO: IdDAO
     private var productCode = "001"
+    private var addressCode = 1
     private var cartCode = 1002
-    private var userCode = 2
-    private val userCodePrefix = "#user_A"
+    private const val userCodePrefix = "#user_A"
 
+    fun setIdDao(idDAO: IdDAO){
+        this.idDAO = idDAO
+    }
 
     fun generateOtp() = Random.nextInt(1000, 9999).toString()
 
@@ -20,15 +25,24 @@ object CodeGeneratorUtil {
         return pdCode
     }
 
+    fun generateAddressId(userId:String) =  idDAO.getLastAddressId(userId)?.plus(1) ?: 1
+
+
     fun generateUserId():String{
-        userCode++
+        val userId = idDAO.getLastUserId()
+        val usercode = userId.substring(userId.indexOf("A")+1)
+        val userCode = usercode.toInt()+1
         val appendString = (if (userCode <10) "00$userCode" else if (userCode<100) "0$userCode" else "$userCode")
         val newUserCode = userCodePrefix + appendString
         return newUserCode
     }
 
     fun generateCartId():Int{
-        return cartCode++
+       return idDAO.getLastCartId() + 1
+    }
+
+    fun generateCartItemId(cartId:Int):Int{
+        return idDAO.getLastCartItemId(cartId)?.plus(1) ?: 1
     }
 
 

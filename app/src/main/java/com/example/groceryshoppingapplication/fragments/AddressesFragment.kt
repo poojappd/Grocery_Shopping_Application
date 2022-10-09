@@ -30,13 +30,15 @@ class AddressesFragment : Fragment() {
         view.add_address.setOnClickListener {
             findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
         }
-        userViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it.address == null) {
+        userViewModel.currentUserAddresses.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
                 recyclerView.visibility = View.GONE
             } else {
                 recyclerView.visibility = View.VISIBLE
-                recyclerView.adapter = AddressesAdapter(listOf(it.address!!), it)
-                recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+                userViewModel.currentUser.observe(viewLifecycleOwner) { user->
+                    recyclerView.adapter = AddressesAdapter(it,user)
+                    recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+                }
             }
         }
         return view

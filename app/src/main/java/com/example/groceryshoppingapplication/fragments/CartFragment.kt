@@ -39,6 +39,7 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
+        var totalPrice = 0.0
         viewmodel.allCartItems.observe(this.viewLifecycleOwner){
             view.cartItems_count.text = StringBuilder().append("(${it.size})")
             if (it.size > 0){
@@ -60,10 +61,13 @@ class CartFragment : Fragment() {
                     val recyclerView = view.cart_recyclerView
                         recyclerView.addOnScrollListener(FabExtendingOnScrollListener(view.extFloatingActionButton))
 
-                        val adapter = CartItemsAdapter(it, CartItemTouchListenerImplementation())
+                        val adapter = CartItemsAdapter(it, CartItemTouchListenerImplementation()){price:Double-> totalPrice=price}
                     recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                     recyclerView.adapter = adapter
                 }
+                    view.extFloatingActionButton.setOnClickListener {
+                        findNavController().navigate(R.id.action_cartFragment_to_deliverySlotFragment)
+                    }
 
             }
             }

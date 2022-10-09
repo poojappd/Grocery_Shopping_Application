@@ -78,6 +78,10 @@
         <action
                 android:id="@+id/action_cartFragment_to_homePageFragment"
                 app:destination="@id/homePageFragment" />
+        <action
+                android:id="@+id/action_cartFragment_to_deliverySlotFragment"
+                app:destination="@id/deliverySlotFragment"
+                app:enterAnim="@anim/slide_in" />
     </fragment>
     <fragment
             android:id="@+id/userAccountFragment"
@@ -109,6 +113,13 @@
             android:id="@+id/userDetailsEditFragment"
             android:name="com.example.groceryshoppingapplication.fragments.UserDetailsEditFragment"
             android:label="UserDetailsEditFragment"
-            tools:layout="@layout/fragment_user_details_edit"/>
+            tools:layout="@layout/fragment_user_details_edit">
+
+    </fragment>
+    <fragment
+            android:id="@+id/deliverySlotFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.DeliverySlotFragment"
+            android:label="fragment_delivery_slot"
+            tools:layout="@layout/fragment_delivery_slot" />
 
 </navigation>

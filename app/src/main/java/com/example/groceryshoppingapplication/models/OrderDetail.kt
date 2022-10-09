@@ -17,7 +17,7 @@ data class OrderDetail(
     val orderDate: String = Date().formatDate("yyyy-MM-dd HH:mm"),
     val numberOfItems:Int,
     val deliverySlot: String,
-    @Embedded
+    @Embedded(prefix = "add_")
     val deliveryAddress: Address,
     val mobileNumber: String,
     val deliveryCharges:Double,

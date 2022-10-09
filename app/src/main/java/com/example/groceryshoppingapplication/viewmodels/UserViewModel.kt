@@ -5,12 +5,10 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.enums.Response
-import com.example.groceryshoppingapplication.models.CartEntity
-import com.example.groceryshoppingapplication.models.CartItemEntity
-import com.example.groceryshoppingapplication.models.OrderDetail
-import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.models.*
 import com.example.groceryshoppingapplication.repositories.CartRepository
 import com.example.groceryshoppingapplication.repositories.OrdersRepository
 import com.example.groceryshoppingapplication.repositories.UserRepository
@@ -23,10 +21,12 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     private val myCartRepo = CartRepository(AppDatabase.getDatabase(applicationContext))
     private var _currentUser = MutableLiveData<User>()
     private var _currentUserCart = MutableLiveData<CartEntity>()
+    private var _currentUserAddresses = MutableLiveData<List<Address>>()
     private var _currentUserOrders = MutableLiveData<List<OrderDetail>>()
     private var lastId = MutableLiveData<Int?>()
     private val _isRemovedFromCart = MutableLiveData<Boolean>()
     private val _allCartItems = MutableLiveData<List<CartItemEntity>>()
+    private var _cartItemsTotalPrice = MutableLiveData<Double>()
 
     val isRemovedFromCart: LiveData<Boolean>
         get() = _isRemovedFromCart
@@ -37,6 +37,8 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     val currentUser = _currentUser
     val currentUserCart = _currentUserCart
     val currentUserOrders = _currentUserOrders
+    val currentUserAddresses = _currentUserAddresses
+    val cartItemsTotalPrice = _cartItemsTotalPrice
 
     fun loginUser(mobileNumber: String): Response {
         val user = repo.loginUser(mobileNumber)
@@ -44,8 +46,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             _currentUser.value = it
             _currentUserCart.value = repo.getUserCartDetails(it.userId).cartEntity
             _currentUserOrders.value = repo.getUserOrderDetails(it.userId)?.ordersInfo
+            _currentUserAddresses.value = repo.getUserAddresses(it.userId).addresses
             viewModelScope.launch {
-            updateCartItemsFromCart()
+                updateCartItemsFromCart()
             }
             Log.e(TAG, _allCartItems.value.toString())
             return Response.LOGGED_IN_SUCCESSFULLY
@@ -59,10 +62,23 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         }
     }
 
+    fun getCurrentUserData(mobileNumber: String) = repo.loginUser(mobileNumber)
 
 
-    suspend fun updateCartItemsFromCart(){
-            _allCartItems.value = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
+    fun addUserAddress(address: Address) {
+        repo.addUserAddress(address)
+        refreshUserAddresses()
+    }
+
+    fun updateUserAddress(address: Address) = repo.updateUserAddress(address)
+
+    fun refreshUserAddresses() {
+        _currentUserAddresses.value = repo.getUserAddresses(currentUser.value!!.userId).addresses
+    }
+
+    suspend fun updateCartItemsFromCart() {
+        _allCartItems.value =
+            myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
     }
 
     private suspend fun updateLastId() {
@@ -73,7 +89,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     }
 
     fun addToCart(productCode: Int) {
-
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
             val response = checkItemInCart(productCode)
@@ -81,20 +96,24 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             if (response == Response.ITEM_PRESENT_IN_CART) {
                 for (i in items.cartItemEntity) {
                     if (i.productCode == productCode) {
-                        myCartRepo.increaseQuantity(i)
-                        currentUserCart.value!!.totalItemsInCart++
+                        if (i.quantity < 10) {
+                            myCartRepo.increaseQuantity(i)
+                            currentUserCart.value!!.totalItemsInCart++
+                        }
                         break
                     }
                 }
             } else {
                 updateLastId()
                 val value = lastId.value?.inc() ?: 1
+                val cartId = currentUserCart.value!!.cartId
+
                 myCartRepo.addToCart(
                     CartItemEntity(
                         productCode,
-                        currentUserCart.value!!.cartId,
+                        cartId,
                         1,
-                        value
+                        CodeGeneratorUtil.generateCartItemId(cartId)
                     )
                 )
             }
@@ -106,8 +125,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     fun removeFromCart(productCode: Int) {
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
-           items.cartItemEntity.forEach {
-               Log.e(TAG,"-----------------------------"+ "now in cart: ->"+ it.toString()) }
+            items.cartItemEntity.forEach {
+                Log.e(TAG, "-----------------------------" + "now in cart: ->" + it.toString())
+            }
 
             val response = checkItemInCart(productCode)
             Log.e(TAG, response.message)
@@ -116,9 +136,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     if (i.productCode == productCode) {
                         if (i.quantity > 1) {
                             myCartRepo.decreaseQuantity(i)
-                            Log.e(TAG,"***********"+ "decreased ->"+ i.productCode.toString())
+                            Log.e(TAG, "***********" + "decreased ->" + i.productCode.toString())
 
-                        currentUserCart.value!!.totalItemsInCart--
+                            currentUserCart.value!!.totalItemsInCart--
                             _isRemovedFromCart.value = false
                             break
                         } else {
@@ -130,10 +150,10 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                                 )
 
                             )
-                        Log.e(TAG,"***********"+ "removed ->"+ i.productCode.toString())
+                            Log.e(TAG, "***********" + "removed ->" + i.productCode.toString())
 
 
-                }
+                        }
                     }
                 }
             }

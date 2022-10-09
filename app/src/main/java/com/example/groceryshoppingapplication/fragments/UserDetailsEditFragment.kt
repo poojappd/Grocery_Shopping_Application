@@ -1,8 +1,10 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
@@ -41,7 +44,26 @@ class UserDetailsEditFragment : Fragment() {
         dialogBuilder.setView(dialogView)
         val yesButtonDialog = dialogView.button
         val noButtonDialog = dialogView.no
+        var mobileNumberChangeInvoked = false
+        var pressedYes = false
+
         val alertDialog = dialogBuilder.create()
+        yesButtonDialog.setOnClickListener {
+            mobileNumberChangeInvoked = true
+            pressedYes = true
+
+
+            alertDialog.cancel()
+            mobileNumberEditText.isFocusableInTouchMode = true
+            mobileNumberEditText.requestFocus()
+            mobileNumberEditText.setSelection(1)
+            val imm: InputMethodManager =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(mobileNumberEditText, InputMethodManager.SHOW_IMPLICIT);
+        }
+        noButtonDialog.setOnClickListener {
+            alertDialog.cancel()
+        }
 
 
         userViewModel.currentUser.observe(viewLifecycleOwner) {
@@ -62,12 +84,12 @@ class UserDetailsEditFragment : Fragment() {
             val calendar = Calendar.getInstance()
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             val currentMonth = calendar.get(Calendar.MONTH)
-            val year = calendar.get(Calendar.YEAR)
+            val currentYear = calendar.get(Calendar.YEAR)
             val datePickerDialog = DatePickerDialog(
                 this.requireContext(),
                 { view, year, month, dayOfMonth ->
-                    dateTextView.setText(StringBuilder().append("$dayOfMonth/$month/$year").toString())
-                }, year, currentMonth, day)
+                    dateTextView.setText(StringBuilder().append("$dayOfMonth/${month+1}/$year").toString())
+                }, currentYear, currentMonth, day)
             calendar.add(Calendar.YEAR, -120)
 
             datePickerDialog.datePicker.minDate = calendar.timeInMillis
@@ -77,20 +99,14 @@ class UserDetailsEditFragment : Fragment() {
             datePickerDialog.show()
         }
 
-        var mobileNumberChangeInvoked = false
         mobileNumberEditText.setOnClickListener {
             if(!mobileNumberChangeInvoked) {
                 alertDialog.show()
-                mobileNumberChangeInvoked = true
-                it.isFocusableInTouchMode = true
-                mobileNumberEditText.requestFocus()
-                val imm: InputMethodManager =
-                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(mobileNumberEditText, InputMethodManager.SHOW_IMPLICIT);
-                mobileNumberEditText.setSelection(1)
+                Log.e(TAG,"pressed yes? "+pressedYes)
 
             }
         }
+
         view.saveButton.setOnClickListener {
             val firstNameValid = ValidationService.validateName(firstNameEditText.text.toString())
             val lastNameValid = if (lastNameEditText.text.toString().trim() != "" || lastNameEditText.text.toString().trim()!=" ") ValidationService.validateName(lastNameEditText.text.toString()) else true
@@ -108,6 +124,7 @@ class UserDetailsEditFragment : Fragment() {
 
                 }
                 )
+                findNavController().popBackStack()
             }
         }
 

@@ -1,8 +1,14 @@
 package com.example.groceryshoppingapplication.repositories
 
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.example.groceryshoppingapplication.data.AppDatabase
+import com.example.groceryshoppingapplication.models.Address
 import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.relations.UserAndAddresses
 
 class UserRepository(database: AppDatabase) {
     private val userDao = database.getUserDao()
@@ -23,7 +29,12 @@ class UserRepository(database: AppDatabase) {
 
     suspend fun deleteUser(user: User) = userDao.deleteUser(user)
 
-    fun getUserAccount(mobileNumber:String) = userDao.getUserAccount(mobileNumber)
+
+    fun getUserAddresses(userId:String) = userDao.getUserAddresses(userId)
+
+    fun addUserAddress(address: Address) = userDao.addUserAddress(address)
+
+    fun updateUserAddress(address: Address) = userDao.updateUserAddress(address)
 
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 

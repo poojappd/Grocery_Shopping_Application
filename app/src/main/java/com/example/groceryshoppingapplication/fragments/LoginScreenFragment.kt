@@ -30,6 +30,7 @@ class LoginScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val loginScreenFragmentView = inflater.inflate(R.layout.fragment_login_screen, container, false)
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
