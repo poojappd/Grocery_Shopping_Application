@@ -174,7 +174,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/continue_button_deliverySlot"
             >
         <com.google.android.material.textview.MaterialTextView

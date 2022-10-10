@@ -100,6 +100,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                             myCartRepo.increaseQuantity(i)
                             currentUserCart.value!!.totalItemsInCart++
                         }
+                        else{
+                            return@launch
+                        }
                         break
                     }
                 }
@@ -160,6 +163,19 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             updateCartItemsFromCart()
         }
 
+    }
+
+    fun removeItem(productCode: Int){
+        viewModelScope.launch {
+            myCartRepo.removeFromCart(
+                CartItemEntity(
+                    productCode,
+                    currentUserCart.value!!.cartId
+                )
+            )
+            updateCartItemsFromCart()
+
+        }
     }
 
 

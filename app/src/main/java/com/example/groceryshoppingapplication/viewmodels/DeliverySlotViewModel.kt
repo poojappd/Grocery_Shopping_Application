@@ -10,8 +10,10 @@ import java.util.*
 
 class DeliverySlotViewModel(applicationContext: Context): ViewModel() {
     var chosenTime: Date? = null
+    var chosenDate:Date? = null
     val chosenAddress:Address? = null
-
+    var datePosition:Int? = null
+    var timePosition:Int? = null
 }
 
 class DeliverySlotViewModelFactory(val applicationContext: Context) : ViewModelProvider.Factory {

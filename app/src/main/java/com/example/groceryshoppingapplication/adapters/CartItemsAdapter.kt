@@ -5,23 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.groceryshoppingapplication.CartItemData
 import com.example.groceryshoppingapplication.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
 import com.example.groceryshoppingapplication.models.CartItemEntity
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.cart_single_item.view.*
+import java.text.DecimalFormat
 
 class CartItemsAdapter(
     private val cartItems: List<CartItemEntity>,
     private val cartItemTouchListener: CartItemTouchListener,
-    private val cartItemTotalProceListener: (Double)-> Unit
+    private val cartItemTotalPriceListener: (Double) -> Unit
 ) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
-    private var increasedPrice = BooleanArray(cartItems.size){false}
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.cart_single_item, parent, false)
@@ -31,12 +29,14 @@ class CartItemsAdapter(
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
         val productCode = cartItems[position].productCode
         val extras = cartItemTouchListener.getCartItemExtraData(productCode)
+        val decimal = DecimalFormat("#.00")
         holder.apply {
             title.text = extras.productTitle
-            if(!increasedPrice[position]) {
-                price.text = extras.productPrice.toString()
-            }
-            count.text = cartItems.get(position).quantity.toString()
+            Log.e(TAG, "BINDED at $position $title")
+            val qty = cartItems.get(position).quantity
+            price.text = decimal.format(extras.productPrice * qty)
+
+            count.text = qty.toString()
             image.setImageBitmap(
                 getBitmapFromAsset(
                     cartItems.get(position).productCode.toString(),
@@ -45,19 +45,16 @@ class CartItemsAdapter(
             )
             increaseButton.setOnClickListener {
                 //userViewModel.addToCart(productCode)
-                increasedPrice[position] = true
-                cartItemTouchListener.addToCart(productCode)
-                val newPrice = ((price.text as String).toDouble() * count.text.toString().toInt())
-                price.text = newPrice.toString()
-                Log.e(TAG, "increased to ---"+newPrice.toString())
+                if ((count.text as String).toInt() <10) {
+                    cartItemTouchListener.addToCart(productCode)
+                }
+                else{
+                    Toast.makeText(holder.decreaseButton.context,"Maximum ordering quantity for this product is 10",Toast.LENGTH_SHORT).show()
+                }
             }
 
             decreaseButton.setOnClickListener {
                 cartItemTouchListener.removeFromCart(productCode)
-                val newPrice = ((price.text as String).toDouble() / count.text.toString().toInt())
-                Log.e(TAG, "decreased to ---"+newPrice.toString())
-
-                price.text = newPrice.toString()
             }
 
         }
@@ -84,6 +81,4 @@ class CartItemsAdapter(
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-
-}
+    }

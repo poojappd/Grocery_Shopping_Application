@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
@@ -21,7 +22,7 @@ import java.util.*
 
 class DeliverySlotFragment : Fragment() {
 
-    val deliverySlotViewModel: DeliverySlotViewModel by activityViewModels {
+    val deliverySlotViewModel: DeliverySlotViewModel by viewModels {
         DeliverySlotViewModelFactory(requireContext().applicationContext)
     }
     override fun onCreateView(
@@ -31,28 +32,41 @@ class DeliverySlotFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_delivery_slot, container, false)
         val dateArray = getDateArray()
-        var chosenDate: Date
-        var chosenTime = Date()
+        var chosenTime:Date? = null
 
 
         val dateRecycerView = view.dateChoose_rv
-        dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray) { date: Date ->
-            chosenDate = date
-           val timeArray = getTimeArray(chosenDate)
+        deliverySlotViewModel.timePosition?.let {
+            view.invisible_time_picker.visibility = View.VISIBLE
+        }
+        dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray, { date: Date, position:Int ->
+            deliverySlotViewModel.chosenDate = date
+            deliverySlotViewModel.datePosition?.let {
+                if(it!= position){
+                    deliverySlotViewModel.chosenTime = null
+                    deliverySlotViewModel.timePosition = null
+                    view.continue_button_deliverySlot.visibility = View.GONE
 
-            view.timeChoose_rv.adapter = DeliverySlotTimeAdapter(timeArray){time: Date->
-                chosenTime = time
-            view.continue_button_deliverySlot.visibility = View.VISIBLE
+                }
             }
+            deliverySlotViewModel.datePosition = position
+
+
+           val timeArray = getTimeArray(deliverySlotViewModel.chosenDate!!)
+
+            view.timeChoose_rv.adapter = DeliverySlotTimeAdapter(timeArray,{time: Date, position:Int->
+                deliverySlotViewModel.chosenTime = time
+                deliverySlotViewModel.timePosition = position
+                view.continue_button_deliverySlot.visibility = View.VISIBLE
+            },deliverySlotViewModel.timePosition)
             view.invisible_time_picker.visibility = View.VISIBLE
             view.timeChoose_rv.layoutManager = LinearLayoutManager(context)
 
-        }
+        },deliverySlotViewModel.datePosition)
         dateRecycerView.layoutManager = LinearLayoutManager(context)
-        view.continue_button_deliverySlot.setOnClickListener {
-                deliverySlotViewModel.chosenTime = chosenTime
-            Log.e(TAG, chosenTime.toString())
 
+        view.continue_button_deliverySlot.setOnClickListener {
+            Log.e(TAG, deliverySlotViewModel.chosenTime.toString())
         }
         return view
     }

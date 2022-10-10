@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.PlaceOrderFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Summary"
+            android:fontFamily="@font/cabin"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/materialTextView17" />
+
+    <LinearLayout
+            android:background="#F8F4FF"
+            android:paddingHorizontal="10dp"
+            android:layout_width="0dp"
+            android:layout_height="121dp"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/materialTextView17"
+            app:layout_constraintStart_toStartOf="@+id/materialTextView17"
+            android:id="@+id/linearLayout7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total items"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="37dp"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sub total"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="37dp"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. " />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="345.60" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delivery Charges"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="37dp"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. " />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Total"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="17dp"
+                    android:textColor="#738CD8"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="37dp"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView17" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. "
+                    android:textColor="#738CD8"
+                    android:textStyle="bold"
+
+                    />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="360.00"
+                    android:textColor="#738CD8"
+
+                    android:textStyle="bold"
+
+                    />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            android:id="@+id/constraintLayout5"
+            app:layout_constraintStart_toStartOf="@+id/materialTextView17"
+            android:layout_marginTop="36dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/delivery_icon1"
+                android:rotationY="200"
+                android:layout_marginStart="8dp"
+                android:tint="#6C8DDE"
+                android:id="@+id/shapeableImageView8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView18" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deliver to"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/materialTextView18"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="2.5dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pooja, no. 18, 9th street, pammal, chennai"
+                android:layout_marginStart="1dp"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/materialTextView19"
+                app:layout_constraintStart_toStartOf="@+id/materialTextView18"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView18" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deliver on"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:id="@+id/materialTextView20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView19"
+                android:layout_marginTop="32dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:src="@drawable/time_icon1"
+                android:rotationY="200"
+                android:layout_marginStart="8dp"
+                android:tint="#6C8DDE"
+                android:id="@+id/shapeableImageView9"
+                app:layout_constraintTop_toTopOf="@id/materialTextView20"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView20"
+                android:layout_marginTop="1dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday 9th October  -"
+                android:layout_marginStart="1dp"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/materialTextView21"
+                app:layout_constraintStart_toStartOf="@+id/materialTextView20"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView20" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9 am"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/materialTextView22"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView21"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView20"
+                android:layout_marginStart="4dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/constraintLayout6">
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Options"
+                android:gravity="start"
+                android:fontFamily="@font/cabin"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/materialTextView23"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="2.5dp" />
+
+        <LinearLayout
+                android:background="@drawable/single_product_row_item_in_list_bg"
+                android:backgroundTint="#C7C9D6"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="30dp"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView23"
+                app:layout_constraintStart_toStartOf="@id/materialTextView23"
+                android:id="@+id/linearLayout8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/card_icon1"
+                    android:tint="#638EE4" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Credit Card"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/cabin" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:background="@drawable/single_product_row_item_in_list_bg"
+                android:backgroundTint="#C7C9D6"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                android:id="@+id/linearLayout9"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/upi_icon1"
+                    android:tint="#638EE4" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UPI"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/cabin" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:background="@drawable/single_product_row_item_in_list_bg"
+                android:backgroundTint="#C7C9D6"
+                android:layout_marginTop="12dp"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout9">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/cash_icon2"
+                    android:tint="#638EE4" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cash on Delivery"
+                    android:layout_marginStart="10dp"
+
+                    android:fontFamily="@font/cabin" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Place order"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:fontFamily="@font/cabin"
+            android:background="@drawable/place_order_button_bg"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+            android:layout_marginTop="12dp"
+            app:layout_constraintHorizontal_bias="0.498" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

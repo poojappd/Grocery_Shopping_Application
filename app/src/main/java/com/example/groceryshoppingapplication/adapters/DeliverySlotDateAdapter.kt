@@ -11,7 +11,10 @@ import kotlinx.android.synthetic.main.custom_datepicker_deliveryslot_layout.view
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DeliverySlotDateAdapter(private val datesSlots: List<Date>, private val chooseDateListener: (Date)->Unit) :
+class DeliverySlotDateAdapter(private val datesSlots: List<Date>,
+                              private val chooseDateListener: (Date,Int)->Unit,
+                              private val chosenPosition:Int? = null
+) :
     RecyclerView.Adapter<DeliverySlotDateAdapter.DeliverySlotViewHolder>() {
     private val dateFormat = SimpleDateFormat("dd EEEE", Locale.getDefault())
     lateinit var lastChosenDateSlotVIew: Button
@@ -29,6 +32,12 @@ class DeliverySlotDateAdapter(private val datesSlots: List<Date>, private val ch
 
     override fun onBindViewHolder(holder: DeliverySlotViewHolder, position: Int) {
         holder.dateView.text = dateFormat.format(datesSlots[position])
+        if(position == chosenPosition){
+            lastChosenDateSlotVIew = holder.dateView
+            lastChosenDateSlotVIew.setTextColor(Color.WHITE)
+            lastChosenDateSlotVIew.isSelected = true
+            chooseDateListener(datesSlots[position], position)
+        }
 
         holder.dateView.setOnClickListener {
            if(this::lastChosenDateSlotVIew.isInitialized){
@@ -45,7 +54,7 @@ class DeliverySlotDateAdapter(private val datesSlots: List<Date>, private val ch
                it.isSelected = true
                lastChosenDateSlotVIew.setTextColor(Color.WHITE)
            }
-            chooseDateListener(datesSlots[position])
+            chooseDateListener(datesSlots[position], position)
 
         }
     }

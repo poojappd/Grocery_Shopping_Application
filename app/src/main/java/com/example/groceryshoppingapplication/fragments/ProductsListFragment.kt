@@ -51,7 +51,7 @@ class ProductsListFragment : Fragment() {
         }
 
         override fun removeFromCart(productCode: Int) {
-            viewmodel.removeFromCart(productCode)
+            viewmodel.removeItem(productCode)
         }
 
         override fun checkItemInCart(productCode: Int): Response {

@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.custom_timepicker_deliveryslot_layout.view
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DeliverySlotTimeAdapter(private val timeSlots: List<Date>, private val chooseTimeListener: (Date)->Unit) :
+class DeliverySlotTimeAdapter(private val timeSlots: List<Date>,
+                              private val chooseTimeListener: (Date,Int)->Unit,
+                              private val chosenPosition:Int? = null) :
     RecyclerView.Adapter<DeliverySlotTimeAdapter.DeliverySlotTimeViewHolder>() {
 
     private val timeFormat = SimpleDateFormat("hh a", Locale.getDefault())
@@ -30,6 +32,12 @@ class DeliverySlotTimeAdapter(private val timeSlots: List<Date>, private val cho
 
     override fun onBindViewHolder(holder: DeliverySlotTimeViewHolder, position: Int) {
         holder.timeView.text = timeFormat.format(timeSlots[position])
+        if(position == chosenPosition){
+            lastChosenTimeSlotVIew = holder.timeView
+            lastChosenTimeSlotVIew.setTextColor(Color.WHITE)
+            lastChosenTimeSlotVIew.isSelected = true
+            chooseTimeListener(timeSlots[position],position)
+        }
         holder.timeView.setOnClickListener {
             if(this::lastChosenTimeSlotVIew.isInitialized){
                 lastChosenTimeSlotVIew.isSelected = false
@@ -45,7 +53,7 @@ class DeliverySlotTimeAdapter(private val timeSlots: List<Date>, private val cho
                 it.isSelected = true
                 lastChosenTimeSlotVIew.setTextColor(Color.WHITE)
             }
-            chooseTimeListener(timeSlots[position])
+            chooseTimeListener(timeSlots[position],position)
 
         }
     }

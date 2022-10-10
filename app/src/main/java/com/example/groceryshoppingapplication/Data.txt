@@ -14,4 +14,6 @@ TODO:
 5. add addresses as separate entity... and make list<addresses> in user entity or create relation
 6. onbackPressed highlight actual bottom navigation icon
 7. in codegenerator, directluy get id from db and increment..don use static
-8. increase total items in cart
+8. //////////////////////////  DONE   //////////////increase total items in cart
+9. add space between dates
+10. increasing qty in cart makes it scroll to beginning...
