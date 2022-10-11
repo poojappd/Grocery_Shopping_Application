@@ -18,7 +18,11 @@ enum class Response(val message:String) {
     RESTORED_TO_INVENTORY("Inventory has been restored"),
     INVALID_VALUE_PASSED("Invalid value has been passed"),
     NO_SUCH_USER("No users found"),
-    LOGGED_IN_SUCCESSFULLY("Logged in successfully")
+    LOGGED_IN_SUCCESSFULLY("Logged in successfully"),
+    PIN_CODE_REQUIRED("Pin code is required"),
+    HOUSE_NUMBER_REQUIRED("Enter your house number"),
+    CITY_NOT_VALID("Enter a valid city name")
+
 
 
 

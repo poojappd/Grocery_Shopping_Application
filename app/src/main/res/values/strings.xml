@@ -191,7 +191,7 @@
     </string-array>
 
 
-    <string name="app_name">DemoAppTester</string>
+    <string name="app_name">Grocero</string>
     <string-array name="categories">
         <item> Dairy and bakery</item>
         <item> Meat and Eggs</item>

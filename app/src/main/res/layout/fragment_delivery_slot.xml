@@ -84,7 +84,8 @@
 
     <LinearLayout
             android:layout_width="150dp"
-            android:layout_height="370dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="50dp"
             android:background="@drawable/otp_dialog_bg"
             android:backgroundTint="#48E6E6E6"
             android:orientation="vertical"
@@ -98,6 +99,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dateChoose_rv"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/custom_datepicker_deliveryslot_layout" />
@@ -114,38 +116,38 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="500dp"
+            android:layout_height="0dp"
             android:visibility="gone"
             android:id="@+id/invisible_time_picker"
             android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayout4"
 
-            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView6"
-            app:layout_constraintTop_toTopOf="@+id/shapeableImageView7">
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView7">
 
         <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/time_arrow"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/dropup_icon"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout5" />
 
         <LinearLayout
                 android:layout_width="150dp"
-                android:layout_height="370dp"
+                android:layout_height="0dp"
                 android:background="@drawable/otp_dialog_bg"
                 android:backgroundTint="#48E6E6E6"
                 android:orientation="vertical"
 
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/linearLayout5"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/time_arrow_down"
+                app:layout_constraintTop_toBottomOf="@+id/time_arrow">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/timeChoose_rv"
@@ -160,14 +162,16 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/dropdown_icon"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout5" />
+                app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+                app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
-            android:background="#C9C3FC"
+            android:background="@drawable/place_order_button_bg"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -179,12 +183,10 @@
             >
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Continue"
-                android:shadowColor="#4C4277"
-                android:shadowRadius="2"
-                android:textStyle="bold"
+
                 android:textColor="#FDFDFD"
             android:fontFamily="@font/cabin"
             android:textSize="20sp"
@@ -192,6 +194,7 @@
         <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
             android:layout_gravity="end|center"
             android:src="@drawable/continue_icon"
            />

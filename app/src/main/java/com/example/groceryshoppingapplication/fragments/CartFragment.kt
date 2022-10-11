@@ -16,10 +16,7 @@ import com.example.groceryshoppingapplication.CartItemData
 import com.example.groceryshoppingapplication.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.CartItemsAdapter
-import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
-import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
-import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.*
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cart.view.*
@@ -33,7 +30,9 @@ class CartFragment : Fragment() {
     val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().application)
     }
-    lateinit var totalPriceTv: TextView
+    val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
+        OrderDetailsViewModelFactory(requireActivity().applicationContext)
+    }
 
 
     override fun onCreateView(
@@ -42,7 +41,6 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
-        totalPriceTv = view.totalPrice_cart_fragment
         viewmodel.allCartItems.observe(this.viewLifecycleOwner) {
             view.cartItems_count.text = StringBuilder().append("(${it.size})")
             var totalPrice = 0.0
@@ -58,7 +56,9 @@ class CartFragment : Fragment() {
                 ) { price: Double -> totalPrice = price }
                 recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                 recyclerView.adapter = adapter
-                view.extFloatingActionButton.setOnClickListener {
+                view.extFloatingActionButton.setOnClickListener { fabView->
+                    orderDetailsViewModel.subTotal = totalPrice
+                    orderDetailsViewModel.totalItems = it.size
                     findNavController().navigate(R.id.action_cartFragment_to_deliverySlotFragment)
                 }
                 val decimal = DecimalFormat("#.00")

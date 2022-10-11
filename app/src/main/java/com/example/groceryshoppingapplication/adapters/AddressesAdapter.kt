@@ -32,6 +32,9 @@ class AddressesAdapter(private val addresses: List<Address>, private val user: U
     override fun onBindViewHolder(holder: AddressesViewHolder, position: Int) {
         val currentAddress = addresses[position]
         holder.apply {
+            if (position == 0){
+                holder.defaultMarker.visibility = View.VISIBLE
+            }
             nickname.text = currentAddress.addressTag
             userFullName.text =
                 StringBuilder().append("${user.firstName} ${user.lastName}").toString()

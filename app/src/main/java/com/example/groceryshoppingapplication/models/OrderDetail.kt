@@ -3,7 +3,6 @@ package com.example.groceryshoppingapplication.models
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.groceryshoppingapplication.DeliverySlot
 import com.example.groceryshoppingapplication.Utils.DateTimeFormatter.formatDate
 import com.example.groceryshoppingapplication.enums.OrderStatus
 import java.text.DateFormat

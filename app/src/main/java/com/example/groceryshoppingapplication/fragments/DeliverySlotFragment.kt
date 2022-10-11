@@ -10,21 +10,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
 import com.example.groceryshoppingapplication.adapters.DeliverySlotTimeAdapter
-import com.example.groceryshoppingapplication.viewmodels.DeliverySlotViewModel
-import com.example.groceryshoppingapplication.viewmodels.DeliverySlotViewModelFactory
+import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_delivery_slot.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DeliverySlotFragment : Fragment() {
 
+    val userViewModel:UserViewModel by activityViewModels {
+        UserViewModelFactory(requireContext().applicationContext)
+    }
     val deliverySlotViewModel: DeliverySlotViewModel by viewModels {
         DeliverySlotViewModelFactory(requireContext().applicationContext)
     }
+    val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
+        OrderDetailsViewModelFactory(requireActivity().applicationContext)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +74,14 @@ class DeliverySlotFragment : Fragment() {
         dateRecycerView.layoutManager = LinearLayoutManager(context)
 
         view.continue_button_deliverySlot.setOnClickListener {
-            Log.e(TAG, deliverySlotViewModel.chosenTime.toString())
+            userViewModel.currentUserAddresses.observe(viewLifecycleOwner){
+                orderDetailsViewModel.deliverySlot = deliverySlotViewModel.chosenTime
+                orderDetailsViewModel.deliveringAddress = it.get(0)
+                 userViewModel.currentUser.observe(viewLifecycleOwner){
+                    orderDetailsViewModel.receiverName = it.firstName+" "+ it.lastName
+                }
+            }
+            findNavController().navigate(R.id.action_deliverySlotFragment_to_placeOrderFragment)
         }
         return view
     }
@@ -104,7 +119,7 @@ class DeliverySlotFragment : Fragment() {
             calendarStart.set(Calendar.HOUR_OF_DAY,6)
         }
         calendarStart.set(Calendar.MINUTE,0)
-        calendarEnd.set(Calendar.HOUR, 12 )
+        calendarEnd.set(Calendar.HOUR_OF_DAY, 23 )
         calendarEnd.set(Calendar.MINUTE, 0 )
 
         val timeArray = mutableListOf<Date>()

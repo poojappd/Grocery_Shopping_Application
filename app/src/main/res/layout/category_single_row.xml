@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Coffee"
-                        android:fontFamily="@font/montserrat_alternates"
+                        android:fontFamily="@font/cabin"
                         android:textColor="@color/black"
                         android:textSize="15dp"
 

@@ -25,6 +25,9 @@ class UserAccountFragment : Fragment() {
         view.EditButton.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountFragment_to_userDetailsEditFragment)
         }
+        view.textView19.setOnClickListener {
+           // requireActivity().getSharedPreferences()
+        }
         return view
     }
 }

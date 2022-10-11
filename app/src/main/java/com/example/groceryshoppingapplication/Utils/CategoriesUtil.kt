@@ -29,7 +29,7 @@ data class CategoriesUtil(val context: Context) {
             R.drawable.beverage_icon,
             R.drawable.staples_icon1,
             R.drawable.vegetables_icon,
-            R.drawable.hair_care_icon1,
+            R.drawable.kitchen_icon1,
             R.drawable.ic__skin_care_icon,
             R.drawable.snacks_icon_1,
             R.drawable.home_needs_icon1,

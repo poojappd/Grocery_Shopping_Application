@@ -69,7 +69,7 @@
                     android:layout_marginEnd="20dp"
 
                     android:fontFamily="@font/cabin"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
                     app:layout_constraintTop_toBottomOf="@id/guidelinetop_margin"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="Rs."
                     android:fontFamily="@font/cabin"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
                     app:layout_constraintTop_toBottomOf="@id/product_title_tv" />
 
@@ -104,7 +104,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="27dp"
                     android:text="Net Quantity"
-android:fontFamily="@font/cabin"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
                     app:layout_constraintTop_toBottomOf="@id/rs_textView" />
 
@@ -113,6 +114,7 @@ android:fontFamily="@font/cabin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100ml"
+                    android:textSize="16sp"
                     android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
                     app:layout_constraintTop_toBottomOf="@id/quantity_tv"
@@ -134,15 +136,17 @@ android:fontFamily="@font/cabin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:textSize="18sp"
                         android:text="Product description"
-                        android:fontFamily="@font/cabin"
-                        />
+                        android:fontFamily="@font/cabin" />
 
                 <TextView
                         android:id="@+id/product_description_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cabin"
+                        android:textSize="14sp"
+
                         android:text="300g Assorted Cookies Gift Tin with Chocolate Chip, Double Chocolate Chip, Butter Cashew,
 Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for gifting for any special occasions"
                         android:layout_marginTop="8dp" />

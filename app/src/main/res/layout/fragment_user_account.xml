@@ -15,7 +15,8 @@
             android:padding="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -25,8 +26,8 @@
                 android:id="@+id/textView16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="28dp"
-                android:layout_marginStart="20dp" />
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="30dp" />
 
         <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -109,14 +110,16 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
             android:background="@drawable/account_irregular_gradient"
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="370dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/constraintLayout7">
 
         <FrameLayout
                 android:layout_width="match_parent"
@@ -177,7 +180,7 @@
                     android:text="Pooja Priyadarshni P S"
                     android:textStyle="bold"
                     android:shadowColor="@color/black"
-android:textSize="18sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/cabin"
                     android:paddingVertical="10dp"
@@ -185,8 +188,7 @@ android:textSize="18sp"
                     android:layout_marginHorizontal="10dp"
                     app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    />
+                    app:layout_constraintHorizontal_bias="0.0" />
 
             <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="20dp"

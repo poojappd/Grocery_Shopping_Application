@@ -33,7 +33,6 @@ class EditAddressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_edit_address, container, false)
         val cities = requireContext().resources.getStringArray(R.array.cities)
         val adapter = ArrayAdapter(this.requireContext(),R.layout.cities_array_adapter, cities)
@@ -57,6 +56,7 @@ class EditAddressFragment : Fragment() {
         }
 
         view.saveButton_address.setOnClickListener {
+
             val houseNo = view.textInputEditText.text.toString()
             val streetDetail = view.street_detail.text.toString()
             val areaDetail = view.area_detail.text.toString()

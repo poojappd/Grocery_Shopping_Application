@@ -112,7 +112,7 @@ class UserDetailsEditFragment : Fragment() {
             val lastNameValid = if (lastNameEditText.text.toString().trim() != "" || lastNameEditText.text.toString().trim()!=" ") ValidationService.validateName(lastNameEditText.text.toString()) else true
 
             if(!firstNameValid){
-                firstNameEditText.setError("First")
+                firstNameEditText.setError("First name is invalid")
             }
             userViewModel.currentUser.observe(viewLifecycleOwner){
                 userViewModel.updateUser(
