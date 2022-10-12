@@ -8,10 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
 import com.example.groceryshoppingapplication.adapters.DeliverySlotTimeAdapter
@@ -47,6 +51,7 @@ class DeliverySlotFragment : Fragment() {
         deliverySlotViewModel.timePosition?.let {
             view.invisible_time_picker.visibility = View.VISIBLE
         }
+
         dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray, { date: Date, position:Int ->
             deliverySlotViewModel.chosenDate = date
             deliverySlotViewModel.datePosition?.let {
@@ -68,10 +73,14 @@ class DeliverySlotFragment : Fragment() {
                 view.continue_button_deliverySlot.visibility = View.VISIBLE
             },deliverySlotViewModel.timePosition)
             view.invisible_time_picker.visibility = View.VISIBLE
-            view.timeChoose_rv.layoutManager = LinearLayoutManager(context)
+            val tlv = LinearLayoutManager(context)
+            view.timeChoose_rv.layoutManager = tlv
+            tlv.scrollToPositionWithOffset(2, 20);
+
 
         },deliverySlotViewModel.datePosition)
-        dateRecycerView.layoutManager = LinearLayoutManager(context)
+        val lm = LinearLayoutManager(context)
+        dateRecycerView.layoutManager = lm
 
         view.continue_button_deliverySlot.setOnClickListener {
             userViewModel.currentUserAddresses.observe(viewLifecycleOwner){
@@ -132,4 +141,13 @@ class DeliverySlotFragment : Fragment() {
 
 
 
+}
+class MyPagerSnapHelper: PagerSnapHelper() {
+
+    fun smoothScrollToPosition(layoutManager: RecyclerView.LayoutManager, position: Int) {
+        val smoothScroller = createScroller(layoutManager) ?: return
+
+        smoothScroller.targetPosition = position
+        layoutManager.startSmoothScroll(smoothScroller)
+    }
 }

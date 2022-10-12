@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModel
 import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModelFactory
 import kotlinx.android.synthetic.main.fragment_place_order.*
@@ -37,9 +39,9 @@ class PlaceOrderFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_place_order, container, false)
         view.apply {
-            totalItems_OrderDetail.text = orderDetailsViewModel.totalItems.toString()
-            subTotal_OrderDetail.text = orderDetailsViewModel.subTotal.toString()
             val decimal = DecimalFormat("#.00")
+            totalItems_OrderDetail.text = orderDetailsViewModel.totalItems.toString()
+            subTotal_OrderDetail.text = decimal.format(orderDetailsViewModel.subTotal)
             orderTotal_OrderDetail.text = decimal.format(orderDetailsViewModel.subTotal?.plus(15))
             orderDetailsViewModel.deliveringAddress?.apply {
                 materialTextView19.text = StringBuilder().append(
@@ -58,7 +60,21 @@ class PlaceOrderFragment : Fragment() {
             cod_option.setOnClickListener { activateOption(it) }
             place_order_button.setOnClickListener {
                 orderDetailsViewModel.paymentOption?.let {
+                    val orderDate = Date()
+                    val orderId = CodeGeneratorUtil.generateOrderId(orderDate)
+                    val subTotal = decimal.format(orderDetailsViewModel.subTotal).toDouble()
+                    val orderDateString = SimpleDateFormat("dd MMM yyyy - h:ma", Locale.getDefault()).format(orderDate)
+                    val numberOfItems = orderDetailsViewModel.totalItems!!
+                    val deliverySlot = SimpleDateFormat("dd MMM yyyy - h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
+                    val deliveryAddress = orderDetailsViewModel.deliveringAddress!!
+                    val mobileNumber = orderDetailsViewModel.mobileNumber!!
+                    val totalPrice = subTotal+15
+                    orderDetailsViewModel.userId?.let {
+                        val newOrder = OrderDetail(orderId,it, subTotal,orderDateString,numberOfItems,deliverySlot, deliveryAddress,mobileNumber,15.0, totalPrice)
+                        Log.e(TAG, newOrder.toString() )
+                    }
                     Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT).show()
+
                     findNavController().navigate(R.id.action_placeOrderFragment_to_homePageFragment)
                 } ?: Toast.makeText(context,"Choose a payment method! ", Toast.LENGTH_SHORT).show()
 

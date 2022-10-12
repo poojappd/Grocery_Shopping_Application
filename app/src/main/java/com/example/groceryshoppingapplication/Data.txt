@@ -17,3 +17,4 @@ TODO:
 8. //////////////////////////  DONE   //////////////increase total items in cart
 9. add space between dates
 10. increasing qty in cart makes it scroll to beginning...
+11. limit max length for house no. and display limit

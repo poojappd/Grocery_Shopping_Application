@@ -29,7 +29,7 @@ class ProductViewPagerAdapter(private val productCode:Int,private val imagesList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap = getBitmapFromAsset(productCode.toString(), false, imagesList.get(position))
+        val bitmap = getBitmapFromAsset(productCode.toString(), position)
         holder.image.setImageBitmap(bitmap)
     }
 

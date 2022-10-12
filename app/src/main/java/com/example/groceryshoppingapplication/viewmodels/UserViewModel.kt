@@ -66,11 +66,16 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
 
     fun addUserAddress(address: Address) {
-        repo.addUserAddress(address)
-        refreshUserAddresses()
+        viewModelScope.launch {
+            repo.addUserAddress(address)
+            refreshUserAddresses()
+        }
     }
 
-    fun updateUserAddress(address: Address) = repo.updateUserAddress(address)
+    fun deleteUserAddress(address: Address){ viewModelScope.launch { repo.deleteUserAddress(address) }
+    refreshUserAddresses()}
+
+    fun updateUserAddress(address: Address) =viewModelScope.launch { repo.updateUserAddress(address) }
 
     fun refreshUserAddresses() {
         _currentUserAddresses.value = repo.getUserAddresses(currentUser.value!!.userId).addresses

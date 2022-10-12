@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
                 android:hint="@string/hint_houseNo"
-
+                android:maxLength="20"
+                android:text="bbiubuibuibiubibiubibubiubbuibiubiubibuibi"
                 app:layout_constraintStart_toStartOf="@+id/materialTextView6"
                 android:id="@+id/textInputEditText"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />

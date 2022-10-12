@@ -8,12 +8,14 @@ import com.example.groceryshoppingapplication.models.Address
 import java.util.*
 
 class OrderDetailsViewModel (applicationContext: Context): ViewModel() {
+    var userId: String? = null
     var totalItems:Int? = null
     var subTotal:Double? = null
     var deliveringAddress:Address? = null
     var receiverName:String? = null
     var paymentOption:String? = null
     var deliverySlot: Date? =null
+    var mobileNumber:String? = null
 }
 class OrderDetailsViewModelFactory(val applicationContext: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

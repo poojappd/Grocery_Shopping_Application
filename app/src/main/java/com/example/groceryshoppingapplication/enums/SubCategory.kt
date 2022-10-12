@@ -14,7 +14,6 @@ enum class SubCategory(val value:String) {
     ATTA_FLOURS_AND_SOOJI("Atta Flours & Sooji"),
     RICE_AND_RICE_PRODUCTS("Rice & Rice Products"),
     DALS_AND_PULSES("Dals & Pulses"),
-    ORGANIC_STAPLES("Organic Staples"),
     EDIBLE_OILS_AND_GHEE("Edible Oils & Ghee"),
     SALT_SUGAR_AND_JAGGERY("Salt Sugar & Jaggery"),
     MASALAS_AND_SPICES("Masalas & Spices"),

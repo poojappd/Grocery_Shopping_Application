@@ -115,12 +115,34 @@ android:layout_weight="1"
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingHorizontal="10dp"
                 android:src="@drawable/edit_icon"
                 android:tint="#808BC3"
-                android:layout_gravity="center" />
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:id="@+id/editAddressButton"
+
+                />
+        <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/deleteAddressButton"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="20dp"
+
+                android:src="@drawable/deliete_icon"/>
+
+
     </LinearLayout>
+
+</LinearLayout>

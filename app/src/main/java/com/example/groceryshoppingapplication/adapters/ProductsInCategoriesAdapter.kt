@@ -70,7 +70,7 @@ class ProductsInCategoriesAdapter(
             )
 
             image.setImageBitmap(
-                getBitmapFromAsset(products.get(position).productCode.toString(),true)
+                getBitmapFromAsset(products.get(position).productCode.toString(),0)
             )
             container.setOnClickListener {
                productListTouchListener.navigate(products.get(position).productCode)

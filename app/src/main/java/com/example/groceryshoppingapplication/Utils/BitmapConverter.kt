@@ -4,33 +4,34 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.room.Index
+import com.example.groceryshoppingapplication.Utils.AssetManagerUtil.Companion.assetManager
+import com.example.groceryshoppingapplication.Utils.BitmapConverter.categImgHome
 import java.io.IOException
 import java.io.InputStream
 //
 object BitmapConverter {
     val categImgHome = AssetManagerUtil.assetManager.list("category_images")
+    private val assetManager = AssetManagerUtil.assetManager
+
 
     fun getBitmapFromAsset(
         productCode: String,
-        ifSingleImage: Boolean,
-        path: String? = null
+        position: Int
     ): Bitmap? {
-        val assetManager = AssetManagerUtil.assetManager
-        val path = if (ifSingleImage) "1.webp" else path
-        var istr: InputStream? = null
-        try {
-            istr = assetManager.open("product_images/$productCode/$path")
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Log.e(ContentValues.TAG, "IO EXCEPTION IN GETBITMAP METHOD")
-        }
-        return BitmapFactory.decodeStream(istr)
+            val imgPath = assetManager.list("product_images/$productCode")?.get(position)
+            var istr: InputStream? = null
+            try {
+                istr = assetManager.open("product_images/$productCode/$imgPath")
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Log.e(ContentValues.TAG, "IO EXCEPTION IN GETBITMAP METHOD")
+            }
+            return BitmapFactory.decodeStream(istr)
+
     }
 
     fun getBitmapForCategory(index: Int): Bitmap? {
         val imgPath = categImgHome!!.get(index)
-        val assetManager = AssetManagerUtil.assetManager
         var istr: InputStream? = null
         try {
             istr = assetManager.open("category_images/$imgPath")
@@ -41,4 +42,6 @@ object BitmapConverter {
         return BitmapFactory.decodeStream(istr)
 
     }
+
+
 }

@@ -18,4 +18,7 @@ interface IdDAO {
     @Query("select userId from User order by userId desc limit 1")
     fun getLastUserId(): String
 
+    @Query("select orderId from OrderDetail")
+    fun getOrderIds():List<String>
+
 }

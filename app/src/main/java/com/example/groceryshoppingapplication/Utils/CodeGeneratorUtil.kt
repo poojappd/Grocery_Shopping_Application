@@ -1,6 +1,9 @@
 package com.example.groceryshoppingapplication.Utils
 
+import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil.idDAO
 import com.example.groceryshoppingapplication.data.IdDAO
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 object CodeGeneratorUtil {
@@ -45,6 +48,17 @@ object CodeGeneratorUtil {
         return idDAO.getLastCartItemId(cartId)?.plus(1) ?: 1
     }
 
+
+    fun generateOrderId(orderDate: Date):String{
+        val ids = idDAO.getOrderIds()
+        var newOrderId:String
+        do {
+            val prefix = Random.nextInt(100000,1000000)
+            val postfix = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(orderDate)
+            newOrderId = "#$prefix-$postfix"
+        }while (ids.contains(newOrderId))
+        return newOrderId
+    }
 
 }
 

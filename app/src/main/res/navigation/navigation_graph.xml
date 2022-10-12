@@ -85,6 +85,9 @@
         <action
                 android:id="@+id/action_cartFragment_to_userNameFormFragment"
                 app:destination="@id/userNameFormFragment" />
+        <action
+                android:id="@+id/action_cartFragment_to_addressesFragment"
+                app:destination="@id/addressesFragment" />
     </fragment>
     <fragment
             android:id="@+id/userAccountFragment"
@@ -106,12 +109,30 @@
         <action
                 android:id="@+id/action_addressesFragment_to_editAddressFragment"
                 app:destination="@id/editAddressFragment" />
+        <argument
+                android:name="navigateToDeliverySlot"
+                app:argType="boolean"
+                android:defaultValue="false" />
     </fragment>
     <fragment
             android:id="@+id/editAddressFragment"
             android:name="com.example.groceryshoppingapplication.fragments.EditAddressFragment"
             android:label="Edit address"
-            tools:layout="@layout/fragment_edit_address" />
+            tools:layout="@layout/fragment_edit_address" >
+        <action
+                android:id="@+id/action_editAddressFragment_to_deliverySlotFragment"
+                app:destination="@id/deliverySlotFragment"
+                app:popUpTo="@+id/addressesFragment"
+                app:popUpToInclusive="true"/>
+        <argument
+                android:name="addressIdToDisplay"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        <argument
+                android:name="navigateToDeliverySlotFragment"
+                app:argType="boolean"
+                android:defaultValue="false" />
+    </fragment>
     <fragment
             android:id="@+id/userDetailsEditFragment"
             android:name="com.example.groceryshoppingapplication.fragments.UserDetailsEditFragment"
@@ -127,6 +148,9 @@
         <action
                 android:id="@+id/action_deliverySlotFragment_to_placeOrderFragment"
                 app:destination="@id/placeOrderFragment" />
+        <action
+                android:id="@+id/action_deliverySlotFragment_to_addressesFragment"
+                app:destination="@id/addressesFragment" />
     </fragment>
     <fragment
             android:id="@+id/placeOrderFragment"

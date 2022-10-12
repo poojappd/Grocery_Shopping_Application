@@ -27,10 +27,13 @@ interface UserDAO{
     fun getUserAddresses(userId:String): UserAndAddresses
 
     @Insert
-    fun addUserAddress(address: Address)
+    suspend fun addUserAddress(address: Address)
 
     @Update
-    fun updateUserAddress(address: Address)
+    suspend fun updateUserAddress(address: Address)
+
+    @Delete
+    suspend fun deleteUserAddress(address: Address)
 
     @Transaction
     @Query("select * from User where userId = :userId")

@@ -35,6 +35,11 @@ class CartFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG, "ONResumE CART FRAGMENT")
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +64,15 @@ class CartFragment : Fragment() {
                 view.extFloatingActionButton.setOnClickListener { fabView->
                     orderDetailsViewModel.subTotal = totalPrice
                     orderDetailsViewModel.totalItems = it.size
-                    findNavController().navigate(R.id.action_cartFragment_to_deliverySlotFragment)
+                    orderDetailsViewModel.userId = viewmodel.currentUser.value?.userId
+                    orderDetailsViewModel.mobileNumber = viewmodel.currentUser.value?.mobileNumber
+                    if(viewmodel.currentUserAddresses.value?.isEmpty() == true){
+                        val action = CartFragmentDirections.actionCartFragmentToAddressesFragment(true)
+                        findNavController().navigate(action)
+                    }
+                    else {
+                        findNavController().navigate(R.id.action_cartFragment_to_deliverySlotFragment)
+                    }
                 }
                 val decimal = DecimalFormat("#.00")
                 for(i in it){

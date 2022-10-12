@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="121dp"
             android:orientation="vertical"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/materialTextView17"
             app:layout_constraintStart_toStartOf="@+id/materialTextView17"
             android:id="@+id/linearLayout7"
@@ -190,6 +190,8 @@
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
                 android:text="Pooja, no. 18, 9th street, pammal, chennai"
                 android:layout_marginStart="1dp"
                 android:gravity="start"
@@ -227,6 +229,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tuesday 9th October  -"
+                android:layout_marginTop="8dp"
+
                 android:layout_marginStart="1dp"
                 android:gravity="start"
                 android:fontFamily="@font/cabin"
@@ -242,8 +246,9 @@
                 android:fontFamily="@font/cabin"
                 android:id="@+id/materialTextView22"
                 app:layout_constraintStart_toEndOf="@+id/materialTextView21"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView20"
-                android:layout_marginStart="4dp" />
+                android:layout_marginStart="4dp"
+                app:layout_constraintTop_toTopOf="@+id/materialTextView21"
+                app:layout_constraintBottom_toBottomOf="@+id/materialTextView21" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

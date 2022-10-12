@@ -32,9 +32,11 @@ class UserRepository(database: AppDatabase) {
 
     fun getUserAddresses(userId:String) = userDao.getUserAddresses(userId)
 
-    fun addUserAddress(address: Address) = userDao.addUserAddress(address)
+    suspend fun addUserAddress(address: Address) = userDao.addUserAddress(address)
 
-    fun updateUserAddress(address: Address) = userDao.updateUserAddress(address)
+    suspend fun updateUserAddress(address: Address) = userDao.updateUserAddress(address)
+
+    suspend fun deleteUserAddress(address: Address) = userDao.deleteUserAddress(address)
 
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 

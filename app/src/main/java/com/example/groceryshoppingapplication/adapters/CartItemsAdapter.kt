@@ -20,10 +20,14 @@ class CartItemsAdapter(
     private val cartItemTotalPriceListener: (Double) -> Unit
 ) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
+    private lateinit var maxQuantityReachedToast:Toast
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.cart_single_item, parent, false)
+        maxQuantityReachedToast = Toast.makeText(parent.context,"Maximum ordering quantity for this product is 10",Toast.LENGTH_SHORT)
         return CartItemsViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
@@ -40,7 +44,7 @@ class CartItemsAdapter(
             image.setImageBitmap(
                 getBitmapFromAsset(
                     cartItems.get(position).productCode.toString(),
-                    true
+                    0
                 )
             )
             increaseButton.setOnClickListener {
@@ -49,7 +53,7 @@ class CartItemsAdapter(
                     cartItemTouchListener.addToCart(productCode)
                 }
                 else{
-                    Toast.makeText(holder.decreaseButton.context,"Maximum ordering quantity for this product is 10",Toast.LENGTH_SHORT).show()
+                    maxQuantityReachedToast.show()
                 }
             }
 

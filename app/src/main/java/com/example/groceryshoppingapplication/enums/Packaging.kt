@@ -7,5 +7,4 @@ enum class Packaging(val value:String) {
     BOTTLE("Bottle"),
     JAR("Jar"),
     CAN("Can"),
-
 }

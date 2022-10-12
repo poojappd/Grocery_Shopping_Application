@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.SharedPrefViewModel
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
@@ -29,6 +32,8 @@ class EditAddressFragment : Fragment() {
     private val userViewModel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
+
+    private val args : EditAddressFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,7 +76,12 @@ class EditAddressFragment : Fragment() {
             val address = Address(userId, pincode, houseNo, streetDetail, landmark, areaDetail, city,newAddressTag,addressId)
 
             userViewModel.addUserAddress(address)
-            findNavController().popBackStack()
+            if(args.navigateToDeliverySlotFragment == true){
+               findNavController().navigate(R.id.action_editAddressFragment_to_deliverySlotFragment)
+
+            }
+            else{
+            findNavController().popBackStack()}
         }
         return view
     }
