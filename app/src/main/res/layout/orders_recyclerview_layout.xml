@@ -1,12 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-<com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    android:id="@+id/orderDate_tv"
-        android:text="12 Oct 2022 - 9 PM"
-        />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/deliveryslot_not_selected"
+        android:padding="20dp"
+android:layout_margin="12dp"
+        >
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/Constant_tv_orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:text="Order"
+        android:fontFamily="@font/montserrat_alternates"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderId_ordersRv"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_alternates"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="#12980-20221013"
+            app:layout_constraintStart_toEndOf="@id/Constant_tv_orderId"
+            app:layout_constraintBaseline_toBaselineOf="@+id/Constant_tv_orderId" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderedDate_tv"
+            android:text="12-10-22"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/montserrat_alternates"
+            app:layout_constraintStart_toEndOf="@+id/orderId_ordersRv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/orderId_ordersRv"
+            app:layout_constraintBottom_toBottomOf="@+id/orderId_ordersRv" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemCount_OrdersRv"
+            android:text="3 Items"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cabin"
+
+            app:layout_constraintTop_toBottomOf="@+id/Constant_tv_orderId"
+            app:layout_constraintStart_toStartOf="@+id/Constant_tv_orderId" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/deliverySlot_ordersRv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery on: 12 Oct 8PM"
+            app:layout_constraintTop_toBottomOf="@+id/itemCount_OrdersRv"
+            android:fontFamily="@font/cabin"
+            app:layout_constraintStart_toStartOf="@+id/itemCount_OrdersRv" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 300"
+            android:textSize="16dp"
+            android:textColor="#959CDD"
+            android:fontFamily="@font/cabin"
+            app:layout_constraintStart_toStartOf="@+id/deliverySlot_ordersRv"
+            app:layout_constraintTop_toBottomOf="@+id/deliverySlot_ordersRv"
+            android:layout_marginTop="8dp"
+            android:id="@+id/materialTextView26" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:background="@drawable/signup_edittext_bg"
+            android:backgroundTint="#3EC6BCFD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Placed"
+            android:drawableStart="@drawable/time_icon1"
+            android:drawableTint="#A1AFFC"
+            android:drawablePadding="10dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="15dp"
+            android:fontFamily="@font/montserrat_alternates"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/orderStatus_tv_ordersRv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

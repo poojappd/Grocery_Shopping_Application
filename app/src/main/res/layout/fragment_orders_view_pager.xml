@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.recyclerview.widget.RecyclerView
+        tools:context=".fragments.OrdersViewPagerFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/orders_recyclerview_layout"
+        android:id="@+id/myOrders_recyclerView_viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/tab"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        />

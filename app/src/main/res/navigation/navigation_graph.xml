@@ -100,6 +100,9 @@
         <action
                 android:id="@+id/action_userAccountFragment_to_userDetailsEditFragment"
                 app:destination="@id/userDetailsEditFragment" />
+        <action
+                android:id="@+id/action_userAccountFragment_to_allOrdersFragment"
+                app:destination="@id/allOrdersFragment" />
     </fragment>
     <fragment
             android:id="@+id/addressesFragment"
@@ -161,5 +164,10 @@
                 android:id="@+id/action_placeOrderFragment_to_homePageFragment"
                 app:destination="@id/homePageFragment" />
     </fragment>
+    <fragment
+            android:id="@+id/allOrdersFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.AllOrdersFragment"
+            android:label="fragment_orders"
+            tools:layout="@layout/fragment_orders" />
 
 </navigation>

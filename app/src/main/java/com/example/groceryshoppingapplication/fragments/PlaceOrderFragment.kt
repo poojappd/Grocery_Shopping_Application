@@ -11,15 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModel
 import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.OrderHistoryViewModel
+import com.example.groceryshoppingapplication.viewmodels.OrderHistoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_place_order.*
 import kotlinx.android.synthetic.main.fragment_place_order.view.*
-import kotlinx.coroutines.delay
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,6 +32,7 @@ class PlaceOrderFragment : Fragment() {
     val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
     }
+
     lateinit var lastView: View
     lateinit var lastCheckView: View
     override fun onCreateView(
@@ -69,9 +72,26 @@ class PlaceOrderFragment : Fragment() {
                     val deliveryAddress = orderDetailsViewModel.deliveringAddress!!
                     val mobileNumber = orderDetailsViewModel.mobileNumber!!
                     val totalPrice = subTotal+15
+                    val paymentMethod = orderDetailsViewModel.paymentOption!!
                     orderDetailsViewModel.userId?.let {
-                        val newOrder = OrderDetail(orderId,it, subTotal,orderDateString,numberOfItems,deliverySlot, deliveryAddress,mobileNumber,15.0, totalPrice)
+                        val newOrder = OrderDetail(
+                            orderId,
+                            it,
+                            subTotal,
+                            orderDateString,
+                            numberOfItems,
+                            deliverySlot,
+                            deliveryAddress,
+                            mobileNumber,
+                            15.0,
+                            totalPrice,
+                            paymentMethod
+                        )
                         Log.e(TAG, newOrder.toString() )
+                        val viewModel: OrderHistoryViewModel by viewModels{
+                            OrderHistoryViewModelFactory(requireContext().applicationContext,it)
+                        }
+                        viewModel.createNewOrder(newOrder)
                     }
                     Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT).show()
 

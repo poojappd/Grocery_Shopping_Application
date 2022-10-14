@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.groceryshoppingapplication.Utils.DateTimeFormatter.formatDate
 import com.example.groceryshoppingapplication.enums.OrderStatus
-import java.text.DateFormat
 import java.util.*
 
 @Entity
@@ -21,6 +20,7 @@ data class OrderDetail(
     val mobileNumber: String,
     val deliveryCharges:Double,
     val totalPrice: Double,
+    val paymentMethod:String,
 
     val orderStatus: OrderStatus = OrderStatus.ORDERED,
 )

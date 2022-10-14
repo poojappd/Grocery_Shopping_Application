@@ -24,11 +24,11 @@ interface OrdersDAO {
 
     @Transaction
     @Query("select * from OrderDetail where userId = :userId")
-    fun getUserOrders(userId:Int): List<UserAndOrders>
+    fun getUserOrders(userId:String): UserAndOrders
 
     @Transaction
     @Query("select * from OrderDetail where orderId = :orderId")
-    fun getOrderedItemsFromOrder(orderId:String): List<OrderDetailAndOrderedItems>
+    fun getOrderedItemsFromOrder(orderId:String): OrderDetailAndOrderedItems
 
 
 }

@@ -28,6 +28,9 @@ class UserAccountFragment : Fragment() {
         view.textView19.setOnClickListener {
            // requireActivity().getSharedPreferences()
         }
+        view.textView16.setOnClickListener {
+            findNavController().navigate(R.id.action_userAccountFragment_to_allOrdersFragment)
+        }
         return view
     }
 }

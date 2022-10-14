@@ -36,7 +36,7 @@
                     android:text="Product title which might possibly be bigger than this"
                     android:textColor="@color/black"
                     android:fontFamily="@font/cabin"
-                    android:textSize="17sp" />
+                    android:textSize="14sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:text="Rs."
                         android:fontFamily="@font/cabin"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:layout_gravity="bottom"
                         android:textColor="#7185EE"
                         android:shadowColor="#A6B4F1"
@@ -106,7 +106,7 @@
                         android:layout_gravity="bottom"
                         android:text="100"
                         android:textColor="@color/black"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
                         app:layout_constraintStart_toEndOf="@+id/textView4"
                         android:layout_marginStart="8dp" />

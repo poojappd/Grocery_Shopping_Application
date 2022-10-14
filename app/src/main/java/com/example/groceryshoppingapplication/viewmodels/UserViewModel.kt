@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 class UserViewModel(applicationContext: Context) : ViewModel() {
 
     private val repo = UserRepository(AppDatabase.getDatabase(applicationContext))
-    private val myOrdersRepo = OrdersRepository(AppDatabase.getDatabase(applicationContext))
     private val myCartRepo = CartRepository(AppDatabase.getDatabase(applicationContext))
     private var _currentUser = MutableLiveData<User>()
     private var _currentUserCart = MutableLiveData<CartEntity>()
@@ -36,7 +35,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
     val currentUser = _currentUser
     val currentUserCart = _currentUserCart
-    val currentUserOrders = _currentUserOrders
     val currentUserAddresses = _currentUserAddresses
     val cartItemsTotalPrice = _cartItemsTotalPrice
 

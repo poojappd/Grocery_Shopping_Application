@@ -11,12 +11,12 @@ class OrdersRepository(database: AppDatabase) {
 
     suspend fun createOrder(order: OrderDetail) = ordersDAO.createOrder(order)
 
-    suspend fun addOrderedItem(orderItem: OrderedItemEntity) = ordersDAO.addOrderedItem(orderItem)
+    suspend fun addOrderedItemToOrder(orderItem: OrderedItemEntity) = ordersDAO.addOrderedItem(orderItem)
 
     suspend fun updateOrderStatus(orderStatus: OrderStatus, orderId: String) =
         ordersDAO.updateOrderStatus(orderStatus, orderId)
 
-    fun getUserOrders(userId: Int) = ordersDAO.getUserOrders(userId)
+    fun getUserOrders(userId: String) = ordersDAO.getUserOrders(userId)
 
     fun getOrderedItemsFromOrder(orderId: String) = ordersDAO.getOrderedItemsFromOrder(orderId)
 }

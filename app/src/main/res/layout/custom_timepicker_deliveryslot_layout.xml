@@ -22,7 +22,7 @@
                 android:fontFamily="@font/cabin"
                android:background="@drawable/deliveryslot_selected_states"
                 android:textAllCaps="false"
-                android:textColor="#A094BA"
+                android:textColor="#959CDD"
                 app:cornerRadius="30dp"
                  />
     </LinearLayout>
