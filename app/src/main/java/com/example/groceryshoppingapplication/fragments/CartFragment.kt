@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.CartItemData
-import com.example.groceryshoppingapplication.CartItemTouchListener
+import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.CartItemsAdapter
 import com.example.groceryshoppingapplication.viewmodels.*

@@ -41,11 +41,15 @@
     <fragment
         android:id="@+id/productsListFragment"
         android:name="com.example.groceryshoppingapplication.fragments.ProductsListFragment"
-        android:label="fragment_products_list"
         tools:layout="@layout/fragment_products_list" >
         <action
             android:id="@+id/action_productsListFragment_to_singleProductViewFragment"
             app:destination="@id/singleProductViewFragment" />
+        <argument
+                android:name="subCategory"
+                app:argType="com.example.groceryshoppingapplication.enums.SubCategory"
+                android:defaultValue="BISCUITS_AND_COOKIES" />
+
     </fragment>
     <fragment
         android:id="@+id/singleProductViewFragment"

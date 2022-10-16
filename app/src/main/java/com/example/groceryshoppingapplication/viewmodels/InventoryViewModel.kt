@@ -3,6 +3,7 @@ package com.example.groceryshoppingapplication.viewmodels
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.groceryshoppingapplication.data.AppDatabase
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.repositories.InventoryRepository
 
@@ -17,6 +18,9 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
 
     fun getProductDetailsSynchronously(productCode: Int): GroceryItemEntity =
         repo.getProductDetailsSynchronously(productCode)
+
+    fun getProductsUnderSubCategory(subCategory: SubCategory) = repo.getProductsUnderSubCategory(subCategory)
+
 
 }
 

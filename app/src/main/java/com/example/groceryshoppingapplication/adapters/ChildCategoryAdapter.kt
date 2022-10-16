@@ -1,17 +1,14 @@
 package com.example.groceryshoppingapplication.adapters
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.groceryshoppingapplication.ChildCategoryRowData
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.enums.SubCategory
 
-class ChildCategoryAdapter(private val navController: NavController, val categoryDataHolder: List<ChildCategoryRowData>) : RecyclerView.Adapter<ChildCategoryAdapter.ViewHolder>(){
+class ChildCategoryAdapter(private val categoryDataHolder: List<SubCategory>, private val navigationListener: (SubCategory)->Unit) : RecyclerView.Adapter<ChildCategoryAdapter.ViewHolder>(){
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val title = view.findViewById<TextView>(R.id.sub_categ_title)
@@ -19,21 +16,18 @@ class ChildCategoryAdapter(private val navController: NavController, val categor
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.sub_category_single_row, parent, false)
-
-        val viewHolder = ViewHolder(view)
-        return viewHolder
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.sub_category_single_row, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.title.text = categoryDataHolder.get(position).title
+        holder.title.text = categoryDataHolder.get(position).value
         holder.itemView.setOnClickListener {
-            Log.e(ContentValues.TAG,"clicked subtitle - ${categoryDataHolder.get(position).title}")
-            navController.navigate(R.id.action_allCategoriesFragment_to_productsListFragment)
+            navigationListener(categoryDataHolder.get(position))
 
         }
-        Log.e(ContentValues.TAG,"${categoryDataHolder.get(position)} \n$position")
     }
 
     override fun getItemCount(): Int {

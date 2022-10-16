@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         //setupWithNavController(bottomNavigationView, navController)
         bottomNavigationView.setOnItemSelectedListener{
             when(it.itemId){
-                R.id.homePageFragment -> {navController.navigate(R.id.homePageFragment)}
+                R.id.homePageFragment -> {navController.navigate(R.id.homePageFragment)
+                }
                 R.id.allCategoriesFragment -> navController.navigate(R.id.allCategoriesFragment)
                 R.id.userAccountFragment -> navController.navigate(R.id.userAccountFragment)
                 else -> navController.navigate(R.id.cartFragment)
@@ -50,9 +51,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onSupportNavigateUp(): Boolean {
 
-        return navController.navigateUp()
-    }
 
 }

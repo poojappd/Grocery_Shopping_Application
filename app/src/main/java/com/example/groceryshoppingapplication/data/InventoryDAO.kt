@@ -2,7 +2,9 @@ package com.example.groceryshoppingapplication.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.ProductAvailability
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.relations.CartItemAndProduct
 
@@ -17,6 +19,12 @@ interface InventoryDAO {
 
     @Query("select COUNT(productCode) from Inventory where productCode = :productCode")
     suspend fun getItemQuantity(productCode: Int):Int
+
+    @Query("select * from Inventory where subCategory = :subCategory")
+    fun getProductsUnderSubCategory(subCategory: SubCategory): List<GroceryItemEntity>
+
+    @Query("select * from Inventory where category = :category")
+    fun getProductsUnderGeneralCategory(category: GeneralCategory):List<GroceryItemEntity>
 
     @Query("select * from Inventory where productCode = :productCode")
     fun getItemDetails(productCode: Int): LiveData<GroceryItemEntity>

@@ -5,6 +5,7 @@ import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.data.InventoryDAO
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.enums.Response
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 
 class InventoryRepository(appDatabase: AppDatabase) {
@@ -19,6 +20,9 @@ class InventoryRepository(appDatabase: AppDatabase) {
 
     fun getProductDetailsSynchronously(productCode: Int): GroceryItemEntity =
         inventoryDAO.getItemDetailsSynchronously(productCode)
+
+    fun getProductsUnderSubCategory(subCategory: SubCategory) = inventoryDAO.getProductsUnderSubCategory(subCategory)
+
     //to be called at checkout phase
 
     suspend fun fetchProductFromInventory(productCode: Int, quantity: Int): Response {

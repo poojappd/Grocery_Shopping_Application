@@ -2,29 +2,20 @@ package com.example.groceryshoppingapplication.adapters
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.groceryshoppingapplication.ProductListTouchListener
+import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
 import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
 import com.example.groceryshoppingapplication.enums.Response
-import com.example.groceryshoppingapplication.fragments.ProductsListFragmentDirections
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.single_product_row_item_in_list.view.*
-import java.io.IOException
-import java.io.InputStream
 import java.lang.StringBuilder
 import java.text.DecimalFormat
 

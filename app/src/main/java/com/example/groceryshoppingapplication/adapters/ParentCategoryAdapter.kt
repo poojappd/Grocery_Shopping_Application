@@ -1,25 +1,23 @@
 package com.example.groceryshoppingapplication.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.example.groceryshoppingapplication.ChildCategoryRowData
-import com.example.groceryshoppingapplication.ParentCategoryRowData
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.enums.GeneralCategory
+import com.example.groceryshoppingapplication.enums.SubCategory
+import com.example.groceryshoppingapplication.listeners.CategoryItemTouchListener
 
 class ParentCategoryAdapter (
-    private val navController: NavController,
-    val context: Context,
-    val parentCategoryData: List<ParentCategoryRowData>,
-    val childCategoryData: List<List<ChildCategoryRowData>>
+    val parentCategoryData: Map<GeneralCategory,List<SubCategory>>,
+    val categoryImages: Array<Int>,
+    val listener: CategoryItemTouchListener
 ) : RecyclerView.Adapter<ParentCategoryAdapter.CategoryViewHolder>() {
 
 
@@ -31,9 +29,9 @@ class ParentCategoryAdapter (
     }
 
     override fun onBindViewHolder(categoryViewHolder: CategoryViewHolder, position: Int) {
-        val rowData = parentCategoryData.get(position)
-        categoryViewHolder.iconView.setImageResource(rowData.imageId)
-        categoryViewHolder.descriptionView.text = rowData.title
+        val rowData = parentCategoryData.keys.toList().get(position)
+        categoryViewHolder.iconView.setImageResource(categoryImages[position])
+        categoryViewHolder.descriptionView.text = rowData.value
 
 
         //onclick listener for category dropdown
@@ -53,9 +51,8 @@ class ParentCategoryAdapter (
 
         }
 
-
-        val adapterMember = ChildCategoryAdapter(navController, childCategoryData.get(position))
-        val linearLayoutManager = LinearLayoutManager(context)
+        val adapterMember = ChildCategoryAdapter(parentCategoryData.get(rowData)!!){subCategory:SubCategory->listener.navigateToFragment(subCategory)}
+        val linearLayoutManager = LinearLayoutManager(listener.getContext())
 
         categoryViewHolder.nestedRV.layoutManager = linearLayoutManager
         categoryViewHolder.nestedRV.adapter = adapterMember

@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.adapters.ParentCategoryAdapter
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CategoriesUtil
+import com.example.groceryshoppingapplication.enums.SubCategory
+import com.example.groceryshoppingapplication.listeners.CategoryItemTouchListener
 
 
 class AllCategoriesFragment : Fragment() {
@@ -24,15 +27,28 @@ class AllCategoriesFragment : Fragment() {
         val recyclerViewParent = view.findViewById<RecyclerView>(R.id.category_list)
         recyclerViewParent.layoutManager = LinearLayoutManager(context)
         val generalCategories = CategoriesUtil(requireContext())
+        val parentAndChildCategory = generalCategories.categoryMap
+        val parentImages = generalCategories.categoryImages
 
         recyclerViewParent.adapter = ParentCategoryAdapter(
-            findNavController(),
-            requireContext(),
-            generalCategories.parentCategoryArray,
-            generalCategories.childCategoryArray
+            parentAndChildCategory,
+            parentImages,
+            CategoryItemTouchListenerImpl()
         )
 
         return view
+    }
+
+    private inner class CategoryItemTouchListenerImpl(): CategoryItemTouchListener{
+        override fun navigateToFragment(subCategory: SubCategory) {
+            val action = AllCategoriesFragmentDirections.actionAllCategoriesFragmentToProductsListFragment(subCategory)
+            findNavController().navigate(action)
+        }
+
+        override fun getContext(): Context {
+            return requireContext()
+        }
+
     }
 
 

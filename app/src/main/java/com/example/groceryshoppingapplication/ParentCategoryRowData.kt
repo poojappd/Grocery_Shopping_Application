@@ -1,3 +1,5 @@
 package com.example.groceryshoppingapplication
 
-data class ParentCategoryRowData(val imageId: Int, val title:String)
+import com.example.groceryshoppingapplication.enums.GeneralCategory
+
+data class ParentCategoryRowData(val imageId: Int, val title:GeneralCategory)
