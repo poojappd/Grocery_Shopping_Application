@@ -48,7 +48,11 @@
         <argument
                 android:name="subCategory"
                 app:argType="com.example.groceryshoppingapplication.enums.SubCategory"
-                android:defaultValue="BISCUITS_AND_COOKIES" />
+                android:defaultValue="NONE" />
+        <argument
+                android:name="generalCategory"
+                app:argType="com.example.groceryshoppingapplication.enums.GeneralCategory"
+                android:defaultValue="NONE" />
 
     </fragment>
     <fragment
@@ -107,6 +111,12 @@
         <action
                 android:id="@+id/action_userAccountFragment_to_allOrdersFragment"
                 app:destination="@id/allOrdersFragment" />
+        <action
+                android:id="@+id/action_userAccountFragment_to_ordersViewPagerFragment"
+                app:destination="@id/ordersViewPagerFragment" />
+        <action
+                android:id="@+id/action_userAccountFragment_to_wishListFragment"
+                app:destination="@id/wishListFragment" />
     </fragment>
     <fragment
             android:id="@+id/addressesFragment"
@@ -173,5 +183,15 @@
             android:name="com.example.groceryshoppingapplication.fragments.AllOrdersFragment"
             android:label="fragment_orders"
             tools:layout="@layout/fragment_orders" />
+    <fragment
+            android:id="@+id/ordersViewPagerFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.OrdersViewPagerFragment"
+            android:label="My Orders"
+            tools:layout="@layout/fragment_orders_view_pager" />
+    <fragment
+            android:id="@+id/wishListFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.WishListFragment"
+            android:label="fragment_wish_list"
+            tools:layout="@layout/fragment_wish_list" />
 
 </navigation>

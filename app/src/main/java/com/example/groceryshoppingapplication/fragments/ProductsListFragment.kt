@@ -16,6 +16,7 @@ import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.enums.Response
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
@@ -25,34 +26,44 @@ import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 class ProductsListFragment : Fragment() {
     private lateinit var productsInCategoriesAdapter: ProductsInCategoriesAdapter
-    private val args : ProductsListFragmentArgs by navArgs()
+    private val args: ProductsListFragmentArgs by navArgs()
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
-            InventoryViewModelFactory(requireActivity().applicationContext)
+        InventoryViewModelFactory(requireActivity().applicationContext)
     }
-    private val viewmodel : UserViewModel by activityViewModels {
+    private val viewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val subCategory = args.subCategory
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = subCategory.value
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         val recyclerView = view.products_list_recyclerView
-         recyclerView.layoutManager = LinearLayoutManager(context)
-        val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
-        productsInCategoriesAdapter =
-            ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
-        recyclerView.adapter = productsInCategoriesAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        if (args.subCategory != SubCategory.NONE) {
+            val subCategory = args.subCategory
+            Log.e(TAG, subCategory.value)
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = subCategory.value
+            // Inflate the layout for this fragment
 
-//
-//        inventoryViewModel.allProductsInInventory.observe(viewLifecycleOwner){
-//            Log.e(TAG, "INSIDE VIEWMODEL OBSERVE $it")
-//            productsInCategoriesAdapter = ProductsInCategoriesAdapter(it,requireContext(),ProductListTouchListenerImpl())
-//            recyclerView.adapter = productsInCategoriesAdapter
-//        }
+            val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
+            productsInCategoriesAdapter =
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+            recyclerView.adapter = productsInCategoriesAdapter
+        }
+        else{
+            val category = args.generalCategory
+            Log.e(TAG, category.value)
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = category.value
+            // Inflate the layout for this fragment
+
+            val items = inventoryViewModel.getProductsUnderGeneralCategory(category)
+            productsInCategoriesAdapter =
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+            recyclerView.adapter = productsInCategoriesAdapter
+        }
+
         return view
     }
 

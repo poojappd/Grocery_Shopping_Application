@@ -10,6 +10,8 @@ enum class GeneralCategory(val value:String) {
     SNACKS_AND_BRANDED_FOODS("Snacks & Branded Foods"),
     CLEANING_AND_HOUSEHOLD("Cleaning & Household"),
     GARDEN_AND_PETS("Garden & Pets"),
+    NONE("None")
+
 }
 
 val categoryMap:Map<GeneralCategory,List<SubCategory>> =

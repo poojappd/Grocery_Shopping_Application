@@ -29,7 +29,10 @@ class UserAccountFragment : Fragment() {
            // requireActivity().getSharedPreferences()
         }
         view.textView16.setOnClickListener {
-            findNavController().navigate(R.id.action_userAccountFragment_to_allOrdersFragment)
+            findNavController().navigate(R.id.action_userAccountFragment_to_ordersViewPagerFragment)
+        }
+        view.textView18.setOnClickListener {
+            findNavController().navigate(R.id.action_userAccountFragment_to_wishListFragment)
         }
         return view
     }

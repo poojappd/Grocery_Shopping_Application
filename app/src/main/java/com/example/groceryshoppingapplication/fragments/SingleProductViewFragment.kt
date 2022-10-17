@@ -9,16 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
-import com.example.groceryshoppingapplication.adapters.ProductViewPagerAdapter
+import com.example.groceryshoppingapplication.adapters.AdvertisementViewPager
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.enums.Response
+import com.example.groceryshoppingapplication.adapters.ProductViewPagerAdapter
 import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_single_product_view.*
 import kotlinx.android.synthetic.main.fragment_single_product_view.view.*
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 class SingleProductViewFragment : Fragment() {

@@ -1,7 +1,5 @@
 package com.example.groceryshoppingapplication.adapters
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
 import com.example.groceryshoppingapplication.models.CartItemEntity
 import kotlinx.android.synthetic.main.cart_single_item.view.*
 import java.text.DecimalFormat
@@ -36,13 +34,12 @@ class CartItemsAdapter(
         val decimal = DecimalFormat("#.00")
         holder.apply {
             title.text = extras.productTitle
-            Log.e(TAG, "BINDED at $position $title")
             val qty = cartItems.get(position).quantity
             price.text = decimal.format(extras.productPrice * qty)
 
             count.text = qty.toString()
             image.setImageBitmap(
-                getBitmapFromAsset(
+                getProductBitmapFromAsset(
                     cartItems.get(position).productCode.toString(),
                     0
                 )

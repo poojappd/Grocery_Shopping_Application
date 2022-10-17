@@ -3,9 +3,11 @@ package com.example.groceryshoppingapplication
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.WindowInsets.Side.all
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
-        setupActionBarWithNavController(navController)
 
         //setupWithNavController(bottomNavigationView, navController)
         bottomNavigationView.setOnItemSelectedListener{
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    override fun onSupportNavigateUp(): Boolean {
+
+        return navController.navigateUp()
+    }
+
 
 
 

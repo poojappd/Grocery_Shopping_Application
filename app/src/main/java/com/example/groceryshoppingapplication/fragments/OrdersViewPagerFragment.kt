@@ -16,8 +16,11 @@ import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_orders_view_pager.view.*
 
 
-class OrdersViewPagerFragment(private val applicationContext: Context) : Fragment() {
-
+class OrdersViewPagerFragment() : Fragment() {
+    private lateinit var applicationContext: Context
+constructor(applicationContext: Context) : this() {
+    this.applicationContext = applicationContext
+}
 
 
     override fun onCreateView(
@@ -25,6 +28,8 @@ class OrdersViewPagerFragment(private val applicationContext: Context) : Fragmen
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        if(!this::applicationContext.isInitialized)
+            applicationContext = requireActivity().applicationContext
         val view = inflater.inflate(R.layout.fragment_orders_view_pager, container, false)
         val userId: String
         if (applicationContext!=null) {

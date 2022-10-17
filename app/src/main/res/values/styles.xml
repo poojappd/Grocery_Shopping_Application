@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarTheme" parent="Theme.GroceryShoppingApplication">
+        <item name="android:fontFamily">@font/montserrat_alternates</item>
+    </style>
+</resources>

@@ -3,16 +3,19 @@ package com.example.groceryshoppingapplication.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.BitmapFactory
 import kotlinx.android.synthetic.main.view_pager_item_image.view.*
 
-class ProductViewPagerAdapter(private val productCode:Int,private val imagesList: Array<String>) :
-    RecyclerView.Adapter<ProductViewPagerAdapter.ViewHolder>() {
+
+class AdvertisementViewPager:
+    RecyclerView.Adapter<AdvertisementViewPager.ViewHolder>() {
+    private val imagesList = BitmapFactory.getAdvertisementBitmapFromAsset()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image = view.product_image_in_viewpager
+        val image: ImageView = view.product_image_in_viewpager
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +25,7 @@ class ProductViewPagerAdapter(private val productCode:Int,private val imagesList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap = getProductBitmapFromAsset(productCode.toString(), position)
+        val bitmap = imagesList[position]
         holder.image.setImageBitmap(bitmap)
     }
 

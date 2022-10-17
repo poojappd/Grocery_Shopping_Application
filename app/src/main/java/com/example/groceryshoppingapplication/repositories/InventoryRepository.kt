@@ -3,6 +3,7 @@ package com.example.groceryshoppingapplication.repositories
 import androidx.lifecycle.LiveData
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.data.InventoryDAO
+import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.enums.SubCategory
@@ -22,6 +23,8 @@ class InventoryRepository(appDatabase: AppDatabase) {
         inventoryDAO.getItemDetailsSynchronously(productCode)
 
     fun getProductsUnderSubCategory(subCategory: SubCategory) = inventoryDAO.getProductsUnderSubCategory(subCategory)
+
+    fun getProductsUnderGeneralCategory(category: GeneralCategory) = inventoryDAO.getProductsUnderGeneralCategory(category)
 
     //to be called at checkout phase
 

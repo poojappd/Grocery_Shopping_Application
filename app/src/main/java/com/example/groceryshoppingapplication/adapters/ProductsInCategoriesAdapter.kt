@@ -12,7 +12,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.Utils.BitmapConverter.getBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import kotlinx.android.synthetic.main.single_product_row_item_in_list.view.*
@@ -61,7 +61,7 @@ class ProductsInCategoriesAdapter(
             )
 
             image.setImageBitmap(
-                getBitmapFromAsset(products.get(position).productCode.toString(),0)
+                getProductBitmapFromAsset(products.get(position).productCode.toString(),0)
             )
             container.setOnClickListener {
                productListTouchListener.navigate(products.get(position).productCode)

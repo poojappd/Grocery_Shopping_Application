@@ -12,10 +12,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
 import com.example.groceryshoppingapplication.adapters.DeliverySlotTimeAdapter
@@ -73,7 +70,7 @@ class DeliverySlotFragment : Fragment() {
                 view.continue_button_deliverySlot.visibility = View.VISIBLE
             },deliverySlotViewModel.timePosition)
             view.invisible_time_picker.visibility = View.VISIBLE
-            val tlv = LinearLayoutManager(context)
+            val tlv = GridLayoutManager(context,1)
             view.timeChoose_rv.layoutManager = tlv
             tlv.scrollToPositionWithOffset(2, 20);
 

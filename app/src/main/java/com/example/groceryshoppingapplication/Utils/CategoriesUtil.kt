@@ -1,8 +1,6 @@
 package com.example.groceryshoppingapplication.Utils
 
 import android.content.Context
-import com.example.groceryshoppingapplication.ChildCategoryRowData
-import com.example.groceryshoppingapplication.ParentCategoryRowData
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
