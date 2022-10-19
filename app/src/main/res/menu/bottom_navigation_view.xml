@@ -12,7 +12,7 @@
             android:icon="@drawable/all_categories_icon"
             android:id="@+id/allCategoriesFragment" />
     <item
-            android:id="@+id/app_bar_search"
+            android:id="@+id/productSearchFragment"
             android:icon="@drawable/search_icon"
             android:title="Search"
             app:actionViewClass="android.widget.SearchView" ></item>

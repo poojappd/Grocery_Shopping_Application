@@ -10,7 +10,6 @@
 
     >
 
-
     <ImageView
         android:id="@+id/cart_icon_launching_page"
         android:layout_width="100dp"

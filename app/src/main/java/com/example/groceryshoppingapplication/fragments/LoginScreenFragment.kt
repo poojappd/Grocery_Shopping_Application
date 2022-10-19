@@ -17,6 +17,8 @@ import com.example.groceryshoppingapplication.SharedPrefViewModel
 import com.example.groceryshoppingapplication.SharedPrefViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class LoginScreenFragment : Fragment() {
 
@@ -32,14 +34,16 @@ class LoginScreenFragment : Fragment() {
     ): View? {
 
         val loginScreenFragmentView = inflater.inflate(R.layout.fragment_login_screen, container, false)
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
+        Log.e(TAG,"   ----    "+findNavController().currentDestination.toString())
 
         Log.e(TAG, viewModel.userMobile.toString())
         if (viewModel.userMobile != null){
             userViewModel.loginUser(viewModel.userMobile.toString())
-            Log.e(TAG,userViewModel.currentUser.value.toString())
-            findNavController().navigate(R.id.homePageFragment)
+            Log.e(TAG,userViewModel.currentUser.value.toString()+"   ----    "+findNavController().currentDestination.toString())
+            findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
         }
 
 
@@ -53,7 +57,6 @@ class LoginScreenFragment : Fragment() {
                             R.anim.fade_out
                         )
                         add(R.id.signIn_up_frg_cont, SignInFragment(true))
-                        addToBackStack("one")
                         Log.e(
                             ContentValues.TAG,
                             refActivity.supportFragmentManager.backStackEntryCount.toString()
@@ -76,7 +79,6 @@ class LoginScreenFragment : Fragment() {
                         R.anim.fade_out
                     )
                     add(R.id.signIn_up_frg_cont, SignInFragment(false))
-                    addToBackStack("one")
                     Log.e(
                         ContentValues.TAG,
                         refActivity.supportFragmentManager.backStackEntryCount.toString()

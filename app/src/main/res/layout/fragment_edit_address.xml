@@ -28,13 +28,13 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:scrollHorizontally="true"
+                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
                 android:hint="@string/hint_houseNo"
                 android:maxLength="20"
-                android:text="bbiubuibuibiubibiubibubiubbuibiubiubibuibi"
                 app:layout_constraintStart_toStartOf="@+id/materialTextView6"
                 android:id="@+id/textInputEditText"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
@@ -42,6 +42,7 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:padding="10dp"
                 android:id="@+id/street_detail"
+                android:textSize="15dp"
                 android:layout_width="0dp"
                 android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content"
@@ -55,7 +56,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
                 android:padding="10dp"
-
+                android:textSize="15dp"
                 android:id="@+id/area_detail"
                 android:layout_width="0dp"
                 android:layout_marginEnd="20dp"
@@ -70,7 +71,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
                 android:padding="10dp"
-
+                android:textSize="15dp"
                 android:id="@+id/landmark"
                 android:layout_width="0dp"
                 android:layout_marginEnd="20dp"
@@ -87,6 +88,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/city_txlayout"
+                android:background="@android:color/transparent"
                 app:endIconDrawable="@drawable/dropdown_icon"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
@@ -97,31 +99,34 @@
                 app:layout_constraintStart_toStartOf="@+id/landmark">
 
             <AutoCompleteTextView
+                    android:labelFor="@id/city_txlayout"
                     android:id="@+id/city_autocomplete"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/cabin"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
                     android:layout_width="match_parent"
+                    android:textSize="15dp"
                     android:layout_height="match_parent"
                     android:text="Chennai" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputEditText
                 android:padding="10dp"
-
+                android:textSize="15dp"
                 android:id="@+id/pincode"
                 android:layout_width="0dp"
                 android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
                 android:paddingStart="20dp"
+
                 android:inputType="number"
                 android:maxLength="6"
                 android:hint="@string/hint_pincode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/city_txlayout"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toTopOf="@+id/city_txlayout"
-                android:layout_marginTop="20dp" />
+                app:layout_constraintBottom_toBottomOf="@+id/city_txlayout" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -184,6 +189,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter an name for this address"
                 android:visibility="gone"
+                android:textSize="15dp"
+
                 android:maxLength="30"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView16"

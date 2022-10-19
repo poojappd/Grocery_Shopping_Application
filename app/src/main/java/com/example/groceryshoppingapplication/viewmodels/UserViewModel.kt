@@ -10,32 +10,40 @@ import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.*
 import com.example.groceryshoppingapplication.repositories.CartRepository
-import com.example.groceryshoppingapplication.repositories.OrdersRepository
 import com.example.groceryshoppingapplication.repositories.UserRepository
+import com.example.groceryshoppingapplication.repositories.WishListRepository
 import kotlinx.coroutines.launch
 
 class UserViewModel(applicationContext: Context) : ViewModel() {
 
     private val repo = UserRepository(AppDatabase.getDatabase(applicationContext))
     private val myCartRepo = CartRepository(AppDatabase.getDatabase(applicationContext))
+    private val myWishListRepo = WishListRepository(AppDatabase.getDatabase(applicationContext))
     private var _currentUser = MutableLiveData<User>()
     private var _currentUserCart = MutableLiveData<CartEntity>()
     private var _currentUserAddresses = MutableLiveData<List<Address>>()
     private var _currentUserOrders = MutableLiveData<List<OrderDetail>>()
+    private var _currentUserWishList = MutableLiveData<WishListEntity>()
     private var lastId = MutableLiveData<Int?>()
     private val _isRemovedFromCart = MutableLiveData<Boolean>()
     private val _allCartItems = MutableLiveData<List<CartItemEntity>>()
     private var _cartItemsTotalPrice = MutableLiveData<Double>()
+    private val _allWishListItems = MutableLiveData<List<WishListItemEntity>>()
+
 
     val isRemovedFromCart: LiveData<Boolean>
         get() = _isRemovedFromCart
     val allCartItems: LiveData<List<CartItemEntity>>
         get() = _allCartItems
+    val allWishListItems: LiveData<List<WishListItemEntity>>
+        get() = _allWishListItems
+    val currentUserAddresses: LiveData<List<Address>>
+        get() = _currentUserAddresses
 
 
     val currentUser = _currentUser
     val currentUserCart = _currentUserCart
-    val currentUserAddresses = _currentUserAddresses
+    val currentUserWishList = _currentUserWishList
     val cartItemsTotalPrice = _cartItemsTotalPrice
 
     fun loginUser(mobileNumber: String): Response {
@@ -45,8 +53,12 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             _currentUserCart.value = repo.getUserCartDetails(it.userId).cartEntity
             _currentUserOrders.value = repo.getUserOrderDetails(it.userId)?.ordersInfo
             _currentUserAddresses.value = repo.getUserAddresses(it.userId).addresses
+            _currentUserWishList.value = repo.getUserWishListDetails(it.userId).wishListEntity
+
+
             viewModelScope.launch {
-                updateCartItemsFromCart()
+                refreshCart()
+                refreshWishList()
             }
             Log.e(TAG, _allCartItems.value.toString())
             return Response.LOGGED_IN_SUCCESSFULLY
@@ -70,16 +82,21 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         }
     }
 
-    fun deleteUserAddress(address: Address){ viewModelScope.launch { repo.deleteUserAddress(address) }
-    refreshUserAddresses()}
+    fun deleteUserAddress(address: Address) {
+        viewModelScope.launch { repo.deleteUserAddress(address) }
+        refreshUserAddresses()
+    }
 
-    fun updateUserAddress(address: Address) =viewModelScope.launch { repo.updateUserAddress(address) }
+    fun updateUserAddress(address: Address) = viewModelScope.launch {
+        repo.updateUserAddress(address)
+        refreshUserAddresses()
+    }
 
-    fun refreshUserAddresses() {
+    private fun refreshUserAddresses() {
         _currentUserAddresses.value = repo.getUserAddresses(currentUser.value!!.userId).addresses
     }
 
-    suspend fun updateCartItemsFromCart() {
+    private suspend fun refreshCart() {
         _allCartItems.value =
             myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
     }
@@ -102,8 +119,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                         if (i.quantity < 10) {
                             myCartRepo.increaseQuantity(i)
                             currentUserCart.value!!.totalItemsInCart++
-                        }
-                        else{
+                        } else {
                             return@launch
                         }
                         break
@@ -111,7 +127,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                 }
             } else {
                 updateLastId()
-                val value = lastId.value?.inc() ?: 1
                 val cartId = currentUserCart.value!!.cartId
 
                 myCartRepo.addToCart(
@@ -123,7 +138,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     )
                 )
             }
-            updateCartItemsFromCart()
+            refreshCart()
         }
 
     }
@@ -163,12 +178,12 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     }
                 }
             }
-            updateCartItemsFromCart()
+            refreshCart()
         }
 
     }
 
-    fun removeItem(productCode: Int){
+    fun removeItem(productCode: Int) {
         viewModelScope.launch {
             myCartRepo.removeFromCart(
                 CartItemEntity(
@@ -176,7 +191,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     currentUserCart.value!!.cartId
                 )
             )
-            updateCartItemsFromCart()
+            refreshCart()
 
         }
     }
@@ -198,10 +213,37 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         return null
     }
 
-    fun createUser(user: User, cart: CartEntity) {
+    fun addProductToWishList(productCode: Int) {
+        viewModelScope.launch {
+            val wishListId = _currentUserWishList.value!!.wishListId
+
+            myWishListRepo.addToWishList(
+                WishListItemEntity(
+                    productCode, wishListId, CodeGeneratorUtil.generateWishListItemId(wishListId)
+                )
+            )
+            refreshWishList()
+        }
+    }
+
+    fun removeProductFromWishList(wishListItemId: Int) {
+        val wishListId = _currentUserWishList.value!!.wishListId
+        viewModelScope.launch {
+            myWishListRepo.removeFromWishList(wishListId, wishListItemId)
+            refreshWishList()
+        }
+    }
+
+    private suspend fun refreshWishList() {
+        _allWishListItems.value =
+            myWishListRepo.getWishListItemsFromWishList(_currentUserWishList.value!!.wishListId).wishListItemEntity
+    }
+
+    fun createUser(user: User, cart: CartEntity, wishList: WishListEntity) {
         viewModelScope.launch {
             repo.createUser(user)
             myCartRepo.createCartForNewUser(cart)
+            myWishListRepo.createWishList(wishList)
             loginUser(user.mobileNumber)
         }
     }

@@ -6,6 +6,7 @@ import com.example.groceryshoppingapplication.models.User
 import com.example.groceryshoppingapplication.relations.UserAndAddresses
 import com.example.groceryshoppingapplication.relations.UserAndCart
 import com.example.groceryshoppingapplication.relations.UserAndOrders
+import com.example.groceryshoppingapplication.relations.UserAndWishList
 
 @Dao
 interface UserDAO{
@@ -29,7 +30,7 @@ interface UserDAO{
     @Insert
     suspend fun addUserAddress(address: Address)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateUserAddress(address: Address)
 
     @Delete
@@ -38,6 +39,11 @@ interface UserDAO{
     @Transaction
     @Query("select * from User where userId = :userId")
     fun getUserCartDetails(userId:String): UserAndCart
+
+    @Transaction
+    @Query("select * from User where userId = :userId")
+    fun getUserWishList(userId: String): UserAndWishList
+
 
     @Transaction
     @Query("select * from OrderDetail")

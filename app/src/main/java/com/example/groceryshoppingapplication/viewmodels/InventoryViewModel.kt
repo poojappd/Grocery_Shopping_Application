@@ -2,6 +2,7 @@ package com.example.groceryshoppingapplication.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.*
+import androidx.room.Query
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
@@ -24,7 +25,7 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
 
     fun getProductsUnderGeneralCategory(category: GeneralCategory) = repo.getProductsUnderGeneralCategory(category)
 
-
+    fun searchProducts(query: String) = repo.searchProducts(query)
 
 }
 

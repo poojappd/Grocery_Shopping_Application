@@ -12,6 +12,12 @@ interface IdDAO {
     @Query("select cartId from CartEntity order by cartId desc limit 1")
     fun getLastCartId():Int
 
+    @Query("select wishListId from WishListEntity order by wishListId desc limit 1")
+    fun getLastWishListId():Int
+
+    @Query("SELECT id FROM WishListItemEntity where wishListId = :wishListId ORDER BY id DESC LIMIT 1")
+    fun getLastWishListItemId(wishListId: Int): Int?
+
     @Query("select addressId from Address where userId=:userId order by addressId desc limit 1 ")
     fun getLastAddressId(userId:String): Int?
 
@@ -20,5 +26,6 @@ interface IdDAO {
 
     @Query("select orderId from OrderDetail")
     fun getOrderIds():List<String>
+
 
 }

@@ -19,6 +19,7 @@ import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.CartEntity
 import com.example.groceryshoppingapplication.models.User
+import com.example.groceryshoppingapplication.models.WishListEntity
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
@@ -53,10 +54,12 @@ class SignInFragment(private val signingMode:Boolean) : Fragment() {
                     if ( loginResponse== Response.NO_SUCH_USER) {
                         val newUserId = CodeGeneratorUtil.generateUserId()
                         val newUserCartId = CodeGeneratorUtil.generateCartId()
+                        val newUserWishListId = CodeGeneratorUtil.generateWishListId()
                         val newUser = User(newUserId, mobileNumberInput.text.toString())
                         userViewModel.createUser(
                             newUser,
-                            CartEntity(newUserId, newUserCartId)
+                            CartEntity(newUserId, newUserCartId),
+                            WishListEntity(newUserId,newUserWishListId)
                         )
                         viewModel.sharedPref.edit().apply {
                             putString("loggedUserMobile", mobileNumberInput.text.toString())

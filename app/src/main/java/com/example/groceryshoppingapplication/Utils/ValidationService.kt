@@ -4,4 +4,8 @@ object ValidationService {
     fun validateName(name:String):Boolean{
         return true
     }
+
+    fun validateHouseNumberWithResponse(houseNo:String){
+
+    }
 }

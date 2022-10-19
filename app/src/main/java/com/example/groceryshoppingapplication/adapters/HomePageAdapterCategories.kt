@@ -2,6 +2,7 @@ package com.example.groceryshoppingapplication.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.icu.lang.UCharacter.JoiningGroup.PE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,9 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory
+import com.example.groceryshoppingapplication.enums.GeneralCategory
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.fragments.HomePageFragment
-import com.example.groceryshoppingapplication.listeners.CategoryItemTouchListener
 import kotlinx.android.synthetic.main.homepage_image_categories_layout.view.*
 
 
@@ -20,6 +22,7 @@ class HomePageAdapterCategories(private val categoryTouchListener:HomePageFragme
     RecyclerView.Adapter<HomePageAdapterCategories.ViewHolder>() {
    // private val titles = enumValues<GeneralCategory>()
     private val categoryNames = "Fruits Vegetables Dairy Meat_&_Eggs Beverages Snacks_&_Packed_foods Beauty_&_Hygiene Cleaning_&_Household Pets Gardening".split(" ")
+    private val categoryEnums = arrayOf(GeneralCategory.FRUITS,GeneralCategory.VEGETABLES, GeneralCategory.DAIRY_AND_BAKERY, GeneralCategory.MEAT_AND_EGGS, GeneralCategory.BEVERAGES, GeneralCategory.SNACKS_AND_BRANDED_FOODS, GeneralCategory.BEAUTY_AND_HYGIENE, GeneralCategory.CLEANING_AND_HOUSEHOLD, GeneralCategory.PETS, GeneralCategory.GARDENING)
     private val bgColorValues = arrayOf(
         "#FEE2FF",
         "#C9E265",
@@ -80,7 +83,7 @@ class HomePageAdapterCategories(private val categoryTouchListener:HomePageFragme
                 override fun onAnimationStart(animation: Animation) {}
                 override fun onAnimationRepeat(animation: Animation) {}
                 override fun onAnimationEnd(animation: Animation) {
-                    categoryTouchListener.navigate()
+                    categoryTouchListener.navigateToProductsByGeneralCategory(categoryEnums[position])
 
                 }
             })

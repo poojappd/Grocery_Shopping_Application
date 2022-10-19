@@ -26,6 +26,7 @@ class InventoryRepository(appDatabase: AppDatabase) {
 
     fun getProductsUnderGeneralCategory(category: GeneralCategory) = inventoryDAO.getProductsUnderGeneralCategory(category)
 
+    fun searchProducts(query:String) = inventoryDAO.searchInventory(query)
     //to be called at checkout phase
 
     suspend fun fetchProductFromInventory(productCode: Int, quantity: Int): Response {

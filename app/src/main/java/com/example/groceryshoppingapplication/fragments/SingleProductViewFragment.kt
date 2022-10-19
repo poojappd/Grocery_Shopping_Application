@@ -109,6 +109,11 @@ class SingleProductViewFragment : Fragment() {
 
                 }
 
+                saveForLater_single_product_view.setOnClickListener { buttonView->
+                    userViewmodel.addProductToWishList(it.productCode)
+                    Toast.makeText(requireContext(),"Added to wishList! ", Toast.LENGTH_SHORT).show()
+                }
+
 
             //addTocartButtonListener
             }

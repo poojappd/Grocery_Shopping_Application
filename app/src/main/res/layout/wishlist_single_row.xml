@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_bg_roundedcorner_maxstroke"
+        android:padding="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+
+        >
+
+    <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/milk_icon"
+            android:id="@+id/product_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/product_title"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/product_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Product title"
+android:maxLines="2"
+            android:lineHeight="10dp"
+            android:layout_marginHorizontal= "8dp"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/palanquin_dark"
+            app:layout_constraintTop_toBottomOf="@+id/product_image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+       />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0ml"
+            android:textColor="#AEADAD"
+            android:fontFamily="@font/cabin"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/product_title"
+            app:layout_constraintStart_toStartOf="@+id/product_title"
+            android:id="@+id/qty_wishlist" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹"
+            android:textSize="16sp"
+            android:fontFamily="@font/palanquin_dark_medium"
+            android:id="@+id/materialTextView25"
+            app:layout_constraintStart_toStartOf="@+id/qty_wishlist"
+            app:layout_constraintTop_toBottomOf="@+id/qty_wishlist"
+            android:layout_marginTop="12dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textSize="15sp"
+            android:fontFamily="@font/cabin"
+            android:id="@+id/ItemPrice_wishList"
+            app:layout_constraintStart_toEndOf="@+id/materialTextView25"
+            app:layout_constraintTop_toTopOf="@+id/materialTextView25"
+            app:layout_constraintBottom_toBottomOf="@+id/materialTextView25" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/wishList_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="#FFFFFF"
+            app:contentPadding="11dp"
+            android:background="@drawable/delivery_slot_selected"
+            android:src="@drawable/heart_icon1"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/ItemPrice_wishList"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toTopOf="@+id/ItemPrice_wishList" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

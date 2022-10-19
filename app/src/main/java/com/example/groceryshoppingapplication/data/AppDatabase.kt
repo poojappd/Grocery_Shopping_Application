@@ -10,7 +10,7 @@ import com.example.groceryshoppingapplication.models.*
 
 
 @Database(entities = arrayOf(GroceryItemEntity::class, CartEntity::class, CartItemEntity::class, User::class,
-    OrderDetail::class,OrderedItemEntity::class, Address::class), version = 1, exportSchema = true)
+    OrderDetail::class,OrderedItemEntity::class, Address::class, WishListEntity::class, WishListItemEntity::class), version = 1, exportSchema = true)
 @TypeConverters(
     GeneralCategoryConverter::class,
     SubCategoryConverter::class,
@@ -24,6 +24,7 @@ abstract class AppDatabase : RoomDatabase(){
     abstract fun getUserDao(): UserDAO
     abstract fun getOrdersDao(): OrdersDAO
     abstract fun getIdsDao(): IdDAO
+    abstract fun getWishListDao(): WishListDAO
 
     companion object{
         @Volatile

@@ -7,8 +7,11 @@ enum class SubCategory(val value:String) {
     FRESH_FRUITS("Fresh Fruits"),
     FRESH_VEGETABLES("Fresh Vegetables"),
     CUTS_AND_SPROUTS("Cuts & Sprouts"),
-    EXOTIC_FRUITS_AND_VEGGIES("Exotic Fruits & Veggies"),
+    EXOTIC_FRUITS("Exotic Fruits"),
     FLOWER_BOUQUETS_BUNCHES("Flower Bouquets, Bunches"),
+
+
+
 
     //foodgrains, oil, masala
     ATTA_FLOURS_AND_SOOJI("Atta Flours & Sooji"),

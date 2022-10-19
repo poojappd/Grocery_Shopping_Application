@@ -61,6 +61,7 @@
 
 
             <TextView
+                    android:textColor="@color/black"
                     android:layout_marginTop="28dp"
                     android:id="@+id/product_title_tv"
                     android:layout_width="0dp"
@@ -76,11 +77,11 @@
                     app:layout_constraintHorizontal_bias="0.0" />
 
             <TextView
-                    android:layout_marginTop="8dp"
                     android:id="@+id/rs_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rs."
+                    android:textColor="#949EBF"
                     android:fontFamily="@font/cabin"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
@@ -102,8 +103,9 @@
                     android:id="@+id/quantity_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="20dp"
                     android:text="Net Quantity"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
@@ -114,11 +116,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100ml"
+                    android:paddingHorizontal="13dp"
+                    android:paddingVertical="7dp"
+                    android:background="@drawable/deliveryslot_not_selected"
                     android:textSize="16sp"
                     android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
                     app:layout_constraintTop_toBottomOf="@id/quantity_tv"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="8dp" />
 
 
             <LinearLayout
@@ -133,6 +138,7 @@
                     app:layout_constraintHorizontal_bias="0.0">
 
                 <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

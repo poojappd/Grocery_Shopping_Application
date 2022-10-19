@@ -19,8 +19,9 @@ enum class Response(val message:String) {
     INVALID_VALUE_PASSED("Invalid value has been passed"),
     NO_SUCH_USER("No users found"),
     LOGGED_IN_SUCCESSFULLY("Logged in successfully"),
-    PIN_CODE_REQUIRED("Pin code is required"),
-    HOUSE_NUMBER_REQUIRED("Enter your house number"),
+    PIN_CODE_LENGTH_SHORT("Pincode should be 6 digits"),
+    FIELD_REQUIRED("This field is required"),
+
     CITY_NOT_VALID("Enter a valid city name")
 
 

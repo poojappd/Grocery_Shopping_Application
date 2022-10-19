@@ -48,6 +48,13 @@ object CodeGeneratorUtil {
         return idDAO.getLastCartItemId(cartId)?.plus(1) ?: 1
     }
 
+    fun generateWishListItemId(wishListId:Int):Int{
+        return idDAO.getLastWishListItemId(wishListId)?.plus(1) ?: 1
+    }
+
+    fun generateWishListId():Int{
+        return idDAO.getLastWishListId() + 1
+    }
 
     fun generateOrderId(orderDate: Date):String{
         val ids = idDAO.getOrderIds()

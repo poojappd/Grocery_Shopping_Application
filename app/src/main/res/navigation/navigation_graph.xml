@@ -12,12 +12,13 @@
         tools:layout="@layout/fragment_login_screen"
         >
 
-        <action
-            android:id="@+id/action_loginScreenFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+
         <action
                 android:id="@+id/action_loginScreenFragment_to_userNameFormFragment"
                 app:destination="@id/userNameFormFragment" />
+        <action
+                android:id="@+id/action_loginScreenFragment_to_homePageFragment"
+                app:destination="@id/homePageFragment" />
     </fragment>
 
     <fragment
@@ -26,8 +27,8 @@
         android:label="Home"
         tools:layout="@layout/fragment_home_page" >
         <action
-            android:id="@+id/action_homePageFragment_to_allCategoriesFragment"
-            app:destination="@id/allCategoriesFragment" />
+                android:id="@+id/action_homePageFragment_to_productsListFragment"
+                app:destination="@id/productsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/allCategoriesFragment"
@@ -117,6 +118,11 @@
         <action
                 android:id="@+id/action_userAccountFragment_to_wishListFragment"
                 app:destination="@id/wishListFragment" />
+        <action
+                android:id="@+id/action_userAccountFragment_to_loginScreenFragment"
+                app:destination="@id/loginScreenFragment"
+                app:popUpTo="@id/loginScreenFragment"
+                app:popUpToInclusive="true"/>
     </fragment>
     <fragment
             android:id="@+id/addressesFragment"
@@ -193,5 +199,14 @@
             android:name="com.example.groceryshoppingapplication.fragments.WishListFragment"
             android:label="fragment_wish_list"
             tools:layout="@layout/fragment_wish_list" />
+    <fragment
+            android:id="@+id/productSearchFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.ProductSearchFragment"
+            android:label="fragment_product_search"
+            tools:layout="@layout/fragment_product_search" >
+        <action
+                android:id="@+id/action_productSearchFragment_to_singleProductViewFragment"
+                app:destination="@id/singleProductViewFragment" />
+    </fragment>
 
 </navigation>

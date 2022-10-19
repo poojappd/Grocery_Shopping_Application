@@ -14,7 +14,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/dialog_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
@@ -23,6 +23,8 @@
                 android:paddingHorizontal="20dp"
                 android:text="Are you sure you want to change your mobile number?
 This will link your existing account to this number!"
+                android:fontFamily="@font/cabin"
+
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +39,8 @@ This will link your existing account to this number!"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
                 android:text="no"
+                android:fontFamily="@font/cabin"
+
                 android:textColor="#747BA8"
                 app:layout_constraintBottom_toBottomOf="@+id/button"
                 app:layout_constraintEnd_toStartOf="@+id/button"
@@ -53,12 +57,13 @@ This will link your existing account to this number!"
                 android:layout_marginBottom="20dp"
                 android:background="#AFB9FB"
                 android:text="Yes"
+                android:fontFamily="@font/cabin"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/no"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_message"
                 app:layout_constraintVertical_bias="0.031" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

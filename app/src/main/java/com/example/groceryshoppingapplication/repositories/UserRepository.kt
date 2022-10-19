@@ -40,5 +40,7 @@ class UserRepository(database: AppDatabase) {
 
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 
+    fun getUserWishListDetails(userId: String) = userDao.getUserWishList(userId)
+
     fun getUserOrderDetails(userId: String) = userDao.getUserOrderDetails()
 }
