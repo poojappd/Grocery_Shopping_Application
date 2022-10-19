@@ -9,7 +9,7 @@ import com.example.groceryshoppingapplication.models.Address
 import com.example.groceryshoppingapplication.models.User
 import kotlinx.android.synthetic.main.address_recyclerview_layout.view.*
 
-class AddressesAdapter(private val addresses: List<Address>, private val user: User, private val touchListener:(Int,Boolean)->Unit) :
+class AddressesAdapter(private val addresses: List<Address>, private val user: User, private val touchListener:(Int,Boolean)->Unit, private val preventDefaultDeleteListener:()->Unit) :
     RecyclerView.Adapter<AddressesAdapter.AddressesViewHolder>() {
 
     inner class AddressesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,7 +45,11 @@ class AddressesAdapter(private val addresses: List<Address>, private val user: U
             ).toString()
             contact.text = user.mobileNumber
             deleteAddress.setOnClickListener {
-                touchListener(position, true)
+                if(position != 0)
+                    touchListener(position, true)
+                else
+                    preventDefaultDeleteListener()
+
             }
             editAddress.setOnClickListener {
                 touchListener(position,false)

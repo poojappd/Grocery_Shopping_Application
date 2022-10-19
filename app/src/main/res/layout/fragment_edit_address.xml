@@ -1,220 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                app:titleCentered="true"
+                android:id="@+id/toolbar_addressEdit"
+app:navigationIcon="@drawable/back_button_icon"
+                app:navigationIconTint="@color/white"
+                app:titleTextColor="@color/white"
+                android:layout_height="match_parent" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".fragments.EditAddressFragment">
+            android:id="@+id/scrollView2"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".fragments.EditAddressFragment">
 
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address Details"
-                android:textColor="@color/black"
-                android:fontFamily="@font/cabin"
-                android:textSize="18sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="64dp"
-                android:layout_marginStart="32dp"
-                android:id="@+id/materialTextView6" />
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:padding="10dp"
-                android:singleLine="true"
-                android:scrollHorizontally="true"
-                android:textSize="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:hint="@string/hint_houseNo"
-                android:maxLength="20"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView6"
-                android:id="@+id/textInputEditText"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:padding="10dp"
-                android:id="@+id/street_detail"
-                android:textSize="15dp"
-                android:layout_width="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:hint="@string/hint_street"
-                app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
-                android:layout_marginTop="12dp"
-                app:layout_constraintHorizontal_bias="0.0" />
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:padding="10dp"
-                android:textSize="15dp"
-                android:id="@+id/area_detail"
-                android:layout_width="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:hint="@string/hint_area"
-                app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/street_detail"
-                android:layout_marginTop="12dp"
-                app:layout_constraintHorizontal_bias="0.0" />
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:padding="10dp"
-                android:textSize="15dp"
-                android:id="@+id/landmark"
-                android:layout_width="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:paddingStart="20dp"
-                android:hint="@string/hint_lmk"
-                app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/area_detail"
-                android:layout_marginTop="12dp"
-                app:layout_constraintHorizontal_bias="0.0" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/city_txlayout"
-                android:background="@android:color/transparent"
-                app:endIconDrawable="@drawable/dropdown_icon"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:padding="2dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/pincode"
-                app:layout_constraintTop_toBottomOf="@id/landmark"
-                app:layout_constraintStart_toStartOf="@+id/landmark">
-
-            <AutoCompleteTextView
-                    android:labelFor="@id/city_txlayout"
-                    android:id="@+id/city_autocomplete"
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Details"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/cabin"
-                    android:background="@android:color/transparent"
-                    android:backgroundTint="@android:color/transparent"
-                    android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginStart="32dp"
+                    android:id="@+id/materialTextView6" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
                     android:textSize="15dp"
-                    android:layout_height="match_parent"
-                    android:text="Chennai" />
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:hint="@string/hint_houseNo"
+                    android:maxLength="20"
+                    app:layout_constraintStart_toStartOf="@+id/materialTextView6"
+                    android:id="@+id/textInputEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:padding="10dp"
-                android:textSize="15dp"
-                android:id="@+id/pincode"
-                android:layout_width="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:paddingStart="20dp"
+            <com.google.android.material.textfield.TextInputEditText
+                    android:padding="10dp"
+                    android:id="@+id/street_detail"
+                    android:textSize="15dp"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:hint="@string/hint_street"
+                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintHorizontal_bias="0.0" />
 
-                android:inputType="number"
-                android:maxLength="6"
-                android:hint="@string/hint_pincode"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/city_txlayout"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintBottom_toBottomOf="@+id/city_txlayout" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    android:id="@+id/area_detail"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:hint="@string/hint_area"
+                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/street_detail"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintHorizontal_bias="0.0" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address Tag"
-                android:fontFamily="@font/cabin"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/city_txlayout"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="@+id/landmark"
-                android:id="@+id/materialTextView12" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yes_button_bg"
-                android:text="Home"
-                android:backgroundTint="#E0E0E1"
-                android:padding="10dp"
-                android:fontFamily="@font/cabin"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView12"
-                android:id="@+id/materialTextView14"
-                android:layout_marginTop="16dp" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yes_button_bg"
-                android:backgroundTint="#E0E0E1"
-
-                android:text="Work"
-                android:padding="10dp"
-                android:fontFamily="@font/cabin"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView14"
-                android:id="@+id/materialTextView15"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="24dp" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yes_button_bg"
-                android:text="Other"
-                android:backgroundTint="#E0E0E1"
-
-                android:padding="10dp"
-                android:fontFamily="@font/cabin"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView15"
-                android:id="@+id/materialTextView16"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="24dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    android:id="@+id/landmark"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:paddingStart="20dp"
+                    android:hint="@string/hint_lmk"
+                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/area_detail"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintHorizontal_bias="0.0" />
 
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:hint="Enter an name for this address"
-                android:visibility="gone"
-                android:textSize="15dp"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/city_txlayout"
+                    android:background="@android:color/transparent"
+                    app:endIconDrawable="@drawable/dropdown_icon"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:padding="2dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/pincode"
+                    app:layout_constraintTop_toBottomOf="@id/landmark"
+                    app:layout_constraintStart_toStartOf="@+id/landmark">
 
-                android:maxLength="30"
-                android:fontFamily="@font/cabin"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView16"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView14"
-                android:id="@+id/other_address_tag"
-                android:layout_marginTop="20dp" />
+                <AutoCompleteTextView
+                        android:labelFor="@id/city_txlayout"
+                        android:id="@+id/city_autocomplete"
+                        android:fontFamily="@font/cabin"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:textSize="15dp"
+                        android:layout_height="match_parent"
+                        android:text="Chennai" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/saveButton_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:textColor="@color/white"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/signup_edittext_bg"
-                android:backgroundTint="#9AA5F3"
-                app:layout_constraintTop_toBottomOf="@+id/other_address_tag"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintVertical_bias="1.0" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:padding="10dp"
+                    android:textSize="15dp"
+                    android:id="@+id/pincode"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:paddingStart="20dp"
+
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:hint="@string/hint_pincode"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/city_txlayout"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintBottom_toBottomOf="@+id/city_txlayout" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Tag"
+                    android:fontFamily="@font/cabin"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/city_txlayout"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toStartOf="@+id/landmark"
+                    android:id="@+id/materialTextView12" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yes_button_bg"
+                    android:text="Home"
+                    android:backgroundTint="#E0E0E1"
+                    android:padding="10dp"
+                    android:fontFamily="@font/cabin"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
+                    app:layout_constraintStart_toStartOf="@+id/materialTextView12"
+                    android:id="@+id/materialTextView14"
+                    android:layout_marginTop="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yes_button_bg"
+                    android:backgroundTint="#E0E0E1"
+
+                    android:text="Work"
+                    android:padding="10dp"
+                    android:fontFamily="@font/cabin"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
+                    app:layout_constraintStart_toEndOf="@+id/materialTextView14"
+                    android:id="@+id/materialTextView15"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yes_button_bg"
+                    android:text="Other"
+                    android:backgroundTint="#E0E0E1"
+
+                    android:padding="10dp"
+                    android:fontFamily="@font/cabin"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
+                    app:layout_constraintStart_toEndOf="@+id/materialTextView15"
+                    android:id="@+id/materialTextView16"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter an name for this address"
+                    android:visibility="gone"
+                    android:textSize="15dp"
+
+                    android:maxLength="30"
+                    android:fontFamily="@font/cabin"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView16"
+                    app:layout_constraintStart_toStartOf="@+id/materialTextView14"
+                    android:id="@+id/other_address_tag"
+                    android:layout_marginTop="20dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/saveButton_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/signup_edittext_bg"
+                    android:backgroundTint="#9AA5F3"
+                    app:layout_constraintTop_toBottomOf="@+id/other_address_tag"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintVertical_bias="1.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.CartFragment"
         >
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                app:titleCentered="true"
+                app:title="My Cart"
+                android:id="@+id/toolbar_Cart"
+
+                app:titleTextColor="@color/white"
+                android:layout_height="match_parent" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/empty_cart_layout"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintBottom_toBottomOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,8 +55,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/imageFilterView"
-                    app:layout_constraintVertical_bias="0.805"
-                    />
+                    app:layout_constraintVertical_bias="0.805" />
 
             <FrameLayout
                     android:layout_marginTop="40dp"
@@ -114,13 +132,14 @@
                 android:layout_height="wrap_content"
                 android:text="Your cart is empty!"
                 app:layout_constraintTop_toBottomOf="@id/circle"
-                android:layout_marginTop="92dp"
+                android:layout_marginTop="52dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="25dp"
-                android:fontFamily="@font/noto_sans"
+                android:textSize="20dp"
+                android:fontFamily="@font/cabin"
                 android:textColor="@color/black"
-                android:id="@+id/textView2" />
+                android:id="@+id/textView2"
+                app:layout_constraintHorizontal_bias="0.498" />
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/startShopping"
@@ -139,7 +158,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.195" />
+                app:layout_constraintVertical_bias="0.283"
+                app:layout_constraintHorizontal_bias="0.502" />
 
         <ImageView
                 android:layout_width="0dp"
@@ -157,13 +177,15 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/notEmptycart_layout"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="500dp">
+                android:layout_height="wrap_content">
 
 
             <TextView
@@ -218,7 +240,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:id="@+id/linearLayout3"
                     app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintVertical_bias="0.2">
+                    app:layout_constraintVertical_bias="0.2">
 
                 <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -232,7 +254,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹ "
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
+
                 <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/totalPrice_cart_fragment"
 
@@ -240,7 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -248,7 +271,8 @@
                     app:layout_constraintTop_toBottomOf="@id/linearLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:id="@+id/space2" />
+                    android:id="@+id/space2"
+                    tools:layout_editor_absoluteX="-16dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -265,7 +289,10 @@
             app:iconTint="@android:color/white"
             app:icon="@drawable/add_to_cart_icon1"
             android:layout_gravity="center|bottom"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
             />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

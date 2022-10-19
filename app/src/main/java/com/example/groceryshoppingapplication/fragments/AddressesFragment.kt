@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -35,7 +36,7 @@ class AddressesFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_addresses, container, false)
         val recyclerView = view.address_recyclerView
-
+        val preventDeleteToast = Toast.makeText(requireContext(), "Default address cannot be deleted",Toast.LENGTH_SHORT)
         view.add_address.setOnClickListener {
             if(args.navigateToDeliverySlot){
                 Log.e(TAG, "args provided from cart")
@@ -55,7 +56,7 @@ class AddressesFragment : Fragment() {
             } else {
                 recyclerView.visibility = View.VISIBLE
                 userViewModel.currentUser.observe(viewLifecycleOwner) { user->
-                    recyclerView.adapter = AddressesAdapter(it,user){position:Int, toDelete:Boolean ->
+                    recyclerView.adapter = AddressesAdapter(it,user,{position:Int, toDelete:Boolean ->
                         val addressToEdit = it[position]
                         if (!toDelete){
                             val navigationAction =
@@ -67,7 +68,7 @@ class AddressesFragment : Fragment() {
                         else{
                             userViewModel.deleteUserAddress(addressToEdit)
                         }
-                    }
+                    },{preventDeleteToast.show()})
                     recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                 }
             }

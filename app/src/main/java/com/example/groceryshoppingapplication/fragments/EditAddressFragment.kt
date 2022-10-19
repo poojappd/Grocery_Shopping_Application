@@ -3,16 +3,15 @@ package com.example.groceryshoppingapplication.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.SharedPrefViewModel
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.enums.AddressTag
@@ -22,6 +21,7 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_edit_address.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
+
 
 class EditAddressFragment : Fragment() {
     private var lastViewClicked: View? = null
@@ -40,10 +40,13 @@ class EditAddressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_edit_address, container, false)
-        val cities = requireContext().resources.getStringArray(R.array.cities)
-        val adapter = ArrayAdapter(this.requireContext(), R.layout.cities_array_adapter, cities)
+        val view = inflater.inflate(com.example.groceryshoppingapplication.R.layout.fragment_edit_address, container, false)
+        val cities = requireContext().resources.getStringArray(com.example.groceryshoppingapplication.R.array.cities)
+        val adapter = ArrayAdapter(this.requireContext(), com.example.groceryshoppingapplication.R.layout.cities_array_adapter, cities)
+        view.toolbar_addressEdit.title = if(args.addressIdToDisplay != -1 ) "Edit Address" else "Add Address"
         view.city_autocomplete.setAdapter(adapter)
+        val toolbar = view.toolbar_addressEdit
+        toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
 
         view.materialTextView14.setOnClickListener {
             activateTag2(
@@ -129,7 +132,7 @@ class EditAddressFragment : Fragment() {
                 }
                 else userViewModel.updateUserAddress(address)
                 if (args.navigateToDeliverySlotFragment) {
-                    findNavController().navigate(R.id.action_editAddressFragment_to_deliverySlotFragment)
+                    findNavController().navigate(com.example.groceryshoppingapplication.R.id.action_editAddressFragment_to_deliverySlotFragment)
 
                 } else {
                     findNavController().popBackStack()
