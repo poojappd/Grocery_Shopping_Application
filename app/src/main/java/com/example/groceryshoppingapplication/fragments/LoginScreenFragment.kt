@@ -13,8 +13,6 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.SharedPrefViewModel
-import com.example.groceryshoppingapplication.SharedPrefViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,9 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 
 class LoginScreenFragment : Fragment() {
 
-    val viewModel: SharedPrefViewModel by activityViewModels {
-        SharedPrefViewModelFactory(requireActivity().application)
-    }
+
     val userViewModel:UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
@@ -38,10 +34,11 @@ class LoginScreenFragment : Fragment() {
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
         Log.e(TAG,"   ----    "+findNavController().currentDestination.toString())
-
-        Log.e(TAG, viewModel.userMobile.toString())
-        if (viewModel.userMobile != null){
-            userViewModel.loginUser(viewModel.userMobile.toString())
+        val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val userMobile = sharedPref.getString("loggedUserMobile",null)
+        Log.e(TAG, userMobile.toString())
+        if (userMobile != null){
+            userViewModel.loginUser(userMobile.toString())
             Log.e(TAG,userViewModel.currentUser.value.toString()+"   ----    "+findNavController().currentDestination.toString())
             findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
         }

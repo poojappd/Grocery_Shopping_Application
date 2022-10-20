@@ -23,7 +23,7 @@ interface OrdersDAO {
     suspend fun updateOrderStatus(orderStatus: OrderStatus, orderId: String)
 
     @Transaction
-    @Query("select * from OrderDetail where userId = :userId")
+    @Query("select * from User where userId = :userId")
     fun getUserOrders(userId:String): UserAndOrders
 
     @Transaction

@@ -42,6 +42,7 @@ class PlaceOrderFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_place_order, container, false)
         view.apply {
+            toolbar_placeOrder.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
             val decimal = DecimalFormat("#.00")
             totalItems_OrderDetail.text = orderDetailsViewModel.totalItems.toString()
             subTotal_OrderDetail.text = decimal.format(orderDetailsViewModel.subTotal)
@@ -89,7 +90,7 @@ class PlaceOrderFragment : Fragment() {
                         )
                         Log.e(TAG, newOrder.toString() )
                         val viewModel: OrderHistoryViewModel by viewModels{
-                            OrderHistoryViewModelFactory(requireContext().applicationContext,it)
+                            OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }
                         viewModel.createNewOrder(newOrder)
                     }

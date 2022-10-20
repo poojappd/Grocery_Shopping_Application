@@ -24,6 +24,8 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="48dp"
+                android:background="#C6B3FD"
+
                 app:expandedTitleMarginEnd="64dp"
                 app:title="@string/app_name"
                 >

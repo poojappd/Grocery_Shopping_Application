@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.adapters.AddressesAdapter
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_addresses.*
 import kotlinx.android.synthetic.main.fragment_addresses.view.*
 import java.util.*
@@ -29,6 +31,18 @@ class AddressesFragment : Fragment() {
 
     private val args: AddressesFragmentArgs by navArgs()
 
+    override fun onResume() {
+        requireActivity().bottomNavigationView.visibility = View.GONE
+        super.onResume()
+        Log.e(ContentValues.TAG, "ONResumE CART FRAGMENT")
+
+    }
+
+    override fun onStop() {
+        requireActivity().bottomNavigationView.visibility = View.VISIBLE
+        super.onStop()
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

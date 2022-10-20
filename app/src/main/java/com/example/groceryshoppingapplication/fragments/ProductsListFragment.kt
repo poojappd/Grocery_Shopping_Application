@@ -21,6 +21,7 @@ import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 
@@ -39,11 +40,14 @@ class ProductsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
+
         val recyclerView = view.products_list_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         if (args.subCategory != SubCategory.NONE) {
             val subCategory = args.subCategory
-            Log.e(TAG, subCategory.value)
+            view.toolbar_productList.title = subCategory.value
+
+                Log.e(TAG, subCategory.value)
             (requireActivity() as AppCompatActivity).supportActionBar?.title = subCategory.value
             // Inflate the layout for this fragment
 
@@ -54,7 +58,9 @@ class ProductsListFragment : Fragment() {
         }
         else{
             val category = args.generalCategory
-            Log.e(TAG, category.value)
+            view.toolbar_productList.title = category.value
+
+                Log.e(TAG, category.value)
             (requireActivity() as AppCompatActivity).supportActionBar?.title = category.value
             // Inflate the layout for this fragment
 

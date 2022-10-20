@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-        tools:context=".fragments.OrdersViewPagerFragment"
+<androidx.constraintlayout.widget.ConstraintLayout tools:context=".fragments.OrdersViewPagerFragment"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/orders_recyclerview_layout"
-        android:id="@+id/myOrders_recyclerView_viewPager"
-        app:layout_constraintTop_toBottomOf="@+id/tab"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                app:titleCentered="true"
+                android:id="@+id/toolbar_myOrders"
+                app:navigationIcon="@drawable/back_button_icon"
+                app:navigationIconTint="@color/white"
+                app:titleTextColor="@color/white"
+                app:title="My Orders"
+                android:layout_height="match_parent" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/orders_recyclerview_layout"
+            android:id="@+id/myOrders_recyclerView_viewPager"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/empty_orders_layout"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nothing found here!"
+                android:fontFamily="@font/cabin"
+                android:textSize="16sp"
+                android:id="@+id/materialTextView27"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout4" />
+
+        <FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="#D6D5FA"
+                android:id="@+id/frameLayout4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintVertical_bias="0.499" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/empty_bag"
+                android:tint="#36BB98F4"
+                android:id="@+id/empty_bag_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintVertical_bias="0.406" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/startShopping_orders"
+                android:paddingHorizontal="30dp"
+                android:background="@drawable/start_shopping_button_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans"
+                android:textSize="20sp"
+                android:text="Start Shopping!"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView27"
+                app:layout_constraintVertical_bias="0.384" />
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/start_shopping_button_shadow_bg"
+                app:layout_constraintStart_toStartOf="@+id/startShopping_orders"
+                app:layout_constraintEnd_toEndOf="@+id/startShopping_orders"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.374"
+                app:layout_constraintTop_toTopOf="@+id/startShopping_orders" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>

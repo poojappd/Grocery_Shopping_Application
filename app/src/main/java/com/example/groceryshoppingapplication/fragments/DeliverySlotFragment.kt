@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.net.LinkAddress
 import android.os.Bundle
@@ -18,7 +19,9 @@ import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
 import com.example.groceryshoppingapplication.adapters.DeliverySlotTimeAdapter
 import com.example.groceryshoppingapplication.models.User
 import com.example.groceryshoppingapplication.viewmodels.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_delivery_slot.view.*
+import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,15 +37,28 @@ class DeliverySlotFragment : Fragment() {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
     }
 
+    override fun onResume() {
+        requireActivity().bottomNavigationView.visibility = View.GONE
+        super.onResume()
+
+    }
+
+    override fun onStop() {
+        requireActivity().bottomNavigationView.visibility = View.VISIBLE
+        super.onStop()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_delivery_slot, container, false)
+        val toolbar = view.deliverySlot_Toolbar
+        toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         val dateArray = getDateArray()
         var chosenTime:Date? = null
-
 
         val dateRecycerView = view.dateChoose_rv
         deliverySlotViewModel.timePosition?.let {
@@ -60,7 +76,6 @@ class DeliverySlotFragment : Fragment() {
                 }
             }
             deliverySlotViewModel.datePosition = position
-
 
            val timeArray = getTimeArray(deliverySlotViewModel.chosenDate!!)
 
@@ -136,9 +151,8 @@ class DeliverySlotFragment : Fragment() {
         return timeArray
     }
 
-
-
 }
+
 class MyPagerSnapHelper: PagerSnapHelper() {
 
     fun smoothScrollToPosition(layoutManager: RecyclerView.LayoutManager, position: Int) {

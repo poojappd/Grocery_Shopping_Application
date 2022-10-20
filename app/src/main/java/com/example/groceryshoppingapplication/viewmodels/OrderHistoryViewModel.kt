@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.viewmodels
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.groceryshoppingapplication.data.AppDatabase
@@ -10,16 +12,18 @@ import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.repositories.OrdersRepository
 import kotlinx.coroutines.launch
 
-class OrderHistoryViewModel(applicationContext: Context, private val userId: String) : ViewModel() {
+class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
     private val _allOrders = MutableLiveData<List<OrderDetail>>()
     private val myOrdersRepo = OrdersRepository(AppDatabase.getDatabase(applicationContext))
-
+    private lateinit var userId: String
 
 
     val allOrders: LiveData<List<OrderDetail>>
         get() = _allOrders
 
-    fun refreshMyOrders() {
+    fun refreshMyOrders(userId:String) {
+        val orders=  myOrdersRepo.getUserOrders(userId)
+        Log.e(TAG,orders.toString()+"   0    "+userId)
         _allOrders.value = myOrdersRepo.getUserOrders(userId).ordersInfo
     }
 
@@ -30,7 +34,7 @@ class OrderHistoryViewModel(applicationContext: Context, private val userId: Str
     fun createNewOrder(order: OrderDetail) =
         viewModelScope.launch {
             myOrdersRepo.createOrder(order)
-            refreshMyOrders()
+            refreshMyOrders(order.userId)
         }
 
     fun addOrderedItemToOrder(orderItem: OrderedItemEntity) = viewModelScope.launch {
@@ -44,7 +48,6 @@ class OrderHistoryViewModel(applicationContext: Context, private val userId: Str
 
 class OrderHistoryViewModelFactory(
     private val applicationContext: Context,
-    private val userId: String
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(
@@ -52,7 +55,7 @@ class OrderHistoryViewModelFactory(
         extras: CreationExtras
     ): T {
         return OrderHistoryViewModel(
-            applicationContext, userId
+            applicationContext
         ) as T
     }
 }

@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,13 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.groceryshoppingapplication.SharedPrefViewModel
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.enums.AddressTag
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.Address
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_address.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 
@@ -28,13 +29,22 @@ class EditAddressFragment : Fragment() {
     private var isOtherTagSelected = false
     private var lastClickedaddressTagButtonConfiguration: AddressTagButtonConfiguration? = null
 
-    private val sharedPrefViewModel: SharedPrefViewModel by lazy {
-        SharedPrefViewModel(requireActivity().application)
-    }
+
     private val userViewModel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
     private val args: EditAddressFragmentArgs by navArgs()
+
+    override fun onResume() {
+        requireActivity().bottomNavigationView.visibility = View.GONE
+        super.onResume()
+    }
+
+    override fun onStop() {
+        requireActivity().bottomNavigationView.visibility = View.VISIBLE
+        super.onStop()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +76,8 @@ class EditAddressFragment : Fragment() {
         }
 
         view.saveButton_address.setOnClickListener {
+//            val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+//            val userId = sharedPref.getString("loggedUserId","")
             val toSaveAsNew = args.addressIdToDisplay == -1
             var validationPassed = true
             val houseNo = view.textInputEditText
@@ -74,7 +86,7 @@ class EditAddressFragment : Fragment() {
             val landmark = if (TextUtils.isEmpty(view.landmark.text)) null else view.landmark.text
             val city = view.city_autocomplete
             val pincode = view.pincode
-            val userId = userViewModel.getCurrentUserData(sharedPrefViewModel.userMobile!!)!!.userId
+            val userId = userViewModel.currentUser.value!!.userId
 
             val addressId = if(toSaveAsNew) CodeGeneratorUtil.generateAddressId(userId) else args.addressIdToDisplay
             if (lastViewClicked?.id == view.materialTextView16.id) isOtherTagSelected = true

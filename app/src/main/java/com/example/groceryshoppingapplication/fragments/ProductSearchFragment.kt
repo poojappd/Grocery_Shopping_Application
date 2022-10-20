@@ -49,7 +49,7 @@ class ProductSearchFragment : Fragment() {
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             if (query != null) {
-                searchInventory("%$query%")
+                searchInventory("$query%")
                 return true
             }
             return false
@@ -57,8 +57,11 @@ class ProductSearchFragment : Fragment() {
 
         override fun onQueryTextChange(newText: String?): Boolean {
             if (newText != null) {
-                searchInventory("%$newText%")
+                searchInventory("$newText%")
                 return true
+            }
+            else if(newText ==""){
+                recyclerView.visibility = View.GONE
             }
             return false
         }

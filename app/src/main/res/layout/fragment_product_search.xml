@@ -21,7 +21,7 @@
                 android:id="@+id/main.toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-
+                android:background="#C6B3FD"
                 app:layout_collapseMode="pin"
                 android:layout_gravity="bottom"
                 app:title="Test">
@@ -52,6 +52,8 @@
             app:layout_constraintTop_toBottomOf="@+id/main.appbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

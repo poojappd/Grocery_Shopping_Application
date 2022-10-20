@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 app:titleCentered="true"
                 android:id="@+id/toolbar_addressEdit"
-app:navigationIcon="@drawable/back_button_icon"
+                app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />

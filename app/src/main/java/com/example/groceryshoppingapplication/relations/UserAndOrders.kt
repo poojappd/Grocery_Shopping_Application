@@ -12,5 +12,5 @@ data class UserAndOrders(
         parentColumn = "userId",
         entityColumn = "userId",
     )
-    val ordersInfo: List<OrderDetail>
+    val ordersInfo: List<OrderDetail> = listOf()
 )

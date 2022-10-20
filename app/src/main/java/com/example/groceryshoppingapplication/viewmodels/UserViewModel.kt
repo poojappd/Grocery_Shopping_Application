@@ -48,10 +48,13 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
     fun loginUser(mobileNumber: String): Response {
         val user = repo.loginUser(mobileNumber)
+        Log.e(TAG,"****  LOGGED USER ${user.toString()}*****")
         user?.let {
             _currentUser.value = it
             _currentUserCart.value = repo.getUserCartDetails(it.userId).cartEntity
-            _currentUserOrders.value = repo.getUserOrderDetails(it.userId)?.ordersInfo
+            _currentUserOrders.value = repo.getUserOrderDetails(it.userId)?.let {
+                it.ordersInfo
+            }
             _currentUserAddresses.value = repo.getUserAddresses(it.userId).addresses
             _currentUserWishList.value = repo.getUserWishListDetails(it.userId).wishListEntity
 

@@ -18,6 +18,8 @@
                 android:layout_width="match_parent"
                 app:title="All Categories"
                 app:titleCentered="true"
+                android:background="#C6B3FD"
+
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>

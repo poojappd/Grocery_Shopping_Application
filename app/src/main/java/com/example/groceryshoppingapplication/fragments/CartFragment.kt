@@ -34,11 +34,7 @@ class CartFragment : Fragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG, "ONResumE CART FRAGMENT")
 
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

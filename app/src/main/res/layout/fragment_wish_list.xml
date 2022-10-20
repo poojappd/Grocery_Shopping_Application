@@ -20,8 +20,8 @@ android:background="#A1F0ECFF"
                 android:layout_width="match_parent"
                 app:title="My Wishlist"
                 app:titleCentered="true"
-                app:titleTextAppearance="@font/montserrat_alternates"
-                style="@style/ToolbarTheme"
+                android:background="#C6B3FD"
+                app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
