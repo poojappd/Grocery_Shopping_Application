@@ -1,11 +1,13 @@
 package com.example.groceryshoppingapplication
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets.Side.all
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,11 +15,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.data.AppDatabase
+import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +42,8 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
-
+        bottomNavigationView.getOrCreateBadge(R.id.cartFragment).backgroundColor = Color.parseColor("#7584e7")
+        val bottomNavCartMenu = bottomNavigationView.getChildAt(4)
 
 
 

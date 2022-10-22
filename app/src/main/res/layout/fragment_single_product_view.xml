@@ -13,6 +13,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/wishlist_recyclerView"
+            android:background="#B8BCFF"
             >
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -21,7 +22,6 @@
                 android:layout_width="match_parent"
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
-                android:background="#B8BCFF"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/white"
@@ -139,14 +139,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100ml"
-                    android:paddingHorizontal="13dp"
                     android:paddingVertical="7dp"
-                    android:background="@drawable/deliveryslot_not_selected"
                     android:textSize="16sp"
                     android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
-                    app:layout_constraintTop_toBottomOf="@id/quantity_tv"
-                    android:layout_marginTop="8dp" />
+                    app:layout_constraintTop_toBottomOf="@id/quantity_tv"/>
 
 
             <LinearLayout
@@ -197,7 +194,7 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/saveForLater_single_product_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -205,32 +202,36 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                 android:background="#E6E2F6"
                 android:orientation="horizontal">
 
-            <LinearLayout
+
+            <ImageView
+                    android:id="@+id/wishlistIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/heart_icon1"
+                    android:backgroundTint="#A7ABED"
+                    app:layout_constraintVertical_bias="0.7"
+                    app:layout_constraintEnd_toStartOf="@+id/saveForLater_textView"
+                    app:layout_constraintTop_toTopOf="@+id/saveForLater_textView"
+                    app:layout_constraintBottom_toBottomOf="@+id/saveForLater_textView" />
+
+            <TextView
+                    android:id="@+id/saveForLater_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/cabin"
+                    android:text="Save for later"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="20sp"
+                    app:layout_constraintHorizontal_bias="0.7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                        android:id="@+id/wishlistIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/wishlist_icon_star"
-                        app:tint="@color/black" />
-
-                <TextView
-                        android:id="@+id/saveForLater_textView"
-                        android:layout_marginStart="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/cabin"
-                        android:text="Save for later"
-                        android:textSize="20sp" />
-            </LinearLayout>
-
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
                 android:id="@+id/addToCart_single_product_view"

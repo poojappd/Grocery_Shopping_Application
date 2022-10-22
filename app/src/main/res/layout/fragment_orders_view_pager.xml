@@ -83,12 +83,14 @@ android:visibility="gone"
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/startShopping_orders"
-                android:paddingHorizontal="30dp"
-                android:background="@drawable/start_shopping_button_bg"
+                android:padding="20dp"
+                android:background="@drawable/deliveryslot_not_selected"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:textColor="#98A1F6"
                 android:textStyle="bold"
+
+                android:backgroundTint="#98A1F6"
                 android:fontFamily="@font/noto_sans"
                 android:textSize="20sp"
                 android:text="Start Shopping!"
@@ -100,17 +102,6 @@ android:visibility="gone"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView27"
                 app:layout_constraintVertical_bias="0.384" />
-
-        <ImageView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@drawable/start_shopping_button_shadow_bg"
-                app:layout_constraintStart_toStartOf="@+id/startShopping_orders"
-                app:layout_constraintEnd_toEndOf="@+id/startShopping_orders"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.374"
-                app:layout_constraintTop_toTopOf="@+id/startShopping_orders" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

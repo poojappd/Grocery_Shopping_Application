@@ -128,8 +128,7 @@ class SignInFragment(private val signingMode:Boolean) : Fragment() {
     private fun checkMobileNumber(mobileNumberInputField: EditText): Response {
 
         return when {
-            mobileNumberInputField.text.length < 10 -> Response.MOBILE_NUMBER_LENGTH_SHORT
-            mobileNumberInputField.text[0].digitToInt() in 0..4 -> Response.MOBILE_NUMBER_NOT_VALID
+            mobileNumberInputField.text.length < 10 || mobileNumberInputField.text[0].digitToInt() in 0..4 -> Response.MOBILE_NUMBER_NOT_VALID
             else -> Response.MOBILE_NUMBER_VALID
         }
     }

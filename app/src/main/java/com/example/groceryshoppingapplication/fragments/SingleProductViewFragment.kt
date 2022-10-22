@@ -53,6 +53,9 @@ class SingleProductViewFragment : Fragment() {
         view.single_product_toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         var imagePathList: Array<String>
         val decimal = DecimalFormat("0.##")
+        userViewmodel.allCartItems.observe(viewLifecycleOwner){
+            requireActivity().bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.size
+        }
         inventoryViewModel.getProduct(args.displayProductCode).observe(viewLifecycleOwner) {
             val productCode = it.productCode
             imagePathList =

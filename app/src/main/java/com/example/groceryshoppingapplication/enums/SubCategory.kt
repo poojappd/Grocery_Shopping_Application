@@ -25,7 +25,7 @@ enum class SubCategory(val value:String) {
     //dairy n bakery
     DAIRY("Dairy"),
     BREADS_AND_BUNS("Breads & Buns"),
-    RUSK("Rusk"),
+    TOAST_AND_BAKING_NEEDS("Toast and Baking needs"),
     ICE_CREAMS_AND_DESSERTS("Ice Creams & Desserts"),
     CAKES_AND_PASTRIES("Cakes & Pastries"),
 

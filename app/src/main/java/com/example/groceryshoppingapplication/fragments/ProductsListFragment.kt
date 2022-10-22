@@ -21,6 +21,7 @@ import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
@@ -40,7 +41,10 @@ class ProductsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
-
+        view.toolbar_productList.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        viewmodel.allCartItems.observe(viewLifecycleOwner){
+            requireActivity().bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.size
+        }
         val recyclerView = view.products_list_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         if (args.subCategory != SubCategory.NONE) {

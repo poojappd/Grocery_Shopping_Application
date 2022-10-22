@@ -35,7 +35,7 @@ data class CategoriesUtil(val context: Context) {
             ),
             GeneralCategory.DAIRY_AND_BAKERY to listOf(
                 SubCategory.DAIRY,
-                SubCategory.BREADS_AND_BUNS, SubCategory.RUSK,
+                SubCategory.BREADS_AND_BUNS, SubCategory.TOAST_AND_BAKING_NEEDS,
                 SubCategory.ICE_CREAMS_AND_DESSERTS,
                 SubCategory.CAKES_AND_PASTRIES
             ),

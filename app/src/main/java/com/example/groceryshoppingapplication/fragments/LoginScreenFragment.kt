@@ -54,6 +54,7 @@ class LoginScreenFragment : Fragment() {
                             R.anim.fade_out
                         )
                         add(R.id.signIn_up_frg_cont, SignInFragment(true))
+                        addToBackStack("one")
                         Log.e(
                             ContentValues.TAG,
                             refActivity.supportFragmentManager.backStackEntryCount.toString()
@@ -76,6 +77,7 @@ class LoginScreenFragment : Fragment() {
                         R.anim.fade_out
                     )
                     add(R.id.signIn_up_frg_cont, SignInFragment(false))
+                    addToBackStack("one")
                     Log.e(
                         ContentValues.TAG,
                         refActivity.supportFragmentManager.backStackEntryCount.toString()

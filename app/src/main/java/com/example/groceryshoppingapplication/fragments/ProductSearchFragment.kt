@@ -37,6 +37,7 @@ class ProductSearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_search, container, false)
         val searchView = view.searchView
+        searchView.requestFocus()
 
 
         searchView.setOnQueryTextListener(SearchQueryListener())

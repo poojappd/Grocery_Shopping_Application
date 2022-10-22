@@ -97,6 +97,9 @@
         <action
                 android:id="@+id/action_cartFragment_to_addressesFragment"
                 app:destination="@id/addressesFragment" />
+        <action
+                android:id="@+id/action_cartFragment_to_singleProductViewFragment"
+                app:destination="@id/singleProductViewFragment" />
     </fragment>
     <fragment
             android:id="@+id/userAccountFragment"

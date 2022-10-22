@@ -16,7 +16,7 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import kotlinx.android.synthetic.main.fragment_username_form.view.*
 
-class UserNameFormFragment() : Fragment() {
+class UserNameFormFragment : Fragment() {
     val userViewModel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
@@ -30,13 +30,14 @@ class UserNameFormFragment() : Fragment() {
         userFromView.apply {
             proceedButton_signUp.setOnClickListener {
                 val firstName = this.fname_signUp
-
                 if (TextUtils.isEmpty(firstName.text)) {
                     firstName.setError("First name is required!")
+                    firstName.requestFocus()
 
                 }
                 else if(firstName.text.toString().length < 3){
                     firstName.setError("First name is too short!")
+                    firstName.requestFocus()
                 }
                 else{
                     userViewModel.currentUser.value?.firstName = firstName.text.toString()
@@ -45,14 +46,11 @@ class UserNameFormFragment() : Fragment() {
                             it1
                         )
                         Log.e(TAG,"user updated - ${it1.firstName} ")
-
                     }
                     findNavController().navigate(R.id.homePageFragment)
                 }
-
             }
         }
         return userFromView
-
     }
 }

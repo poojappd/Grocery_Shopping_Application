@@ -1,6 +1,7 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.CartItemData
@@ -23,13 +25,13 @@ import java.text.DecimalFormat
 
 class CartFragment : Fragment() {
 
-    val viewmodel: UserViewModel by activityViewModels {
+    private val viewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
-    val inventoryViewModel: InventoryViewModel by activityViewModels {
+    private val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().application)
     }
-    val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
+    private val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
     }
 
@@ -49,6 +51,25 @@ class CartFragment : Fragment() {
                 view.extFloatingActionButton.visibility = View.VISIBLE
                 view.notEmptycart_layout.visibility = View.VISIBLE
                 val recyclerView = view.cart_recyclerView
+
+                ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.RIGHT){
+                    override fun onMove(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean {
+
+                        viewHolder.itemView.setBackgroundColor(Color.BLACK)
+                        return true
+                    }
+
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                       val cartItem =  viewmodel.allCartItems.value!!.get(viewHolder.adapterPosition)
+                        viewmodel.removeFromCart(cartItem.productCode)
+                    }
+
+                }).attachToRecyclerView(recyclerView)
                 recyclerView.addOnScrollListener(FabExtendingOnScrollListener(view.extFloatingActionButton))
                 val adapter = CartItemsAdapter(
                     it,

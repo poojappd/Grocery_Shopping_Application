@@ -18,8 +18,6 @@ class CartRepository(database: AppDatabase) {
             cartDAO.addToCart(cartItemEntity)
     }
 
-    suspend fun getLastCartItemId(cartId: Int) = cartDAO.getLastId(cartId)
-
 
     fun getCartItem(productCode:Int, cartId:Int) = cartDAO.getCartItem(productCode, cartId)
 

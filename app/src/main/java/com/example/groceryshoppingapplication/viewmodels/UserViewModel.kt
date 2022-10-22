@@ -24,7 +24,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     private var _currentUserAddresses = MutableLiveData<List<Address>>()
     private var _currentUserOrders = MutableLiveData<List<OrderDetail>>()
     private var _currentUserWishList = MutableLiveData<WishListEntity>()
-    private var lastId = MutableLiveData<Int?>()
     private val _isRemovedFromCart = MutableLiveData<Boolean>()
     private val _allCartItems = MutableLiveData<List<CartItemEntity>>()
     private var _cartItemsTotalPrice = MutableLiveData<Double>()
@@ -104,12 +103,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId).cartItemEntity
     }
 
-    private suspend fun updateLastId() {
 
-        lastId.value = myCartRepo.getLastCartItemId(currentUserCart.value!!.cartId)
-        Log.e(TAG, "updateion - " + lastId.value.toString())
-
-    }
 
     fun addToCart(productCode: Int) {
         viewModelScope.launch {
@@ -129,15 +123,15 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                     }
                 }
             } else {
-                updateLastId()
                 val cartId = currentUserCart.value!!.cartId
-
+                val cartItemId = CodeGeneratorUtil.generateCartItemId(cartId)
+                Log.e(TAG, "$cartId $cartItemId ${currentUserCart.value!!.userId}")
                 myCartRepo.addToCart(
                     CartItemEntity(
                         productCode,
                         cartId,
                         1,
-                        CodeGeneratorUtil.generateCartItemId(cartId)
+                        cartItemId
                     )
                 )
             }
@@ -167,13 +161,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                             break
                         } else {
                             _isRemovedFromCart.value = true
-                            myCartRepo.removeFromCart(
-                                CartItemEntity(
-                                    productCode,
-                                    currentUserCart.value!!.cartId
-                                )
-
-                            )
+                            myCartRepo.removeFromCart(i)
                             Log.e(TAG, "***********" + "removed ->" + i.productCode.toString())
 
 
@@ -188,13 +176,12 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
     fun removeItem(productCode: Int) {
         viewModelScope.launch {
-            myCartRepo.removeFromCart(
-                CartItemEntity(
-                    productCode,
-                    currentUserCart.value!!.cartId
-                )
-            )
-            refreshCart()
+            for(i in _allCartItems.value!!) {
+                if(i.productCode == productCode)
+                    myCartRepo.removeFromCart(i)
+
+                refreshCart()
+            }
 
         }
     }

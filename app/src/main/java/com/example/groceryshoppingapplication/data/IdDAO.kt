@@ -7,7 +7,7 @@ import androidx.room.Query
 interface IdDAO {
 
     @Query("SELECT id FROM CartItemEntity where cartId = :cartId ORDER BY id DESC LIMIT 1")
-    fun getLastCartItemId(cartId: Int): Int?
+    fun getLastCartItemId(cartId: Int): String?
 
     @Query("select cartId from CartEntity order by cartId desc limit 1")
     fun getLastCartId():Int

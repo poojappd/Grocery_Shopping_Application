@@ -39,12 +39,16 @@
             android:layout_marginTop="68dp"
             android:id="@+id/fname_signUp"
             android:layout_width="0dp"
+            android:inputType="text"
+            android:maxLines="1"
             android:layout_marginHorizontal="30dp"
+            android:maxLength="40"
             android:layout_height="50dp"
             android:background="@drawable/signup_edittext_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:hint="Your first name"
+
             android:fontFamily="@font/cabin"
             android:paddingStart="20dp"
             app:layout_constraintVertical_chainStyle="spread"
@@ -56,6 +60,9 @@
             android:layout_height="50dp"
             android:fontFamily="@font/cabin"
             android:hint="Your last name"
+            android:maxLength="40"
+            android:inputType="text"
+            android:maxLines="1"
             android:paddingStart="20dp"
             android:background="@drawable/signup_edittext_bg"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,8 +95,9 @@
             android:background="@drawable/signup_proceedbutton_bg"
             app:layout_constraintStart_toStartOf="@+id/proceedButton_signUp"
             app:layout_constraintEnd_toEndOf="@+id/proceedButton_signUp"
-            app:layout_constraintTop_toBottomOf="@+id/proceedButton_signUp"
-            app:layout_constraintHorizontal_bias="0.498" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/proceedButton_signUp"
+            android:layout_marginTop="52dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

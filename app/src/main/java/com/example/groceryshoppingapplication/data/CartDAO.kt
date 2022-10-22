@@ -35,10 +35,6 @@ interface CartDAO {
     @Insert
     suspend fun createCart(cart: CartEntity)
 
-    @Query("SELECT id FROM cartitementity where cartId = :cartId ORDER BY id DESC LIMIT 1;\n")
-    suspend fun getLastId(cartId: Int): Int?
-
-
     @Transaction
     @Query("select * from CartEntity where cartId = :cartId")
     suspend fun getCartItemsFromCart(cartId: Int): CartAndCartItem

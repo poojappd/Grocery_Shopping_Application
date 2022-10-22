@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.Utils
 
+import android.text.TextUtils.substring
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil.idDAO
 import com.example.groceryshoppingapplication.data.IdDAO
 import java.text.SimpleDateFormat
@@ -44,8 +45,13 @@ object CodeGeneratorUtil {
        return idDAO.getLastCartId() + 1
     }
 
-    fun generateCartItemId(cartId:Int):Int{
-        return idDAO.getLastCartItemId(cartId)?.plus(1) ?: 1
+    fun generateCartItemId(cartId:Int):String{
+        val prefix = "$cartId/"
+        val lastCartItemId = idDAO.getLastCartItemId(cartId)
+        val newCartItemId = lastCartItemId?.let {
+            it.substring(lastCartItemId.indexOf("/").plus(1)).trim().toInt()+1
+        } ?: 1
+        return "$prefix$newCartItemId"
     }
 
     fun generateWishListItemId(wishListId:Int):Int{
