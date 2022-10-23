@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
+import com.example.groceryshoppingapplication.adapters.SuggestionsAdapter
+import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.Response
+import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
@@ -58,7 +61,7 @@ class ProductSearchFragment : Fragment() {
 
         override fun onQueryTextChange(newText: String?): Boolean {
             if (newText != null) {
-                searchInventory("$newText%")
+                displaySuggestions("%$newText%")
                 return true
             }
             else if(newText ==""){
@@ -68,6 +71,7 @@ class ProductSearchFragment : Fragment() {
         }
 
         fun searchInventory(searchQuery: String) {
+
             inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
                 recyclerView.adapter = ProductsInCategoriesAdapter(
                     it,
@@ -75,6 +79,28 @@ class ProductSearchFragment : Fragment() {
                     ProductListTouchListenerImpl()
                 )
             }
+        }
+
+        fun displaySuggestions(searchQuery: String){
+            inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
+                val matchingCategories = mutableListOf<String>()
+                val titles = mutableListOf<String>()
+//                GeneralCategory.values().forEach {
+//                    val upperCasedValue = it.value.uppercase()
+//                    if (upperCasedValue.contains(searchQuery))
+//                        matchingCategories.add(it.value)
+//                }
+                it.forEach {
+                    titles.add(it.brandName+" "+it.itemName)
+                }
+                SubCategory.values().forEach {
+                    val upperCasedValue = it.value.uppercase()
+                    if (upperCasedValue.contains(searchQuery))
+                        matchingCategories.add(it.value)
+                }
+                recyclerView.adapter = SuggestionsAdapter(titles, matchingCategories)
+            }
+
         }
 
     }
