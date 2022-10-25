@@ -38,6 +38,8 @@ class ProductsInCategoriesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        Log.e(TAG,"INSIDE PRODUCT LIST ADAPTER")
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.single_product_row_item_in_list, parent, false)
         return ProductViewHolder(view)
@@ -83,9 +85,6 @@ class ProductsInCategoriesAdapter(
                         R.anim.add_to_cart_icon_in_product_animation
                     )
                 )
-                Log.e(TAG, "button clicked to cart ${products.get(position).brandName}")
-                //viewModel.addToCart(productCode)
-
 
             }
 

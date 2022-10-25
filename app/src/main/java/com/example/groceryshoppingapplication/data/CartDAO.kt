@@ -23,6 +23,9 @@ interface CartDAO {
 
 
     //testing if quantity increases
+    @Query("select count(id) from CartItemEntity where cartId = :cartId")
+    fun getCartItemCount(cartId: Int): LiveData<Int>
+
     @Query("select quantity from CartItemEntity where cartId = :cartId and productCode = :productCode")
     fun getCartItemQuantity(productCode: Int, cartId: Int): LiveData<Int>
 

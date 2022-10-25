@@ -23,7 +23,6 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
 
     fun refreshMyOrders(userId:String) {
         val orders=  myOrdersRepo.getUserOrders(userId)
-        Log.e(TAG,orders.toString()+"   0    "+userId)
         _allOrders.value = myOrdersRepo.getUserOrders(userId).ordersInfo
     }
 

@@ -88,7 +88,6 @@ class PlaceOrderFragment : Fragment() {
                             totalPrice,
                             paymentMethod
                         )
-                        Log.e(TAG, newOrder.toString() )
                         val viewModel: OrderHistoryViewModel by viewModels{
                             OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }

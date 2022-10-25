@@ -133,9 +133,4 @@ class SignInFragment(private val signingMode:Boolean) : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG,"ONRESUME SIGIN (MOBILE)")
-
-    }
 }

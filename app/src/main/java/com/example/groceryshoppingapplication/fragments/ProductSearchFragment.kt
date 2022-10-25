@@ -1,37 +1,36 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.MenuItemCompat
+import androidx.fragment.app.*
+import com.example.groceryshoppingapplication.ProductSearchResultsFragment
 import com.example.groceryshoppingapplication.R
-import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
-import com.example.groceryshoppingapplication.adapters.SuggestionsAdapter
 import com.example.groceryshoppingapplication.enums.GeneralCategory
-import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.enums.SubCategory
-import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
-import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_product_search.view.*
+import kotlinx.android.synthetic.main.fragment_product_search_results.view.*
+
 
 class ProductSearchFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var childFragmentContainer: FragmentContainerView
+    private lateinit var searchView:SearchView
+    private var lastSuggestionStackId:Int? = null
+    private var lastQuery:String? = null
+    private var lastSubmittedQuery:String? = null
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().applicationContext)
     }
-    private val viewmodel: UserViewModel by activityViewModels {
-        UserViewModelFactory(requireActivity().applicationContext)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,93 +38,123 @@ class ProductSearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_search, container, false)
-        val searchView = view.searchView
+        Log.e(TAG, "  back stack count search frag------>"+childFragmentManager.backStackEntryCount.toString())
+        searchView = view.searchView
         searchView.requestFocus()
-
-
         searchView.setOnQueryTextListener(SearchQueryListener())
-        recyclerView = view.search_recyclerview
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn).setOnClickListener{
+            searchView.setQuery("",true)
+            searchView.clearFocus()
+        }
+        childFragmentContainer = view.search_Fragment
+        childFragmentManager.addOnBackStackChangedListener {
+            val backStackCount = childFragmentManager.backStackEntryCount
+            Log.e(TAG,"BACK STACK CHANGED"+" $backStackCount")
+
+        }
 
         return view
     }
 
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
-            if (query != null) {
-                searchInventory("$query%")
+            //childFragmentManager.popBackStackImmediate()
+            if (query != null && query!= lastSubmittedQuery) {
+                searchProductInInventory(query)
+                lastSubmittedQuery = query
                 return true
             }
             return false
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
+            Log.e(TAG,"Query - *$newText*")
+
             if (newText != null) {
-                displaySuggestions("%$newText%")
+                if(newText =="") {
+                    childFragmentContainer.visibility = View.GONE
+                    Log.e(TAG, "EMpty Queryyyy-----------")
+                }else{
+                    if(newText!=lastQuery) {
+                        childFragmentContainer.visibility = View.VISIBLE
+
+                        displaySuggestions(newText)
+                        lastQuery = newText
+                    }
+                }
                 return true
-            }
-            else if(newText ==""){
-                recyclerView.visibility = View.GONE
             }
             return false
         }
 
-        fun searchInventory(searchQuery: String) {
 
-            inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
-                recyclerView.adapter = ProductsInCategoriesAdapter(
-                    it,
-                    requireContext(),
-                    ProductListTouchListenerImpl()
-                )
+        fun searchProductInInventory(searchQuery: String) {
+            popLastChildBackStackEntry()
+            inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {
+                if(it.size>0) {
+                    childFragmentManager.beginTransaction().apply {
+                        add(R.id.search_Fragment, ProductSearchResultsFragment(it))
+                        addToBackStack("searchResult")
+                        lastSuggestionStackId = commit()
+                    }
+                }
+
             }
         }
 
-        fun displaySuggestions(searchQuery: String){
-            inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
-                val matchingCategories = mutableListOf<String>()
-                val titles = mutableListOf<String>()
-//                GeneralCategory.values().forEach {
-//                    val upperCasedValue = it.value.uppercase()
-//                    if (upperCasedValue.contains(searchQuery))
-//                        matchingCategories.add(it.value)
-//                }
-                it.forEach {
-                    titles.add(it.brandName+" "+it.itemName)
+
+
+        fun displaySuggestions(searchQuery: String) {
+            popLastChildBackStackEntry()
+                childFragmentManager.beginTransaction().apply {
+                    add(R.id.search_Fragment, SearchSuggestionsFragment(searchQuery))
+                    addToBackStack("sugg")
+                    lastSuggestionStackId = commit()
+
                 }
-                SubCategory.values().forEach {
-                    val upperCasedValue = it.value.uppercase()
-                    if (upperCasedValue.contains(searchQuery))
-                        matchingCategories.add(it.value)
-                }
-                recyclerView.adapter = SuggestionsAdapter(titles, matchingCategories)
-            }
 
         }
 
     }
 
-    private inner class ProductListTouchListenerImpl : ProductListTouchListener {
-        override fun addToCart(productCode: Int) {
-            viewmodel.addToCart(productCode)
+
+
+    fun searchGeneralCategoryInInventory(generalCategory: GeneralCategory){
+     val items = inventoryViewModel.getProductsUnderGeneralCategory(generalCategory)
+        popLastChildBackStackEntry()
+        if(items.size>0) {
+            childFragmentManager.apply {
+                beginTransaction().apply {
+                    add(R.id.search_Fragment, ProductSearchResultsFragment(items))
+                    addToBackStack("searchCategRes")
+                    lastSuggestionStackId = commit()
+                }
+            }
         }
-
-        override fun removeFromCart(productCode: Int) {
-            viewmodel.removeItem(productCode)
-        }
-
-        override fun checkItemInCart(productCode: Int): Response {
-            return viewmodel.checkItemInCart(productCode)
-        }
-
-        override fun navigate(productCode: Int) {
-            val action =
-                ProductSearchFragmentDirections.actionProductSearchFragmentToSingleProductViewFragment(productCode)
-
-            findNavController().navigate(action)
-        }
-
     }
+    fun searchSubCategoryInInventory(subCategory: SubCategory){
 
+        val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
+      popLastChildBackStackEntry()
+        if(items.size>0) {
+            childFragmentManager.apply {
+                beginTransaction().apply {
+                    add(R.id.search_Fragment, ProductSearchResultsFragment(items))
+                    addToBackStack("searchSubCategRes")
+                    lastSuggestionStackId = commit()
+                }
+            }
+        }
+    }
+private fun popLastChildBackStackEntry(){
+    lastSuggestionStackId?.let {
+        childFragmentManager.popBackStackImmediate(it,FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+}
+fun setSearchViewQuery(searchQuery: String){
+    searchView.setQuery(searchQuery,false)
+    lastQuery = searchQuery
+    searchView.clearFocus()
+}
 
 }

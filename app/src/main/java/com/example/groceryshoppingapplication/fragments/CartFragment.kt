@@ -43,8 +43,10 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
+
         viewmodel.allCartItems.observe(this.viewLifecycleOwner) {
             view.cartItems_count.text = StringBuilder().append("(${it.size})")
+
             var totalPrice = 0.0
             if (it.size > 0) {
                 view.empty_cart_layout.visibility = View.GONE

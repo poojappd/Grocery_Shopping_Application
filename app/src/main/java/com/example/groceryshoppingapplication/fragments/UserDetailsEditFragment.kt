@@ -102,7 +102,6 @@ class UserDetailsEditFragment : Fragment() {
         mobileNumberEditText.setOnClickListener {
             if(!mobileNumberChangeInvoked) {
                 alertDialog.show()
-                Log.e(TAG,"pressed yes? "+pressedYes)
 
             }
         }

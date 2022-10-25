@@ -42,16 +42,11 @@ class ProductsListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         view.toolbar_productList.setNavigationOnClickListener { requireActivity().onBackPressed() }
-        viewmodel.allCartItems.observe(viewLifecycleOwner){
-            requireActivity().bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.size
-        }
         val recyclerView = view.products_list_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         if (args.subCategory != SubCategory.NONE) {
             val subCategory = args.subCategory
             view.toolbar_productList.title = subCategory.value
-
-                Log.e(TAG, subCategory.value)
             (requireActivity() as AppCompatActivity).supportActionBar?.title = subCategory.value
             // Inflate the layout for this fragment
 
@@ -63,9 +58,7 @@ class ProductsListFragment : Fragment() {
         else{
             val category = args.generalCategory
             view.toolbar_productList.title = category.value
-
-                Log.e(TAG, category.value)
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = category.value
+             (requireActivity() as AppCompatActivity).supportActionBar?.title = category.value
             // Inflate the layout for this fragment
 
             val items = inventoryViewModel.getProductsUnderGeneralCategory(category)

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.SortViewPagerFragment">
+
+    <RadioGroup
+            android:layout_marginStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/radioGroup"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#B7ADFF"
+                android:id="@+id/lthRadio"
+                android:text="Price: Low to High"
+                android:textColor="#6A6A6A"
+                android:fontFamily="@font/cabin"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#B7ADFF"
+                android:text="Price: High to Low"
+                android:fontFamily="@font/cabin"
+                android:textColor="#6A6A6A"
+                android:id="@+id/htlRadio"
+                app:layout_constraintTop_toBottomOf="@+id/lthRadio"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" />
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

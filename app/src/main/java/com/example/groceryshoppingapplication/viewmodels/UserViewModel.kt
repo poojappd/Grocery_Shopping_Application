@@ -47,7 +47,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
     fun loginUser(mobileNumber: String): Response {
         val user = repo.loginUser(mobileNumber)
-        Log.e(TAG,"****  LOGGED USER ${user.toString()}*****")
         user?.let {
             _currentUser.value = it
             _currentUserCart.value = repo.getUserCartDetails(it.userId).cartEntity
@@ -62,7 +61,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                 refreshCart()
                 refreshWishList()
             }
-            Log.e(TAG, _allCartItems.value.toString())
             return Response.LOGGED_IN_SUCCESSFULLY
         }
         return Response.NO_SUCH_USER
@@ -109,7 +107,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
             val response = checkItemInCart(productCode)
-            Log.e(TAG, response.message)
             if (response == Response.ITEM_PRESENT_IN_CART) {
                 for (i in items.cartItemEntity) {
                     if (i.productCode == productCode) {
@@ -125,7 +122,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             } else {
                 val cartId = currentUserCart.value!!.cartId
                 val cartItemId = CodeGeneratorUtil.generateCartItemId(cartId)
-                Log.e(TAG, "$cartId $cartItemId ${currentUserCart.value!!.userId}")
                 myCartRepo.addToCart(
                     CartItemEntity(
                         productCode,
@@ -143,18 +139,12 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     fun removeFromCart(productCode: Int) {
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
-            items.cartItemEntity.forEach {
-                Log.e(TAG, "-----------------------------" + "now in cart: ->" + it.toString())
-            }
-
             val response = checkItemInCart(productCode)
-            Log.e(TAG, response.message)
             if (response == Response.ITEM_PRESENT_IN_CART) {
                 for (i in items.cartItemEntity) {
                     if (i.productCode == productCode) {
                         if (i.quantity > 1) {
                             myCartRepo.decreaseQuantity(i)
-                            Log.e(TAG, "***********" + "decreased ->" + i.productCode.toString())
 
                             currentUserCart.value!!.totalItemsInCart--
                             _isRemovedFromCart.value = false
@@ -162,7 +152,6 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
                         } else {
                             _isRemovedFromCart.value = true
                             myCartRepo.removeFromCart(i)
-                            Log.e(TAG, "***********" + "removed ->" + i.productCode.toString())
 
 
                         }

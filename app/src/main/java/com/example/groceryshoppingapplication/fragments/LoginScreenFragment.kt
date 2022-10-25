@@ -33,13 +33,10 @@ class LoginScreenFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
-        Log.e(TAG,"   ----    "+findNavController().currentDestination.toString())
         val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
         val userMobile = sharedPref.getString("loggedUserMobile",null)
-        Log.e(TAG, userMobile.toString())
         if (userMobile != null){
             userViewModel.loginUser(userMobile.toString())
-            Log.e(TAG,userViewModel.currentUser.value.toString()+"   ----    "+findNavController().currentDestination.toString())
             findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
         }
 

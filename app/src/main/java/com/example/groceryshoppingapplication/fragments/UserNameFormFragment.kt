@@ -51,7 +51,6 @@ class UserNameFormFragment : Fragment() {
                         userViewModel.updateUser(
                             it1
                         )
-                        Log.e(TAG, "user updated - ${it1.firstName} ")
                     }
                     findNavController().navigate(R.id.homePageFragment)
                 }

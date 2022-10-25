@@ -53,7 +53,6 @@ class AddressesFragment : Fragment() {
         val preventDeleteToast = Toast.makeText(requireContext(), "Default address cannot be deleted",Toast.LENGTH_SHORT)
         view.add_address.setOnClickListener {
             if(args.navigateToDeliverySlot){
-                Log.e(TAG, "args provided from cart")
                 val action = AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(navigateToDeliverySlotFragment = true)
                 Log.e(TAG, action.toString())
                 findNavController().navigate(action)
