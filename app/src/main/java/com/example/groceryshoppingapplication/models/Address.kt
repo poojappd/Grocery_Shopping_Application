@@ -13,7 +13,7 @@ data class Address(
     var areaDetails: String,
     var city: String,
     var addressTag: String? = "Home",
-    @PrimaryKey(autoGenerate = true)
-    val addressId:Int
+    @PrimaryKey
+    val addressId:String
 
 )

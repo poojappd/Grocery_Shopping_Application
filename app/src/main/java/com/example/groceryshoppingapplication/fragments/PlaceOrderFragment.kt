@@ -16,10 +16,8 @@ import androidx.navigation.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.models.OrderDetail
-import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModel
-import com.example.groceryshoppingapplication.viewmodels.OrderDetailsViewModelFactory
-import com.example.groceryshoppingapplication.viewmodels.OrderHistoryViewModel
-import com.example.groceryshoppingapplication.viewmodels.OrderHistoryViewModelFactory
+import com.example.groceryshoppingapplication.models.OrderedItemEntity
+import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_place_order.*
 import kotlinx.android.synthetic.main.fragment_place_order.view.*
 import java.text.DecimalFormat
@@ -31,6 +29,9 @@ class PlaceOrderFragment : Fragment() {
 
     val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
+    }
+    private val userViewmodel: UserViewModel by activityViewModels {
+        UserViewModelFactory(requireActivity().applicationContext)
     }
 
     lateinit var lastView: View
@@ -88,13 +89,18 @@ class PlaceOrderFragment : Fragment() {
                             totalPrice,
                             paymentMethod
                         )
+                        val orderedItems = mutableListOf<OrderedItemEntity>()
+                        var number = 1
+                        userViewmodel.allCartItems.value!!.forEach {
+                            orderedItems.add(OrderedItemEntity(orderId, it.productCode, it.quantity,"$orderId/${number++}"))
+                        }
                         val viewModel: OrderHistoryViewModel by viewModels{
                             OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }
-                        viewModel.createNewOrder(newOrder)
+                        viewModel.createNewOrder(newOrder,orderedItems)
                     }
                     Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT).show()
-
+                    userViewmodel.emptyCart()
                     findNavController().navigate(R.id.action_placeOrderFragment_to_homePageFragment)
                 } ?: Toast.makeText(context,"Choose a payment method! ", Toast.LENGTH_SHORT).show()
 

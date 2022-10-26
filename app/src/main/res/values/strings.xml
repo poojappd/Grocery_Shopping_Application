@@ -1,8 +1,8 @@
 <resources>
-    <string name="hint_houseNo"><font color='#FF0000'>*</font> House no</string>
-    <string name="hint_street"><font color='#FF0000'>*</font> Street Details</string>
-    <string name="hint_area"><font color='#FF0000'>*</font> Area Details</string>
-    <string name="hint_pincode"><font color='#FF0000'>*</font> Pincode</string>
+    <string name="hint_houseNo"><font color='#E072A2'>*</font> House no</string>
+    <string name="hint_street"><font color='#E072A2'>*</font> Street Details</string>
+    <string name="hint_area"><font color='#E072A2'>*</font> Area Details</string>
+    <string name="hint_pincode"><font color='#E072A2'>*</font> Pincode</string>
 
     <string name="hint_lmk">Landmark</string>
 

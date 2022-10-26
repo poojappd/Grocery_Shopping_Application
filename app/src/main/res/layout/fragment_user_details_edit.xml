@@ -25,7 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="17sp"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="96dp"
@@ -33,71 +32,102 @@
                 android:layout_marginStart="36dp"
                 android:id="@+id/textView8" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textView10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Pooja"
-                android:textSize="14sp"
-                android:fontFamily="@font/cabin"
-                android:padding="10dp"
-                android:background="@drawable/signup_edittext_bg"
+                style="@style/UserNameFormEditTextInputLayoutStyle"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toStartOf="@+id/textView11"
                 android:layout_marginTop="16dp"
-                android:id="@+id/textView10"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/textView11" />
-
+               >
         <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Priyadarshni P S"
                 android:textSize="14sp"
-
-                android:layout_marginStart="20dp"
                 android:fontFamily="@font/cabin"
                 android:padding="10dp"
-                android:background="@drawable/signup_edittext_bg"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="ChennaiChennaiChennaiChennaiChennaiChennai"
+android:scrollHorizontally="true"
+                android:hint="First name"
+                android:textColorHint="#BDBEBF"
+                android:id="@+id/textView10_et"
+                app:layout_constraintHorizontal_bias="0.5"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textView11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/UserNameFormEditTextInputLayoutStyle"
+                android:layout_marginStart="20dp"
+
                 app:layout_constraintEnd_toEndOf="@id/textView13"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                app:layout_constraintTop_toTopOf="@+id/textView10">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:hint="last name"
+                    android:maxLength="30"
+                    android:textColorHint="#BDBEBF"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:id="@+id/textView11_et" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mobile"
-                android:textSize="17sp"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 android:id="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
                 android:layout_marginTop="20dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:textSize="14sp"
-
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textView13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="9892653178"
-                android:fontFamily="@font/cabin"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
-                android:focusable="false"
-                android:background="@drawable/signup_edittext_bg"
+                style="@style/UserNameFormEditTextInputLayoutStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintTop_toBottomOf="@+id/textView12"
-                android:id="@+id/textView13"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="30dp"
 
+                >
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:maxLength="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:textColorHint="#BDBEBF"
+                android:textSize="14sp"
+                android:focusable="false"
+                android:hint="mobile number"
+                android:id="@+id/textView13_et"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date of Birth"
-                android:textSize="17dp"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 android:id="@+id/textView14"
@@ -106,11 +136,15 @@
 
         <TextView
                 android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
                 android:hint="Set your Date of Birth"
                 android:fontFamily="@font/cabin"
                 android:layout_marginEnd="30dp"
-                android:padding="10dp"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="18dp"
+                android:textSize="14sp"
+                android:textColorHint="#BDBEBF"
                 android:background="@drawable/signup_edittext_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView10"

@@ -30,13 +30,18 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
         return myOrdersRepo.getOrderedItemsFromOrder(orderId).orderedItems
     }
 
-    fun createNewOrder(order: OrderDetail) =
+    fun getOrderDetail(orderId: String)= myOrdersRepo.getOrderDetail(orderId)
+
+    fun createNewOrder(order: OrderDetail, orderedItems:List<OrderedItemEntity>) =
         viewModelScope.launch {
             myOrdersRepo.createOrder(order)
+            orderedItems.forEach {
+                addOrderedItemToOrder(it)
+            }
             refreshMyOrders(order.userId)
         }
 
-    fun addOrderedItemToOrder(orderItem: OrderedItemEntity) = viewModelScope.launch {
+    private fun addOrderedItemToOrder(orderItem: OrderedItemEntity) = viewModelScope.launch {
         myOrdersRepo.addOrderedItemToOrder(orderItem)
     }
 

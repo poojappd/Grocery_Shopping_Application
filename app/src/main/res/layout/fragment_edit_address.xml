@@ -49,111 +49,161 @@
                     android:layout_marginStart="32dp"
                     android:id="@+id/materialTextView6" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/cabin"
-                    android:hint="@string/hint_houseNo"
-                    android:maxLength="20"
-                    app:layout_constraintStart_toStartOf="@+id/materialTextView6"
-                    android:id="@+id/textInputEditText"
-                    app:layout_constraintTop_toBottomOf="@+id/materialTextView6" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:padding="10dp"
-                    android:id="@+id/street_detail"
-                    android:textSize="15dp"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/house_no_layout"
                     android:layout_width="0dp"
-                    android:inputType="text"
-                    android:maxLines="3"
-                    android:layout_marginEnd="20dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/cabin"
-                    android:hint="@string/hint_street"
-                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_bias="0.0" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:padding="10dp"
-                    android:textSize="15dp"
+                    android:hint="@string/hint_houseNo"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/materialTextView6"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="20"
+                        android:id="@+id/house_no_edittext"
+
+                        />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/street_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    android:hint="@string/hint_street"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="60"
+
+                    app:layout_constraintStart_toStartOf="@+id/house_no_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/house_no_layout"
+                    app:layout_constraintEnd_toEndOf="@+id/house_no_layout">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/street_detail_et"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3"
+                        android:maxLength="60"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cabin"
+                        app:layout_constraintHorizontal_bias="0.0" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/area_detail"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/cabin"
-                    android:hint="@string/hint_area"
-                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintStart_toStartOf="@+id/house_no_layout"
+                    app:layout_constraintEnd_toEndOf="@+id/street_detail"
                     app:layout_constraintTop_toBottomOf="@+id/street_detail"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_bias="0.0" />
+                    android:hint="@string/hint_area"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="80"
+                    >
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:padding="10dp"
-                    android:textSize="15dp"
+                <com.google.android.material.textfield.TextInputEditText
+                        android:textSize="15dp"
+                        android:id="@+id/area_detail_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cabin"
+                        android:maxLength="80"
+                        app:layout_constraintHorizontal_bias="0.0" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/landmark"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/cabin"
-                    android:paddingStart="20dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="@string/hint_lmk"
-                    app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:counterEnabled="true"
+                    app:layout_constraintStart_toStartOf="@+id/house_no_layout"
+                    app:layout_constraintEnd_toEndOf="@+id/area_detail"
                     app:layout_constraintTop_toBottomOf="@+id/area_detail"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_bias="0.0" />
+                    app:counterMaxLength="60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:padding="10dp"
+                        android:textSize="15dp"
+
+                        android:id="@+id/landmark_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cabin"
+                        android:paddingStart="20dp"
+                        android:maxLength="60"
+                        app:layout_constraintHorizontal_bias="0.0" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/city_txlayout"
-                    android:background="@android:color/transparent"
                     app:endIconDrawable="@drawable/dropdown_icon"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
-                    android:padding="2dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toStartOf="@id/pincode"
                     app:layout_constraintTop_toBottomOf="@id/landmark"
                     app:layout_constraintStart_toStartOf="@+id/landmark">
 
                 <AutoCompleteTextView
+
                         android:labelFor="@id/city_txlayout"
                         android:id="@+id/city_autocomplete"
                         android:fontFamily="@font/cabin"
-                        android:background="@android:color/transparent"
-                        android:backgroundTint="@android:color/transparent"
                         android:layout_width="match_parent"
                         android:textSize="15dp"
                         android:layout_height="match_parent"
                         android:text="Chennai" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:padding="10dp"
-                    android:textSize="15dp"
+
+            <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/pincode"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/cabin"
-                    android:paddingStart="20dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                    android:inputType="number"
-                    android:maxLength="6"
                     android:hint="@string/hint_pincode"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="6"
+                    app:layout_constraintEnd_toEndOf="@+id/landmark"
                     app:layout_constraintStart_toEndOf="@+id/city_txlayout"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintBottom_toBottomOf="@+id/city_txlayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/landmark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:textSize="15dp"
+                        android:id="@+id/pincode_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/cabin"
+                        android:inputType="number"
+                        android:maxLength="6" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -163,9 +213,10 @@
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/city_txlayout"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="56dp"
                     app:layout_constraintStart_toStartOf="@+id/landmark"
-                    android:id="@+id/materialTextView12" />
+                    android:id="@+id/materialTextView12"
+                    android:layout_marginStart="4dp" />
 
             <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -211,20 +262,30 @@
                     android:layout_marginStart="24dp" />
 
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/other_address_tag"
                     android:layout_width="260dp"
                     android:layout_height="wrap_content"
-                    android:hint="Enter an name for this address"
-                    android:visibility="gone"
-                    android:textSize="15dp"
-
-                    android:maxLength="30"
-                    android:fontFamily="@font/cabin"
                     app:layout_constraintTop_toBottomOf="@+id/materialTextView16"
                     app:layout_constraintStart_toStartOf="@+id/materialTextView14"
-                    android:id="@+id/other_address_tag"
-                    android:layout_marginTop="20dp" />
+                    android:hint="Enter an name for this address"
+                    app:counterEnabled="true"
+                    android:visibility="gone"
 
+                    android:layout_marginTop="20dp"
+
+                    app:counterMaxLength="20">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+
+                        android:maxLength="20"
+                        android:fontFamily="@font/cabin"
+
+                        android:id="@+id/other_address_tag_et" />
+            </com.google.android.material.textfield.TextInputLayout>
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/saveButton_address"
                     android:layout_width="wrap_content"

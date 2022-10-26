@@ -1,7 +1,6 @@
 package com.example.groceryshoppingapplication.Utils
 
 import android.text.TextUtils.substring
-import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil.idDAO
 import com.example.groceryshoppingapplication.data.IdDAO
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,7 +28,14 @@ object CodeGeneratorUtil {
         return pdCode
     }
 
-    fun generateAddressId(userId:String) =  idDAO.getLastAddressId(userId)?.plus(1) ?: 1
+    fun generateAddressId(userId:String): String {
+        val prefix = "$userId/"
+        val lastAddressId = idDAO.getLastAddressId(userId)
+        val newAddressId = lastAddressId?.let {
+            it.substring(lastAddressId.indexOf("/").plus(1)).trim().toInt()+1
+        } ?: 1
+        return "$prefix$newAddressId"
+    }
 
 
     fun generateUserId():String{
@@ -52,6 +58,15 @@ object CodeGeneratorUtil {
             it.substring(lastCartItemId.indexOf("/").plus(1)).trim().toInt()+1
         } ?: 1
         return "$prefix$newCartItemId"
+    }
+
+    fun generateOrderedItemId(orderId:String):String{
+        val prefix = "$orderId/"
+        val lastOrderedItemId = idDAO.getLastOrderedItemId(orderId)
+        val newOrderItemId = lastOrderedItemId?.let {
+            it.substring(lastOrderedItemId.indexOf("/").plus(1)).trim().toInt()+1
+        } ?: 1
+        return "$prefix$newOrderItemId"
     }
 
     fun generateWishListItemId(wishListId:Int):Int{

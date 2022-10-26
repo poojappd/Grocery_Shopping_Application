@@ -50,6 +50,7 @@ constructor(applicationContext: Context) : this() {
         val view = inflater.inflate(R.layout.fragment_orders_view_pager, container, false)
         view.toolbar_myOrders.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         val userId = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE).getString("loggedUserId", null)!!
+
         if (applicationContext!=null) {
 
             val orderHistoryViewModel: OrderHistoryViewModel by activityViewModels {
@@ -61,7 +62,10 @@ constructor(applicationContext: Context) : this() {
                     val ordersRecyclerView = view.myOrders_recyclerView_viewPager
                     ordersRecyclerView.visibility = View.VISIBLE
                     view.empty_orders_layout.visibility = View.GONE
-                    ordersRecyclerView.adapter = OrdersAdapter(it)
+                    ordersRecyclerView.adapter = OrdersAdapter(it){orderId:String ->
+                        val action = OrdersViewPagerFragmentDirections.actionOrdersViewPagerFragmentToOrderSummaryFragment(orderId)
+                        findNavController().navigate(action)
+                    }
                     ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 }
                 else{
@@ -104,6 +108,8 @@ constructor(applicationContext: Context) : this() {
 
         return view
     }
+
+
 
 
 }

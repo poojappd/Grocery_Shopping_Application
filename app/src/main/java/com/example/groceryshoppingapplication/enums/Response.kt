@@ -21,8 +21,14 @@ enum class Response(val message:String) {
     LOGGED_IN_SUCCESSFULLY("Logged in successfully"),
     PIN_CODE_LENGTH_SHORT("Pincode should be 6 digits"),
     FIELD_REQUIRED("This field is required"),
+LANDMARK_INVALID("landmark is invalid"),
+    CITY_NOT_VALID("Choose a city from the drop down"),
+    HOUSE_NO_INVALID("House no. is invalid"),
+    STREET_INVALID("Street detail is invalid"),
+    AREA_INVALID("Area detail is invalid"),
+    FNAME_INVALID("First name is invalid"),
+    LNAME_INVALID("Last name is invalid"),
 
-    CITY_NOT_VALID("Enter a valid city name")
 
 
 

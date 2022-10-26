@@ -152,8 +152,9 @@
                 app:popUpToInclusive="true"/>
         <argument
                 android:name="addressIdToDisplay"
-                app:argType="integer"
-                android:defaultValue="-1" />
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
         <argument
                 android:name="navigateToDeliverySlotFragment"
                 app:argType="boolean"
@@ -196,7 +197,11 @@
             android:id="@+id/ordersViewPagerFragment"
             android:name="com.example.groceryshoppingapplication.fragments.OrdersViewPagerFragment"
             android:label="My Orders"
-            tools:layout="@layout/fragment_orders_view_pager" />
+            tools:layout="@layout/fragment_orders_view_pager" >
+        <action
+                android:id="@+id/action_ordersViewPagerFragment_to_orderSummaryFragment"
+                app:destination="@id/orderSummaryFragment" />
+    </fragment>
     <fragment
             android:id="@+id/wishListFragment"
             android:name="com.example.groceryshoppingapplication.fragments.WishListFragment"
@@ -211,5 +216,17 @@
                 android:id="@+id/action_productSearchFragment_to_singleProductViewFragment"
                 app:destination="@id/singleProductViewFragment" />
     </fragment>
+    <fragment
+            android:id="@+id/orderSummaryFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.OrderSummaryFragment"
+            android:label="OrderSummaryFragment"
+    tools:layout="@layout/fragment_order_summary"
+            >
+        <argument
+                android:name="orderId"
+                app:argType="string"
+             />
+    </fragment>
+
 
 </navigation>

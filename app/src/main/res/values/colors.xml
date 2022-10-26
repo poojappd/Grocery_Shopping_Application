@@ -7,4 +7,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#d5c3fc</color>
+    <color name="error_color">#FA7AAD</color>
+    <color name="primary_color">#868CFC</color>
+    <color name ="surface_color">#FFFFFFFF</color>
 </resources>

@@ -20,6 +20,7 @@
                 app:title="My Delivery Addresses"
                 app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleCentered="true"
+                android:id="@+id/addresses_toolbar"
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
                 app:titleTextColor="@color/white"

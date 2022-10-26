@@ -176,6 +176,13 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     }
 
 
+    fun emptyCart(){
+        val cartId = currentUserCart.value!!.cartId
+
+        viewModelScope.launch {
+            myCartRepo.emptyCart(cartId)
+        }
+    }
     fun checkItemInCart(productCode: Int): Response {
         currentUserCart.value?.let {
             val item = myCartRepo.getCartItem(productCode, it.cartId)

@@ -97,11 +97,11 @@ class ProductSearchResultsFragment(private val items: List<GroceryItemEntity>) :
             var categoryFilteredItems = mutableListOf<GroceryItemEntity>()
             var sizeFilteredItems = mutableListOf<GroceryItemEntity>()
 
-
             filterViewModel.temporaryFilterConfiguration?.let {
-                Log.e(TAG,it.getBrandFilters().toString())
                 filterViewModel.appliedFilterConfiguration = it
-
+            }
+            filterViewModel.appliedFilterConfiguration?.let {
+                Log.e(TAG,it.getBrandFilters().toString() +"\n")
                 val brandFilter = it.getBrandFilters()
                 val sizeFilter = it.getSelectedSizeFilters()
                 val categFilter = it.getSelectedCategoryFilters()

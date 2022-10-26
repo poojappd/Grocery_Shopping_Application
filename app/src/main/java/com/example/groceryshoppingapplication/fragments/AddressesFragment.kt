@@ -22,6 +22,7 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_addresses.*
 import kotlinx.android.synthetic.main.fragment_addresses.view.*
+import kotlinx.android.synthetic.main.fragment_place_order.view.*
 import java.util.*
 
 class AddressesFragment : Fragment() {
@@ -63,6 +64,8 @@ class AddressesFragment : Fragment() {
                 findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
             }
         }
+        view.addresses_toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
+
         userViewModel.currentUserAddresses.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 recyclerView.visibility = View.GONE

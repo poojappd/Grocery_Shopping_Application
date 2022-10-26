@@ -34,8 +34,7 @@ class FilterViewPagerFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_filter_view_pager, container, false)
         viewmodel.clearTemporaryConfiguration()
-        categRV = view.categ_child_recyclerView_ViewPager
-        categRV.layoutManager = LinearLayoutManager(requireContext())
+
         var packSizePositions: List<Int>? = null
         var categPositions: List<Int>? = null
         var brandPositions: List<Int>? = null
@@ -47,14 +46,19 @@ class FilterViewPagerFragment : Fragment() {
             viewmodel.temporaryFilterConfiguration = it
 
         }
+
+        categRV = view.categ_child_recyclerView_ViewPager
+        categRV.layoutManager = LinearLayoutManager(requireContext())
         categRV.adapter = FilterChildAdapter(viewmodel.categoryString, selectedFilterTitles = categPositions){position->
             viewmodel.temporaryFilterConfiguration?.setCategory(position)
         }
+
         brandRV = view.brand_child_recyclerView_ViewPager
         brandRV.layoutManager = LinearLayoutManager(requireContext())
         brandRV.adapter = FilterChildAdapter(viewmodel.brands, brandPositions){position->
             viewmodel.temporaryFilterConfiguration?.setBrand(position)
         }
+
         sizeRV = view.size_child_recyclerView_ViewPager
         sizeRV.layoutManager = LinearLayoutManager(requireContext())
         sizeRV.adapter = FilterChildAdapter(viewmodel.packSizes, packSizePositions){position->

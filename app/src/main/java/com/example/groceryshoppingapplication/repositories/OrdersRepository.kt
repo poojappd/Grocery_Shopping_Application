@@ -18,5 +18,7 @@ class OrdersRepository(database: AppDatabase) {
 
     fun getUserOrders(userId: String) = ordersDAO.getUserOrders(userId)
 
+    fun getOrderDetail(orderId: String):OrderDetail = ordersDAO.getOrderDetail(orderId)
+
     fun getOrderedItemsFromOrder(orderId: String) = ordersDAO.getOrderedItemsFromOrder(orderId)
 }

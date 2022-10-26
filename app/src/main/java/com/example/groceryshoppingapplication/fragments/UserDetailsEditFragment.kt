@@ -1,17 +1,15 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.app.DatePickerDialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
@@ -22,6 +20,8 @@ import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
 import java.lang.StringBuilder
 import java.util.*
 import com.example.groceryshoppingapplication.Utils.ValidationService
+import com.example.groceryshoppingapplication.enums.Response
+import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 
 class UserDetailsEditFragment : Fragment() {
 
@@ -35,9 +35,9 @@ class UserDetailsEditFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_details_edit, container, false)
-        val firstNameEditText = view.textView10
-        val lastNameEditText = view.textView11
-        val mobileNumberEditText = view.textView13
+        val firstNameEditText = view.textView10_et
+        val lastNameEditText = view.textView11_et
+        val mobileNumberEditText = view.textView13_et
         val dateTextView = view.textView15
         val dialogBuilder = AlertDialog.Builder(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)
@@ -51,8 +51,6 @@ class UserDetailsEditFragment : Fragment() {
         yesButtonDialog.setOnClickListener {
             mobileNumberChangeInvoked = true
             pressedYes = true
-
-
             alertDialog.cancel()
             mobileNumberEditText.isFocusableInTouchMode = true
             mobileNumberEditText.requestFocus()
@@ -61,6 +59,7 @@ class UserDetailsEditFragment : Fragment() {
                 requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(mobileNumberEditText, InputMethodManager.SHOW_IMPLICIT);
         }
+
         noButtonDialog.setOnClickListener {
             alertDialog.cancel()
         }
@@ -107,23 +106,58 @@ class UserDetailsEditFragment : Fragment() {
         }
 
         view.saveButton.setOnClickListener {
-            val firstNameValid = ValidationService.validateName(firstNameEditText.text.toString())
-            val lastNameValid = if (lastNameEditText.text.toString().trim() != "" || lastNameEditText.text.toString().trim()!=" ") ValidationService.validateName(lastNameEditText.text.toString()) else true
-
-            if(!firstNameValid){
-                firstNameEditText.setError("First name is invalid")
-            }
-            userViewModel.currentUser.observe(viewLifecycleOwner){
-                userViewModel.updateUser(
-                it.apply {
-                    firstName = firstNameEditText.text.toString()
-                    lastName = lastNameEditText.text.toString()
-                    dob = dateTextView.text.toString()
-                    mobileNumber = mobileNumberEditText.text.toString()
-
+            var validationPassed = true
+            val fname = firstNameEditText.text
+            if(TextUtils.isEmpty(fname) || fname.toString().trim() == ""){
+                    view.textView10.setError(Response.FIELD_REQUIRED.message)
+                    view.textView10.requestFocus()
+                    validationPassed = false
                 }
-                )
-                findNavController().popBackStack()
+            else {
+                    if (!ValidationService.validateFirstName(fname.toString().trim())) {
+                        view.textView10.setError(Response.FNAME_INVALID.message)
+                        view.textView10.requestFocus()
+                        validationPassed = false
+                    }
+                }
+
+            val lname =lastNameEditText.text
+
+            if(!TextUtils.isEmpty(lname) || lname.toString().trim() != ""){
+                if (!ValidationService.validateLastName(lname.toString().trim())) {
+                    view.textView11.setError(Response.LNAME_INVALID.message)
+                    view.textView11.requestFocus()
+                    validationPassed = false
+                }
+            }
+
+           if(mobileNumberChangeInvoked){
+               if(TextUtils.isEmpty(mobileNumberEditText.text)){
+                   view.textView13.setError(Response.FIELD_REQUIRED.message)
+                   view.textView13.requestFocus()
+                   validationPassed = false
+               }
+
+                else if(!ValidationService.validateMobileNumber(mobileNumberEditText.text.toString())){
+                    view.textView13.setError(Response.MOBILE_NUMBER_LENGTH_SHORT.message)
+                    view.textView13.requestFocus()
+                    validationPassed = false
+                }
+           }
+
+            if(validationPassed) {
+                userViewModel.currentUser.observe(viewLifecycleOwner) {
+                    userViewModel.updateUser(
+                        it.apply {
+                            firstName = firstNameEditText.text.toString().trim()
+                            lastName =  if (lname!=null || lname?.trim()=="") lname.toString().trim() else null
+                            dob = dateTextView.text.toString()
+                            mobileNumber = mobileNumberEditText.text.toString()
+
+                        }
+                    )
+                    findNavController().popBackStack()
+                }
             }
         }
 

@@ -18,26 +18,31 @@ class FilterViewModel : ViewModel() {
     val categoryString = mutableListOf<String>()
     var temporaryFilterConfiguration: FilterConfiguration? = null
     var appliedFilterConfiguration: FilterConfiguration? = null
-    private var filterAppliedData:List<GroceryItemEntity>? = null
+    private var filterAppliedData: List<GroceryItemEntity>? = null
+    val temporaryFilterConfigurationCleared: Boolean
+        get() = _temporaryFilterConfigurationCleared
+    private var _temporaryFilterConfigurationCleared: Boolean = false
 
     fun setOriginalResults(results: List<GroceryItemEntity>) {
         originalResults = MutableLiveData(results)
         updateOriginalResults()
     }
 
-    fun fixAsFinalConfiguration(appliedData:List<GroceryItemEntity>) {
+    fun fixAsFinalConfiguration(appliedData: List<GroceryItemEntity>) {
         appliedFilterConfiguration = temporaryFilterConfiguration
         clearTemporaryConfiguration()
-           filterAppliedData = appliedData
+        filterAppliedData = appliedData
 //        appliedFilterConfiguration  = null
 ////        filterAppliedData = null
     }
 
-    fun clearTemporaryConfiguration(){
+    fun clearTemporaryConfiguration() {
         temporaryFilterConfiguration =
             FilterConfiguration(brands.size, packSizes.size, categories.size)
+        _temporaryFilterConfigurationCleared = true
     }
-    fun clearAllSavedFilter(){
+
+    fun clearAllSavedFilter() {
         temporaryFilterConfiguration = null
         appliedFilterConfiguration = null
         filterAppliedData = null
@@ -76,7 +81,7 @@ class FilterViewModel : ViewModel() {
 
     inner class FilterConfiguration(brandSize: Int, packSize: Int, categorySize: Int) {
         var temporarySortPriceLowToHigh: Boolean? = null
-        private val selectedBrandFilters =   mutableListOf<String>()
+        private val selectedBrandFilters = mutableListOf<String>()
         private val selectedSizeFilters = mutableListOf<Pair<Double, MeasuringUnit>>()
         private val selectedCategoryFilters = mutableListOf<SubCategory>()
         private var _packSizePositions = mutableListOf<Int>()
@@ -90,33 +95,36 @@ class FilterViewModel : ViewModel() {
             get() = _brandPositions
 
         fun setPackSize(position: Int) {
+            _temporaryFilterConfigurationCleared = false
             if (selectedSizeFilters.contains(packSizesEnums[position])) {
                 selectedSizeFilters.remove(packSizesEnums[position])
                 _packSizePositions.remove(position)
-            }
-            else{
+            } else {
                 selectedSizeFilters.add(packSizesEnums[position])
                 _packSizePositions.add(position)
             }
         }
 
         fun setCategory(position: Int) {
-            if(selectedCategoryFilters.contains(categories[position])){
+            _temporaryFilterConfigurationCleared = false
+
+            if (selectedCategoryFilters.contains(categories[position])) {
                 selectedCategoryFilters.remove(categories[position])
                 _categPositions.remove(position)
-            }
-            else {
+            } else {
                 selectedCategoryFilters.add(categories[position])
                 _categPositions.add(position)
             }
         }
 
         fun setBrand(position: Int) {
-            if(selectedBrandFilters.contains(brands[position])){
+            _temporaryFilterConfigurationCleared = false
+
+            if (selectedBrandFilters.contains(brands[position])) {
                 Log.e(TAG, "BRAND CONTAINED ALREADY")
                 selectedBrandFilters.remove(brands[position])
                 _brandPositions.remove(position)
-            }else {
+            } else {
                 selectedBrandFilters.add(brands[position])
                 _brandPositions.add(position)
             }

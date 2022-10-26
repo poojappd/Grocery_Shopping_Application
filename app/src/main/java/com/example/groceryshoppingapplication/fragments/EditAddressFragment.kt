@@ -1,19 +1,22 @@
 package com.example.groceryshoppingapplication.fragments
 
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.Utils.ValidationService
 import com.example.groceryshoppingapplication.enums.AddressTag
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.Address
@@ -50,10 +53,20 @@ class EditAddressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(com.example.groceryshoppingapplication.R.layout.fragment_edit_address, container, false)
-        val cities = requireContext().resources.getStringArray(com.example.groceryshoppingapplication.R.array.cities)
-        val adapter = ArrayAdapter(this.requireContext(), com.example.groceryshoppingapplication.R.layout.cities_array_adapter, cities)
-        view.toolbar_addressEdit.title = if(args.addressIdToDisplay != -1 ) "Edit Address" else "Add Address"
+        val view = inflater.inflate(
+            com.example.groceryshoppingapplication.R.layout.fragment_edit_address,
+            container,
+            false
+        )
+        val cities =
+            requireContext().resources.getStringArray(com.example.groceryshoppingapplication.R.array.cities)
+        val adapter = ArrayAdapter(
+            this.requireContext(),
+            com.example.groceryshoppingapplication.R.layout.cities_array_adapter,
+            cities
+        )
+        view.toolbar_addressEdit.title =
+            if (args.addressIdToDisplay != null) "Edit Address" else "Add Address"
         view.city_autocomplete.setAdapter(adapter)
         val toolbar = view.toolbar_addressEdit
         toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
@@ -71,29 +84,66 @@ class EditAddressFragment : Fragment() {
         view.materialTextView16.setOnClickListener {
 
             activateTag2(
-                AddressTagButtonConfiguration(it, AddressTag.OTHER, view.other_address_tag)
+                AddressTagButtonConfiguration(
+                    it,
+                    AddressTag.OTHER,
+                    view.other_address_tag,
+                    view.other_address_tag_et
+                )
             )
+        }
+        view.pincode_et.doOnTextChanged { text, start, before, count ->
+            if (view.pincode.isErrorEnabled()) {
+                view.pincode.setErrorEnabled(false)
+            }
+        }
+        view.house_no_edittext.doOnTextChanged { text, start, before, count ->
+            if (view.house_no_layout.isErrorEnabled()) {
+                view.house_no_layout.setErrorEnabled(false)
+            }
+        }
+        view.area_detail_et.doOnTextChanged { text, start, before, count ->
+            if (view.area_detail.isErrorEnabled()) {
+                view.area_detail.setErrorEnabled(false)
+            }
+        }
+        view.landmark_et.doOnTextChanged { text, start, before, count ->
+            if (view.landmark.isErrorEnabled()) {
+                view.landmark.setErrorEnabled(false)
+            }
+        }
+        view.street_detail_et.doOnTextChanged { text, start, before, count ->
+            if (view.street_detail.isErrorEnabled()) {
+                view.street_detail.setErrorEnabled(false)
+            }
+        }
+        view.city_autocomplete.doOnTextChanged { text, start, before, count ->
+            if (view.city_txlayout.isErrorEnabled()) {
+                view.city_txlayout.setErrorEnabled(false)
+            }
         }
 
         view.saveButton_address.setOnClickListener {
 //            val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
 //            val userId = sharedPref.getString("loggedUserId","")
-            val toSaveAsNew = args.addressIdToDisplay == -1
+            val toSaveAsNew = args.addressIdToDisplay == null
             var validationPassed = true
-            val houseNo = view.textInputEditText
-            val streetDetail = view.street_detail
-            val areaDetail = view.area_detail
-            val landmark = if (TextUtils.isEmpty(view.landmark.text)) null else view.landmark.text
+            val houseNo = view.house_no_edittext
+            val streetDetail = view.street_detail_et
+            val areaDetail = view.area_detail_et
+            val landmark = view.landmark_et
             val city = view.city_autocomplete
             val pincode = view.pincode
             val userId = userViewModel.currentUser.value!!.userId
-
-            val addressId = if(toSaveAsNew) CodeGeneratorUtil.generateAddressId(userId) else args.addressIdToDisplay
+            val newAddId = CodeGeneratorUtil.generateAddressId(userId)
+            val addressId =
+                if (toSaveAsNew)  newAddId else args.addressIdToDisplay!!
+            Log.e(TAG,"ASS ID $addressId ${args.addressIdToDisplay} $userId $newAddId")
             if (lastViewClicked?.id == view.materialTextView16.id) isOtherTagSelected = true
             var newAddressTag: String? = null
             lastClickedaddressTagButtonConfiguration?.let {
                 if (it.otherAddressView != null) {
-                    val otherAddressText = it.otherAddressView.text
+                    val otherAddressText = it.otherAddressEditText?.text
                     newAddressTag =
                         if (TextUtils.isEmpty(otherAddressText)) "Other" else otherAddressText.toString()
                 } else {
@@ -101,36 +151,76 @@ class EditAddressFragment : Fragment() {
                 }
             }
 
-            if (TextUtils.isEmpty(houseNo.text)) {
-                houseNo.setError(Response.FIELD_REQUIRED.message)
-                validationPassed = false
-            }
-            if (TextUtils.isEmpty(streetDetail.text)) {
-                streetDetail.setError(Response.FIELD_REQUIRED.message)
-                validationPassed = false
-            }
-            if(TextUtils.isEmpty(areaDetail.text)){
-                areaDetail.setError(Response.FIELD_REQUIRED.message)
-                validationPassed = false
-            }
-            if (TextUtils.isEmpty(pincode.text)) {
+            //pincode
+            if (TextUtils.isEmpty(pincode_et.text)) {
                 pincode.setError(Response.FIELD_REQUIRED.message)
+                pincode.requestFocus()
                 validationPassed = false
             } else {
-                if (pincode.text?.length != 6) {
+                if (pincode_et.text?.length != 6) {
                     pincode.setError(Response.PIN_CODE_LENGTH_SHORT.message)
+                    pincode_et.requestFocus()
                     validationPassed = false
                 }
             }
+
+            //city
             if (!cities.contains(city.text.toString())) {
-                city.setError("Choose a city from the drop down")
+                view.city_txlayout.error = Response.CITY_NOT_VALID.message
+                view.city_txlayout.requestFocus()
                 validationPassed = false
             }
+            //landmark
+            if (!TextUtils.isEmpty(landmark.text)) {
+                if (!ValidationService.validateArea(landmark.text.toString().trim())) {
+                    view.landmark.setError(Response.LANDMARK_INVALID.message)
+                    view.landmark.requestFocus()
+                    validationPassed = false
+                }
+            }
+            //area
+            if (TextUtils.isEmpty(areaDetail.text)) {
+                view.area_detail.setError(Response.FIELD_REQUIRED.message)
+                view.area_detail.requestFocus()
+                validationPassed = false
+            } else {
+                if (!ValidationService.validateArea(areaDetail.text.toString().trim())) {
+                    view.area_detail.setError(Response.AREA_INVALID.message)
+                    view.area_detail.requestFocus()
+                    validationPassed = false
+                }
+            }
+            //street
+            if (TextUtils.isEmpty(streetDetail.text)) {
+                view.street_detail.setError(Response.FIELD_REQUIRED.message)
+                view.street_detail.requestFocus()
+                validationPassed = false
+            } else {
+                if (!ValidationService.validateArea(streetDetail.text.toString().trim())) {
+                    validationPassed = false
+                    view.street_detail.setError(Response.STREET_INVALID.message)
+                    view.street_detail.requestFocus()
+                }
+            }
+            //house no
+            if (TextUtils.isEmpty(houseNo.text)) {
+                view.house_no_layout.setError(Response.FIELD_REQUIRED.message)
+                house_no_layout.requestFocus()
+                validationPassed = false
+            } else {
+                if (!ValidationService.validateHouseNumber(houseNo.text.toString().trim())) {
+                    validationPassed = false
+                    view.house_no_layout.error = Response.HOUSE_NO_INVALID.message
+                    view.house_no_layout.requestFocus()
+                }
+            }
+
 
             if (validationPassed) {
+
                 val address = Address(
                     userId,
-                    pincode.text.toString(),
+                    pincode_et.text.toString(),
                     houseNo.text.toString(),
                     streetDetail.text.toString(),
                     landmark.toString(),
@@ -139,10 +229,9 @@ class EditAddressFragment : Fragment() {
                     newAddressTag,
                     addressId
                 )
-                if(toSaveAsNew){
-                userViewModel.addUserAddress(address)
-                }
-                else userViewModel.updateUserAddress(address)
+                if (toSaveAsNew) {
+                    userViewModel.addUserAddress(address)
+                } else userViewModel.updateUserAddress(address)
                 if (args.navigateToDeliverySlotFragment) {
                     findNavController().navigate(com.example.groceryshoppingapplication.R.id.action_editAddressFragment_to_deliverySlotFragment)
 
@@ -156,12 +245,12 @@ class EditAddressFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val houseNo = view.textInputEditText
-        val streetDetail = view.street_detail
-        val areaDetail = view.area_detail
+        val houseNo = view.house_no_edittext
+        val streetDetail = view.street_detail_et
+        val areaDetail = view.area_detail_et
         val city = view.city_autocomplete
 
-        if (args.addressIdToDisplay != -1) {
+        if (args.addressIdToDisplay != null) {
             var userAddress: Address? = null
             userViewModel.currentUserAddresses.value?.forEach {
                 if (it.addressId == args.addressIdToDisplay)
@@ -171,9 +260,9 @@ class EditAddressFragment : Fragment() {
                 houseNo.setText(it.houseNo)
                 streetDetail.setText(it.streetDetails)
                 areaDetail.setText(it.areaDetails)
-                if (it.landmark != "null") view.landmark.setText(it.landmark)
+                if (it.landmark != "null") view.landmark_et.setText(it.landmark)
                 city.setText(it.city)
-                pincode.setText(it.pincode)
+                pincode_et.setText(it.pincode)
                 it.addressTag?.let {
                     when (it) {
                         "Home" -> {
@@ -193,15 +282,16 @@ class EditAddressFragment : Fragment() {
                             )
                         }
                         else -> {
-                            if(it!= "Other")
-                                view.other_address_tag.setText(it)
+                            if (it != "Other")
+                                view.other_address_tag_et.setText(it)
 
                             activateTag2(
-                            AddressTagButtonConfiguration(
-                                view.materialTextView16,
-                                AddressTag.OTHER,
-                                view.other_address_tag
-                            )
+                                AddressTagButtonConfiguration(
+                                    view.materialTextView16,
+                                    AddressTag.OTHER,
+                                    view.other_address_tag,
+                                    view.other_address_tag_et
+                                )
                             )
                         }
                     }
@@ -217,9 +307,9 @@ class EditAddressFragment : Fragment() {
     private class AddressTagButtonConfiguration(
         val button: View,
         val addressTag: AddressTag,
-        val otherAddressView: TextView? = null
+        val otherAddressView: View? = null,
+        val otherAddressEditText: EditText? = null
     )
-
 
 
     private fun activateTag2(addressTagButtonConfiguration: AddressTagButtonConfiguration) {
@@ -235,5 +325,6 @@ class EditAddressFragment : Fragment() {
             lastClickedaddressTagButtonConfiguration = addressTagButtonConfiguration
         }
     }
+
 
 }

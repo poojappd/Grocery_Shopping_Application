@@ -5,24 +5,33 @@
     <item
             android:title="Home"
             android:icon="@drawable/home_icon"
-
+android:iconTint="@color/primary_color"
+            
             android:id="@+id/homePageFragment" />
     <item
             android:title="All categories"
             android:icon="@drawable/all_categories_icon"
+            android:iconTint="@color/primary_color"
+
             android:id="@+id/allCategoriesFragment" />
     <item
             android:id="@+id/productSearchFragment"
             android:icon="@drawable/search_icon"
             android:title="Search"
+            android:iconTint="@color/primary_color"
+
             app:actionViewClass="android.widget.SearchView" ></item>
     <item
             android:title="Profile"
             android:icon="@drawable/profile_icon"
+            android:iconTint="@color/primary_color"
+
             android:id="@+id/userAccountFragment"/>
 
     <item
             android:title="Cart"
             android:icon="@drawable/app_cart_icon"
+            android:iconTint="@color/primary_color"
+
             android:id="@+id/cartFragment" />
 </menu>
