@@ -226,6 +226,18 @@
                 android:name="orderId"
                 app:argType="string"
              />
+        <action
+                android:id="@+id/action_orderSummaryFragment_to_orderedItemsListFragment"
+                app:destination="@id/orderedItemsListFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/orderedItemsListFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.OrderedItemsListFragment"
+            android:label="fragment_ordered_items_list"
+            tools:layout="@layout/fragment_ordered_items_list" >
+        <argument
+                android:name="orderId"
+                app:argType="string" />
     </fragment>
 
 

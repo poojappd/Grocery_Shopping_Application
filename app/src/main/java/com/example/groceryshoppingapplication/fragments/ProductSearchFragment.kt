@@ -1,14 +1,17 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.*
 import com.example.groceryshoppingapplication.ProductSearchResultsFragment
 import com.example.groceryshoppingapplication.R
@@ -41,11 +44,17 @@ class ProductSearchFragment : Fragment() {
         Log.e(TAG, "  back stack count search frag------>"+childFragmentManager.backStackEntryCount.toString())
         searchView = view.searchView
         searchView.requestFocus()
+
         searchView.setOnQueryTextListener(SearchQueryListener())
         searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn).setOnClickListener{
             searchView.setQuery("",true)
             searchView.clearFocus()
         }
+        searchView.setOnQueryTextFocusChangeListener(OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                showInputMethod(view.findFocus())
+            }
+        })
         childFragmentContainer = view.search_Fragment
         childFragmentManager.addOnBackStackChangedListener {
             val backStackCount = childFragmentManager.backStackEntryCount
@@ -56,6 +65,10 @@ class ProductSearchFragment : Fragment() {
         return view
     }
 
+    private fun showInputMethod(view: View) {
+        val imm = requireActivity().getSystemService( INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.showSoftInput(view, 0)
+    }
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             //childFragmentManager.popBackStackImmediate()
@@ -104,7 +117,7 @@ class ProductSearchFragment : Fragment() {
 
 
 
-        fun displaySuggestions(searchQuery: String) {
+        private fun displaySuggestions(searchQuery: String) {
             popLastChildBackStackEntry()
                 childFragmentManager.beginTransaction().apply {
                     add(R.id.search_Fragment, SearchSuggestionsFragment(searchQuery))

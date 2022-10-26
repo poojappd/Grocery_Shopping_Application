@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.viewmodels.*
@@ -53,6 +54,11 @@ class OrderSummaryFragment : Fragment() {
                     "${this.houseNo}, ${this.streetDetails}, ${this.areaDetails}," +
                             "${this.city} - ${this.pincode}"
                 )
+            }
+
+            view_orderItems_button.setOnClickListener {
+                val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderedItemsListFragment(args.orderId)
+                findNavController().navigate(action)
             }
 
             val dateFormat = SimpleDateFormat("EEEE dd MMMM ", Locale.getDefault())

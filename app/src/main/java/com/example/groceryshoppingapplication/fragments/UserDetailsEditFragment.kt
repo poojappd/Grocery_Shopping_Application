@@ -2,12 +2,15 @@ package com.example.groceryshoppingapplication.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
@@ -48,6 +51,10 @@ class UserDetailsEditFragment : Fragment() {
         var pressedYes = false
 
         val alertDialog = dialogBuilder.create()
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            alertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
+        }
         yesButtonDialog.setOnClickListener {
             mobileNumberChangeInvoked = true
             pressedYes = true

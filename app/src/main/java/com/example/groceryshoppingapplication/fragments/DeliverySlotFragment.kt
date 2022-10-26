@@ -60,6 +60,12 @@ class DeliverySlotFragment : Fragment() {
         val dateArray = getDateArray()
         var chosenTime:Date? = null
 
+        val addressView = view.address_delSLot
+        val currentAddress = userViewModel.currentUserAddresses.value!!.get(0)
+        addressView.text = StringBuilder().append(
+            "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
+        )
+
         val dateRecycerView = view.dateChoose_rv
         deliverySlotViewModel.timePosition?.let {
             view.invisible_time_picker.visibility = View.VISIBLE
