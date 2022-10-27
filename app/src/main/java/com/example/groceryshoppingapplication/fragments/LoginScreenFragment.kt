@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
@@ -44,13 +45,7 @@ class LoginScreenFragment : Fragment() {
         signInButton.setOnClickListener{
                 refActivity?.supportFragmentManager?.apply {
                     beginTransaction().apply {
-                        setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
-                        add(R.id.signIn_up_frg_cont, SignInFragment(true))
+                        add(R.id.signIn_up_frg_cont, SignInFragment(true){signUp:Boolean-> if(signUp) skipToSignup()})
                         addToBackStack("one")
                         Log.e(
                             ContentValues.TAG,
@@ -73,19 +68,42 @@ class LoginScreenFragment : Fragment() {
                         R.anim.fade_in,
                         R.anim.fade_out
                     )
-                    add(R.id.signIn_up_frg_cont, SignInFragment(false))
+                    add(R.id.signIn_up_frg_cont, SignInFragment(false){})
                     addToBackStack("one")
                     Log.e(
                         ContentValues.TAG,
                         refActivity.supportFragmentManager.backStackEntryCount.toString()
                     )
 
-                    commit()
+                     commit()
                 }
             }
         }
         return loginScreenFragmentView
 
+    }
+
+    fun skipToSignup(){
+        requireActivity()?.supportFragmentManager?.popBackStack()
+        requireActivity()?.supportFragmentManager?.apply {
+            beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                add(R.id.signIn_up_frg_cont, SignInFragment(false){signUp:Boolean-> if(signUp) skipToSignup()})
+                addToBackStack("one")
+
+                Log.e(
+                    ContentValues.TAG,
+                    requireActivity().supportFragmentManager.backStackEntryCount.toString()
+                )
+               commit()
+
+            }
+        }
     }
 
 

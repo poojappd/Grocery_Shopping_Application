@@ -48,15 +48,14 @@ class HomePageFragment : Fragment() {
         // Inflate the layout for this fragment
 //        val actionBar = (activity as AppCompatActivity?)!!.supportActionBar!!
 //        actionBar.elevation = 0f
-//        actionBar.setTitle("Hello, ${viewmodel.currentUser.value?.firstName}")
 
         requireActivity().findViewById<BottomNavigationView>(com.example.groceryshoppingapplication.R.id.bottomNavigationView).visibility =
             View.VISIBLE
-        val view = inflater.inflate(
-            com.example.groceryshoppingapplication.R.layout.fragment_home_page,
-            container,
+        val view = inflater.inflate(R.layout.fragment_home_page, container,
             false
         )
+        view.materialTextView24.text = "Hello, ${viewmodel.currentUser.value?.firstName}"
+
         val recyclerView = view.homePageFragment_category_rv
         val adViewPager = view.top_advertisement_viewPager
         adViewPager.adapter = AdvertisementViewPager()

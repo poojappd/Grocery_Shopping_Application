@@ -63,6 +63,14 @@ class ParentCategoryAdapter (
         return parentCategoryData.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val iconView = itemView.findViewById<ImageView>(R.id.category_icon)
         val descriptionView = itemView.findViewById<TextView>(R.id.category_description)

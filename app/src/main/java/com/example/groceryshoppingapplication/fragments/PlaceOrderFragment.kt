@@ -42,6 +42,8 @@ class PlaceOrderFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_place_order, container, false)
+        val toastOrderplaced = Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT)
+        val toastChoosePayment = Toast.makeText(context,"Choose a payment method! ", Toast.LENGTH_SHORT)
         view.apply {
             toolbar_placeOrder.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
             val decimal = DecimalFormat("#.00")
@@ -98,11 +100,13 @@ class PlaceOrderFragment : Fragment() {
                             OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }
                         viewModel.createNewOrder(newOrder,orderedItems)
+                        orderDetailsViewModel.clearOrderDetails()
+                        userViewmodel.emptyCart()
+
                     }
-                    Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT).show()
-                    userViewmodel.emptyCart()
+                    toastOrderplaced.show()
                     findNavController().navigate(R.id.action_placeOrderFragment_to_homePageFragment)
-                } ?: Toast.makeText(context,"Choose a payment method! ", Toast.LENGTH_SHORT).show()
+                } ?: toastChoosePayment.show()
 
 
             }
@@ -132,9 +136,14 @@ class PlaceOrderFragment : Fragment() {
             }
         }
 
-        orderDetailsViewModel.paymentOption = paymentOption
         it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#838ED5"))
         checkView.visibility = View.VISIBLE
+        if(this@PlaceOrderFragment::lastView.isInitialized && it.id==lastView.id){
+            orderDetailsViewModel.paymentOption = null
+        }
+        else {
+            orderDetailsViewModel.paymentOption = paymentOption
+        }
         if (this@PlaceOrderFragment::lastView.isInitialized) {
             lastView.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#C7C9D6"))
             lastCheckView.visibility = View.GONE

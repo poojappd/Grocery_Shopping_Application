@@ -38,6 +38,8 @@ class UserRepository(database: AppDatabase) {
 
     suspend fun deleteUserAddress(address: Address) = userDao.deleteUserAddress(address)
 
+    fun getAddress(addressId:String) = userDao.getAddress(addressId)
+
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 
     fun getUserWishListDetails(userId: String) = userDao.getUserWishList(userId)

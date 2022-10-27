@@ -270,7 +270,7 @@
                     app:layout_constraintStart_toStartOf="@+id/materialTextView14"
                     android:hint="Enter an name for this address"
                     app:counterEnabled="true"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     android:layout_marginTop="20dp"
 

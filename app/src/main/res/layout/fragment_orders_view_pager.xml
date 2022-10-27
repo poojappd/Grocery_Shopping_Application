@@ -87,7 +87,7 @@ android:visibility="visible"
                 android:background="@drawable/deliveryslot_not_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#98A1F6"
+                android:textColor="#7986CB"
                 android:textStyle="bold"
 
                 android:backgroundTint="#98A1F6"
@@ -100,7 +100,8 @@ android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView27"
-                app:layout_constraintVertical_bias="0.384" />
+                app:layout_constraintVertical_bias="0.384"
+                tools:ignore="TextContrastCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

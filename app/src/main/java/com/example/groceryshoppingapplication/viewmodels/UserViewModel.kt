@@ -44,6 +44,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     val currentUserCart = _currentUserCart
     val currentUserWishList = _currentUserWishList
     val cartItemsTotalPrice = _cartItemsTotalPrice
+    private var defaultAddress:Address? = null
 
     fun loginUser(mobileNumber: String): Response {
         val user = repo.loginUser(mobileNumber)
@@ -72,12 +73,21 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         }
     }
 
+    fun getDefaultAddress() = defaultAddress
+
+    fun updateDefaultAddress(addressId:String){
+        defaultAddress = repo.getAddress(addressId)
+    }
+
     fun getCurrentUserData(mobileNumber: String) = repo.loginUser(mobileNumber)
 
 
     fun addUserAddress(address: Address) {
         viewModelScope.launch {
             repo.addUserAddress(address)
+            if(defaultAddress == null){
+                defaultAddress = address
+            }
             refreshUserAddresses()
         }
     }
@@ -92,7 +102,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         refreshUserAddresses()
     }
 
-    private fun refreshUserAddresses() {
+    fun refreshUserAddresses() {
         _currentUserAddresses.value = repo.getUserAddresses(currentUser.value!!.userId).addresses
     }
 
@@ -141,11 +151,15 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
             val response = checkItemInCart(productCode)
             if (response == Response.ITEM_PRESENT_IN_CART) {
+                Log.e(TAG,"Item in cart...")
                 for (i in items.cartItemEntity) {
                     if (i.productCode == productCode) {
-                        if (i.quantity > 1) {
-                            myCartRepo.decreaseQuantity(i)
+                        Log.e(TAG,"Product fount ${i.productCode}...")
 
+                        if (i.quantity > 1) {
+                            Log.e(TAG,"quantity > 1... decreased?")
+
+                            myCartRepo.decreaseQuantity(i)
                             currentUserCart.value!!.totalItemsInCart--
                             _isRemovedFromCart.value = false
                             break
@@ -181,6 +195,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
         viewModelScope.launch {
             myCartRepo.emptyCart(cartId)
+            refreshCart()
         }
     }
     fun checkItemInCart(productCode: Int): Response {

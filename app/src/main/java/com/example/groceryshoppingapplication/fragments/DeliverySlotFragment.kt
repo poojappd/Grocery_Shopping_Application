@@ -61,56 +61,60 @@ class DeliverySlotFragment : Fragment() {
         var chosenTime:Date? = null
 
         val addressView = view.address_delSLot
-        val currentAddress = userViewModel.currentUserAddresses.value!!.get(0)
-        addressView.text = StringBuilder().append(
-            "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
-        )
-
-        val dateRecycerView = view.dateChoose_rv
-        deliverySlotViewModel.timePosition?.let {
-            view.invisible_time_picker.visibility = View.VISIBLE
+        userViewModel.refreshUserAddresses()
+         userViewModel.currentUserAddresses.observe(viewLifecycleOwner) {
+            val currentAddress = it.get(0)
+            addressView.text = StringBuilder().append(
+                "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
+            )
         }
 
-        dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray, { date: Date, position:Int ->
-            deliverySlotViewModel.chosenDate = date
-            deliverySlotViewModel.datePosition?.let {
-                if(it!= position){
-                    deliverySlotViewModel.chosenTime = null
-                    deliverySlotViewModel.timePosition = null
-                    view.continue_button_deliverySlot.visibility = View.GONE
-
-                }
+            val dateRecycerView = view.dateChoose_rv
+            deliverySlotViewModel.timePosition?.let {
+                view.invisible_time_picker.visibility = View.VISIBLE
             }
-            deliverySlotViewModel.datePosition = position
 
-           val timeArray = getTimeArray(deliverySlotViewModel.chosenDate!!)
+            dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray, { date: Date, position:Int ->
+                deliverySlotViewModel.chosenDate = date
+                deliverySlotViewModel.datePosition?.let {
+                    if(it!= position){
+                        deliverySlotViewModel.chosenTime = null
+                        deliverySlotViewModel.timePosition = null
+                        view.continue_button_deliverySlot.visibility = View.GONE
 
-            view.timeChoose_rv.adapter = DeliverySlotTimeAdapter(timeArray,{time: Date, position:Int->
-                deliverySlotViewModel.chosenTime = time
-                deliverySlotViewModel.timePosition = position
-                view.continue_button_deliverySlot.visibility = View.VISIBLE
-            },deliverySlotViewModel.timePosition)
-            view.invisible_time_picker.visibility = View.VISIBLE
-            val tlv = GridLayoutManager(context,1)
-            view.timeChoose_rv.layoutManager = tlv
-            tlv.scrollToPositionWithOffset(2, 20);
-
-
-        },deliverySlotViewModel.datePosition)
-        val lm = LinearLayoutManager(context)
-        dateRecycerView.layoutManager = lm
-
-        view.continue_button_deliverySlot.setOnClickListener {
-            userViewModel.currentUserAddresses.observe(viewLifecycleOwner){
-                orderDetailsViewModel.deliverySlot = deliverySlotViewModel.chosenTime
-                orderDetailsViewModel.deliveringAddress = it.get(0)
-                 userViewModel.currentUser.observe(viewLifecycleOwner){
-                    orderDetailsViewModel.receiverName = it.firstName+" "+ it.lastName
+                    }
                 }
+                deliverySlotViewModel.datePosition = position
+
+                val timeArray = getTimeArray(deliverySlotViewModel.chosenDate!!)
+
+                view.timeChoose_rv.adapter = DeliverySlotTimeAdapter(timeArray,{time: Date, position:Int->
+                    deliverySlotViewModel.chosenTime = time
+                    deliverySlotViewModel.timePosition = position
+                    view.continue_button_deliverySlot.visibility = View.VISIBLE
+                },deliverySlotViewModel.timePosition)
+                view.invisible_time_picker.visibility = View.VISIBLE
+                val tlv = GridLayoutManager(context,1)
+                view.timeChoose_rv.layoutManager = tlv
+                tlv.scrollToPositionWithOffset(2, 20);
+
+
+            },deliverySlotViewModel.datePosition)
+            val lm = LinearLayoutManager(context)
+            dateRecycerView.layoutManager = lm
+
+            view.continue_button_deliverySlot.setOnClickListener {
+                userViewModel.currentUserAddresses.observe(viewLifecycleOwner){
+                    orderDetailsViewModel.deliverySlot = deliverySlotViewModel.chosenTime
+                    orderDetailsViewModel.deliveringAddress = it.get(0)
+                    userViewModel.currentUser.observe(viewLifecycleOwner){
+                        orderDetailsViewModel.receiverName = it.firstName+" "+ it.lastName
+                    }
+                }
+                findNavController().navigate(R.id.action_deliverySlotFragment_to_placeOrderFragment)
             }
-            findNavController().navigate(R.id.action_deliverySlotFragment_to_placeOrderFragment)
+            return view
         }
-        return view
     }
 
     private fun getDateArray(): MutableList<Date> {
@@ -157,7 +161,7 @@ class DeliverySlotFragment : Fragment() {
         return timeArray
     }
 
-}
+
 
 class MyPagerSnapHelper: PagerSnapHelper() {
 

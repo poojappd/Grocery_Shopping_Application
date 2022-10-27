@@ -53,8 +53,19 @@ class SingleProductViewFragment : Fragment() {
         view.single_product_toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         var imagePathList: Array<String>
         val decimal = DecimalFormat("0.##")
+        val minQtyExceededToast = Toast.makeText(
+            this@SingleProductViewFragment.requireContext(),
+            "Maximum order quantity is 10",
+            Toast.LENGTH_SHORT
+        )
+        val itemRemovedToast = Toast.makeText(
+            this@SingleProductViewFragment.requireContext(),
+            "Item removed from cart",
+            Toast.LENGTH_SHORT
+        )
 
         inventoryViewModel.getProduct(args.displayProductCode).observe(viewLifecycleOwner) {
+
             val productCode = it.productCode
             imagePathList =
                 requireActivity().applicationContext.assets.list("product_images/${productCode.toString()}") as Array<String>
@@ -79,11 +90,7 @@ class SingleProductViewFragment : Fragment() {
                         if (qty != null) {
                             view.itemCount_textView_singleProductView.text = qty.toString()
                             toggleAddToCartVisibility(true)
-                            val minQtyExceededToast = Toast.makeText(
-                                this@SingleProductViewFragment.requireContext(),
-                                "Maximum order quantity is 10",
-                                Toast.LENGTH_SHORT
-                            )
+
                             increaseQuantity_single_product.setOnClickListener { buttonview ->
                                 if (qty < 10) {
                                     userViewmodel.currentUserCart.value?.cartId?.let { id ->
@@ -103,18 +110,15 @@ class SingleProductViewFragment : Fragment() {
                             }
                             decreaseQuantity_single_product.setOnClickListener { buttonView ->
                                 userViewmodel.currentUserCart.value?.cartId?.let { id ->
-                                    if (qty == 1) {
-                                        Toast.makeText(
-                                            this@SingleProductViewFragment.requireContext(),
-                                            "Removed from cart ${it.brandName}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                    if (qty == 1)
+                                        itemRemovedToast.show()
+
                                     userViewmodel.removeFromCart(it.productCode)
                                     Log.e(
                                         TAG,
                                         userViewmodel.getCartItemQuantity(it.productCode).toString()
                                     )
-                                    }
+
 
                                 }
                             }

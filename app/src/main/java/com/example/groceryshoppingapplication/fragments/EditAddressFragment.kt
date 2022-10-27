@@ -1,6 +1,7 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
@@ -137,8 +138,8 @@ class EditAddressFragment : Fragment() {
             val userId = userViewModel.currentUser.value!!.userId
             val newAddId = CodeGeneratorUtil.generateAddressId(userId)
             val addressId =
-                if (toSaveAsNew)  newAddId else args.addressIdToDisplay!!
-            Log.e(TAG,"ASS ID $addressId ${args.addressIdToDisplay} $userId $newAddId")
+                if (toSaveAsNew) newAddId else args.addressIdToDisplay!!
+            Log.e(TAG, "ASS ID $addressId ${args.addressIdToDisplay} $userId $newAddId")
             if (lastViewClicked?.id == view.materialTextView16.id) isOtherTagSelected = true
             var newAddressTag: String? = null
             lastClickedaddressTagButtonConfiguration?.let {
@@ -223,7 +224,7 @@ class EditAddressFragment : Fragment() {
                     pincode_et.text.toString(),
                     houseNo.text.toString(),
                     streetDetail.text.toString(),
-                    landmark.toString(),
+                    landmark.text.toString(),
                     areaDetail.text.toString(),
                     city.text.toString(),
                     newAddressTag,
@@ -231,6 +232,17 @@ class EditAddressFragment : Fragment() {
                 )
                 if (toSaveAsNew) {
                     userViewModel.addUserAddress(address)
+                    val sharedPref = requireActivity().getSharedPreferences(
+                        "myPreferences",
+                        Context.MODE_PRIVATE
+                    )
+                    if (sharedPref.getString("loggedUserMobile", null) == null) {
+                        sharedPref.edit().apply {
+                            putString("loggedUserDefaultAddressId", addressId)
+                            apply()
+                        }
+                        userViewModel.updateDefaultAddress(addressId)
+                    }
                 } else userViewModel.updateUserAddress(address)
                 if (args.navigateToDeliverySlotFragment) {
                     findNavController().navigate(com.example.groceryshoppingapplication.R.id.action_editAddressFragment_to_deliverySlotFragment)

@@ -44,6 +44,9 @@ class CartItemsAdapter(
                     0
                 )
             )
+            image.setOnClickListener {
+                cartItemTouchListener.navigateToProduct(productCode)
+            }
             increaseButton.setOnClickListener {
                 //userViewModel.addToCart(productCode)
                 if ((count.text as String).toInt() <10) {

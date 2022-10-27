@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/recentSearchStyle"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="Popular"
+        android:id="@+id/recentSearchItem"
+        android:drawablePadding="6dp"
+        android:gravity="center"
+        android:drawableStart="@drawable/time_icon1"
+        android:drawableTint="@color/grey_iconTint"
+        >
+
+</com.google.android.material.textview.MaterialTextView>

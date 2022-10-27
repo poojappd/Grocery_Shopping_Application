@@ -27,6 +27,8 @@ interface UserDAO{
     @Query("select * from User where userId = :userId")
     fun getUserAddresses(userId:String): UserAndAddresses
 
+
+
     @Insert
     suspend fun addUserAddress(address: Address)
 
@@ -35,6 +37,9 @@ interface UserDAO{
 
     @Delete
     suspend fun deleteUserAddress(address: Address)
+
+    @Query("select * from Address where addressId = :addressId")
+    fun getAddress(addressId:String):Address
 
     @Transaction
     @Query("select * from User where userId = :userId")

@@ -181,8 +181,11 @@
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pooja Priyadarshni P S"
+                    android:text="test name"
                     android:textStyle="bold"
+                    android:maxEms="15"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:shadowColor="@color/black"
                     android:textSize="18sp"
                     android:textColor="@color/white"
@@ -219,10 +222,10 @@
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="9832478927"
                     android:shadowRadius="0.1"
                     android:textStyle="bold"
                     android:textSize="18sp"
+                    android:maxLength="10"
                     android:layout_marginHorizontal="10dp"
                     android:textColor="@color/white"
                     android:shadowColor="@color/black"
@@ -230,8 +233,8 @@
                     android:paddingVertical="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/textView20"
                     android:id="@+id/textView21"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/shapeableImageView4" />
+                    app:layout_constraintStart_toEndOf="@+id/shapeableImageView4"
+                    app:layout_constraintEnd_toStartOf="@+id/EditButton" />
 
             <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="20dp"
@@ -247,9 +250,12 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pammal"
+                    android:maxEms="12"
+                    android:text="test address"
                     android:textSize="18sp"
+                    android:maxLines="1"
 
+                    android:ellipsize="end"
                     android:fontFamily="@font/cabin"
                     android:textColor="@color/white"
                     android:shadowRadius="0.1"

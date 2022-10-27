@@ -6,4 +6,5 @@ interface CartItemTouchListener {
     fun addToCart(productCode:Int)
     fun removeFromCart(productCode: Int)
     fun getCartItemExtraData(productCode: Int): CartItemData
+    fun navigateToProduct(productCode: Int)
 }

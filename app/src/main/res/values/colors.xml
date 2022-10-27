@@ -5,9 +5,14 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="textGrey">#4C4C4C</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#d5c3fc</color>
     <color name="error_color">#FA7AAD</color>
     <color name="primary_color">#868CFC</color>
+    <color name="primary_accent_textColor">#8E9BEF</color>
+    <color name="grey_iconTint">#CDCDCF</color>
+    <color name="grey_divider">#F5F6FF</color>
     <color name ="surface_color">#FFFFFFFF</color>
+    <color name="primary_surfaceColorTinted">#EBE0FF</color>
 </resources>

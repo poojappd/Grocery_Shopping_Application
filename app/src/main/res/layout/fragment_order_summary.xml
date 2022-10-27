@@ -24,6 +24,7 @@
                 app:navigationIconTint="@color/white"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent"
+                app:menu="@menu/order_cancel_menu"
                 />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -225,7 +226,7 @@
                 android:fontFamily="@font/cabin"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:id="@+id/materialTextView20"
+                android:id="@+id/DeliverOnTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView19"
                 android:layout_marginTop="32dp" />
@@ -238,8 +239,8 @@
                 android:layout_marginStart="8dp"
                 android:tint="#6C8DDE"
                 android:id="@+id/shapeableImageView9"
-                app:layout_constraintTop_toTopOf="@id/materialTextView20"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView20"
+                app:layout_constraintTop_toTopOf="@id/DeliverOnTextView"
+                app:layout_constraintStart_toEndOf="@+id/DeliverOnTextView"
                 android:layout_marginTop="1dp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -252,8 +253,8 @@
                 android:gravity="start"
                 android:fontFamily="@font/cabin"
                 android:id="@+id/materialTextView21"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView20"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView20" />
+                app:layout_constraintStart_toStartOf="@+id/DeliverOnTextView"
+                app:layout_constraintTop_toBottomOf="@+id/DeliverOnTextView" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"

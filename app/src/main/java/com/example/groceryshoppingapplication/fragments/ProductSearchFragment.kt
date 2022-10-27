@@ -11,14 +11,20 @@ import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.*
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.groceryshoppingapplication.ProductSearchResultsFragment
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.adapters.RecentSearchAdapter
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_product_search.view.*
 import kotlinx.android.synthetic.main.fragment_product_search_results.view.*
 
@@ -27,6 +33,7 @@ class ProductSearchFragment : Fragment() {
 
     private lateinit var childFragmentContainer: FragmentContainerView
     private lateinit var searchView:SearchView
+    private lateinit var recentSearchContainer: ViewGroup
     private var lastSuggestionStackId:Int? = null
     private var lastQuery:String? = null
     private var lastSubmittedQuery:String? = null
@@ -42,6 +49,11 @@ class ProductSearchFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_search, container, false)
         Log.e(TAG, "  back stack count search frag------>"+childFragmentManager.backStackEntryCount.toString())
+        recentSearchContainer = view.recentSearch_Container
+        val recyclerView = view.recyclerView
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.adapter = RecentSearchAdapter("Pineapple Tomato Milk Grocery Mirinda Onion Rice Chapathi Egg Bread".split(" "))
+        {query:String -> setSearchViewQuery(query)}
         searchView = view.searchView
         searchView.requestFocus()
 
@@ -53,7 +65,10 @@ class ProductSearchFragment : Fragment() {
         searchView.setOnQueryTextFocusChangeListener(OnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 showInputMethod(view.findFocus())
+                requireActivity().bottomNavigationView.isVisible = false
             }
+            else
+            requireActivity().bottomNavigationView.isVisible = true
         })
         childFragmentContainer = view.search_Fragment
         childFragmentManager.addOnBackStackChangedListener {
@@ -68,6 +83,8 @@ class ProductSearchFragment : Fragment() {
     private fun showInputMethod(view: View) {
         val imm = requireActivity().getSystemService( INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.showSoftInput(view, 0)
+
+
     }
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
@@ -84,10 +101,14 @@ class ProductSearchFragment : Fragment() {
             Log.e(TAG,"Query - *$newText*")
 
             if (newText != null) {
+
                 if(newText =="") {
+                    recentSearchContainer.isVisible = true
+
                     childFragmentContainer.visibility = View.GONE
                     Log.e(TAG, "EMpty Queryyyy-----------")
                 }else{
+                    recentSearchContainer.isVisible = false
                     if(newText!=lastQuery) {
                         childFragmentContainer.visibility = View.VISIBLE
 
@@ -97,6 +118,7 @@ class ProductSearchFragment : Fragment() {
                 }
                 return true
             }
+
             return false
         }
 

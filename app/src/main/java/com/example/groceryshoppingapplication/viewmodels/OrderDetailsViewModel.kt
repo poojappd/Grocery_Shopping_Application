@@ -22,7 +22,22 @@ class OrderDetailsViewModel(applicationContext: Context) : ViewModel() {
     var paymentOption: String? = null
     var deliverySlot: Date? = null
     var mobileNumber: String? = null
-    }
+
+fun clearOrderDetails(){
+    paymentOption = null
+    userId   = null
+    totalItems= null
+      subTotal = null
+      deliveringAddress = null
+      receiverName   = null
+      paymentOption   = null
+      deliverySlot = null
+      mobileNumber   = null
+
+}
+}
+
+
 
 class OrderDetailsViewModelFactory(val applicationContext: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

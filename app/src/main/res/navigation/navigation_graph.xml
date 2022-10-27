@@ -150,7 +150,7 @@
                 app:destination="@id/deliverySlotFragment"
                 app:popUpTo="@+id/addressesFragment"
                 app:popUpToInclusive="true"/>
-        <argument
+        [<argument
                 android:name="addressIdToDisplay"
                 app:argType="string"
                 app:nullable="true"

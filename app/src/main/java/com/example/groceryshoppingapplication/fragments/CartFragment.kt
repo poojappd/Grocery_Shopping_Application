@@ -155,6 +155,11 @@ class CartFragment : Fragment() {
             return CartItemData( product.brandName+ " "+ product.itemName, product.unitPrice )
         }
 
+        override fun navigateToProduct(productCode: Int) {
+            val action = CartFragmentDirections.actionCartFragmentToSingleProductViewFragment(productCode)
+            findNavController().navigate(action)
+        }
+
     }
 
 

@@ -12,7 +12,10 @@ import kotlinx.android.synthetic.main.orders_recyclerview_layout.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class OrdersAdapter(private val orderDetailList: List<OrderDetail>, private val navigationListener: (String) -> Unit) :
+class OrdersAdapter(
+    private val orderDetailList: List<OrderDetail>,
+    private val navigationListener: (String) -> Unit
+) :
     RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
 
     inner class OrdersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -57,18 +60,30 @@ class OrdersAdapter(private val orderDetailList: List<OrderDetail>, private val 
             orderedItemEntityLayout.setOnClickListener {
                 navigationListener(orderDetailItem.orderId)
             }
-            orderStatusTv.text = if (Date().after(deliveryDate)) {
-                orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.complete_icon,
-                    0,
-                    0,
-                    0
-                )
-                "Complete"
+            orderStatusTv.text =
+                if (orderDetailItem.orderStatus == OrderStatus.CANCELLED) {
+                    orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.cancel_icon,
+                        0,
+                        0,
+                        0
+                    )
+                    OrderStatus.CANCELLED.value
+                } else if (Date().after(
+                        deliveryDate
+                    )
+                ) {
+                    orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.complete_icon,
+                        0,
+                        0,
+                        0
+                    )
+                    "Complete"
 
-            } else {
-                orderDetailItem.orderStatus.value
-            }
+                } else {
+                    orderDetailItem.orderStatus.value
+                }
         }
     }
 
