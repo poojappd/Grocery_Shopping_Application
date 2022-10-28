@@ -45,6 +45,12 @@ class LoginScreenFragment : Fragment() {
         signInButton.setOnClickListener{
                 refActivity?.supportFragmentManager?.apply {
                     beginTransaction().apply {
+                        setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            R.anim.fade_in,
+                            R.anim.fade_out
+                        )
                         add(R.id.signIn_up_frg_cont, SignInFragment(true){signUp:Boolean-> if(signUp) skipToSignup()})
                         addToBackStack("one")
                         Log.e(

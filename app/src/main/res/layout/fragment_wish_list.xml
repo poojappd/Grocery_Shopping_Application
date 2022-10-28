@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-android:background="#A1F0ECFF"
+android:background="@color/wishListbg"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".fragments.WishListFragment">
     <com.google.android.material.appbar.AppBarLayout
@@ -20,8 +20,6 @@ android:background="#A1F0ECFF"
                 android:layout_width="match_parent"
                 app:title="My Wishlist"
                 app:titleCentered="true"
-                android:background="#C6B3FD"
-                app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>

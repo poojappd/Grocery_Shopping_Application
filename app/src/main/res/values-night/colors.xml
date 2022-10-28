@@ -10,17 +10,17 @@
     <color name="button_color">#d5c3fc</color>
     <color name="error_color">#FA7AAD</color>
     <color name="primary_color">#868CFC</color>
-    <color name="app_primaryColor">#B7ADFF</color>
+    <color name="app_primaryColor">#120A50</color>
     <color name="primary_accent_textColor">#8E9BEF</color>
     <color name="grey_iconTint">#CDCDCF</color>
-    <color name="grey_divider">#F5F6FF</color>
-    <color name ="surface_color">#FFFFFFFF</color>
-    <color name="textBlack">#000000</color>
-    <color name="surfaceLessAlpha">#F8F4FF</color>
-    <color name="recentSearchGrey">#BCF2F0F8</color>
-<color name="textNormal">#000000</color>
-    <color name="wishListbg">#A1F0ECFF</color>
-    <color name="whiteLessAlpha">#FFFFFF</color>
-    <color name="primary_surfaceColorTinted">#EAE7FC</color>
-    <color name="surfaceColorTintedLessAlpha">#E4DFFB</color>
+    <color name="grey_divider">#2DF5F6FF</color>
+    <color name="surfaceLessAlpha">#28F8F4FF</color>
+    <color name="wishListbg">#07001C</color>
+    <color name="whiteLessAlpha">#86231A63</color>
+    <color name="textBlack">#FFFFFF</color>
+    <color name ="surface_color">#000000</color>
+    <color name="recentSearchGrey">#BC454547</color>
+    <color name="primary_surfaceColorTinted">#EBE0FF</color>
+    <color name="surfaceColorTintedLessAlpha">#43E4DFFB</color>
+
 </resources>

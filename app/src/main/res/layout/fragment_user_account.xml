@@ -4,13 +4,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@color/surface_color"
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_deck"
             android:layout_width="411dp"
             android:layout_height="347dp"
-            android:background="@color/white"
             android:padding="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

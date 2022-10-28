@@ -20,6 +20,7 @@
 
 android:layout_weight="1"
                 android:background="@drawable/otp_dialog_bg"
+                android:backgroundTint="@color/whiteLessAlpha"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"

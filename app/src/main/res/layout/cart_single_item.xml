@@ -27,7 +27,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cartItem_image">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/cartItem_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                     android:lineHeight="14dp"
                     android:layout_marginHorizontal="8dp"
                     android:ellipsize="end"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textBlack"
                     android:text="Product title which might possibly be bigger than this"
                     android:fontFamily="@font/cabin"
                     android:textSize="14sp" />
@@ -52,7 +52,7 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="2"
                         android:src="@drawable/remove_icon"
-                        android:tint="@color/black"
+                        android:tint="@color/textBlack"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:id="@+id/shapeableImageView2"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -65,7 +65,7 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="1"
                         android:text="2"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textBlack"
                         android:textSize="30sp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="2"
                         android:src="@drawable/increase_icon"
-                        android:tint="@color/black"
+                        android:tint="@color/textBlack"
                         android:id="@+id/shapeableImageView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/cartItem_quantity"
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:text="100"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textBlack"
                         android:textSize="16dp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
                         app:layout_constraintStart_toEndOf="@+id/textView4"

@@ -7,8 +7,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/surface_color"
         tools:context=".fragments.HomePageFragment">
-
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main.appbar"
@@ -16,81 +16,115 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:orientation="vertical"
+            android:fitsSystemWindows="true"
             >
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/main.collapsing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="#C6B3FD"
-                app:expandedTitleMarginStart="48dp"
-                android:background="#BEB3FF"
-                app:expandedTitleMarginEnd="64dp"
-                app:title="@string/app_name"
-                >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/main.collapsing"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    app:contentScrim="#C6B3FD"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:expandedTitleMarginEnd="64dp"
+                    app:title="@string/app_name"
+>
 
-                <androidx.appcompat.widget.SearchView
+
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#4DFFFFFF"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/otp_dialog_bg"
-                        android:id="@+id/searchView"
-                        app:queryHint="Search for products"
-                        android:focusable="false"
-                        app:defaultQueryHint="Hello"
-                        app:iconifiedByDefault="true"
-                        tools:layout_editor_absoluteX="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialTextView24" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
 
-                <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hello Pj !"
-                        android:paddingStart="15dp"
-                        android:layout_marginBottom="10dp"
-                        app:fontFamily="@font/montserrat_alternates"
-                        android:layout_gravity="top"
-                        android:textSize="18sp"
-                        android:shadowRadius="2"
-                        android:textColor="#FFFFFF"
-                        android:id="@+id/materialTextView24"
-                        app:layout_constraintStart_toStartOf="@+id/main.toolbar"
-                        app:layout_constraintTop_toBottomOf="@+id/main.toolbar"
-                        app:layout_constraintBottom_toTopOf="@+id/searchView"
-                        android:layout_marginStart="20dp" />
+                    <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/main.toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_collapseMode="pin"
+                            android:elevation="-10dp"
+                            android:layout_gravity="bottom"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            >
+                        <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/app_cart_icon"
+                                android:paddingEnd="10dp"
+                                android:layout_marginTop="15dp"
 
-                <androidx.appcompat.widget.Toolbar
-                        android:paddingVertical="13dp"
-                        android:layout_marginVertical="0dp"
-                        android:id="@+id/main.toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        app:layout_collapseMode="pin"
-                        android:layout_gravity="bottom"
-                        app:title="Test"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/materialTextView24">
+                                android:layout_gravity="center"
+                                app:tint="#565B79" />
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                >
+                            <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/textView_Gro"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_alternates"
+                                    android:includeFontPadding="true"
+                                    android:text="Gro"
+                                    android:textColor="#7587F8"
+                                    android:textSize="30sp"
+                                    />
 
-                </androidx.appcompat.widget.Toolbar>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                            <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/materialTextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_alternates"
+                                    android:text="cero"
+                                    android:textColor="#575B77"
+
+                                    android:textSize="30sp"
+                                    />
+                        </LinearLayout>
+                    </androidx.appcompat.widget.Toolbar>
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Hello Pj !"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:layout_gravity="top"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:shadowRadius="2"-->
+<!--                            android:id="@+id/materialTextView24"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/main.toolbar"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintBottom_toTopOf="@+id/searchView"-->
+<!--                            android:layout_marginStart="30dp" />-->
+
+                    <androidx.appcompat.widget.SearchView
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:id="@+id/searchView"
+                            style="@style/SearchViewStyle"
+                            android:focusable="false"
+                            app:defaultQueryHint="Hello"
+                            app:iconifiedByDefault="true"
+                            tools:layout_editor_absoluteX="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialTextView24" />
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
 android:fillViewport="true"
+            android:layout_marginTop="20dp"
             >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,19 +133,22 @@ android:fillViewport="true"
 
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:text="Festive Offers"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:fontFamily="@font/montserrat_alternates_thin"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     android:id="@+id/Festive_offer_TEXT"
-app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
             <androidx.viewpager2.widget.ViewPager2
-                    android:layout_marginTop="1dp"
-                    android:background="@color/black"
-
+                    android:layout_marginTop="20dp"
+android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/otp_dialog_bg"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/top_advertisement_viewPager"

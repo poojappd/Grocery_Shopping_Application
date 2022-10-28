@@ -54,7 +54,7 @@ class HomePageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home_page, container,
             false
         )
-        view.materialTextView24.text = "Hello, ${viewmodel.currentUser.value?.firstName}"
+        //view.materialTextView24.text = "Hello, ${viewmodel.currentUser.value?.firstName}"
 
         val recyclerView = view.homePageFragment_category_rv
         val adViewPager = view.top_advertisement_viewPager

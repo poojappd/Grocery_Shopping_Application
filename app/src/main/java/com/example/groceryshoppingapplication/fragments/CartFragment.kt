@@ -152,7 +152,7 @@ class CartFragment : Fragment() {
 
         override fun getCartItemExtraData(productCode: Int): CartItemData {
             val product = inventoryViewModel.getProductDetailsSynchronously(productCode)
-            return CartItemData( product.brandName+ " "+ product.itemName, product.unitPrice )
+            return CartItemData( product.brandName+ " "+ product.itemName+" "+product.capacity+product.capacityUnit, product.unitPrice )
         }
 
         override fun navigateToProduct(productCode: Int) {

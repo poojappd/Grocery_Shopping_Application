@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.GroceryShoppingApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#B7ADFF</item>
+        <item name="colorPrimary">@color/app_primaryColor</item>
         <item name="colorPrimaryVariant">#927BC5</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -26,6 +26,11 @@
 
         <!--this is to change the shape of the MDC EditText-->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
+
+
 
     </style>
 
@@ -57,7 +62,7 @@
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="textAllCaps">false</item>
-        <item name="android:backgroundTint">#BCF2F0F8</item>
+        <item name="android:backgroundTint">@color/recentSearchGrey</item>
 
     </style>
 
@@ -85,5 +90,38 @@
         <item name="hintTextColor">@color/black</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+<!--        <item name="searchIcon">@drawable/ic_search</item>-->
 
+        <!-- Gets rid of the "underline" in the text -->
+        <item name="android:textAppearance">@style/TextAppearance.App.Caption</item>
+        <item name="android:backgroundTint">#2D685BA1</item>
+        <item name="android:background">@drawable/otp_dialog_bg</item>
+        <item name="queryBackground">@color/black</item>
+        <!-- Gets rid of the search icon when the SearchView is expanded -->
+        <item name="colorControlNormal">#FFFFFF</item>
+        <!-- The hint text that appears when the user has not typed anything -->
+        <item name="queryHint">@string/search_hint</item>
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+    </style>
+
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Headline6</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.App.Subtitle1</item>
+    </style>
+    <style name="TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/cabin</item>
+        <item name="android:fontFamily">@font/cabin</item>
+
+    </style>
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="colorPrimary">@color/app_primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/surface_color</item>
+    </style>
+
+    <style name="dividerCOlor" parent="Widget.MaterialComponents.MaterialDivider">
+        <item name="android:background">@color/error_color</item>
+    </style>
 </resources>

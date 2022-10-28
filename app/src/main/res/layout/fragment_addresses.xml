@@ -18,20 +18,18 @@
         <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 app:title="My Delivery Addresses"
-                app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleCentered="true"
                 android:id="@+id/addresses_toolbar"
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
                 app:titleTextColor="@color/white"
-                android:background="#C6B3FD"
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#68E6E6F4"
+            android:background="@color/wishListbg"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
@@ -46,6 +44,7 @@
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:id="@+id/address_recyclerView"
@@ -54,28 +53,26 @@
                     android:layout_marginTop="30dp"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/add_address"
                     android:visibility="visible"
                     android:paddingHorizontal="14dp"
-                    android:background="#C0B6FB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:fontFamily="@font/noto_sans"
+                    android:fontFamily="@font/montserrat_alternates"
                     android:textSize="16sp"
+                    android:backgroundTint="#7584e7"
+
                     android:text="Add an address"
                     android:drawableLeft="@drawable/increase_icon"
-                    android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/address_recyclerView"
                     app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintHorizontal_bias="0.497"
                     android:layout_marginVertical="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

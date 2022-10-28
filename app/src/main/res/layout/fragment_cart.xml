@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/surface_color"
         tools:context=".fragments.CartFragment"
         >
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +20,6 @@
                 app:titleCentered="true"
                 app:title="My Cart"
                 android:id="@+id/toolbar_Cart"
-                android:background="#C6B3FD"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -188,12 +188,13 @@
                 android:layout_height="wrap_content">
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                     android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Items in cart"
                     android:fontFamily="@font/cabin"
+
                     android:textSize="20sp"
                     android:id="@+id/textView5"
                     app:layout_constraintTop_toTopOf="parent"
@@ -201,7 +202,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -285,6 +286,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Checkout"
+            android:fontFamily="@font/montserrat_alternates"
             android:textColor="@android:color/white"
             app:iconTint="@android:color/white"
             app:icon="@drawable/add_to_cart_icon1"
