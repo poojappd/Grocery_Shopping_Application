@@ -18,13 +18,9 @@
         <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 app:title="Delivery options"
-                app:titleTextAppearance="@style/ToolbarTheme"
-                app:titleCentered="true"
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
-                app:titleTextColor="@color/white"
                 android:id="@+id/deliverySlot_Toolbar"
-
         android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -94,7 +90,6 @@
                 android:maxWidth="160dp"
                 android:maxLines="1"
                 android:layout_marginStart="10dp"
-                android:text="Priyadarshni Homqwefew\n South"
                 app:layout_constraintStart_toEndOf="@+id/materialTextView13"
                 app:layout_constraintTop_toTopOf="parent" />
 

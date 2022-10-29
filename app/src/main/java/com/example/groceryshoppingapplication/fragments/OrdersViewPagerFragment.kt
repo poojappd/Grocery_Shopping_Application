@@ -15,9 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.OrdersAdapter
+import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_cart.view.*
 import kotlinx.android.synthetic.main.fragment_orders_view_pager.view.*
 
 
@@ -62,10 +62,10 @@ constructor(applicationContext: Context) : this() {
                     val ordersRecyclerView = view.myOrders_recyclerView_viewPager
                     ordersRecyclerView.visibility = View.VISIBLE
                     view.empty_orders_layout.visibility = View.GONE
-                    ordersRecyclerView.adapter = OrdersAdapter(it){orderId:String ->
+                    ordersRecyclerView.adapter = OrdersAdapter(it,{orderId:String ->
                         val action = OrdersViewPagerFragmentDirections.actionOrdersViewPagerFragmentToOrderSummaryFragment(orderId)
                         findNavController().navigate(action)
-                    }
+                    }) { orderId: String, isComplete: Boolean -> if (isComplete) orderHistoryViewModel.updateOrderStatus(OrderStatus.COMPLETE, orderId) }
                     ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 }
                 else{

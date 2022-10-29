@@ -55,7 +55,8 @@ class OrderSummaryFragment : Fragment() {
 
             orderHistoryViewModel.getOrderDetail(args.orderId).observe(viewLifecycleOwner) {
                 val orderDetail = it
-
+                orderSummary_collapsingToolbar.title = "Order "+it.orderStatus.value
+                orderId_collapsingToolbar.text = orderDetail.orderId
                 val dialogBuilder = AlertDialog.Builder(requireContext())
                 val dialogView =
                     layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)

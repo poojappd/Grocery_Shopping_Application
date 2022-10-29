@@ -67,6 +67,7 @@ class PlaceOrderFragment : Fragment() {
             cod_option.setOnClickListener { activateOption(it) }
             place_order_button.setOnClickListener {
                 orderDetailsViewModel.paymentOption?.let {
+
                     val orderDate = Date()
                     val orderId = CodeGeneratorUtil.generateOrderId(orderDate)
                     val subTotal = decimal.format(orderDetailsViewModel.subTotal).toDouble()
@@ -120,7 +121,9 @@ class PlaceOrderFragment : Fragment() {
     private fun activateOption(it: View) {
         var paymentOption: String? = null
         var checkView: View? = null
-
+        scrollView_placeOrder.post {
+            scrollView_placeOrder.fullScroll(View.FOCUS_DOWN)
+        }
         when (it.id) {
             R.id.credit_card_option -> {
                 paymentOption = "credit card"
@@ -138,13 +141,10 @@ class PlaceOrderFragment : Fragment() {
 
         it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#838ED5"))
         checkView.visibility = View.VISIBLE
-        if(this@PlaceOrderFragment::lastView.isInitialized && it.id==lastView.id){
-            orderDetailsViewModel.paymentOption = null
-        }
-        else {
+
             orderDetailsViewModel.paymentOption = paymentOption
-        }
-        if (this@PlaceOrderFragment::lastView.isInitialized) {
+
+        if (this@PlaceOrderFragment::lastView.isInitialized && lastView.id!=it.id) {
             lastView.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#C7C9D6"))
             lastCheckView.visibility = View.GONE
         }

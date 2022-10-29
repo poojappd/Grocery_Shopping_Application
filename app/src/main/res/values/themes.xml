@@ -9,7 +9,6 @@
         <item name="colorSecondary">#A1C0FB</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:fontFamily">@font/cabin</item>
         <item name="fontFamily">@font/cabin</item>
 
@@ -28,7 +27,6 @@
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
 
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.Headline6</item>
 
 
 
@@ -111,8 +109,8 @@
         <item name="subtitleTextAppearance">@style/TextAppearance.App.Subtitle1</item>
     </style>
     <style name="TextAppearance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/cabin</item>
-        <item name="android:fontFamily">@font/cabin</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
 
     </style>
     <style name="ThemeOverlay.App.Toolbar" parent="">
@@ -123,5 +121,23 @@
 
     <style name="dividerCOlor" parent="Widget.MaterialComponents.MaterialDivider">
         <item name="android:background">@color/error_color</item>
+    </style>
+    <style name="fontFAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="fontFamily">@font/palanquin_dark</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:backgroundTint">@color/fabColor</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint"> @color/white</item>
+    </style>
+
+    <style name="OrderIdFont" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/montserrat_alternates</item>
+        <item name="android:fontFamily">@font/montserrat_alternates</item>
+    </style>
+    <style name="collapsingToolbarOrderSummary" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="fontFamily">@font/montserrat_alternates</item>
+        <item name="android:fontFamily">@font/montserrat_alternates</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

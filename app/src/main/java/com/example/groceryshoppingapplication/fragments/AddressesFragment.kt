@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.animation.ObjectAnimator
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.graphics.Path
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -52,6 +55,8 @@ class AddressesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_addresses, container, false)
         val recyclerView = view.address_recyclerView
         val preventDeleteToast = Toast.makeText(requireContext(), "Default address cannot be deleted",Toast.LENGTH_SHORT)
+        val emptyAddressLayout = view.empty_address_layout
+
         view.add_address.setOnClickListener {
             if(args.navigateToDeliverySlot){
                 val action = AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(navigateToDeliverySlotFragment = true)
@@ -69,8 +74,17 @@ class AddressesFragment : Fragment() {
         userViewModel.currentUserAddresses.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 recyclerView.visibility = View.GONE
+                emptyAddressLayout.isVisible = true
+                val path = Path().apply {
+                    arcTo(300f, 690f, 600f, 990f, 0f, 359f, true)
+                }
+                val animator = ObjectAnimator.ofFloat(view.search_icon_addresses, View.X, View.Y, path).apply {
+                    duration = 2000
+                    start()
+                }
             } else {
                 recyclerView.visibility = View.VISIBLE
+                emptyAddressLayout.visibility = View.GONE
                 userViewModel.currentUser.observe(viewLifecycleOwner) { user->
                     recyclerView.adapter = AddressesAdapter(it,user,{position:Int, toDelete:Boolean ->
                         val addressToEdit = it[position]

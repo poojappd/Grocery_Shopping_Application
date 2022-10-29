@@ -14,7 +14,8 @@ import java.util.*
 
 class OrdersAdapter(
     private val orderDetailList: List<OrderDetail>,
-    private val navigationListener: (String) -> Unit
+    private val navigationListener: (String) -> Unit,
+    private val orderStatusUpdationListener: (String, Boolean) -> Unit
 ) :
     RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
 
@@ -69,10 +70,11 @@ class OrdersAdapter(
                         0
                     )
                     OrderStatus.CANCELLED.value
-                } else if (Date().after(
+                } else if ( orderDetailItem.orderStatus==OrderStatus.ORDERED && Date().after(
                         deliveryDate
                     )
                 ) {
+                    orderStatusUpdationListener(orderDetailItem.orderId,true)
                     orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
                         R.drawable.complete_icon,
                         0,
@@ -82,6 +84,14 @@ class OrdersAdapter(
                     "Complete"
 
                 } else {
+                    if (orderDetailItem.orderStatus == OrderStatus.COMPLETE){
+                        orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.complete_icon,
+                            0,
+                            0,
+                            0
+                        )
+                    }
                     orderDetailItem.orderStatus.value
                 }
         }

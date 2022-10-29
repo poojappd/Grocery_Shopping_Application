@@ -279,16 +279,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/extFloatingActionButton"
-            android:backgroundTint="#7584e7"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Checkout"
-            android:fontFamily="@font/montserrat_alternates"
-            android:textColor="@android:color/white"
-            app:iconTint="@android:color/white"
+            style="@style/fontFAB"
             app:icon="@drawable/add_to_cart_icon1"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="32dp"

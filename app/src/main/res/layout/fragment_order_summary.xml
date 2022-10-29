@@ -1,48 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/appBarLayout"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
+        <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                app:titleCentered="true"
-                android:id="@+id/toolbar_placeOrder"
-                app:titleTextAppearance="@style/ToolbarTheme"
+                android:id="@+id/orderSummary_collapsingToolbar"
                 app:title="Order details"
-                app:navigationIcon="@drawable/back_button_icon"
-                app:navigationIconTint="@color/white"
+                style="@style/collapsingToolbarOrderSummary"
+                app:expandedTitleTextAppearance="@style/collapsingToolbarOrderSummary"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:expandedTitleGravity="bottom"
                 app:titleTextColor="@color/white"
-                android:layout_height="match_parent"
-                app:menu="@menu/order_cancel_menu"
-                />
+app:expandedTitleMarginStart="80dp"
+                android:layout_height="150dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order #wiofn"
+                    android:id="@+id/orderId_collapsingToolbar"
+                    android:textSize="16sp"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.1"
+                    android:textColor="@color/white"
+                    style="@style/OrderIdFont"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="85dp" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:id="@+id/toolbar_placeOrder"
+                    app:navigationIcon="@drawable/back_button_icon"
+                    app:buttonGravity="center_vertical"
+                    android:elevation="-10dp"
+                    app:layout_collapseMode="pin"
+                    app:collapseIcon="@drawable/search_icon"
+                    app:navigationIconTint="@color/white"
+                    app:titleTextColor="@color/white"
+                    android:layout_height="?attr/actionBarSize"
+                    app:menu="@menu/order_cancel_menu" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/empty_bag"
+                    android:padding="10dp"
+                    app:layout_collapseMode="parallax"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseParallaxMultiplier="-1"
+                    android:background="@drawable/otp_dialog_bg"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginStart="20dp" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Item Summary"
-            android:fontFamily="@font/cabin"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
-            android:id="@+id/materialTextView17"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            android:layout_marginTop="12dp" />
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_anchor="@id/appBarLayout"
+            app:layout_anchorGravity="bottom">
 
-    <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                >
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Summary"
+                    android:fontFamily="@font/cabin"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/materialTextView17"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="24dp" />
+
+            <LinearLayout
                     android:background="#F8F4FF"
                     android:paddingHorizontal="10dp"
                     android:layout_marginEnd="20dp"
@@ -173,226 +222,227 @@
 
             </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-            android:id="@+id/constraintLayout5"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout7"
-            android:layout_marginTop="20dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+                    android:id="@+id/constraintLayout5"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout7"
+                    android:layout_marginTop="20dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:src="@drawable/delivery_icon1"
-                android:rotationY="200"
-                android:layout_marginStart="8dp"
-                android:tint="#6C8DDE"
-                android:id="@+id/shapeableImageView8"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView18" />
+                <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/delivery_icon1"
+                        android:rotationY="200"
+                        android:layout_marginStart="8dp"
+                        android:tint="#6C8DDE"
+                        android:id="@+id/shapeableImageView8"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/materialTextView18" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deliver to"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/materialTextView18"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="2.5dp" />
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deliver to"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/materialTextView18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="2.5dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Pooja, no. 18, 9th street, pammal, chennai"
-                android:layout_marginStart="1dp"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:id="@+id/materialTextView19"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView18"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView18" />
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Pooja, no. 18, 9th street, pammal, chennai"
+                        android:layout_marginStart="1dp"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:id="@+id/materialTextView19"
+                        app:layout_constraintStart_toStartOf="@+id/materialTextView18"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView18" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deliver on"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:id="@+id/DeliverOnTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView19"
-                android:layout_marginTop="32dp" />
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deliver on"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/DeliverOnTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView19"
+                        android:layout_marginTop="32dp" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="25dp"
-                android:layout_height="30dp"
-                android:src="@drawable/time_icon1"
-                android:rotationY="200"
-                android:layout_marginStart="8dp"
-                android:tint="#6C8DDE"
-                android:id="@+id/shapeableImageView9"
-                app:layout_constraintTop_toTopOf="@id/DeliverOnTextView"
-                app:layout_constraintStart_toEndOf="@+id/DeliverOnTextView"
-                android:layout_marginTop="1dp" />
+                <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/time_icon1"
+                        android:rotationY="200"
+                        android:layout_marginStart="8dp"
+                        android:tint="#6C8DDE"
+                        android:id="@+id/shapeableImageView9"
+                        app:layout_constraintTop_toTopOf="@id/DeliverOnTextView"
+                        app:layout_constraintStart_toEndOf="@+id/DeliverOnTextView"
+                        android:layout_marginTop="1dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tuesday 9th October  -"
-                android:layout_marginTop="2dp"
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tuesday 9th October  -"
+                        android:layout_marginTop="2dp"
 
-                android:layout_marginStart="1dp"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:id="@+id/materialTextView21"
-                app:layout_constraintStart_toStartOf="@+id/DeliverOnTextView"
-                app:layout_constraintTop_toBottomOf="@+id/DeliverOnTextView" />
+                        android:layout_marginStart="1dp"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:id="@+id/materialTextView21"
+                        app:layout_constraintStart_toStartOf="@+id/DeliverOnTextView"
+                        app:layout_constraintTop_toBottomOf="@+id/DeliverOnTextView" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="9 am"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:id="@+id/materialTextView22"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView21"
-                android:layout_marginStart="4dp"
-                app:layout_constraintTop_toTopOf="@+id/materialTextView21"
-                app:layout_constraintBottom_toBottomOf="@+id/materialTextView21" />
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9 am"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:id="@+id/materialTextView22"
+                        app:layout_constraintStart_toEndOf="@+id/materialTextView21"
+                        android:layout_marginStart="4dp"
+                        app:layout_constraintTop_toTopOf="@+id/materialTextView21"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialTextView21" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
-            android:id="@+id/constraintLayout6"
-            android:layout_marginTop="28dp"
-            app:layout_constraintHorizontal_bias="0.0">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
+                    android:id="@+id/constraintLayout6"
+                    android:layout_marginTop="28dp"
+                    app:layout_constraintHorizontal_bias="0.0">
 
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Method"
-                android:gravity="start"
-                android:fontFamily="@font/cabin"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/materialTextView23"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="2.5dp" />
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Method"
+                        android:gravity="start"
+                        android:fontFamily="@font/cabin"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/materialTextView23"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="2.5dp" />
 
-        <LinearLayout
+                <LinearLayout
 
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView23"
-                app:layout_constraintStart_toStartOf="@+id/materialTextView23"
-                android:id="@+id/credit_card_option"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0">
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView23"
+                        app:layout_constraintStart_toStartOf="@+id/materialTextView23"
+                        android:id="@+id/credit_card_option"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0">
 
 
-            <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_marginStart="10dp"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/card_icon1"
-                    android:layout_gravity="center"
+                    <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_marginStart="10dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/card_icon1"
+                            android:layout_gravity="center"
 
-                    android:tint="#638EE4" />
+                            android:tint="#638EE4" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Credit Card"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="15dp"
+
+                            android:fontFamily="@font/cabin" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/circle_bg"
+                            android:src="@drawable/check_icon1"
+                            android:layout_gravity="end"
+                            android:id="@+id/creditCard_check"
+                            android:visibility="gone"
+                            android:padding="2dp" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Credit Card"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="15dp"
+                    android:text="Ordered Status"
+                    android:gravity="start"
+                    android:fontFamily="@font/cabin"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:id="@+id/orderedDate_tv"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+                    android:layout_marginTop="28dp" />
 
-                    android:fontFamily="@font/cabin" />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/circle_bg"
-                    android:src="@drawable/check_icon1"
-                    android:layout_gravity="end"
-                    android:id="@+id/creditCard_check"
-                    android:visibility="gone"
-                    android:padding="2dp" />
-        </LinearLayout>
 
+                    android:text="22 Oct 2022 8pm"
+                    android:gravity="start"
+                    android:fontFamily="@font/cabin"
+                    android:id="@+id/order_date"
+                    app:layout_constraintTop_toBottomOf="@+id/orderedDate_tv"
+                    app:layout_constraintStart_toStartOf="@+id/orderedDate_tv"
+                    android:layout_marginTop="4dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-    <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ordered Status"
-            android:gravity="start"
-            android:fontFamily="@font/cabin"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:id="@+id/orderedDate_tv"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
-            android:layout_marginTop="28dp" />
+                    android:text="Ordered"
+                    android:gravity="start"
+                    android:fontFamily="@font/cabin"
+                    android:id="@+id/order_status"
+                    app:layout_constraintTop_toBottomOf="@+id/order_date"
+                    app:layout_constraintStart_toStartOf="@+id/orderedDate_tv"
+                    android:layout_marginTop="8dp" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/view_orderItems_button"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="View Items"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/cabin"
+                    android:textColor="#929BD1"
+                    android:background="@drawable/deliveryslot_not_selected"
+                    app:layout_constraintTop_toBottomOf="@+id/order_status"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                    android:layout_marginVertical="52dp"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.371" />
 
-    <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="22 Oct 2022 8pm"
-            android:gravity="start"
-            android:fontFamily="@font/cabin"
-            android:id="@+id/order_date"
-            app:layout_constraintTop_toBottomOf="@+id/orderedDate_tv"
-            app:layout_constraintStart_toStartOf="@+id/orderedDate_tv"
-            android:layout_marginTop="4dp" />
-
-    <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Ordered"
-            android:gravity="start"
-            android:fontFamily="@font/cabin"
-            android:id="@+id/order_status"
-            app:layout_constraintTop_toBottomOf="@+id/order_date"
-            app:layout_constraintStart_toStartOf="@+id/orderedDate_tv"
-            android:layout_marginTop="8dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/view_orderItems_button"
-            android:layout_width="wrap_content"
-            android:paddingHorizontal="50dp"
-            android:layout_height="wrap_content"
-            android:text="View Items"
-            android:textAllCaps="false"
-            android:fontFamily="@font/cabin"
-            android:textColor="#929BD1"
-            android:background="@drawable/deliveryslot_not_selected"
-            app:layout_constraintTop_toBottomOf="@+id/order_status"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
-            android:layout_marginVertical="52dp"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.371" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

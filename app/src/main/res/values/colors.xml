@@ -23,4 +23,6 @@
     <color name="whiteLessAlpha">#FFFFFF</color>
     <color name="primary_surfaceColorTinted">#EAE7FC</color>
     <color name="surfaceColorTintedLessAlpha">#E4DFFB</color>
+    <color name="fabColor">#7584e7</color>
+    <color name="searchIconColor">#313B51</color>
 </resources>
