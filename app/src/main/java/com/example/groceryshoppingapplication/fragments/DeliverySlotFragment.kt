@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.DateTimeFormatter.formatDate
 import com.example.groceryshoppingapplication.adapters.DeliverySlotDateAdapter
 import com.example.groceryshoppingapplication.adapters.DeliverySlotTimeAdapter
 import com.example.groceryshoppingapplication.models.User
@@ -22,6 +23,7 @@ import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_delivery_slot.view.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
+import kotlinx.android.synthetic.main.fragment_product_search.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,8 +64,8 @@ class DeliverySlotFragment : Fragment() {
 
         val addressView = view.address_delSLot
         userViewModel.refreshUserAddresses()
-         userViewModel.currentUserAddresses.observe(viewLifecycleOwner) {
-            val currentAddress = it.get(0)
+         userViewModel.currentUserChosenAddress.observe(viewLifecycleOwner) {
+            val currentAddress = it
             addressView.text = StringBuilder().append(
                 "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
             )
@@ -81,6 +83,7 @@ class DeliverySlotFragment : Fragment() {
                         deliverySlotViewModel.chosenTime = null
                         deliverySlotViewModel.timePosition = null
                         view.continue_button_deliverySlot.visibility = View.GONE
+                        view.chosenSlotTV.visibility = View.INVISIBLE
 
                     }
                 }
@@ -92,17 +95,30 @@ class DeliverySlotFragment : Fragment() {
                     deliverySlotViewModel.chosenTime = time
                     deliverySlotViewModel.timePosition = position
                     view.continue_button_deliverySlot.visibility = View.VISIBLE
+                    view.chosenSlotTV.text = StringBuilder().append(date.formatDate("dd EEEE")+" "+time.formatDate("hh a"))
+                    view.chosenSlotTV.visibility = View.VISIBLE
                 },deliverySlotViewModel.timePosition)
                 view.invisible_time_picker.visibility = View.VISIBLE
                 val tlv = GridLayoutManager(context,1)
                 view.timeChoose_rv.layoutManager = tlv
-                tlv.scrollToPositionWithOffset(2, 20);
 
+                val timeSNapHelper = PagerSnapHelper()
+                view.timeChoose_rv.setOnFlingListener(null);
+
+                timeSNapHelper.attachToRecyclerView(view.timeChoose_rv)
 
             },deliverySlotViewModel.datePosition)
             val lm = LinearLayoutManager(context)
             dateRecycerView.layoutManager = lm
+            val dateSnapHelper = MyPagerSnapHelper()
+            dateRecycerView.setOnFlingListener(null);
 
+        dateSnapHelper.attachToRecyclerView(dateRecycerView)
+
+            view.materialButton2.setOnClickListener {
+                val action = DeliverySlotFragmentDirections.actionDeliverySlotFragmentToAddressesFragment(skipToDeliverySlot = true)
+                findNavController().navigate(action)
+            }
             view.continue_button_deliverySlot.setOnClickListener {
                 userViewModel.currentUserAddresses.observe(viewLifecycleOwner){
                     orderDetailsViewModel.deliverySlot = deliverySlotViewModel.chosenTime

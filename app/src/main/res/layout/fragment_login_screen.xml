@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/white" />
+        app:tint="@color/surface_color" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView_Gro"
@@ -49,6 +49,7 @@
         android:fontFamily="@font/montserrat_alternates"
         android:layout_marginBottom="9dp"
         android:text="cero"
+            android:textColor="@color/textGrey"
         android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/cart_icon_launching_page"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,11 +85,12 @@
                 android:id="@+id/signInButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#A5B2F8"
+                android:backgroundTint="@color/buttonColorBlueLight"
                 android:text="Sign In"
+                app:rippleColor="@color/buttonRippleColorBlueLight"
                 android:fontFamily="@font/cabin"
-
                 app:strokeColor="#7B76A1"
+                android:textColor="@color/textInverseBW"
                 android:textAllCaps="false"
                 app:cornerRadius="10dp"
                 android:layout_marginEnd="2dp"
@@ -103,10 +105,10 @@
                 android:id="@+id/signUpButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/surface_color"
                 android:text="Sign Up"
+                android:textColor="@color/textBlack"
                 android:textAllCaps="false"
-                android:textColor="#000000"
                 app:strokeColor="#A2B3FE"
                 app:strokeWidth="2dp"
                 android:elevation="-223dp"

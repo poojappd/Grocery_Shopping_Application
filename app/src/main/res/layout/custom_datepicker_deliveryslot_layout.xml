@@ -12,14 +12,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/date_tv_delSlot"
-            android:layout_marginBottom="15dp"
+            android:layout_marginVertical="8dp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:maxHeight="1dp"
             android:padding="1dp"
             android:text="130 Wednesday"
-            android:paddingHorizontal="15dp"
 
             android:fontFamily="@font/cabin"
             android:background="@drawable/deliveryslot_selected_states"

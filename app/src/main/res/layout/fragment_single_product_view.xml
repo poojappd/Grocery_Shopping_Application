@@ -32,12 +32,14 @@
 
             android:layout_weight="1"
             android:layout_width="match_parent"
+            android:background="@color/surface_color"
             android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="10dp">
+               android:paddingBottom="10dp"
+                >
 
 
             <androidx.viewpager2.widget.ViewPager2
@@ -45,7 +47,32 @@
                     android:id="@+id/product_image_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator" />
+                    app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator"
+                    />
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:id="@+id/notAvailableBAnner"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator"
+                    android:background="#77CDCDCF"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                    android:text="OUT OF STOCK"
+                    android:background="@drawable/otp_dialog_bg"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:backgroundTint="#AB59595E"
+                        />
+
+
+            </FrameLayout>
 
             <FrameLayout
 
@@ -81,8 +108,8 @@
                     app:layout_constraintGuide_begin="25dp" />
 
 
-            <TextView
-                    android:textColor="@color/black"
+            <com.google.android.material.textview.MaterialTextView
+                    android:textColor="@color/textBlack"
                     android:id="@+id/product_title_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -98,12 +125,12 @@
                     android:layout_marginTop="28dp" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/rs_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹"
-                    android:textColor="#000000"
+                    android:textColor="@color/textBlack"
                     android:fontFamily="@font/cabin"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
@@ -115,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="44"
-                    android:textColor="#000000"
+                    android:textColor="@color/textBlack"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/cabin"
                     android:textSize="20sp"
@@ -128,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="Net Quantity"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textBlack"
                     android:textSize="18sp"
                     android:fontFamily="@font/cabin"
                     app:layout_constraintStart_toStartOf="@id/guidelineleft_margin"
@@ -159,7 +186,7 @@
                     app:layout_constraintHorizontal_bias="0.0">
 
                 <TextView
-                        android:textColor="@color/black"
+                        android:textColor="@color/textNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -209,13 +236,15 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                     android:layout_height="22dp"
                     android:gravity="center"
                     android:padding="7dp"
-                    android:layout_marginEnd="10dp"
                     android:background="@drawable/heart_icon1"
                     android:backgroundTint="#A7ABED"
                     app:layout_constraintVertical_bias="0.7"
-                    app:layout_constraintEnd_toStartOf="@+id/saveForLater_textView"
                     app:layout_constraintTop_toTopOf="@+id/saveForLater_textView"
-                    app:layout_constraintBottom_toBottomOf="@+id/saveForLater_textView" />
+                    app:layout_constraintBottom_toBottomOf="@+id/saveForLater_textView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/saveForLater_textView" />
 
             <TextView
                     android:id="@+id/saveForLater_textView"
@@ -224,12 +253,15 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                     android:layout_gravity="center"
                     android:fontFamily="@font/cabin"
                     android:text="Save for later"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/textGrey"
                     android:textSize="20sp"
-                    app:layout_constraintHorizontal_bias="0.7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/wishlistIcon"
+                    app:layout_constraintHorizontal_bias="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -256,8 +288,8 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                         android:layout_weight="2"
                         android:layout_gravity="center"
                         android:padding="8dp"
-
-                        android:src="@drawable/remove_icon" />
+                        android:src="@drawable/remove_icon"
+                        app:tint="@color/surface_color" />
 
 
                 <TextView
@@ -266,8 +298,9 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="4"
-                        android:background="@color/white"
+                        android:background="@color/surface_color"
                         android:layout_marginVertical="2dp"
+                        android:textColor="@color/textBlack"
                         android:textSize="28dp"
                         android:text="1" />
 
@@ -278,7 +311,8 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
                         android:src="@drawable/increase_icon"
                         android:layout_gravity="center"
                         android:padding="8dp"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        app:tint="@color/surface_color" />
 
 
             </LinearLayout>
@@ -327,6 +361,14 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
 
 
             </LinearLayout>
+            <FrameLayout
+                    android:id="@+id/notAvailableButtonBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                android:background="#AD424245"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    android:clickable="true"/>
         </FrameLayout>
 
 

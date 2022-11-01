@@ -63,4 +63,11 @@ class WishListItemsAdapter(val wishListItems: List<WishListItemEntity>, val wish
     override fun getItemCount(): Int {
         return wishListItems.size
     }
+
+    override fun getItemViewType(position: Int): Int {
+        return (position)
+    }
+    override fun getItemId(position: Int): Long {
+        return (position.toLong())
+    }
 }

@@ -1,8 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +19,6 @@ import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 
@@ -76,7 +72,7 @@ class ProductsListFragment : Fragment() {
         }
 
         override fun removeFromCart(productCode: Int) {
-            viewmodel.removeItem(productCode)
+            viewmodel.removeItemCompletely(productCode)
         }
 
         override fun checkItemInCart(productCode: Int): Response {

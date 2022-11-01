@@ -5,7 +5,9 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="textGrey">#4C4C4C</color>
+    <color name="textGrey">#59595E</color>
+    <color name="textGreyDarkTheme">#E2E2E6</color>
+
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#d5c3fc</color>
     <color name="error_color">#FA7AAD</color>
@@ -18,10 +20,16 @@
     <color name="wishListbg">#07001C</color>
     <color name="whiteLessAlpha">#86231A63</color>
     <color name="textBlack">#FFFFFF</color>
+    <color name="textNormal">#CDD0DD</color>
+    <color name="textInverseBW">@color/black</color>
+
     <color name ="surface_color">#000000</color>
     <color name="recentSearchGrey">#BC454547</color>
     <color name="primary_surfaceColorTinted">#EBE0FF</color>
     <color name="surfaceColorTintedLessAlpha">#43E4DFFB</color>
+    <color name="fabColor">#7584e7</color>
+    <color name="buttonColorBlueLight">#A5B2F8</color>
+    <color name="buttonRippleColorBlueLight">#4E518E</color>
     <color name="searchIconColor">#C1D1F6</color>
 
 </resources>

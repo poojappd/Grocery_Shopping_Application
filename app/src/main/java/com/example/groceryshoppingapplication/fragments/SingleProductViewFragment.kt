@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.app.ProgressDialog.show
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,9 +14,11 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
-import com.example.groceryshoppingapplication.adapters.AdvertisementViewPager
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.ProductUnavailabilityDialogGenerator
+import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.adapters.ProductViewPagerAdapter
+import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_single_product_view.*
@@ -44,6 +48,7 @@ class SingleProductViewFragment : Fragment() {
         super.onStop()
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,16 +58,7 @@ class SingleProductViewFragment : Fragment() {
         view.single_product_toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         var imagePathList: Array<String>
         val decimal = DecimalFormat("0.##")
-        val minQtyExceededToast = Toast.makeText(
-            this@SingleProductViewFragment.requireContext(),
-            "Maximum order quantity is 10",
-            Toast.LENGTH_SHORT
-        )
-        val itemRemovedToast = Toast.makeText(
-            this@SingleProductViewFragment.requireContext(),
-            "Item removed from cart",
-            Toast.LENGTH_SHORT
-        )
+        val toastMessageProvider = ToastMessageProvider(requireContext())
 
         inventoryViewModel.getProduct(args.displayProductCode).observe(viewLifecycleOwner) {
 
@@ -70,7 +66,7 @@ class SingleProductViewFragment : Fragment() {
             imagePathList =
                 requireActivity().applicationContext.assets.list("product_images/${productCode.toString()}") as Array<String>
             view.apply {
-                    product_title_tv.text = StringBuilder().append(it.brandName + " - " + it.itemName)
+                product_title_tv.text = StringBuilder().append(it.brandName + " - " + it.itemName)
                 val capacityValue = it.capacity
                 val appendString =
                     if (capacityValue > 1 && it.capacityUnit.value.length > 2) "s" else ""
@@ -84,48 +80,73 @@ class SingleProductViewFragment : Fragment() {
                 product_image_viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 circle_indicator.setViewPager(product_image_viewPager)
 
+                if(it.productAvailability == ProductAvailability.OUT_OF_STOCK){
+                    productUnAvailableLayout(view, true)
 
+                }
+                else{
+                    productUnAvailableLayout(view, false)
+
+                }
                 userViewmodel.getCartItemQuantity(it.productCode)
                     ?.observe(viewLifecycleOwner) { qty ->
                         if (qty != null) {
-                            view.itemCount_textView_singleProductView.text = qty.toString()
-                            toggleAddToCartVisibility(true)
+                            val productAlertDialog =
+                                ProductUnavailabilityDialogGenerator(layoutInflater, context, true)
+                            if (it.productAvailability == ProductAvailability.OUT_OF_STOCK) {
+                                productAlertDialog.buildDialog().show()
+                                userViewmodel.removeItemCompletely(it.productCode)
+                            } else if (it.availableQuantity < qty) {
+                                productAlertDialog.buildDialog().show()
+                                while (qty == it.availableQuantity) {
+                                    userViewmodel.removeFromCart(it.productCode)
+                                }
 
-                            increaseQuantity_single_product.setOnClickListener { buttonview ->
-                                if (qty < 10) {
+                            } else {
+                                view.itemCount_textView_singleProductView.text = qty.toString()
+                                toggleAddToCartVisibility(true)
+                                increaseQuantity_single_product.setOnClickListener { buttonview ->
+                                    if (qty < it.availableQuantity) {
+                                        if(qty<=5){
+                                            userViewmodel.currentUserCart.value?.cartId?.let { id ->
+                                                userViewmodel.addToCart(it.productCode)
+                                                Log.e(
+                                                    TAG,
+                                                    userViewmodel.getCartItemQuantity(it.productCode)
+                                                        .toString()
+                                                )
+                                            }
+                                        }
+                                        else{
+                                            toastMessageProvider.show("Maximum ordering quantity is 5")
+                                        }
+
+                                    } else {
+                                         toastMessageProvider.show("Only ${it.availableQuantity} left")
+                                    }
+                                }
+
+
+
+                                decreaseQuantity_single_product.setOnClickListener { buttonView ->
                                     userViewmodel.currentUserCart.value?.cartId?.let { id ->
-                                        userViewmodel.addToCart(it.productCode)
+                                        if (qty == 1)
+                                            toastMessageProvider.show("Item removed from cart")
+
+                                        userViewmodel.removeFromCart(it.productCode)
                                         Log.e(
                                             TAG,
                                             userViewmodel.getCartItemQuantity(it.productCode)
                                                 .toString()
                                         )
+
+
                                     }
-                                }
-
-                                else{
-                                    minQtyExceededToast.show()
-                                }
-
-                            }
-                            decreaseQuantity_single_product.setOnClickListener { buttonView ->
-                                userViewmodel.currentUserCart.value?.cartId?.let { id ->
-                                    if (qty == 1)
-                                        itemRemovedToast.show()
-
-                                    userViewmodel.removeFromCart(it.productCode)
-                                    Log.e(
-                                        TAG,
-                                        userViewmodel.getCartItemQuantity(it.productCode).toString()
-                                    )
-
-
                                 }
                             }
 
                         } else {
                             toggleAddToCartVisibility(false)
-
                         }
 
 
@@ -136,18 +157,24 @@ class SingleProductViewFragment : Fragment() {
                 addTocart_Toggle_visibility.setOnClickListener { buttonView ->
                     toggleAddToCartVisibility(true)
                     userViewmodel.addToCart(it.productCode)
-                    Toast.makeText(
-                        this@SingleProductViewFragment.requireContext(),
-                        "Added to cart",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toastMessageProvider.show("Added to cart")
 
                 }
-
                 saveForLater_single_product_view.setOnClickListener { buttonView ->
-                    userViewmodel.addProductToWishList(it.productCode)
-                    Toast.makeText(requireContext(), "Added to wishList! ", Toast.LENGTH_SHORT)
-                        .show()
+
+                    userViewmodel.checkProductInWishList(productCode)
+                        .observe(viewLifecycleOwner) { isInWishList ->
+                            if (!isInWishList) {
+                                userViewmodel.addProductToWishList(it.productCode)
+                                toastMessageProvider.show("Added to wishList!")
+                                buttonView.saveForLater_textView.text = "Saved"
+
+                            } else {
+                                userViewmodel.removeFromWishListByProductCode(it.productCode)
+                                buttonView.saveForLater_textView.text = "Save for later"
+                                toastMessageProvider.show("Removed From wishList!")
+                            }
+                        }
                 }
 
 
@@ -170,6 +197,15 @@ class SingleProductViewFragment : Fragment() {
         }
     }
 
+    fun productUnAvailableLayout(view: View, isUnavailable: Boolean) {
+        if (isUnavailable) {
+            view.notAvailableBAnner.visibility = View.VISIBLE
+            notAvailableButtonBanner.visibility = View.VISIBLE
+        } else {
+            view.notAvailableBAnner.visibility = View.GONE
+            notAvailableButtonBanner.visibility = View.GONE
+        }
+    }
 
 }
 

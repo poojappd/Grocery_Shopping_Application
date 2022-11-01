@@ -1,14 +1,10 @@
 package com.example.groceryshoppingapplication.repositories
 
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Update
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.models.Address
+import com.example.groceryshoppingapplication.models.DefaultAddressEntity
 import com.example.groceryshoppingapplication.models.User
-import com.example.groceryshoppingapplication.relations.UserAndAddresses
 
 class UserRepository(database: AppDatabase) {
     private val userDao = database.getUserDao()
@@ -30,6 +26,7 @@ class UserRepository(database: AppDatabase) {
     suspend fun deleteUser(user: User) = userDao.deleteUser(user)
 
 
+
     fun getUserAddresses(userId:String) = userDao.getUserAddresses(userId)
 
     suspend fun addUserAddress(address: Address) = userDao.addUserAddress(address)
@@ -38,7 +35,14 @@ class UserRepository(database: AppDatabase) {
 
     suspend fun deleteUserAddress(address: Address) = userDao.deleteUserAddress(address)
 
+    suspend fun addDefaultAddress(defaultAddressEntity: DefaultAddressEntity) = userDao.addDefaultAddress(defaultAddressEntity)
+
+    suspend fun updateDefaultAddress(defaultAddressEntity: DefaultAddressEntity) = userDao.updateDefaultAddress(defaultAddressEntity)
+
+
     fun getAddress(addressId:String) = userDao.getAddress(addressId)
+
+    fun getDefaultAddressId(userId: String) = userDao.getUserDefaultAddressId(userId)
 
     fun getUserCartDetails(userId:String) = userDao.getUserCartDetails(userId)
 

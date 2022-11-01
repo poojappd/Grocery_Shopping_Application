@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android">
-        <item
-            android:id="@+id/cancel_order_menu"
-                android:title="Cancel order"
-            android:icon="@drawable/cancel_icon"
-                android:iconTint="@color/primary_color"
-                    />
+    <item
+            android:id="@+id/overFlowMenu_orderSummary"
+            android:icon="@drawable/overflow_icon"
+            android:iconTint="@color/white"
+            android:orderInCategory="101"
+            app:showAsAction="always"
+            android:title="">
+        <menu>
 
+<!--            <item-->
+<!--                    android:id="@+id/addItems_menu"-->
+<!--                    android:title="Add Items"-->
+<!--                    android:icon="@drawable/add_to_cart_icon1"-->
+<!--                    app:iconTint="@color/primary_color" />-->
+            <item
+                    android:id="@+id/removeItems_menu"
+                    android:title="Remove Items"
+                    android:icon="@drawable/deliete_icon"
+                    app:iconTint="@color/primary_color" />
+            <item
+                    android:id="@+id/cancel_order_menu"
+                    android:title="Cancel order"
+                    android:icon="@drawable/cancel_icon"
+                    app:iconTint="@color/primary_color"
+                    app:showAsAction="always|withText" />
+
+        </menu>
+    </item>
 </menu>

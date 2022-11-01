@@ -30,8 +30,8 @@ class InventoryRepository(appDatabase: AppDatabase) {
     //to be called at checkout phase
 
     suspend fun fetchProductFromInventory(productCode: Int, quantity: Int): Response {
-        val product = getProductDetails(productCode)
-        product.value?.let {
+        val product = getProductDetailsSynchronously(productCode)
+        product.let {
             val availableQuantity = it.availableQuantity
             if (availableQuantity >= quantity) {
                 val remainingProductQuantity = availableQuantity - quantity
@@ -48,7 +48,7 @@ class InventoryRepository(appDatabase: AppDatabase) {
             }
             return Response.INSUFFICIENT_QUANTITY_IN_INVENTORY
         }
-        return Response.NO_SUCH_ITEM_IN_INVENTORY
+
     }
 
     suspend fun restoreProductToInventory(productCode: Int, quantity: Int): Response {

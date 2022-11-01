@@ -8,28 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
+import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
+import com.example.groceryshoppingapplication.fragments.CartFragment
 import com.example.groceryshoppingapplication.models.CartItemEntity
 import kotlinx.android.synthetic.main.cart_single_item.view.*
+import kotlinx.coroutines.NonDisposableHandle.parent
 import java.text.DecimalFormat
 
 class CartItemsAdapter(
     private val cartItems: List<CartItemEntity>,
-    private val cartItemTouchListener: CartItemTouchListener,
-    private val cartItemTotalPriceListener: (Double) -> Unit
+    private val cartItemTouchListener: CartFragment.CartItemTouchListenerImplementation,
+    private val toastMessageProvider: ToastMessageProvider,
 ) :
     RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>() {
-    private lateinit var maxQuantityReachedToast:Toast
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.cart_single_item, parent, false)
-        maxQuantityReachedToast = Toast.makeText(parent.context,"Maximum ordering quantity for this product is 10",Toast.LENGTH_SHORT)
+
         return CartItemsViewHolder(view)
 
     }
 
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
         val productCode = cartItems[position].productCode
+        val cartItem = cartItems[position]
         val extras = cartItemTouchListener.getCartItemExtraData(productCode)
         val decimal = DecimalFormat("#.00")
         holder.apply {
@@ -49,11 +53,18 @@ class CartItemsAdapter(
             }
             increaseButton.setOnClickListener {
                 //userViewModel.addToCart(productCode)
-                if ((count.text as String).toInt() <10) {
+                val count = (count.text as String).toInt()
+                val countInInventory = cartItemTouchListener.getAvailableQuantity(productCode)
+
+                if ( count < countInInventory && count<5) {
                     cartItemTouchListener.addToCart(productCode)
-                }
-                else{
-                    maxQuantityReachedToast.show()
+                } else {
+                    if(count >= countInInventory && count <= 5){
+                        toastMessageProvider.show("Only $countInInventory items left")
+                    }
+                    else {
+                       toastMessageProvider.show("Maximum ordering quantity for this product is 5")
+                    }
                 }
             }
 
@@ -85,4 +96,4 @@ class CartItemsAdapter(
     override fun getItemViewType(position: Int): Int {
         return position
     }
-    }
+}

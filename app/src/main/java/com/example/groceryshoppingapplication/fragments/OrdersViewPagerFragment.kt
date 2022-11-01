@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.adapters.OrdersAdapter
 import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.viewmodels.*
@@ -49,7 +50,7 @@ constructor(applicationContext: Context) : this() {
             applicationContext = requireActivity().applicationContext
         val view = inflater.inflate(R.layout.fragment_orders_view_pager, container, false)
         view.toolbar_myOrders.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
-        val userId = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE).getString("loggedUserId", null)!!
+        val userId = MyGroceryApplication.preferences.getString("loggedUserId", null)!!
 
         if (applicationContext!=null) {
 

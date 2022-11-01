@@ -6,7 +6,7 @@
         android:layout_height="389dp"
 
         android:background="@drawable/signin_pg_bg_shape"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/surface_color"
         tools:context=".MainActivity">
 
     <LinearLayout
@@ -45,14 +45,14 @@
             android:id="@+id/signInButton2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#AAB9FA"
+            style="@style/blueButtonTheme"
             android:text="Sign In"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/cabin"
             android:textStyle="bold"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/textInverseBW"
             app:cornerRadius="30dp"
             app:strokeColor="#9EB4FF"
             app:strokeWidth="2dp"
@@ -90,7 +90,7 @@
             android:text="+91"
             android:textStyle="bold"
 
-            android:textColor="@color/white"
+            android:textColor="@color/textInverseBW"
             app:layout_constraintEnd_toStartOf="@+id/mobile_number_input_field"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

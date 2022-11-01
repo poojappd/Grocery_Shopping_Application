@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.app.ProgressDialog.show
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.CartEntity
 import com.example.groceryshoppingapplication.models.User
@@ -48,10 +50,21 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
             Toast.makeText(context, Response.MOBILE_NUMBER_NOT_ENTERED.message, Toast.LENGTH_SHORT)
         val mobileNumShortToast =
             Toast.makeText(context, Response.MOBILE_NUMBER_LENGTH_SHORT.message, Toast.LENGTH_SHORT)
+        val noUsersFoundToast =
+            Toast.makeText(
+                this.context,
+                "No users found!\nKindly Sign Up to continue",
+                Toast.LENGTH_SHORT
+            )
+        val accountExistsToast  = Toast.makeText(
+            this.context,
+            "Account already exists!\n Sign In to continue",
+            Toast.LENGTH_SHORT
+        )
 
         signInFragmentView.findViewById<Button>(R.id.signInButton2).setOnClickListener {
-            val sharedPref =
-                requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+            val sharedPref = MyGroceryApplication.preferences
+
 
             val mobileNumberCheckResponse = checkMobileNumber(mobileNumberInput)
 
@@ -87,11 +100,7 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
                         )
 
                     } else {
-                        Toast.makeText(
-                            this.context,
-                            "Account already exists!\n Sign In to continue",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        accountExistsToast.show()
 
                     }
 
@@ -101,11 +110,7 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
                         signUpListener(true)
                     }
                     if (userViewModel.loginUser(mobileNumberInput.text.toString()) == Response.NO_SUCH_USER) {
-                        Toast.makeText(
-                            this.context,
-                            "No users found!\nKindly Sign Up to continue",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        noUsersFoundToast.show()
 
                     signInFragmentView.invisible_signUp_layout.isVisible = true
                     } else {
@@ -113,7 +118,6 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
                             putString("loggedUserMobile", mobileNumberInput.text.toString())
                             putString("loggedUserId", userViewModel.currentUser.value!!.userId)
                             putInt("loggedUserCartId", userViewModel.currentUserCart.value!!.cartId)
-
                             apply()
                         }
                         Log.e(

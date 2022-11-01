@@ -88,5 +88,7 @@ object CodeGeneratorUtil {
         return newOrderId
     }
 
+    fun generateLastDefaultAddressId():Int = idDAO.getLastDefaultAddressId()?.plus(1)?:1
+
 }
 

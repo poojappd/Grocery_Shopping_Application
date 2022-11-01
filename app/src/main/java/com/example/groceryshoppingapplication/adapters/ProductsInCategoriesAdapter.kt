@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import kotlinx.android.synthetic.main.single_product_row_item_in_list.view.*
@@ -35,6 +36,7 @@ class ProductsInCategoriesAdapter(
         val image = view.product_image_in_list
         val addToCartButton: ImageView = view.add_to_cart_button_productList
         val container = view.product_list_item_container
+        val notAvailableBanner = view.notAvailableBAnner_productList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -69,25 +71,32 @@ class ProductsInCategoriesAdapter(
                productListTouchListener.navigate(products.get(position).productCode)
             }
 
+
             val productCode = products.get(position).productCode
             var response = productListTouchListener.checkItemInCart(productCode)
             var buttonState = response != Response.NO_SUCH_ITEM_IN_CART
             toggleAddToCartButton(buttonState, addToCartButton)
-
-            addToCartButton.setOnClickListener {
-                response = productListTouchListener.checkItemInCart(productCode)
-                buttonState = response != Response.NO_SUCH_ITEM_IN_CART
-                toggleAddToCartButton(!buttonState, addToCartButton,productCode)
-
-                it.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        context,
-                        R.anim.add_to_cart_icon_in_product_animation
-                    )
-                )
-
+            if(products[position].productAvailability==ProductAvailability.OUT_OF_STOCK) {
+                notAvailableBanner.visibility = View.VISIBLE
+                addToCartButton.isEnabled = false
+                //addToCartButton.setBackgroundResource(R.drawable.cancel_add_to_cart_icon)
+                addToCartButton.setImageResource(R.drawable.cancel_add_to_cart_icon);
             }
+            else {
+                addToCartButton.setOnClickListener {
+                    response = productListTouchListener.checkItemInCart(productCode)
+                    buttonState = response != Response.NO_SUCH_ITEM_IN_CART
+                    toggleAddToCartButton(!buttonState, addToCartButton, productCode)
 
+                    it.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            context,
+                            R.anim.add_to_cart_icon_in_product_animation
+                        )
+                    )
+
+                }
+            }
         }
 
     }

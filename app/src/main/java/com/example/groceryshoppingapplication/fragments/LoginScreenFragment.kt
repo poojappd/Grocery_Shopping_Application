@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,7 +35,7 @@ class LoginScreenFragment : Fragment() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
         val signInButton = loginScreenFragmentView.findViewById<Button>(R.id.signInButton)
         val refActivity = activity
-        val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+        val sharedPref = MyGroceryApplication.preferences
         val userMobile = sharedPref.getString("loggedUserMobile",null)
         if (userMobile != null){
             userViewModel.loginUser(userMobile.toString())
@@ -90,8 +91,8 @@ class LoginScreenFragment : Fragment() {
     }
 
     fun skipToSignup(){
-        requireActivity()?.supportFragmentManager?.popBackStack()
-        requireActivity()?.supportFragmentManager?.apply {
+        requireActivity().supportFragmentManager.popBackStack()
+        requireActivity().supportFragmentManager.apply {
             beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.slide_in,

@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/otp_dialog_bg"
+            android:background="@drawable/alert_dialog_bg"
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@ This will link your existing account to this number!"
                 android:layout_marginEnd="36dp"
                 android:background="@drawable/yes_button_bg"
                 android:paddingHorizontal="30dp"
-                android:paddingVertical="15dp"
+                android:paddingVertical="16dp"
                 android:text="no"
                 android:fontFamily="@font/cabin"
 

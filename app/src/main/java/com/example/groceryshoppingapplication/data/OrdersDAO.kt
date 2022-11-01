@@ -1,9 +1,6 @@
 package com.example.groceryshoppingapplication.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
@@ -24,6 +21,12 @@ interface OrdersDAO {
 
     @Query("select * from OrderDetail where orderId = :orderId")
     fun getOrderDetail(orderId: String):OrderDetail
+
+    @Update
+    suspend fun updateOrderDetail(order: OrderDetail)
+
+    @Update
+    suspend fun updateOrderedItemEntity(orderItem: OrderedItemEntity)
 
     @Transaction
     @Query("select * from User where userId = :userId")

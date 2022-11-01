@@ -20,7 +20,8 @@
          />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:visibility="gone"
+            android:visibility="visible"
+            style="@style/BottomNavigation"
             android:layout_width="0dp"
             android:layout_height="70dp"
             app:layout_constraintStart_toStartOf="parent"

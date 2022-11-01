@@ -109,103 +109,16 @@
                 android:id="@+id/materialTextView28"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Pepsi"
                 android:layout_marginTop="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/trending_search_recyclerView"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView28"
-                app:layout_constraintVertical_bias="0.225"
-                android:id="@+id/materialTextView29"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView30" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Dishwashing soap"
-                android:id="@+id/materialTextView30"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView29"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView31"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView29" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Ice cream"
-                android:id="@+id/materialTextView32"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView31"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView31" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Chips"
-                android:id="@+id/materialTextView31"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView30"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView32"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView30" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Vegetables"
-                android:layout_marginTop="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                tools:listitem="@layout/trending_search_recyclerview_single_row_layout"
+                tools:itemCount="2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView29"
-                app:layout_constraintVertical_bias="0.0"
-                android:id="@+id/materialTextView34"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView35"
-                app:layout_constraintHorizontal_bias="0.5" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Maggi"
-                android:id="@+id/materialTextView35"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView34"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView37"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView34" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Ice cream"
-                android:id="@+id/materialTextView36"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView37"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView37" />
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.App.TrendingSearch"
-                android:text="Chips"
-                android:id="@+id/materialTextView37"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView35"
-                app:layout_constraintEnd_toStartOf="@+id/materialTextView36"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView35" />
+                app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView

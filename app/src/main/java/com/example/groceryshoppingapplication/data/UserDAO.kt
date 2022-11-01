@@ -2,11 +2,9 @@ package com.example.groceryshoppingapplication.data
 
 import androidx.room.*
 import com.example.groceryshoppingapplication.models.Address
+import com.example.groceryshoppingapplication.models.DefaultAddressEntity
 import com.example.groceryshoppingapplication.models.User
-import com.example.groceryshoppingapplication.relations.UserAndAddresses
-import com.example.groceryshoppingapplication.relations.UserAndCart
-import com.example.groceryshoppingapplication.relations.UserAndOrders
-import com.example.groceryshoppingapplication.relations.UserAndWishList
+import com.example.groceryshoppingapplication.relations.*
 
 @Dao
 interface UserDAO{
@@ -27,6 +25,11 @@ interface UserDAO{
     @Query("select * from User where userId = :userId")
     fun getUserAddresses(userId:String): UserAndAddresses
 
+    @Insert
+    suspend fun addDefaultAddress(defaultAddressEntity: DefaultAddressEntity)
+
+    @Update
+    suspend fun updateDefaultAddress(defaultAddressEntity: DefaultAddressEntity)
 
 
     @Insert
@@ -41,6 +44,9 @@ interface UserDAO{
     @Query("select * from Address where addressId = :addressId")
     fun getAddress(addressId:String):Address
 
+    @Query("select * from DefaultAddressEntity where userId = :userId")
+    fun getUserDefaultAddressId(userId: String):DefaultAddressEntity?
+
     @Transaction
     @Query("select * from User where userId = :userId")
     fun getUserCartDetails(userId:String): UserAndCart
@@ -51,7 +57,8 @@ interface UserDAO{
 
 
     @Transaction
-    @Query("select * from OrderDetail")
+    @Query("select * from OrderDetail order by orderDate desc")
     fun getUserOrderDetails(): UserAndOrders?
+
 
 }

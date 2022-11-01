@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.method.TextKeyListener.clear
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_account.view.*
@@ -65,8 +67,7 @@ class UserAccountFragment : Fragment() {
         }
         dialogMessage.text = StringBuilder().append("Are you sure you want to Logout?")
         yesButtonDialog.setOnClickListener {
-            val sharedPref =
-                requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
+            val sharedPref = MyGroceryApplication.preferences
             sharedPref.edit().apply {
                 clear()
                 apply()
@@ -77,10 +78,41 @@ class UserAccountFragment : Fragment() {
 
 
         }
-
         noButtonDialog.setOnClickListener {
             alertDialog.cancel()
         }
+
+        val deleteAccountDialogBuilder = AlertDialog.Builder(requireContext())
+        val deleteAccountDialogView = layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)
+        deleteAccountDialogBuilder.setView(deleteAccountDialogView)
+        val deleteAccountDialogMessage = deleteAccountDialogView.dialog_message
+        val deletedAccountYesButtonDialog = deleteAccountDialogView.button
+        val deleteAccountNoButtonDialog = deleteAccountDialogView.no
+
+        val deleteAccountAlertDialog = deleteAccountDialogBuilder.create()
+        if (deleteAccountAlertDialog.getWindow() != null) {
+            deleteAccountAlertDialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            deleteAccountAlertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
+        }
+        deleteAccountDialogMessage.text = StringBuilder().append("Are you sure you want to delete your account?  This action can't be undone!")
+
+        deleteAccountNoButtonDialog.setOnClickListener {
+            deleteAccountAlertDialog.cancel()
+        }
+
+        deletedAccountYesButtonDialog.setOnClickListener {
+            val sharedPref =MyGroceryApplication.preferences
+            sharedPref.edit().apply {
+                clear()
+                apply()
+            }
+            deleteAccountAlertDialog.cancel()
+            userViewmodel.deleteUserAccount()
+            findNavController().navigate(R.id.action_userAccountFragment_to_loginScreenFragment)
+
+
+        }
+
 
         view.textView19.setOnClickListener {
             alertDialog.show()
@@ -90,6 +122,11 @@ class UserAccountFragment : Fragment() {
         }
         view.textView18.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountFragment_to_wishListFragment)
+        }
+
+        view.deleteAccount_Button.setOnClickListener {
+            deleteAccountAlertDialog.show()
+
         }
         return view
     }

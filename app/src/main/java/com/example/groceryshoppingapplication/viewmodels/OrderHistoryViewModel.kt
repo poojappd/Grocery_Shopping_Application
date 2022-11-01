@@ -1,14 +1,10 @@
 package com.example.groceryshoppingapplication.viewmodels
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.groceryshoppingapplication.data.AppDatabase
-import com.example.groceryshoppingapplication.data.OrdersDAO
 import com.example.groceryshoppingapplication.enums.OrderStatus
-import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.repositories.OrdersRepository
@@ -18,17 +14,15 @@ import java.util.*
 class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
     private val _allOrders = MutableLiveData<List<OrderDetail>>()
     private val myOrdersRepo = OrdersRepository(AppDatabase.getDatabase(applicationContext))
-    private lateinit var userId: String
-
 
     val allOrders: LiveData<List<OrderDetail>>
         get() = _allOrders
 
-    fun refreshMyOrders(userId:String) {
-        val orders=  myOrdersRepo.getUserOrders(userId)
+    fun refreshMyOrders(userId: String) {
+        val orders = myOrdersRepo.getUserOrders(userId)
         val ordersInfo = orders.ordersInfo
-        Collections.sort(ordersInfo ,Comparator { o1: OrderDetail, o2: OrderDetail ->
-            return@Comparator o1.orderDate.compareTo(o2.orderDate)
+        Collections.sort(ordersInfo, { o1: OrderDetail, o2: OrderDetail ->
+             o1.orderDate.compareTo(o2.orderDate)
         })
         val reversedOrders = ordersInfo.toMutableList()
         reversedOrders.reverse()
@@ -44,7 +38,7 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
     fun getOrderDetail(orderId: String) = MutableLiveData(myOrdersRepo.getOrderDetail(orderId))
 
 
-    fun createNewOrder(order: OrderDetail, orderedItems:List<OrderedItemEntity>) =
+    fun createNewOrder(order: OrderDetail, orderedItems: List<OrderedItemEntity>) =
         viewModelScope.launch {
             myOrdersRepo.createOrder(order)
             orderedItems.forEach {
@@ -59,6 +53,24 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
 
     fun updateOrderStatus(orderStatus: OrderStatus, orderId: String) = viewModelScope.launch {
         myOrdersRepo.updateOrderStatus(orderStatus, orderId)
+    }
+
+    private fun updateOrderDetail(order: OrderDetail) =
+        viewModelScope.launch {
+            myOrdersRepo.updateOrderDetail(order)
+        }
+
+    private fun updateOrderedItemEntities(orderItems: List<OrderedItemEntity>) =
+        viewModelScope.launch {
+            for (item in orderItems)
+                myOrdersRepo.updateOrderedItemEntity(item)
+        }
+
+    fun updateOrderChanges(orderItems: List<OrderedItemEntity>, order: OrderDetail){
+        updateOrderDetail(order)
+        updateOrderedItemEntities(orderItems)
+        refreshMyOrders(order.userId)
+
     }
 }
 

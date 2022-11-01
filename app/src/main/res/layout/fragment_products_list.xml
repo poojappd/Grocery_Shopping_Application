@@ -17,7 +17,6 @@
                 android:layout_width="match_parent"
                 app:titleCentered="true"
                 android:id="@+id/toolbar_productList"
-                app:titleTextAppearance="@style/ToolbarTheme"
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
                 app:titleTextColor="@color/white"
@@ -32,7 +31,9 @@
             android:clipToPadding="false"
             tools:listitem="@layout/single_product_row_item_in_list"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,16 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/surface_color"
+        android:background="@color/wishListbg"
         tools:context=".fragments.DeliverySlotFragment">
+
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/appBarLayout"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
@@ -21,14 +21,15 @@
                 app:navigationIcon="@drawable/back_button_icon"
                 app:navigationIconTint="@color/white"
                 android:id="@+id/deliverySlot_Toolbar"
-        android:layout_height="match_parent" />
+                android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout6"
+            android:layout_marginHorizontal="10dp"
             android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
@@ -38,14 +39,11 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/address_delSLot"
-                android:layout_marginStart="12dp"
                 android:text="Change"
-                app:layout_goneMarginEnd="50dp"
-                android:visibility="invisible"
-                android:fontFamily="@font/cabin"
+                android:visibility="visible"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:textAllCaps="false"
                 android:textColor="#9C92D5"
@@ -53,8 +51,9 @@
                 app:cornerRadius="30dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintHorizontal_bias="1.0" />
+                app:layout_constraintHorizontal_bias="1.0"
+                android:id="@+id/materialButton2"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="wrap_content"
@@ -84,20 +83,19 @@
                 android:id="@+id/address_nickname_delSlot"
                 android:fontFamily="@font/cabin"
                 android:textStyle="bold"
-                android:textSize="18dp"
-                android:maxLength="20"
+                android:textSize="15sp"
                 android:ellipsize="end"
                 android:maxWidth="160dp"
                 android:maxLines="1"
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toEndOf="@+id/materialTextView13"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/materialButton2"
+                app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView13" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
-                android:text="No. 20, 9th\n\n streetfw3f34f34f34f4gf4g,\n\n Eswaran Nagarpammal, chennai - 75"
                 android:id="@+id/address_delSLot"
                 android:maxWidth="200dp"
                 android:ellipsize="end"
@@ -122,42 +120,46 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/dropup_icon"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-            android:id="@+id/shapeableImageView7" />
+            android:id="@+id/shapeableImageView7"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView11"
+            android:layout_marginTop="20dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            app:layout_constraintVertical_chainStyle="packed" />
 
     <LinearLayout
             android:layout_width="150dp"
-            android:layout_height="360dp"
-            android:layout_marginVertical="50dp"
+            android:layout_height="0dp"
             android:background="@drawable/otp_dialog_bg"
-            android:backgroundTint="#48EAE8FD"
+            android:backgroundTint="@color/whiteLessAlpha"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView11"
             android:id="@+id/linearLayout4"
-            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/invisible_time_picker"
-            app:layout_constraintBottom_toTopOf="@+id/continue_button_deliverySlot">
+            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView7"
+            app:layout_constraintBottom_toTopOf="@+id/shapeableImageView6">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dateChoose_rv"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:listitem="@layout/custom_datepicker_deliveryslot_layout" />
     </LinearLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginBottom="60dp"
             android:src="@drawable/dropdown_icon"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
             app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-            android:id="@+id/shapeableImageView6" />
+            android:id="@+id/shapeableImageView6"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/chosenSlotTV" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -184,7 +186,7 @@
                 android:layout_width="150dp"
                 android:layout_height="0dp"
                 android:background="@drawable/otp_dialog_bg"
-                android:backgroundTint="#48EAE8FD"
+                android:backgroundTint="@color/whiteLessAlpha"
                 android:orientation="vertical"
 
                 android:id="@+id/linearLayout5"
@@ -209,31 +211,39 @@
                 android:src="@drawable/dropdown_icon"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:paddingStart="40dp"
             android:paddingEnd="10dp"
-            android:backgroundTint="#ADAEFF"
-            android:background="@drawable/start_shopping_button_bg"
-            android:layout_marginBottom="20dp"
+            style="@style/blueButtonTheme"
+            android:background="@drawable/otp_dialog_bg"
+            android:layout_marginBottom="36dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:text="Continue"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:fontFamily="@font/cabin"
-android:drawablePadding="30dp"
+            android:textColor="@color/textInverseBW"
+            android:drawablePadding="30dp"
+            android:drawableTint="@color/textInverseBW"
             android:drawableEnd="@drawable/continue_icon"
             android:id="@+id/continue_button_deliverySlot"
-            >
+            android:layout_marginEnd="16dp"/>
 
-    </androidx.appcompat.widget.AppCompatButton>
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="36dp"
+            android:visibility="invisible"
+            android:padding="14dp"
+            android:text="Tuesday 13 4AM"
+            app:layout_constraintEnd_toStartOf="@+id/continue_button_deliverySlot"
+            android:id="@+id/chosenSlotTV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

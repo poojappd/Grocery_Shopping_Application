@@ -98,8 +98,9 @@
                         android:id="@+id/street_detail_et"
                         android:textSize="15dp"
                         android:layout_width="match_parent"
-                        android:inputType="textMultiLine"
+                        android:inputType="text|textMultiLine"
                         android:maxLines="3"
+                        android:nextFocusDown="@id/area_detail_et"
                         android:maxLength="60"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cabin"
@@ -147,7 +148,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:padding="10dp"
                         android:textSize="15dp"
-
+                        android:imeOptions="actionNext"
+                        android:maxLines="2"
                         android:id="@+id/landmark_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -270,17 +272,15 @@
                     app:layout_constraintStart_toStartOf="@+id/materialTextView14"
                     android:hint="Enter an name for this address"
                     app:counterEnabled="true"
-                    android:visibility="visible"
-
+                    android:visibility="gone"
                     android:layout_marginTop="20dp"
-
                     app:counterMaxLength="20">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="15dp"
-
+                        android:maxLines="1"
                         android:maxLength="20"
                         android:fontFamily="@font/cabin"
 
@@ -295,7 +295,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/signup_edittext_bg"
-                    android:backgroundTint="#9AA5F3"
+                    android:backgroundTint="@color/buttonColorBlueLight"
                     app:layout_constraintTop_toBottomOf="@+id/other_address_tag"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

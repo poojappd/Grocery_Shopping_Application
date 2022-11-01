@@ -15,14 +15,18 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.groceryshoppingapplication.ProductSearchResultsFragment
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.adapters.RecentSearchAdapter
+import com.example.groceryshoppingapplication.adapters.TrendingSearchAdapter
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.UserViewModel
+import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_product_search.view.*
@@ -32,15 +36,19 @@ import kotlinx.android.synthetic.main.fragment_product_search_results.view.*
 class ProductSearchFragment : Fragment() {
 
     private lateinit var childFragmentContainer: FragmentContainerView
-    private lateinit var searchView:SearchView
+    private lateinit var searchView: SearchView
     private lateinit var recentSearchContainer: ViewGroup
-    private var lastSuggestionStackId:Int? = null
-    private var lastQuery:String? = null
-    private var lastSubmittedQuery:String? = null
+    private var lastSuggestionStackId: Int? = null
+    private var lastQuery: String? = null
+    private var lastSubmittedQuery: String? = null
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().applicationContext)
     }
+    private val userViewModel: UserViewModel by activityViewModels {
+        UserViewModelFactory(requireActivity().applicationContext)
+    }
 
+    private val args: ProductSearchFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,32 +56,45 @@ class ProductSearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_search, container, false)
-        Log.e(TAG, "  back stack count search frag------>"+childFragmentManager.backStackEntryCount.toString())
+        Log.e(
+            TAG,
+            "  back stack count search frag------>" + childFragmentManager.backStackEntryCount.toString()
+        )
         recentSearchContainer = view.recentSearch_Container
         val recyclerView = view.recyclerView
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL)
-        recyclerView.adapter = RecentSearchAdapter("Pineapple Tomato Milk Grocery Mirinda Onion Rice Chapathi Egg Bread".split(" "))
-        {query:String -> setSearchViewQuery(query)}
+        val trendingSearchRecyclerView = view.trending_search_recyclerView
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
+        trendingSearchRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
+        userViewModel.recentSearches.observe(viewLifecycleOwner) {
+            recyclerView.adapter =
+                RecentSearchAdapter(it) { query: String ->
+                    searchView.setQuery(query, true)
+                }
+        }
+        trendingSearchRecyclerView.adapter = TrendingSearchAdapter(listOf("Pineapple","Pepsi", "Coke", "Icecream", "Maggi", "masala")){ query: String ->
+            searchView.setQuery(query, true)}
+
         searchView = view.searchView
-        searchView.requestFocus()
+        if (args.isSearchViewFocused)
+            searchView.requestFocus()
 
         searchView.setOnQueryTextListener(SearchQueryListener())
-        searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn).setOnClickListener{
-            searchView.setQuery("",true)
+        searchView.findViewById<View>(androidx.appcompat.R.id.search_close_btn).setOnClickListener {
+            searchView.setQuery("", true)
             searchView.clearFocus()
         }
         searchView.setOnQueryTextFocusChangeListener(OnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 showInputMethod(view.findFocus())
                 requireActivity().bottomNavigationView.isVisible = false
-            }
-            else
-            requireActivity().bottomNavigationView.isVisible = true
+            } else
+                requireActivity().bottomNavigationView.isVisible = true
         })
         childFragmentContainer = view.search_Fragment
         childFragmentManager.addOnBackStackChangedListener {
             val backStackCount = childFragmentManager.backStackEntryCount
-            Log.e(TAG,"BACK STACK CHANGED"+" $backStackCount")
+            Log.e(TAG, "BACK STACK CHANGED" + " $backStackCount")
 
         }
 
@@ -81,35 +102,37 @@ class ProductSearchFragment : Fragment() {
     }
 
     private fun showInputMethod(view: View) {
-        val imm = requireActivity().getSystemService( INPUT_METHOD_SERVICE) as InputMethodManager?
+        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.showSoftInput(view, 0)
 
 
     }
+
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             //childFragmentManager.popBackStackImmediate()
-            if (query != null && query!= lastSubmittedQuery) {
+            if (query != null && (query != lastSubmittedQuery)) {
                 searchProductInInventory(query)
                 lastSubmittedQuery = query
+                userViewModel.addToRecentSearch(query)
                 return true
             }
             return false
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
-            Log.e(TAG,"Query - *$newText*")
+            Log.e(TAG, "Query - *$newText*")
 
             if (newText != null) {
 
-                if(newText =="") {
+                if (newText == "") {
                     recentSearchContainer.isVisible = true
 
                     childFragmentContainer.visibility = View.GONE
                     Log.e(TAG, "EMpty Queryyyy-----------")
-                }else{
+                } else {
                     recentSearchContainer.isVisible = false
-                    if(newText!=lastQuery) {
+                    if (newText != lastQuery) {
                         childFragmentContainer.visibility = View.VISIBLE
 
                         displaySuggestions(newText)
@@ -126,7 +149,7 @@ class ProductSearchFragment : Fragment() {
         fun searchProductInInventory(searchQuery: String) {
             popLastChildBackStackEntry()
             inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {
-                if(it.size>0) {
+                if (it.size > 0) {
                     childFragmentManager.beginTransaction().apply {
                         add(R.id.search_Fragment, ProductSearchResultsFragment(it))
                         addToBackStack("searchResult")
@@ -138,26 +161,24 @@ class ProductSearchFragment : Fragment() {
         }
 
 
-
         private fun displaySuggestions(searchQuery: String) {
             popLastChildBackStackEntry()
-                childFragmentManager.beginTransaction().apply {
-                    add(R.id.search_Fragment, SearchSuggestionsFragment(searchQuery))
-                    addToBackStack("sugg")
-                    lastSuggestionStackId = commit()
+            childFragmentManager.beginTransaction().apply {
+                add(R.id.search_Fragment, SearchSuggestionsFragment(searchQuery))
+                addToBackStack("sugg")
+                lastSuggestionStackId = commit()
 
-                }
+            }
 
         }
 
     }
 
 
-
-    fun searchGeneralCategoryInInventory(generalCategory: GeneralCategory){
-     val items = inventoryViewModel.getProductsUnderGeneralCategory(generalCategory)
+    fun searchGeneralCategoryInInventory(generalCategory: GeneralCategory) {
+        val items = inventoryViewModel.getProductsUnderGeneralCategory(generalCategory)
         popLastChildBackStackEntry()
-        if(items.size>0) {
+        if (items.size > 0) {
             childFragmentManager.apply {
                 beginTransaction().apply {
                     add(R.id.search_Fragment, ProductSearchResultsFragment(items))
@@ -167,11 +188,12 @@ class ProductSearchFragment : Fragment() {
             }
         }
     }
-    fun searchSubCategoryInInventory(subCategory: SubCategory){
+
+    fun searchSubCategoryInInventory(subCategory: SubCategory) {
 
         val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
-      popLastChildBackStackEntry()
-        if(items.size>0) {
+        popLastChildBackStackEntry()
+        if (items.size > 0) {
             childFragmentManager.apply {
                 beginTransaction().apply {
                     add(R.id.search_Fragment, ProductSearchResultsFragment(items))
@@ -181,15 +203,17 @@ class ProductSearchFragment : Fragment() {
             }
         }
     }
-private fun popLastChildBackStackEntry(){
-    lastSuggestionStackId?.let {
-        childFragmentManager.popBackStackImmediate(it,FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+    private fun popLastChildBackStackEntry() {
+        lastSuggestionStackId?.let {
+            childFragmentManager.popBackStackImmediate(it, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
-}
-fun setSearchViewQuery(searchQuery: String){
-    searchView.setQuery(searchQuery,false)
-    lastQuery = searchQuery
-    searchView.clearFocus()
-}
+
+    fun setSearchViewQuery(searchQuery: String) {
+        searchView.setQuery(searchQuery, false)
+        lastQuery = searchQuery
+        searchView.clearFocus()
+    }
 
 }

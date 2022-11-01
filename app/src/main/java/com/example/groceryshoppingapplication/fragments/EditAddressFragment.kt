@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.Utils.ValidationService
 import com.example.groceryshoppingapplication.enums.AddressTag
 import com.example.groceryshoppingapplication.enums.Response
@@ -125,8 +126,6 @@ class EditAddressFragment : Fragment() {
         }
 
         view.saveButton_address.setOnClickListener {
-//            val sharedPref = requireActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE)
-//            val userId = sharedPref.getString("loggedUserId","")
             val toSaveAsNew = args.addressIdToDisplay == null
             var validationPassed = true
             val houseNo = view.house_no_edittext
@@ -232,16 +231,12 @@ class EditAddressFragment : Fragment() {
                 )
                 if (toSaveAsNew) {
                     userViewModel.addUserAddress(address)
-                    val sharedPref = requireActivity().getSharedPreferences(
-                        "myPreferences",
-                        Context.MODE_PRIVATE
-                    )
+                    val sharedPref = MyGroceryApplication.preferences
                     if (sharedPref.getString("loggedUserMobile", null) == null) {
                         sharedPref.edit().apply {
                             putString("loggedUserDefaultAddressId", addressId)
                             apply()
                         }
-                        userViewModel.updateDefaultAddress(addressId)
                     }
                 } else userViewModel.updateUserAddress(address)
                 if (args.navigateToDeliverySlotFragment) {

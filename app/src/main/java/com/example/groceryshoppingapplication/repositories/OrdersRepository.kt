@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.repositories
 
+import androidx.room.Update
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.data.OrdersDAO
 import com.example.groceryshoppingapplication.enums.OrderStatus
@@ -21,4 +22,8 @@ class OrdersRepository(database: AppDatabase) {
     fun getOrderDetail(orderId: String):OrderDetail = ordersDAO.getOrderDetail(orderId)
 
     fun getOrderedItemsFromOrder(orderId: String) = ordersDAO.getOrderedItemsFromOrder(orderId)
+
+    suspend fun updateOrderDetail(order: OrderDetail) = ordersDAO.updateOrderDetail(order)
+
+    suspend fun updateOrderedItemEntity(orderItem: OrderedItemEntity) = ordersDAO.updateOrderedItemEntity(orderItem)
 }

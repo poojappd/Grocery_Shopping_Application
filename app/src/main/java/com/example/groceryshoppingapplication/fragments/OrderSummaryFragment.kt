@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_place_order.view.materialTextView
 import kotlinx.android.synthetic.main.fragment_place_order.view.materialTextView22
 import kotlinx.android.synthetic.main.fragment_place_order.view.orderTotal_OrderDetail
 import kotlinx.android.synthetic.main.fragment_place_order.view.subTotal_OrderDetail
-import kotlinx.android.synthetic.main.fragment_place_order.view.toolbar_placeOrder
 import kotlinx.android.synthetic.main.fragment_place_order.view.totalItems_OrderDetail
 import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
 import java.text.DecimalFormat
@@ -92,10 +91,10 @@ class OrderSummaryFragment : Fragment() {
 
 
 
-                toolbar_placeOrder.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
+                toolbar_OrderSummary.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
                 val decimal = DecimalFormat("#.00")
 
-                val toolbar = toolbar_placeOrder
+                val toolbar = toolbar_OrderSummary
                 if (orderDetail.orderStatus == OrderStatus.ORDERED) {
                     toolbar.setOnMenuItemClickListener {
                         when (it.itemId) {
@@ -105,11 +104,17 @@ class OrderSummaryFragment : Fragment() {
                                 Toast.makeText(requireContext(), "Yes", Toast.LENGTH_SHORT).show()
                                 true
                             }
+                            R.id.removeItems_menu ->{
+                                val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToModifyOrderFragment(orderDetail.orderId)
+                                findNavController().navigate(action)
+                                true
+                            }
                             else -> false
                         }
                     }
+
                 } else {
-                    toolbar.menu.findItem(R.id.cancel_order_menu).isVisible = false
+                    toolbar.menu.findItem(R.id.overFlowMenu_orderSummary).isVisible = false
                 }
 
                 totalItems_OrderDetail.text = orderDetail.numberOfItems.toString()

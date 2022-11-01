@@ -64,7 +64,8 @@ class HomePageFragment : Fragment() {
         recyclerView.adapter = HomePageAdapterCategories(CategoryItemTouchListenerImpl())
 
         view.searchView.setOnClickListener {
-            findNavController().navigate(R.id.productSearchFragment)
+            val action = HomePageFragmentDirections.actionHomePageFragmentToProductSearchFragment(true)
+            findNavController().navigate(action)
         }
         return view
     }

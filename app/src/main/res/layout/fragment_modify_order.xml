@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".fragments.ModifyOrderFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout_ModifyOrder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                app:titleCentered="true"
+                app:title="Modify Ordered Items"
+                android:id="@+id/toolbar_ModifyOrder"
+                app:titleTextColor="@color/white"
+                app:navigationIcon="@drawable/back_button_icon"
+                app:navigationIconTint="@color/white"
+                android:layout_height="match_parent" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout_ModifyOrder"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout_ModifyOrder"
+                android:id="@+id/constraintLayout10">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/modifyOrder_recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:nestedScrollingEnabled="true"
+                    tools:listitem="@layout/modify_order_recyclerview_layout"
+                    tools:itemCount="2"
+                    android:scrollbars="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0" />
+
+            <LinearLayout
+                    android:background="@drawable/signup_edittext_bg"
+                    android:backgroundTint="#E9E0FF"
+                    android:paddingVertical="5dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/saveChanges_modifyOrder"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/modifyOrder_recyclerView"
+                    android:id="@+id/linearLayout3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.2">
+
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Total: " />
+
+                <com.google.android.material.textview.MaterialTextView
+
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹ "
+                        android:textColor="@color/black" />
+
+                <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/totalPrice_modifyOrder_fragment"
+
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/saveChanges_modifyOrder"
+                    android:layout_height="wrap_content"
+                    android:text="Save Changes"
+                    style="@style/fontFAB"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/otp_dialog_bg"
+                    android:drawablePadding="10dp"
+                    android:paddingHorizontal="20dp"
+                    app:icon="@drawable/check_icon1"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayout3"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

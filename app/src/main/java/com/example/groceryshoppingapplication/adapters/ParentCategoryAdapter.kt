@@ -16,11 +16,13 @@ import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
 import com.example.groceryshoppingapplication.listeners.CategoryItemTouchListener
+import kotlinx.android.synthetic.main.category_single_row.view.*
 
 
-class ParentCategoryAdapter (
+class ParentCategoryAdapter(
     val parentCategoryData: Map<GeneralCategory,List<SubCategory>>,
     val categoryImages: Array<Int>,
+    val expandAll:Boolean,
     val listener: CategoryItemTouchListener
 ) : RecyclerView.Adapter<ParentCategoryAdapter.CategoryViewHolder>() {
 
@@ -28,7 +30,12 @@ class ParentCategoryAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(com.example.groceryshoppingapplication.R.layout.category_single_row, parent, false)
-
+        if (expandAll) {
+            view.nested_rv.visibility = View.VISIBLE
+        }
+        else{
+            view.nested_rv.visibility = View.GONE
+        }
         return CategoryViewHolder(view)
     }
 

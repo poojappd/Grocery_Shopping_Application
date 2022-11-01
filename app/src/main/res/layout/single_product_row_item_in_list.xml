@@ -17,7 +17,7 @@
 
             android:orientation="horizontal">
 
-        <LinearLayout
+        <FrameLayout
                 android:id="@+id/productt_image_container"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -37,7 +37,27 @@
 
 
                     />
-        </LinearLayout>
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/notAvailableBAnner_productList"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator"
+                    android:background="#77CDCDCF"
+                    >
+                <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OUT OF STOCK"
+                        android:background="@drawable/otp_dialog_bg"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#AB59595E"/>
+
+
+            </FrameLayout>
+        </FrameLayout>
 
 
         <TextView

@@ -30,5 +30,10 @@ interface IdDAO {
     @Query("select orderId from OrderDetail")
     fun getOrderIds():List<String>
 
+    @Query("select id from DefaultAddressEntity order by id desc limit 1")
+    fun getLastDefaultAddressId():Int?
+
+
+
 
 }

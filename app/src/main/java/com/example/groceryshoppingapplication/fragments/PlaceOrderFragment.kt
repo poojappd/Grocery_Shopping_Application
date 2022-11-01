@@ -27,11 +27,14 @@ import java.util.*
 class PlaceOrderFragment : Fragment() {
 
 
-    val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
+    private val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
     }
     private val userViewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
+    }
+    private val inventoryViewModel: InventoryViewModel by activityViewModels {
+        InventoryViewModelFactory(requireActivity().applicationContext)
     }
 
     lateinit var lastView: View
@@ -65,9 +68,10 @@ class PlaceOrderFragment : Fragment() {
             credit_card_option.setOnClickListener {activateOption(it)}
             upi_option.setOnClickListener { activateOption(it) }
             cod_option.setOnClickListener { activateOption(it) }
+
+            //place order
             place_order_button.setOnClickListener {
                 orderDetailsViewModel.paymentOption?.let {
-
                     val orderDate = Date()
                     val orderId = CodeGeneratorUtil.generateOrderId(orderDate)
                     val subTotal = decimal.format(orderDetailsViewModel.subTotal).toDouble()
@@ -103,10 +107,11 @@ class PlaceOrderFragment : Fragment() {
                         viewModel.createNewOrder(newOrder,orderedItems)
                         orderDetailsViewModel.clearOrderDetails()
                         userViewmodel.emptyCart()
+                        inventoryViewModel.reserveProducts(orderedItems)
 
                     }
                     toastOrderplaced.show()
-                    findNavController().navigate(R.id.action_placeOrderFragment_to_homePageFragment)
+                    findNavController().navigate(R.id.action_placeOrderFragment_to_ordersViewPagerFragment)
                 } ?: toastChoosePayment.show()
 
 

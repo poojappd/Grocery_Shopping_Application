@@ -3,7 +3,7 @@
     <string name="hint_street"><font color='#E072A2'>*</font> Street Details</string>
     <string name="hint_area"><font color='#E072A2'>*</font> Area Details</string>
     <string name="hint_pincode"><font color='#E072A2'>*</font> Pincode</string>
-<string name="search_hint">Search for products</string>
+    <string name="search_hint">Search for products</string>
     <string name="hint_lmk">Landmark</string>
 
     <string-array name="cities">

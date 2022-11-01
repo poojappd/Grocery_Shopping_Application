@@ -71,7 +71,7 @@ class ProductSearchResultsFragment(private val items: List<GroceryItemEntity>) :
         }
 
         override fun removeFromCart(productCode: Int) {
-            viewmodel.removeItem(productCode)
+            viewmodel.removeItemCompletely(productCode)
         }
 
         override fun checkItemInCart(productCode: Int): Response {

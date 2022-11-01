@@ -3,18 +3,19 @@ package com.example.groceryshoppingapplication.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.models.Address
 import com.example.groceryshoppingapplication.models.User
 import kotlinx.android.synthetic.main.address_recyclerview_layout.view.*
 
-class AddressesAdapter(private val addresses: List<Address>, private val user: User, private val touchListener:(Int,Boolean)->Unit, private val preventDefaultDeleteListener:()->Unit) :
+class AddressesAdapter(private val addresses: List<Address>, private val user: User, private val defaultAddress: Address, private val chosenAddressPosition:Int, private val deleteTouchListener:(Int, Boolean)->Unit, private val preventDefaultDeleteListener:()->Unit, private val updateChosenAddressListener:(String)->Unit) :
     RecyclerView.Adapter<AddressesAdapter.AddressesViewHolder>() {
-
+    private var lastChosenRadioButton:RadioButton? = null
     inner class AddressesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val defaultCheckBox = view.materialRadioButton
+        val chosenCheckBox = view.materialRadioButton
         val nickname = view.address_nickname
         val userFullName = view.materialTextView7
         val address = view.materialTextView8
@@ -34,8 +35,11 @@ class AddressesAdapter(private val addresses: List<Address>, private val user: U
     override fun onBindViewHolder(holder: AddressesViewHolder, position: Int) {
         val currentAddress = addresses[position]
         holder.apply {
-            if (position == 0){
+            if (currentAddress.addressId == defaultAddress.addressId){
                 holder.defaultMarker.visibility = View.VISIBLE
+            }
+            if(chosenAddressPosition == position){
+                activateOption(holder.chosenCheckBox)
             }
             nickname.text = currentAddress.addressTag
             userFullName.text =
@@ -44,18 +48,40 @@ class AddressesAdapter(private val addresses: List<Address>, private val user: U
                 "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
             ).toString()
             contact.text = user.mobileNumber
+            chosenCheckBox.setOnClickListener {
+                if (position!=chosenAddressPosition) {
+                    activateOption(it as RadioButton)
+                    updateChosenAddressListener(currentAddress.addressId)
+                }
+            }
             deleteAddress.setOnClickListener {
-                if(position != 0)
-                    touchListener(position, true)
+                if(currentAddress.addressId != defaultAddress.addressId)
+                    deleteTouchListener(position, true)
                 else
                     preventDefaultDeleteListener()
-
             }
             editAddress.setOnClickListener {
-                touchListener(position,false)
+                deleteTouchListener(position,false)
             }
         }
     }
 
     override fun getItemCount() = addresses.size
+
+    private fun activateOption(radioButton: RadioButton){
+        lastChosenRadioButton?.let {
+            it.isChecked = false
+        }
+        radioButton.isChecked = true
+        lastChosenRadioButton = radioButton
+
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 }
