@@ -9,30 +9,48 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.fragments.ProductRefineFragment
+import com.example.groceryshoppingapplication.fragments.ProductSearchFragment
 import com.example.groceryshoppingapplication.fragments.ProductSearchFragmentDirections
+import com.example.groceryshoppingapplication.fragments.SignInFragment
+import com.example.groceryshoppingapplication.fragments.SignInFragment.Companion.SINGUP_CALLBACK_FUNCTION
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
-import com.example.groceryshoppingapplication.viewmodels.FilterViewModel
-import com.example.groceryshoppingapplication.viewmodels.FilterViewModelFactory
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
-import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_product_search_results.view.*
+import java.io.Serializable
 import java.util.*
 
 
-class ProductSearchResultsFragment(private val items: List<GroceryItemEntity>) : Fragment() {
+class ProductSearchResultsFragment : Fragment() {
 
     private lateinit var filterButton:View
     private lateinit var recyclerView: RecyclerView
     private val filterViewModel:FilterViewModel by activityViewModels {
         FilterViewModelFactory()
     }
+    private val inventoryViewModel:InventoryViewModel by viewModels {
+        InventoryViewModelFactory(requireContext())
+    }
+    private lateinit var items:List<GroceryItemEntity>
+
+    companion object {
+        fun newInstance(productCodes: IntArray): ProductSearchResultsFragment {
+            val fragment = ProductSearchResultsFragment()
+            val bundle = Bundle()
+            bundle.putIntArray("productCodes", productCodes)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +58,12 @@ class ProductSearchResultsFragment(private val items: List<GroceryItemEntity>) :
         // Inflate the layout for this fragment
         Log.e(ContentValues.TAG, "  back stack count results frag------>"+parentFragmentManager.backStackEntryCount.toString())
         val view = inflater.inflate(R.layout.fragment_product_search_results, container, false)
+        val mutableItems = mutableListOf<GroceryItemEntity>()
+        val productCodes = arguments?.getIntArray("productCodes")!!
+        for (i in productCodes){
+            mutableItems.add(inventoryViewModel.getProductDetailsSynchronously(i))
+        }
+        items = mutableItems
         filterViewModel.setOriginalResults(items)
         recyclerView = view.product_search_result_RV
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

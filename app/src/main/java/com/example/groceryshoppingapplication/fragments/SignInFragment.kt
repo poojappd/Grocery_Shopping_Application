@@ -1,11 +1,8 @@
 package com.example.groceryshoppingapplication.fragments
 
-import android.app.ProgressDialog.show
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
@@ -25,9 +22,21 @@ import com.example.groceryshoppingapplication.models.WishListEntity
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
-import kotlin.math.sign
+import java.io.Serializable
 
-class SignInFragment(private val signingMode: Boolean,private val signUpListener:(Boolean)->Unit) : Fragment() {
+class SignInFragment() : Fragment() {
+    companion object {
+        const val SINGUP_CALLBACK_FUNCTION: String = "SINGUP_CALLBACK_FUNCTION"
+
+        fun newInstance( signingMode: Boolean,signUpListener:(Boolean)->Unit): SignInFragment {
+            val fragment = SignInFragment()
+            val bundle = Bundle()
+            bundle.putBoolean("signingMode",signingMode)
+            bundle.putSerializable(SINGUP_CALLBACK_FUNCTION, signUpListener as Serializable)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     val userViewModel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
@@ -38,8 +47,11 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
         savedInstanceState: Bundle?
     ): View? {
         val signInFragmentView = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        val signUpListener: (Boolean) -> Unit = (arguments?.getSerializable(SINGUP_CALLBACK_FUNCTION) as (Boolean) -> Unit)
+        val signingMode = arguments?.getBoolean("signingMode",false)
+
         signInFragmentView.isClickable = true
-        if (!signingMode)
+        if (!signingMode!!)
             signInFragmentView.signInButton2.setText("Sign Up")
         val mobileNumberInput =
             signInFragmentView.findViewById<EditText>(R.id.mobile_number_input_field)
@@ -135,7 +147,7 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
                 }
 
             } else {
-                if (mobileNumberInput.text.toString().length == 0) {
+                if (mobileNumberInput.text.toString().isEmpty()) {
                     mobileNumNotEnteredToast.show()
                 }
                 else if(mobileNumberCheckResponse == Response.MOBILE_NUMBER_LENGTH_SHORT)
@@ -157,5 +169,7 @@ class SignInFragment(private val signingMode: Boolean,private val signUpListener
             else -> Response.MOBILE_NUMBER_VALID
         }
     }
+
+
 
 }

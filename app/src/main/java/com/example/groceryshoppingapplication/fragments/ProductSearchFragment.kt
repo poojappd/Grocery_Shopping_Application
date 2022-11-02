@@ -23,6 +23,7 @@ import com.example.groceryshoppingapplication.adapters.RecentSearchAdapter
 import com.example.groceryshoppingapplication.adapters.TrendingSearchAdapter
 import com.example.groceryshoppingapplication.enums.GeneralCategory
 import com.example.groceryshoppingapplication.enums.SubCategory
+import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
@@ -108,7 +109,16 @@ class ProductSearchFragment : Fragment() {
 
     }
 
+    private fun getProductCodesFromProduct(groceryItems:List<GroceryItemEntity>): IntArray {
+        val productCodes = mutableListOf<Int>()
+        groceryItems.forEach {item->
+            productCodes.add(item.productCode)
+        }
+        return productCodes.toIntArray()
+    }
+
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
+
         override fun onQueryTextSubmit(query: String?): Boolean {
             //childFragmentManager.popBackStackImmediate()
             if (query != null && (query != lastSubmittedQuery)) {
@@ -150,8 +160,9 @@ class ProductSearchFragment : Fragment() {
             popLastChildBackStackEntry()
             inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {
                 if (it.size > 0) {
+                    val productCodes = getProductCodesFromProduct(it)
                     childFragmentManager.beginTransaction().apply {
-                        add(R.id.search_Fragment, ProductSearchResultsFragment(it))
+                        add(R.id.search_Fragment, ProductSearchResultsFragment.newInstance(productCodes))
                         addToBackStack("searchResult")
                         lastSuggestionStackId = commit()
                     }
@@ -164,7 +175,7 @@ class ProductSearchFragment : Fragment() {
         private fun displaySuggestions(searchQuery: String) {
             popLastChildBackStackEntry()
             childFragmentManager.beginTransaction().apply {
-                add(R.id.search_Fragment, SearchSuggestionsFragment(searchQuery))
+                add(R.id.search_Fragment, SearchSuggestionsFragment.newInstance(searchQuery))
                 addToBackStack("sugg")
                 lastSuggestionStackId = commit()
 
@@ -178,10 +189,12 @@ class ProductSearchFragment : Fragment() {
     fun searchGeneralCategoryInInventory(generalCategory: GeneralCategory) {
         val items = inventoryViewModel.getProductsUnderGeneralCategory(generalCategory)
         popLastChildBackStackEntry()
+
         if (items.size > 0) {
             childFragmentManager.apply {
                 beginTransaction().apply {
-                    add(R.id.search_Fragment, ProductSearchResultsFragment(items))
+
+                    add(R.id.search_Fragment, ProductSearchResultsFragment.newInstance(getProductCodesFromProduct(items)))
                     addToBackStack("searchCategRes")
                     lastSuggestionStackId = commit()
                 }
@@ -196,7 +209,7 @@ class ProductSearchFragment : Fragment() {
         if (items.size > 0) {
             childFragmentManager.apply {
                 beginTransaction().apply {
-                    add(R.id.search_Fragment, ProductSearchResultsFragment(items))
+                    add(R.id.search_Fragment, ProductSearchResultsFragment.newInstance(getProductCodesFromProduct(items)))
                     addToBackStack("searchSubCategRes")
                     lastSuggestionStackId = commit()
                 }

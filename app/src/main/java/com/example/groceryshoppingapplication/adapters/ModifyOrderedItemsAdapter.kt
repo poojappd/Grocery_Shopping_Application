@@ -50,10 +50,9 @@ class ModifyOrderedItemsAdapter(
         holder.apply {
             imageView.setImageBitmap(image)
             titleTv.text = StringBuilder().append(extras.productTitle)
-            modifyItemListener.getOrderItem(position).observe(modifyItemListener.lifecycleOwner) {
-                quantityTv.text = it.quantity.toString()
-                priceTv.text = modifyItemListener.decimal.format(extras.productPrice * it.quantity)
-            }
+            quantityTv.text = orderListItem.quantity.toString()
+            priceTv.text = modifyItemListener.decimal.format(extras.productPrice * orderListItem.quantity)
+
             deleteButton.setOnClickListener {
                 val removeAnim = AnimationUtils.loadAnimation(
                     modifyItemListener.getContext(),
@@ -72,6 +71,7 @@ class ModifyOrderedItemsAdapter(
                     removeAnim
                 )
             }
+
             increaseQtyButton.setOnClickListener {
                 modifyItemListener.increaseQuantity(position)
                 notifyItemChanged(adapterPosition)
@@ -92,11 +92,11 @@ class ModifyOrderedItemsAdapter(
 
     }
 
-//    override fun getItemViewType(position: Int): Int {
-//        return (position)
-//    }
-//
-//    override fun getItemId(position: Int): Long {
-//        return (position.toLong())
-//    }
+    override fun getItemViewType(position: Int): Int {
+        return (position)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return (position.toLong())
+    }
 }

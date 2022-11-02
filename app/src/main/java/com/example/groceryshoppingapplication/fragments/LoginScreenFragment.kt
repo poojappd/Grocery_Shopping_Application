@@ -52,7 +52,7 @@ class LoginScreenFragment : Fragment() {
                             R.anim.fade_in,
                             R.anim.fade_out
                         )
-                        add(R.id.signIn_up_frg_cont, SignInFragment(true){signUp:Boolean-> if(signUp) skipToSignup()})
+                        add(R.id.signIn_up_frg_cont, SignInFragment.newInstance (true){signUp:Boolean-> if(signUp) skipToSignup()})
                         addToBackStack("one")
                         Log.e(
                             ContentValues.TAG,
@@ -75,7 +75,7 @@ class LoginScreenFragment : Fragment() {
                         R.anim.fade_in,
                         R.anim.fade_out
                     )
-                    add(R.id.signIn_up_frg_cont, SignInFragment(false){})
+                    add(R.id.signIn_up_frg_cont, SignInFragment.newInstance(false){})
                     addToBackStack("one")
                     Log.e(
                         ContentValues.TAG,
@@ -100,7 +100,7 @@ class LoginScreenFragment : Fragment() {
                     R.anim.fade_in,
                     R.anim.fade_out
                 )
-                add(R.id.signIn_up_frg_cont, SignInFragment(false){signUp:Boolean-> if(signUp) skipToSignup()})
+                add(R.id.signIn_up_frg_cont, SignInFragment.newInstance(false){signUp:Boolean-> if(signUp) skipToSignup()})
                 addToBackStack("one")
 
                 Log.e(

@@ -21,10 +21,19 @@ import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search_suggestions.view.*
 
-class SearchSuggestionsFragment(val searchQuery: String) : Fragment() {
+class SearchSuggestionsFragment() : Fragment() {
     lateinit var recyclerView: RecyclerView
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().applicationContext)
+    }
+    companion object {
+        fun newInstance(searchQuery: String): SearchSuggestionsFragment {
+            val fragment = SearchSuggestionsFragment()
+            val bundle = Bundle()
+            bundle.putString("searchQuery", searchQuery)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     override fun onCreateView(
@@ -35,6 +44,7 @@ class SearchSuggestionsFragment(val searchQuery: String) : Fragment() {
         Log.e(ContentValues.TAG, "  back stack count sugg frag ------>"+childFragmentManager.backStackEntryCount.toString())
 
         val view = inflater.inflate(R.layout.fragment_search_suggestions, container, false)
+        val searchQuery = arguments?.getString("searchQuery")!!
         recyclerView = view.search_recyclerview
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {

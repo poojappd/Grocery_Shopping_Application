@@ -42,14 +42,14 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
             }
         }
     }
-//    fun restoreProductToInventory(productCodeQtyPair: List<Pair<Int, Int>>): {
-////        viewModelScope.launch {
-//////            for (pair in productCodeQtyPair) {
-//////
-//////            }
-////        }
-////    }
-//}
+    fun restoreProductToInventory(productCodeQtyPair: List<Pair<Int, Int>>) {
+        viewModelScope.launch {
+            for (pair in productCodeQtyPair) {
+                repo.restoreProductToInventory(pair.first,pair.second)
+            }
+        }
+    }
+
 }
 class InventoryViewModelFactory(val applicationContext: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -56,15 +56,14 @@ class CartItemsAdapter(
                 val count = (count.text as String).toInt()
                 val countInInventory = cartItemTouchListener.getAvailableQuantity(productCode)
 
-                if ( count < countInInventory && count<5) {
-                    cartItemTouchListener.addToCart(productCode)
-                } else {
-                    if(count >= countInInventory && count <= 5){
+                if (count<5) {
+                    if( count < countInInventory )
+                        cartItemTouchListener.addToCart(productCode)
+                    else
                         toastMessageProvider.show("Only $countInInventory items left")
-                    }
-                    else {
+
+                } else {
                        toastMessageProvider.show("Maximum ordering quantity for this product is 5")
-                    }
                 }
             }
 

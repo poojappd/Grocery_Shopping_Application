@@ -9,7 +9,7 @@ import java.text.FieldPosition
 
 interface ModifyItemListener {
         val decimal : DecimalFormat
-        fun removeFromOrder(orderedItemEntity: OrderedItemEntity,removeCompletely:Boolean = false):Double
+        fun removeFromOrder(orderedItemEntity: OrderedItemEntity)
         fun getOrderedItemExtras(productCode: Int): ModifyOrderFragment.ModifyOrderItemData
         fun getContext(): Context
         fun decreaseQuantity(position: Int):Double

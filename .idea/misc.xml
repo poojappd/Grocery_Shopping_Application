@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/add_to_cart_icon1.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/alert_dialog_bg.xml" value="0.2165" />
         <entry key="app/src/main/res/drawable/all_categories_icon.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/app_cart_icon.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/beverage_icon.xml" value="0.135" />
         <entry key="app/src/main/res/drawable/cancel_icon.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/categ_image_veggie.xml" value="0.2035" />
@@ -96,7 +97,7 @@
         <entry key="app/src/main/res/layout/fragment_place_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_product_filter.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/fragment_product_refine.xml" value="0.30625" />
-        <entry key="app/src/main/res/layout/fragment_product_search.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/fragment_product_search.xml" value="0.2674897119341564" />
         <entry key="app/src/main/res/layout/fragment_product_search_results.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_products_list.xml" value="0.1962962962962963" />
         <entry key="app/src/main/res/layout/fragment_profile_page.xml" value="0.335" />
