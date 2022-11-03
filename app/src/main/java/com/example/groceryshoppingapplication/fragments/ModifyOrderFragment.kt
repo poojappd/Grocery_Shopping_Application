@@ -39,10 +39,7 @@ class ModifyOrderFragment : Fragment() {
         InventoryViewModelFactory(requireActivity().applicationContext)
     }
     val modifyOrderViewModel: ModifyOrderViewModel by viewModels {
-        ModifyOrderViewModelFactory(
-            orderHistoryViewModel.getOrderItemsFromOrder(args.orderId),
-            orderHistoryViewModel.getOrderDetail(args.orderId).value!!,
-            requireContext()
+        ModifyOrderViewModelFactory(requireContext().applicationContext
         )
     }
 
@@ -60,7 +57,10 @@ class ModifyOrderFragment : Fragment() {
         view.toolbar_ModifyOrder.setNavigationOnClickListener { requireActivity().onBackPressed() }
         val recyclerView = view.modifyOrder_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        modifyOrderViewModel.setOrderDetails(
+            orderHistoryViewModel.getOrderItemsFromOrder(args.orderId),
+            orderHistoryViewModel.getOrderDetail(args.orderId).value!!,
+        )
         val modifyItemListener = ModifyItemListenerImpl()
         modifyOrderViewModel.modifiableOrderItems.observe(viewLifecycleOwner) {
             Log.e(TAG, "size in observe ${it.size}")

@@ -52,7 +52,6 @@ class CartItemsAdapter(
                 cartItemTouchListener.navigateToProduct(productCode)
             }
             increaseButton.setOnClickListener {
-                //userViewModel.addToCart(productCode)
                 val count = (count.text as String).toInt()
                 val countInInventory = cartItemTouchListener.getAvailableQuantity(productCode)
 

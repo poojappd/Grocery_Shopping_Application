@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/profile_bg"
@@ -11,10 +15,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="565dp"
-
+android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/otp_dialog_bg"
-            android:backgroundTint="#51FFFFFF"
+            android:backgroundTint="#6ADBDCF6"
             android:id="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +28,14 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="First name"
+                android:layout_marginTop="60dp"
+                android:textColor="@color/textGrey"
                 android:fontFamily="@font/cabin"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="96dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="36dp"
-                android:id="@+id/textView8" />
+                android:id="@+id/textView8"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textView10"
@@ -39,43 +44,58 @@
                 style="@style/UserNameFormEditTextInputLayoutStyle"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
-                app:layout_constraintEnd_toStartOf="@+id/textView11"
-                android:layout_marginTop="16dp"
-               >
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:fontFamily="@font/cabin"
-                android:padding="10dp"
-                android:maxLength="30"
-                android:singleLine="true"
-                android:text="ChennaiChennaiChennaiChennaiChennaiChennai"
-android:scrollHorizontally="true"
-                android:hint="First name"
-                android:textColorHint="#BDBEBF"
-                android:id="@+id/textView10_et"
-                app:layout_constraintHorizontal_bias="0.5"
-                />
+                app:layout_constraintEnd_toEndOf="@+id/textView11"
+                android:layout_marginTop="12dp"
+                app:errorEnabled="true"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:maxLength="30"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:hint="First name"
+                    android:textColorHint="#BDBEBF"
+                    android:id="@+id/textView10_et"
+                    app:layout_constraintHorizontal_bias="0.5" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last name"
+
+                android:textColor="@color/textGrey"
+                android:fontFamily="@font/cabin"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                android:id="@+id/lastname_tv"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/UserNameFormEditTextInputLayoutStyle"
-                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                app:errorEnabled="true"
 
                 app:layout_constraintEnd_toEndOf="@id/textView13"
-                app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="@+id/textView10">
+                app:layout_constraintTop_toBottomOf="@+id/lastname_tv"
+                app:layout_constraintStart_toStartOf="@+id/lastname_tv">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:hint="last name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
                     android:maxLength="30"
                     android:textColorHint="#BDBEBF"
                     android:fontFamily="@font/cabin"
@@ -89,11 +109,12 @@ android:scrollHorizontally="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mobile"
+
+                android:textColor="@color/textGrey"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 android:id="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                android:layout_marginTop="20dp" />
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textView13"
@@ -104,9 +125,9 @@ android:scrollHorizontally="true"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintTop_toBottomOf="@+id/textView12"
-                android:layout_marginTop="12dp"
                 android:layout_marginEnd="30dp"
-
+                android:layout_marginTop="12dp"
+app:errorEnabled="true"
                 >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -118,6 +139,8 @@ android:scrollHorizontally="true"
                 android:padding="10dp"
                 android:textColorHint="#BDBEBF"
                 android:textSize="14sp"
+                android:textColor="@color/black"
+
                 android:focusable="false"
                 android:hint="mobile number"
                 android:id="@+id/textView13_et"
@@ -127,12 +150,14 @@ android:scrollHorizontally="true"
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textGrey"
+
                 android:text="Date of Birth"
                 android:fontFamily="@font/cabin"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 android:id="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
-                android:layout_marginTop="16dp" />
+                />
 
         <TextView
                 android:layout_width="0dp"
@@ -140,6 +165,7 @@ android:scrollHorizontally="true"
                 android:layout_height="wrap_content"
                 android:hint="Set your Date of Birth"
                 android:fontFamily="@font/cabin"
+                android:textColor="@color/black"
                 android:layout_marginEnd="30dp"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="18dp"
@@ -150,7 +176,8 @@ android:scrollHorizontally="true"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/textView14"
                 android:id="@+id/textView15"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                />
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/saveButton"
@@ -166,3 +193,4 @@ android:scrollHorizontally="true"
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

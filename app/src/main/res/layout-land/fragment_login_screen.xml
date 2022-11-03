@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:background="@drawable/sample"
+        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    tools:context=".MainActivity"
+
+    >
+
+    <ImageView
+            android:id="@+id/cart_icon_launching_page"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="-17"
+android:layout_marginTop="40dp"
+            android:src="@drawable/app_cart_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.439"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/surface_color"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Gro" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView_Gro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/montserrat_alternates"
+            android:includeFontPadding="true"
+            android:text="Gro"
+            android:layout_marginTop="40dp"
+            android:textColor="#7584e7"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_alternates"
+            android:text="cero"
+            android:textColor="@color/textGrey"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textView_Gro"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_Gro" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/white_shape"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:background="@drawable/launching_page_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/cart_icon_launching_page">
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="Let's get started!"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/signInButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/materialTextView29" />
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/signInButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/buttonColorBlueLight"
+                android:text="Sign In"
+                app:rippleColor="@color/buttonRippleColorBlueLight"
+                android:fontFamily="@font/cabin"
+                app:strokeColor="#7B76A1"
+                android:textColor="@color/textInverseBW"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                android:layout_marginEnd="2dp"
+                android:shadowColor="#7C76A3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="144dp"
+                app:layout_constraintEnd_toStartOf="@+id/signUpButton"
+                app:layout_constraintStart_toStartOf="@+id/materialTextView29"
+                app:layout_constraintHorizontal_chainStyle="packed" />
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/signUpButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/surface_color"
+                android:text="Sign Up"
+                android:textColor="@color/textBlack"
+                android:textAllCaps="false"
+                app:strokeColor="#A2B3FE"
+                app:strokeWidth="2dp"
+                app:cornerRadius="10dp"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/cabin"
+
+                app:layout_constraintStart_toEndOf="@id/signInButton"
+                app:layout_constraintTop_toTopOf="@+id/signInButton"
+                app:layout_constraintBottom_toBottomOf="@+id/signInButton"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintEnd_toEndOf="@+id/materialTextView29" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+            android:clipChildren="true"
+            android:id="@+id/signIn_up_frg_cont"
+            android:layout_width="0dp"
+            android:layout_height="389dp"
+            android:background="@drawable/signin_pg_bg_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

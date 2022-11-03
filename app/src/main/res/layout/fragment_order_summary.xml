@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:background="@color/surfaceColortintedGreyishSlightBlue"
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,7 +21,7 @@
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 app:expandedTitleGravity="bottom"
                 app:titleTextColor="@color/white"
-app:expandedTitleMarginStart="80dp"
+                app:expandedTitleMarginStart="80dp"
                 android:layout_height="150dp">
 
             <com.google.android.material.textview.MaterialTextView
@@ -69,14 +70,12 @@ app:expandedTitleMarginStart="80dp"
             android:layout_height="wrap_content"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_anchor="@id/appBarLayout"
+
             app:layout_anchorGravity="bottom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-
-                >
+                android:layout_height="wrap_content" >
 
             <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -92,7 +91,7 @@ app:expandedTitleMarginStart="80dp"
                     android:layout_marginTop="24dp" />
 
             <LinearLayout
-                    android:background="#F8F4FF"
+                    android:background="@color/surfaceColorTintedLessAlpha"
                     android:paddingHorizontal="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_width="0dp"
@@ -191,7 +190,7 @@ app:expandedTitleMarginStart="80dp"
                             android:text="Order Total"
                             android:fontFamily="@font/cabin"
                             android:textSize="17dp"
-                            android:textColor="#738CD8"
+                            android:textColor="@color/primary_accent_textColor"
                             android:textStyle="bold"
                             android:layout_weight="1"
                             tools:layout_editor_absoluteX="37dp"
@@ -201,7 +200,7 @@ app:expandedTitleMarginStart="80dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Rs. "
-                            android:textColor="#738CD8"
+                            android:textColor="@color/primary_accent_textColor"
                             android:textStyle="bold"
 
                             />
@@ -210,7 +209,7 @@ app:expandedTitleMarginStart="80dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="360.00"
-                            android:textColor="#738CD8"
+                            android:textColor="@color/primary_accent_textColor"
                             android:id="@+id/orderTotal_OrderDetail"
 
                             android:textStyle="bold"

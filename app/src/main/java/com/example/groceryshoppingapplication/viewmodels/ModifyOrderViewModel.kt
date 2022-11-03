@@ -1,26 +1,40 @@
 package com.example.groceryshoppingapplication.viewmodels
 
+import android.app.Application
 import android.content.ContentValues
 import android.content.Context
+import android.system.Os.remove
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 
-class ModifyOrderViewModel(val orderedItems: List<OrderedItemEntity>, val orderDetail: OrderDetail, context: Context) :ViewModel() {
-    val inventoryDao = AppDatabase.getDatabase(context).getInventoryDao()
+class ModifyOrderViewModel(application: Context) :ViewModel() {
 
-    val modifiableOrderItems = MutableLiveData(orderedItems.toMutableList())
-    lateinit var modifiableOrderDetail :OrderDetail
-    var newPrice = MutableLiveData<Double>(orderDetail.subTotal)
-    var newQty = MutableLiveData<Int>(orderDetail.numberOfItems)
+    lateinit var orderedItems: List<OrderedItemEntity>
+    lateinit var orderDetail: OrderDetail
+    val inventoryDao = AppDatabase.getDatabase(application).getInventoryDao()
+    val modifiableOrderItems = MutableLiveData<MutableList<OrderedItemEntity>>()
+    var newPrice = MutableLiveData<Double>()
+    var newQty =  MutableLiveData<Int>()
+    var modifiedSessionEnabled = false
 
+    fun setOrderDetails(orderedItems: List<OrderedItemEntity>, orderDetail: OrderDetail){
+        this.orderedItems = orderedItems
+        this.orderDetail = orderDetail
+        modifiedSessionEnabled = true
+        modifiableOrderItems.value = orderedItems.toMutableList()
+        newPrice.value = orderDetail.subTotal
+        newQty.value =orderDetail.numberOfItems
 
+    }
+
+    fun haltModifyingOrder(){
+        modifiedSessionEnabled = false
+    }
 
     fun removeFromOrder(
         orderedItemEntity: OrderedItemEntity,
@@ -74,6 +88,13 @@ class ModifyOrderViewModel(val orderedItems: List<OrderedItemEntity>, val orderD
     }
 
 
+    fun addToModifiableOrders(orderedItemEntity: OrderedItemEntity){
+        modifiableOrderItems.value =
+            modifiableOrderItems.value!!.toMutableList().apply {
+                add(orderedItemEntity)
+            }
+    }
+
     fun decreaseQuantity(position: Int): Double {
         val currentOrderedItem = modifiableOrderItems.value!!.get(position)
         val currentQty = currentOrderedItem.quantity
@@ -85,9 +106,13 @@ class ModifyOrderViewModel(val orderedItems: List<OrderedItemEntity>, val orderD
                 currentQty - 1,
                 currentOrderedItem.id
             )
-            modifiableOrderItems.value!!.remove(currentOrderedItem)
+            modifiableOrderItems.value =modifiableOrderItems.value!!.toMutableList().apply {
+                remove(currentOrderedItem)
+            }
 
-            modifiableOrderItems.value!!.add(position,updatedOrderedItem)
+            modifiableOrderItems.value = modifiableOrderItems.value!!.toMutableList().apply {
+                add(position, updatedOrderedItem)
+            }
             newPrice.value = newPrice.value!!.minus(
                 inventoryDao.getItemDetailsSynchronously(currentOrderedItem.productCode).unitPrice
             )
@@ -110,17 +135,22 @@ class ModifyOrderViewModel(val orderedItems: List<OrderedItemEntity>, val orderD
         return null
     }
 
+    fun getCurrentOrderItemQuantity(productCode:Int):LiveData<Int>?{
+        for (i in modifiableOrderItems.value!!){
+            if(i.productCode == productCode)
+                return MutableLiveData
+        }
+    }
+
 }
 
-class ModifyOrderViewModelFactory(val orderedItems: List<OrderedItemEntity>, val orderDetail: OrderDetail,private val context: Context) : ViewModelProvider.Factory {
+class ModifyOrderViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(
         modelClass: Class<T>,
         extras: CreationExtras
     ): T {
-        return ModifyOrderViewModel(
-            orderedItems, orderDetail, context
-        ) as T
+        return ModifyOrderViewModel(context) as T
     }
 }
 

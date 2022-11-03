@@ -15,7 +15,7 @@ import java.util.*
 class OrdersAdapter(
     private val orderDetailList: List<OrderDetail>,
     private val navigationListener: (String) -> Unit,
-    private val orderStatusUpdationListener: (String, Boolean) -> Unit
+    private val orderStatusUpdationListener: (orderId: String, orderStatus: OrderStatus) -> Unit
 ) :
     RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
 
@@ -43,7 +43,12 @@ class OrdersAdapter(
         val deliverySlotPrefix =
             if (orderDetailItem.orderStatus == OrderStatus.ORDERED) "Delivery on: " else if (orderDetailItem.orderStatus == OrderStatus.COMPLETE) "Delivered on: " else "Delivery slot: "
         val itemCountSuffix = if (orderDetailItem.numberOfItems > 1) " Items" else " Item"
+
         val date = SimpleDateFormat("dd MMM yyyy - hh:mma").parse(orderDetailItem.orderDate)
+        val oneHourAfterOrderedDate = Calendar.getInstance()
+        oneHourAfterOrderedDate.time = date
+        oneHourAfterOrderedDate.add(Calendar.HOUR, 1)
+
         val deliveryDate =
             SimpleDateFormat("dd MMM yyyy - hh a").parse(orderDetailItem.deliverySlot)
 
@@ -62,38 +67,67 @@ class OrdersAdapter(
                 navigationListener(orderDetailItem.orderId)
             }
             orderStatusTv.text =
-                if (orderDetailItem.orderStatus == OrderStatus.CANCELLED) {
-                    orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.cancel_icon,
-                        0,
-                        0,
-                        0
-                    )
-                    OrderStatus.CANCELLED.value
-                } else if ( orderDetailItem.orderStatus==OrderStatus.ORDERED && Date().after(
-                        deliveryDate
-                    )
-                ) {
-                    orderStatusUpdationListener(orderDetailItem.orderId,true)
-                    orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.complete_icon,
-                        0,
-                        0,
-                        0
-                    )
-                    "Complete"
+                when (orderDetailItem.orderStatus) {
+                    OrderStatus.CANCELLED -> {
+                        orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.cancel_icon,
+                            0,
+                            0,
+                            0
+                        )
+                        OrderStatus.CANCELLED.value
+                    }
 
-                } else {
-                    if (orderDetailItem.orderStatus == OrderStatus.COMPLETE){
+                    OrderStatus.CONFIRMED -> {
+                        if (Date().after(deliveryDate)) {
+                            orderStatusUpdationListener(orderDetailItem.orderId, OrderStatus.COMPLETE)
+                            orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                                R.drawable.complete_icon,
+                                0,
+                                0,
+                                0
+                            )
+                            "Complete"
+                        } else {
+                            orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                                R.drawable.complete_icon,
+                                0,
+                                0,
+                                0
+                            )
+                            OrderStatus.CONFIRMED.value
+                        }
+                    }
+
+                    OrderStatus.ORDERED -> {
+                        if (oneHourAfterOrderedDate.after(Date())) {
+                            orderStatusUpdationListener(
+                                orderDetailItem.orderId,
+                                OrderStatus.CONFIRMED
+                            )
+                            orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
+                                R.drawable.complete_icon,
+                                0,
+                                0,
+                                0
+                            )
+                            OrderStatus.CONFIRMED.value
+                        } else
+                            "Placed"
+                    }
+                    else -> {
                         orderStatusTv.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.complete_icon,
                             0,
                             0,
                             0
                         )
+                        OrderStatus.COMPLETE.value
                     }
-                    orderDetailItem.orderStatus.value
+
+
                 }
+
         }
     }
 

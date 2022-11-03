@@ -49,6 +49,7 @@ constructor(applicationContext: Context) : this() {
         if(!this::applicationContext.isInitialized)
             applicationContext = requireActivity().applicationContext
         val view = inflater.inflate(R.layout.fragment_orders_view_pager, container, false)
+
         view.toolbar_myOrders.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         val userId = MyGroceryApplication.preferences.getString("loggedUserId", null)!!
 
@@ -66,7 +67,7 @@ constructor(applicationContext: Context) : this() {
                     ordersRecyclerView.adapter = OrdersAdapter(it,{orderId:String ->
                         val action = OrdersViewPagerFragmentDirections.actionOrdersViewPagerFragmentToOrderSummaryFragment(orderId)
                         findNavController().navigate(action)
-                    }) { orderId: String, isComplete: Boolean -> if (isComplete) orderHistoryViewModel.updateOrderStatus(OrderStatus.COMPLETE, orderId) }
+                    }) { orderId: String, orderStatus: OrderStatus -> orderHistoryViewModel.updateOrderStatus(orderStatus, orderId) }
                     ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 }
                 else{

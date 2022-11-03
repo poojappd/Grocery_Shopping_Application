@@ -18,7 +18,9 @@
                 app:destination="@id/userNameFormFragment" />
         <action
                 android:id="@+id/action_loginScreenFragment_to_homePageFragment"
-                app:destination="@id/homePageFragment" />
+                app:destination="@id/homePageFragment"
+                app:popUpTo="@id/loginScreenFragment"
+                app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

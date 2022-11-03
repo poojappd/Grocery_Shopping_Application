@@ -44,7 +44,6 @@ class ProductsListFragment : Fragment() {
             val subCategory = args.subCategory
             view.toolbar_productList.title = subCategory.value
             (requireActivity() as AppCompatActivity).supportActionBar?.title = subCategory.value
-            // Inflate the layout for this fragment
 
             val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
             productsInCategoriesAdapter =

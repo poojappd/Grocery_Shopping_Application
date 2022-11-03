@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         //setupWithNavController(bottomNavigationView, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            Log.e(TAG, destination.toString())
+            //Log.e(TAG, destination.toString())
             when (destination.id) {
                 R.id.userAccountFragment -> bottomNavigationView.menu.findItem(R.id.userAccountFragment)
                     .setChecked(true)

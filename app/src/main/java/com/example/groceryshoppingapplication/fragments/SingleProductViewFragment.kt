@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.ProductUnavailabilityDialogGenerator
+import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.adapters.ProductViewPagerAdapter
 import com.example.groceryshoppingapplication.enums.ProductAvailability
@@ -33,8 +34,18 @@ class SingleProductViewFragment : Fragment() {
     val userViewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
-
+    val modifyOrderViewModel:ModifyOrderViewModel by activityViewModels {
+        ModifyOrderViewModelFactory(requireContext().applicationContext)
+    }
     private val args: SingleProductViewFragmentArgs by navArgs()
+
+    inner class TaskAssignerImpl(
+        override val userViewModelChild: UserViewModel,
+        override val inventoryViewModelChild: InventoryViewModel,
+        override var modifyOrderViewModel: ModifyOrderViewModel
+    ) :TaskAssigner(){
+    }
+
 
     override fun onResume() {
         requireActivity().bottomNavigationView.visibility = View.GONE
@@ -55,6 +66,7 @@ class SingleProductViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_single_product_view, container, false)
+        val taskAssigner = TaskAssignerImpl(userViewmodel, inventoryViewModel, modifyOrderViewModel)
         view.single_product_toolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
         var imagePathList: Array<String>
         val decimal = DecimalFormat("0.##")
@@ -82,7 +94,6 @@ class SingleProductViewFragment : Fragment() {
 
                 if(it.productAvailability == ProductAvailability.OUT_OF_STOCK){
                     productUnAvailableLayout(view, true)
-
                 }
                 else{
                     productUnAvailableLayout(view, false)
@@ -108,14 +119,7 @@ class SingleProductViewFragment : Fragment() {
                                 increaseQuantity_single_product.setOnClickListener { buttonview ->
                                     if (qty < it.availableQuantity) {
                                         if(qty<=5){
-                                            userViewmodel.currentUserCart.value?.cartId?.let { id ->
-                                                userViewmodel.addToCart(it.productCode)
-                                                Log.e(
-                                                    TAG,
-                                                    userViewmodel.getCartItemQuantity(it.productCode)
-                                                        .toString()
-                                                )
-                                            }
+                                            taskAssigner.addToCart(it.productCode)
                                         }
                                         else{
                                             toastMessageProvider.show("Maximum ordering quantity is 5")
@@ -129,19 +133,10 @@ class SingleProductViewFragment : Fragment() {
 
 
                                 decreaseQuantity_single_product.setOnClickListener { buttonView ->
-                                    userViewmodel.currentUserCart.value?.cartId?.let { id ->
+                                    val removedFromCart = taskAssigner.removeFromCart(it.productCode)
+                                    val message = if(removedFromCart) "cart" else "modified orders"
                                         if (qty == 1)
-                                            toastMessageProvider.show("Item removed from cart")
-
-                                        userViewmodel.removeFromCart(it.productCode)
-                                        Log.e(
-                                            TAG,
-                                            userViewmodel.getCartItemQuantity(it.productCode)
-                                                .toString()
-                                        )
-
-
-                                    }
+                                            toastMessageProvider.show("Item removed from $message")
                                 }
                             }
 
@@ -156,8 +151,10 @@ class SingleProductViewFragment : Fragment() {
                 //addTocartButtonListener
                 addTocart_Toggle_visibility.setOnClickListener { buttonView ->
                     toggleAddToCartVisibility(true)
-                    userViewmodel.addToCart(it.productCode)
-                    toastMessageProvider.show("Added to cart")
+                    val addedToCart = taskAssigner.addToCart(it.productCode)
+//                    userViewmodel.addToCart(it.productCode)
+                    val message = if(addedToCart) "Added to cart" else "Added to modify order"
+                    toastMessageProvider.show(message)
 
                 }
                 saveForLater_single_product_view.setOnClickListener { buttonView ->
@@ -186,7 +183,7 @@ class SingleProductViewFragment : Fragment() {
         return view
     }
 
-    fun toggleAddToCartVisibility(inCart: Boolean) {
+    private fun toggleAddToCartVisibility(inCart: Boolean) {
         if (!inCart) {
             addTocart_Toggle_visibility.visibility = View.VISIBLE
             increaseQuantity_Toggle_visibility.visibility = View.GONE
@@ -197,7 +194,7 @@ class SingleProductViewFragment : Fragment() {
         }
     }
 
-    fun productUnAvailableLayout(view: View, isUnavailable: Boolean) {
+    private fun productUnAvailableLayout(view: View, isUnavailable: Boolean) {
         if (isUnavailable) {
             view.notAvailableBAnner.visibility = View.VISIBLE
             notAvailableButtonBanner.visibility = View.VISIBLE

@@ -15,6 +15,7 @@ import com.example.groceryshoppingapplication.CartItemData
 import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.ProductUnavailabilityDialogGenerator
+import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.adapters.CartItemsAdapter
 import com.example.groceryshoppingapplication.enums.ProductAvailability
@@ -184,7 +185,7 @@ class CartFragment : Fragment() {
     }
 
 
-     inner class CartItemTouchListenerImplementation : CartItemTouchListener {
+     inner class CartItemTouchListenerImplementation : CartItemTouchListener{
         override fun addToCart(productCode: Int) {
             userViewModel.addToCart(productCode)
         }

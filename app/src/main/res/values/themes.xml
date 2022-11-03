@@ -119,6 +119,7 @@
         <item name="colorOnPrimary">@color/surface_color</item>
     </style>
 
+
     <style name="dividerCOlor" parent="Widget.MaterialComponents.MaterialDivider">
         <item name="android:background">@color/error_color</item>
     </style>
@@ -139,6 +140,9 @@
         <item name="android:fontFamily">@font/montserrat_alternates</item>
         <item name="titleTextColor">@color/white</item>
         <item name="android:textColor">@color/white</item>
+        <item name="colorPrimary">@color/app_primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/surface_color</item>
     </style>
     <style name="blueButtonTheme" parent="@style/Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/buttonColorBlueLight</item>

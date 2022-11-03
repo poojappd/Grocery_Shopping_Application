@@ -13,7 +13,7 @@
     <color name="error_color">#FA7AAD</color>
     <color name="primary_color">#868CFC</color>
     <color name="app_primaryColor">#120A50</color>
-    <color name="primary_accent_textColor">#8E9BEF</color>
+    <color name="primary_accent_textColor">#A2ACF1</color>
     <color name="grey_iconTint">#CDCDCF</color>
     <color name="grey_divider">#2DF5F6FF</color>
     <color name="surfaceLessAlpha">#28F8F4FF</color>
@@ -29,6 +29,8 @@
     <color name="surfaceColorTintedLessAlpha">#43E4DFFB</color>
     <color name="fabColor">#7584e7</color>
     <color name="buttonColorBlueLight">#A5B2F8</color>
+    <color name="surfaceColortintedGreyishSlightBlue">#212129</color>
+
     <color name="buttonRippleColorBlueLight">#4E518E</color>
     <color name="searchIconColor">#C1D1F6</color>
 
