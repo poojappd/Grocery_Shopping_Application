@@ -28,8 +28,12 @@
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
+            android:background="@color/surface_color"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout_ModifyOrder"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -95,18 +99,34 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/saveChanges_modifyOrder"
                     android:layout_height="wrap_content"
-                    android:text="Save Changes"
+                    android:text="Continue"
+                    android:textColor="@color/textInverseBW"
                     style="@style/fontFAB"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:background="@drawable/otp_dialog_bg"
-                    android:drawablePadding="10dp"
                     android:paddingHorizontal="20dp"
-                    app:icon="@drawable/check_icon1"
-                    android:layout_marginBottom="20dp"
+                    app:icon="@drawable/continue_icon"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/linearLayout3"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toTopOf="@id/exit_modifyOrder"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/exit_modifyOrder"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/textBlack"
+                    android:background="@drawable/deliveryslot_not_selected"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/cancel_icon"
+                    android:paddingHorizontal="20dp"
+                    android:drawableTint="@color/primary_accent_textColor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/saveChanges_modifyOrder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,7 +10,7 @@ import com.example.groceryshoppingapplication.models.*
 
 
 @Database(entities = arrayOf(GroceryItemEntity::class, CartEntity::class, CartItemEntity::class, User::class,
-    OrderDetail::class,OrderedItemEntity::class, Address::class, WishListEntity::class, WishListItemEntity::class, DefaultAddressEntity::class ), version = 1, exportSchema = true)
+    OrderDetail::class,OrderedItemEntity::class, Address::class, WishListEntity::class, WishListItemEntity::class, DefaultAddressEntity::class , ModifiedOrderEntity::class,ModifiedOrderItemEntity::class), version = 1, exportSchema = true)
 @TypeConverters(
     GeneralCategoryConverter::class,
     SubCategoryConverter::class,

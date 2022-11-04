@@ -180,7 +180,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             if (response == Response.ITEM_PRESENT_IN_CART) {
                 for (i in items.cartItemEntity) {
                     if (i.productCode == productCode) {
-                        if (i.quantity < 10) {
+                        if (i.quantity < 5) {
                             myCartRepo.increaseQuantity(i)
                             currentUserCart.value!!.totalItemsInCart++
                         } else {

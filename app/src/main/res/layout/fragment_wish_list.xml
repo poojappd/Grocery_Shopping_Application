@@ -19,6 +19,9 @@ android:background="@color/wishListbg"
         <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 app:title="My Wishlist"
+                android:id="@+id/wishListToolbar"
+                app:navigationIcon="@drawable/back_button_icon"
+                app:navigationIconTint="@color/white"
                 app:titleCentered="true"
                 app:titleTextColor="@color/white"
                 android:layout_height="match_parent" />

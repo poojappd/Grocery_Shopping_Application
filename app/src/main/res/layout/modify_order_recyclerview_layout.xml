@@ -151,7 +151,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:background="@color/surface_color"
+                android:background="@color/white"
                 android:src="@drawable/milk_icon"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:contentPadding="10dp"

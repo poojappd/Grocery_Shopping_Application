@@ -17,6 +17,8 @@ class OrdersRepository(database: AppDatabase) {
     suspend fun updateOrderStatus(orderStatus: OrderStatus, orderId: String) =
         ordersDAO.updateOrderStatus(orderStatus, orderId)
 
+    suspend fun removeOrderedItemsFromOrder(orderId:String) = ordersDAO.removeOrderedItemsFromOrder(orderId)
+
     fun getUserOrders(userId: String) = ordersDAO.getUserOrders(userId)
 
     fun getOrderDetail(orderId: String):OrderDetail = ordersDAO.getOrderDetail(orderId)

@@ -4,20 +4,29 @@ import android.app.Application
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.preference.PreferenceManager
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.groceryshoppingapplication.data.AppDatabase
-import kotlin.properties.Delegates
 
 
 class MyGroceryApplication : Application() {
     val instance = this
     companion object {
-       // var cartId: Int? = null
+       // var orderId: Int? = null
         lateinit var preferences: SharedPreferences
         var cartId = MutableLiveData<Int>()
+        private var _modifiedStateEnabled = MutableLiveData<Boolean>(false)
+        private var _modifiedStateOrderId = MutableLiveData<String>()
+        val modifiedStateEnabled:LiveData<Boolean>
+            get() = _modifiedStateEnabled
+        val modifiedStateOrderId:LiveData<String>
+        get() = _modifiedStateOrderId
+
+        fun setModifiedStateEnabled(modifyStatusEnabled:Boolean, orderId:String){
+                _modifiedStateEnabled.value = modifyStatusEnabled
+                _modifiedStateOrderId.value = orderId
+        }
+
 
     }
 

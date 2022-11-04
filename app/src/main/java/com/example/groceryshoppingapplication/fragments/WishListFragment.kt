@@ -16,6 +16,7 @@ import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import kotlinx.android.synthetic.main.fragment_addresses.view.*
 import kotlinx.android.synthetic.main.fragment_wish_list.view.*
 
 class WishListFragment : Fragment() {
@@ -32,6 +33,8 @@ class WishListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_wish_list, container, false)
+        view.wishListToolbar.setNavigationOnClickListener(View.OnClickListener { requireActivity().onBackPressed() })
+
         val recyclerView = view.wishlist_recyclerView
         userViewModel.allWishListItems.observe(viewLifecycleOwner){
             recyclerView.adapter = WishListItemsAdapter(it, WishListTouchListenerImpl())

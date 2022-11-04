@@ -27,6 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:contentScrim="#C6B3FD"
+                    style="@style/collapsingToolbarOrderSummary"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:expandedTitleMarginEnd="64dp"
                     app:title="@string/app_name"

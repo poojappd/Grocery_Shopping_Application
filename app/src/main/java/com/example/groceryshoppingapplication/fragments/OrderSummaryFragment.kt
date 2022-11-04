@@ -38,6 +38,9 @@ class OrderSummaryFragment : Fragment() {
         UserViewModelFactory(requireActivity().applicationContext)
     }
     private val args: OrderSummaryFragmentArgs by navArgs()
+    private val modifyOrderViewModel: ModifyOrderViewModel by activityViewModels {
+        ModifyOrderViewModelFactory(requireContext().applicationContext)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,8 +108,17 @@ class OrderSummaryFragment : Fragment() {
                                 true
                             }
                             R.id.removeItems_menu ->{
-                                val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToModifyOrderFragment(orderDetail.orderId)
-                                findNavController().navigate(action)
+                                if (modifyOrderViewModel.modifiedSessionEnabled)
+                                {
+                                    modifyOrderViewModel.haltModifyingOrder()
+                                }
+                                        modifyOrderViewModel.setOrderDetails(
+                                            orderHistoryViewModel.getOrderItemsFromOrder(orderDetail.orderId),
+                                            orderHistoryViewModel.getOrderDetail(orderDetail.orderId).value!!,
+                                        )
+
+
+                                findNavController().navigate(R.id.action_orderSummaryFragment_to_modifyOrderFragment)
                                 true
                             }
                             else -> false
@@ -144,18 +156,18 @@ class OrderSummaryFragment : Fragment() {
                 val deliveryDate =
                     SimpleDateFormat("dd MMM yyyy - hh a").parse(orderDetail.deliverySlot)
 
-                order_date.text = orderDetail.orderDate
+                order_date.text =StringBuilder("Ordered on: "+orderDetail.orderDate)
                 if (Date().after(deliveryDate)){
                     if(it.orderStatus!=OrderStatus.CANCELLED) {
-                        order_status.text = OrderStatus.COMPLETE.value
+                        order_status.text =StringBuilder("Status: "+ OrderStatus.COMPLETE.value)
                     }
                     else{
-                        order_status.text = it.orderStatus.value
+                        order_status.text = StringBuilder("Status: "+ it.orderStatus.value)
                     }
-                    view.DeliverOnTextView.text = "Delivered on"
+                    view.DeliverOnTextView.text = StringBuilder("Delivered on")
                 }
                 else{
-                    order_status.text = it.orderStatus.value
+                    order_status.text =StringBuilder("Status: "+  it.orderStatus.value)
 
                 }
             }

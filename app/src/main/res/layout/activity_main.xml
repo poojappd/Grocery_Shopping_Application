@@ -19,6 +19,14 @@
             app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
          />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:id="@+id/snackBarView"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/main_fragment_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:visibility="visible"
             style="@style/BottomNavigation"

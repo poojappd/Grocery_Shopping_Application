@@ -33,6 +33,9 @@ interface IdDAO {
     @Query("select id from DefaultAddressEntity order by id desc limit 1")
     fun getLastDefaultAddressId():Int?
 
+    @Query("SELECT id FROM ModifiedOrderItemEntity where orderId = :orderId ORDER BY id DESC LIMIT 1")
+    fun getLastModifiedOrderedItemId(orderId: String): String?
+
 
 
 

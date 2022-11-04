@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.viewmodels
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.groceryshoppingapplication.data.AppDatabase
@@ -55,23 +57,36 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
         myOrdersRepo.updateOrderStatus(orderStatus, orderId)
     }
 
-    private fun updateOrderDetail(order: OrderDetail) =
+    fun updateOrderDetail(order: OrderDetail) =
         viewModelScope.launch {
             myOrdersRepo.updateOrderDetail(order)
         }
 
-    private fun updateOrderedItemEntities(orderItems: List<OrderedItemEntity>) =
-        viewModelScope.launch {
-            for (item in orderItems)
-                myOrdersRepo.updateOrderedItemEntity(item)
-        }
 
-    fun updateOrderChanges(orderItems: List<OrderedItemEntity>, order: OrderDetail){
-        updateOrderDetail(order)
-        updateOrderedItemEntities(orderItems)
-        refreshMyOrders(order.userId)
+    suspend fun updateOrderedItemEntities(orderItems: List<OrderedItemEntity>) {
+        myOrdersRepo.removeOrderedItemsFromOrder(orderItems[0].orderId)
+        for (item in orderItems)
+            myOrdersRepo.addOrderedItemToOrder(item)
+    }
+
+    fun removeOrderedItemsFromOrder(orderId: String)= viewModelScope.launch {
+        myOrdersRepo.removeOrderedItemsFromOrder(orderId)
 
     }
+
+    //JCWMJSWMJGM+
+    fun updateOrderChanges(orderItems: List<OrderedItemEntity>, order: OrderDetail) {
+    viewModelScope.launch {
+        removeOrderedItemsFromOrder(order.orderId)
+        updateOrderDetail(order)
+        orderItems.forEach {
+            addOrderedItemToOrder(it)
+        }
+        refreshMyOrders(order.userId)
+    }
+}
+
+
 }
 
 class OrderHistoryViewModelFactory(

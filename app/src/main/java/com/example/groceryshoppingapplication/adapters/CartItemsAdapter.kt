@@ -52,7 +52,7 @@ class CartItemsAdapter(
                 cartItemTouchListener.navigateToProduct(productCode)
             }
             increaseButton.setOnClickListener {
-                val count = (count.text as String).toInt()
+                val count = cartItem.quantity
                 val countInInventory = cartItemTouchListener.getAvailableQuantity(productCode)
 
                 if (count<5) {

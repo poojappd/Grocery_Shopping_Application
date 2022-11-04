@@ -58,6 +58,7 @@
         <entry key="app/src/main/res/drawable/single_product_row_item_in_list_bg.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/snacks_icon_1.xml" value="0.1945" />
         <entry key="app/src/main/res/drawable/start_shopping_button_bg.xml" value="0.21" />
+        <entry key="app/src/main/res/drawable/start_shopping_button_shadow_bg.xml" value="0.2145" />
         <entry key="app/src/main/res/drawable/time_icon1.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/trial_cat_img.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/triangle_try.xml" value="0.25" />
@@ -88,10 +89,11 @@
         <entry key="app/src/main/res/layout/fragment_delivery_slot.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_edit_address.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_filter_view_pager.xml" value="0.2921875" />
-        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.3302997858672377" />
+        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.29329896907216496" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.403035413153457" />
         <entry key="app/src/main/res/layout/fragment_login_screen.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/fragment_modify_order.xml" value="0.30625" />
+        <entry key="app/src/main/res/layout/fragment_modified_place_order.xml" value="0.14035087719298245" />
+        <entry key="app/src/main/res/layout/fragment_modify_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_order_summary.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_ordered_items_list.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.24376731301939059" />

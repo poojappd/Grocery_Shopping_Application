@@ -12,8 +12,8 @@ interface ModifyItemListener {
         fun removeFromOrder(orderedItemEntity: OrderedItemEntity)
         fun getOrderedItemExtras(productCode: Int): ModifyOrderFragment.ModifyOrderItemData
         fun getContext(): Context
-        fun decreaseQuantity(position: Int):Double
-        fun increaseQuantity(position: Int):Double
+        fun decreaseQuantity(position: Int)
+        fun increaseQuantity(position: Int)
         fun saveChanges()
 
 }

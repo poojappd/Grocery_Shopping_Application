@@ -68,7 +68,7 @@
                 android:fontFamily="@font/cabin"
                 android:text="Maaza"
                 android:layout_marginStart="15dp"
-                android:textColor="@color/black"
+                android:textColor="@color/textBlack"
                 android:textSize="14sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/product_name_textView"

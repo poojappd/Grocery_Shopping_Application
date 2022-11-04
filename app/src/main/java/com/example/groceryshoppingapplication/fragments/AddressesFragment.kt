@@ -78,7 +78,7 @@ class AddressesFragment : Fragment() {
                 recyclerView.visibility = View.GONE
                 emptyAddressLayout.isVisible = true
                 val path = Path().apply {
-                    arcTo(300f, 690f, 600f, 990f, 0f, 359f, true)
+                    arcTo(200f, 550f, 400f, 750f, 0f, 359f, true)
                 }
                     ObjectAnimator.ofFloat(view.search_icon_addresses, View.X, View.Y, path).apply {
                         duration = 2000
@@ -113,7 +113,8 @@ class AddressesFragment : Fragment() {
                         { preventDeleteToast.show() },
                         { chosenAddressId: String ->
                             userViewModel.updateChosenAddressPosition(chosenAddressId)
-                            findNavController().navigate(R.id.action_addressesFragment_to_deliverySlotFragment)
+                            if(args.skipToDeliverySlot == true)
+                                findNavController().navigate(R.id.action_addressesFragment_to_deliverySlotFragment)
                         })
                     recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
                 }

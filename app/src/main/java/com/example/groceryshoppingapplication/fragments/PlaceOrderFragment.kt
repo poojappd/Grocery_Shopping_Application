@@ -1,6 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -10,11 +13,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.Utils.NotificationReceiver
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.viewmodels.*
@@ -36,6 +42,7 @@ class PlaceOrderFragment : Fragment() {
     private val inventoryViewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(requireActivity().applicationContext)
     }
+
 
     lateinit var lastView: View
     lateinit var lastCheckView: View
@@ -75,9 +82,10 @@ class PlaceOrderFragment : Fragment() {
                     val orderDate = Date()
                     val orderId = CodeGeneratorUtil.generateOrderId(orderDate)
                     val subTotal = decimal.format(orderDetailsViewModel.subTotal).toDouble()
-                    val orderDateString = SimpleDateFormat("dd MMM yyyy - h:ma", Locale.getDefault()).format(orderDate)
+                    val orderDateString = SimpleDateFormat("dd MMM yyyy - h:mma", Locale.getDefault()).format(orderDate)
                     val numberOfItems = orderDetailsViewModel.totalItems!!
                     val deliverySlot = SimpleDateFormat("dd MMM yyyy - h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
+
                     val deliveryAddress = orderDetailsViewModel.deliveringAddress!!
                     val mobileNumber = orderDetailsViewModel.mobileNumber!!
                     val totalPrice = subTotal+15
@@ -110,6 +118,18 @@ class PlaceOrderFragment : Fragment() {
                         inventoryViewModel.reserveProducts(orderedItems)
 
                     }
+                    val orderTimeString = SimpleDateFormat("h:mma", Locale.getDefault()).format(Date())
+
+                    val intent = Intent(requireActivity(), NotificationReceiver::class.java)
+                    intent.putExtra("deliveryTime", orderTimeString)
+                    val sevendayalarm: Calendar = Calendar.getInstance()
+
+                    sevendayalarm.add(Calendar.SECOND,3)
+                    val pendinIntent = PendingIntent.getBroadcast(requireActivity(),0,intent,0)
+                    val mgr = requireActivity().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+                    val timeforNotification = 1000.toLong()
+
+                    mgr.set(AlarmManager.RTC_WAKEUP,sevendayalarm.timeInMillis,pendinIntent)
                     toastOrderplaced.show()
                     findNavController().navigate(R.id.action_placeOrderFragment_to_ordersViewPagerFragment)
                 } ?: toastChoosePayment.show()

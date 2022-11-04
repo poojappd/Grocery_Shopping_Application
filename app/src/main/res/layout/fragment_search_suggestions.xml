@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         tools:context=".fragments.SearchSuggestionsFragment"
         android:id="@+id/search_recyclerview"
-
+tools:listitem="@layout/search_suggestions_category"
         >
 
 </androidx.recyclerview.widget.RecyclerView>

@@ -55,7 +55,7 @@ class SignInFragment() : Fragment() {
             signInFragmentView.signInButton2.setText("Sign Up")
         val mobileNumberInput =
             signInFragmentView.findViewById<EditText>(R.id.mobile_number_input_field)
-
+        mobileNumberInput.requestFocus()
         val invalidMobileToast =
             Toast.makeText(context, Response.MOBILE_NUMBER_NOT_VALID.message, Toast.LENGTH_SHORT)
         val mobileNumNotEnteredToast =

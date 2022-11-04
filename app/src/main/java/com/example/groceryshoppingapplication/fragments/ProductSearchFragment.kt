@@ -120,7 +120,6 @@ class ProductSearchFragment : Fragment() {
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
-            //childFragmentManager.popBackStackImmediate()
             if (query != null && (query != lastSubmittedQuery)) {
                 searchProductInInventory(query)
                 lastSubmittedQuery = query

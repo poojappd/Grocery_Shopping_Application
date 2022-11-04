@@ -54,7 +54,7 @@ class ProductsInCategoriesAdapter(
             brandName.text = products.get(position).brandName
             productName.text = products.get(position).itemName
 
-            price.text =StringBuilder().append("Rs. "+decimal.format(products.get(position).unitPrice))
+            price.text = StringBuilder().append("Rs. "+decimal.format(products.get(position).unitPrice))
             Log.e(
                 TAG,
                 "position - ${products.get(position).brandName}  ${
@@ -71,7 +71,6 @@ class ProductsInCategoriesAdapter(
                productListTouchListener.navigate(products.get(position).productCode)
             }
 
-
             val productCode = products.get(position).productCode
             var response = productListTouchListener.checkItemInCart(productCode)
             var buttonState = response != Response.NO_SUCH_ITEM_IN_CART
@@ -79,7 +78,6 @@ class ProductsInCategoriesAdapter(
             if(products[position].productAvailability==ProductAvailability.OUT_OF_STOCK) {
                 notAvailableBanner.visibility = View.VISIBLE
                 addToCartButton.isEnabled = false
-                //addToCartButton.setBackgroundResource(R.drawable.cancel_add_to_cart_icon)
                 addToCartButton.setImageResource(R.drawable.cancel_add_to_cart_icon);
             }
             else {
@@ -123,7 +121,7 @@ class ProductsInCategoriesAdapter(
         } else {
             addToCartButton.setColorFilter(Color.argb(255, 164, 191, 246));
             addToCartButton.setBackgroundResource(R.drawable.product_list_add_to_cart_icon_bg)
-            if(productCode!=-1) productListTouchListener.removeFromCart(productCode)
+            if(productCode!=-1) productListTouchListener.removeFromCartCompletely(productCode)
 
         }
     }

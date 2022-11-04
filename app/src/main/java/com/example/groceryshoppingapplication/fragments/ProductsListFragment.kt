@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.R
+import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.enums.SubCategory
-import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
-import com.example.groceryshoppingapplication.viewmodels.InventoryViewModelFactory
-import com.example.groceryshoppingapplication.viewmodels.UserViewModel
-import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
+import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_products_list.view.*
 
 
@@ -30,6 +28,9 @@ class ProductsListFragment : Fragment() {
     }
     private val viewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
+    }
+    private val modifyOrderViewModel:ModifyOrderViewModel by activityViewModels {
+        ModifyOrderViewModelFactory(requireContext().applicationContext)
     }
 
     override fun onCreateView(
@@ -47,7 +48,7 @@ class ProductsListFragment : Fragment() {
 
             val items = inventoryViewModel.getProductsUnderSubCategory(subCategory)
             productsInCategoriesAdapter =
-                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
             recyclerView.adapter = productsInCategoriesAdapter
         }
         else{
@@ -58,25 +59,18 @@ class ProductsListFragment : Fragment() {
 
             val items = inventoryViewModel.getProductsUnderGeneralCategory(category)
             productsInCategoriesAdapter =
-                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
             recyclerView.adapter = productsInCategoriesAdapter
         }
 
         return view
     }
 
-    private inner class ProductListTouchListenerImpl : ProductListTouchListener {
-        override fun addToCart(productCode: Int) {
-            viewmodel.addToCart(productCode)
-        }
-
-        override fun removeFromCart(productCode: Int) {
-            viewmodel.removeItemCompletely(productCode)
-        }
-
-        override fun checkItemInCart(productCode: Int): Response {
-            return viewmodel.checkItemInCart(productCode)
-        }
+    private inner class ProductListTouchListenerImpl(
+        override val userViewModelChild: UserViewModel,
+        override val inventoryViewModelChild: InventoryViewModel,
+        override var modifyOrderViewModel: ModifyOrderViewModel
+    ) : TaskAssigner() {
 
         override fun navigate(productCode: Int) {
             val action =

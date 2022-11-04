@@ -41,13 +41,13 @@
 
                 app:layout_constraintBaseline_toBaselineOf="@+id/signUpButton2" />
     </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
             android:id="@+id/signInButton2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             style="@style/blueButtonTheme"
             android:text="Sign In"
-            android:layout_marginBottom="50dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/cabin"
             android:textStyle="bold"
@@ -58,7 +58,6 @@
             app:strokeWidth="2dp"
             app:layout_constraintStart_toStartOf="@+id/country_code"
             app:layout_constraintEnd_toEndOf="@+id/mobile_number_input_field"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mobile_number_input_field" />
 
     <com.google.android.material.textfield.TextInputEditText
@@ -78,8 +77,8 @@
             app:layout_constraintStart_toEndOf="@+id/country_code"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/signInButton2"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginTop="56dp" />
 
     <TextView
             android:id="@+id/country_code"

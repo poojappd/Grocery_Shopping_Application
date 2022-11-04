@@ -7,7 +7,6 @@
     <color name="black">#FF000000</color>
     <color name="textGrey">#59595E</color>
     <color name="textGreyDarkTheme">#E2E2E6</color>
-
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#d5c3fc</color>
     <color name="error_color">#FA7AAD</color>
@@ -22,7 +21,7 @@
     <color name="textBlack">#FFFFFF</color>
     <color name="textNormal">#CDD0DD</color>
     <color name="textInverseBW">@color/black</color>
-
+    <color name="surfaceColorTintedLessAlphaBlue">#291755</color>
     <color name ="surface_color">#000000</color>
     <color name="recentSearchGrey">#BC454547</color>
     <color name="primary_surfaceColorTinted">#EBE0FF</color>
@@ -30,7 +29,6 @@
     <color name="fabColor">#7584e7</color>
     <color name="buttonColorBlueLight">#A5B2F8</color>
     <color name="surfaceColortintedGreyishSlightBlue">#212129</color>
-
     <color name="buttonRippleColorBlueLight">#4E518E</color>
     <color name="searchIconColor">#C1D1F6</color>
 

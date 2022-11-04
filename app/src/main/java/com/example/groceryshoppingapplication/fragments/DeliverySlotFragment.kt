@@ -38,6 +38,9 @@ class DeliverySlotFragment : Fragment() {
     val orderDetailsViewModel: OrderDetailsViewModel by activityViewModels {
         OrderDetailsViewModelFactory(requireActivity().applicationContext)
     }
+    val modifyOrderViewModel:ModifyOrderViewModel by activityViewModels {
+        ModifyOrderViewModelFactory(requireContext().applicationContext)
+    }
 
     override fun onResume() {
         requireActivity().bottomNavigationView.visibility = View.GONE
@@ -71,6 +74,7 @@ class DeliverySlotFragment : Fragment() {
             )
         }
 
+
             val dateRecycerView = view.dateChoose_rv
             deliverySlotViewModel.timePosition?.let {
                 view.invisible_time_picker.visibility = View.VISIBLE
@@ -84,7 +88,6 @@ class DeliverySlotFragment : Fragment() {
                         deliverySlotViewModel.timePosition = null
                         view.continue_button_deliverySlot.visibility = View.GONE
                         view.chosenSlotTV.visibility = View.INVISIBLE
-
                     }
                 }
                 deliverySlotViewModel.datePosition = position
@@ -104,7 +107,6 @@ class DeliverySlotFragment : Fragment() {
 
                 val timeSNapHelper = PagerSnapHelper()
                 view.timeChoose_rv.setOnFlingListener(null);
-
                 timeSNapHelper.attachToRecyclerView(view.timeChoose_rv)
 
             },deliverySlotViewModel.datePosition)
@@ -114,7 +116,6 @@ class DeliverySlotFragment : Fragment() {
             dateRecycerView.setOnFlingListener(null);
 
         dateSnapHelper.attachToRecyclerView(dateRecycerView)
-
             view.materialButton2.setOnClickListener {
                 val action = DeliverySlotFragmentDirections.actionDeliverySlotFragmentToAddressesFragment(skipToDeliverySlot = true)
                 findNavController().navigate(action)
@@ -127,6 +128,9 @@ class DeliverySlotFragment : Fragment() {
                         orderDetailsViewModel.receiverName = it.firstName+" "+ it.lastName
                     }
                 }
+                if (modifyOrderViewModel.modifiedSessionEnabled)
+                    findNavController().navigate(R.id.action_deliverySlotFragment_to_modifiedPlaceOrderFragment)
+                else
                 findNavController().navigate(R.id.action_deliverySlotFragment_to_placeOrderFragment)
             }
             return view

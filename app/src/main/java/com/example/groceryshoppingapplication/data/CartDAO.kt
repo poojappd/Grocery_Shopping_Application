@@ -33,7 +33,7 @@ interface CartDAO {
     suspend fun removeFromCart(cartId: Int,productCode: Int )
 
     @Query("delete from CartItemEntity where cartId = :cartId")
-    suspend fun emptyCart(cartId: Int)
+    suspend fun  emptyCart(cartId: Int)
 
     @Insert
     suspend fun createCart(cart: CartEntity)

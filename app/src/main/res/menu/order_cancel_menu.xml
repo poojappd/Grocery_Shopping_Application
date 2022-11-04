@@ -17,7 +17,7 @@
 <!--                    app:iconTint="@color/primary_color" />-->
             <item
                     android:id="@+id/removeItems_menu"
-                    android:title="Remove Items"
+                    android:title="Modify Order"
                     android:icon="@drawable/deliete_icon"
                     app:iconTint="@color/primary_color" />
             <item

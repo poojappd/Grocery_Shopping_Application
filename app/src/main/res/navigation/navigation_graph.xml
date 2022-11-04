@@ -193,6 +193,9 @@
                 android:id="@+id/action_deliverySlotFragment_to_addressesFragment"
                 app:destination="@id/addressesFragment"
                 app:popUpToInclusive="false" />
+        <action
+                android:id="@+id/action_deliverySlotFragment_to_modifiedPlaceOrderFragment"
+                app:destination="@id/modifiedPlaceOrderFragment" />
     </fragment>
     <fragment
             android:id="@+id/placeOrderFragment"
@@ -269,9 +272,20 @@
             android:name="com.example.groceryshoppingapplication.fragments.ModifyOrderFragment"
             android:label="fragment_modify_order"
             tools:layout="@layout/fragment_modify_order" >
-        <argument
-                android:name="orderId"
-                app:argType="string" />
+        <action
+                android:id="@+id/action_modifyOrderFragment_to_orderSummaryFragment"
+                app:destination="@id/orderSummaryFragment"
+                app:popUpTo="@id/orderSummaryFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/modifiedPlaceOrderFragment"
+            android:name="com.example.groceryshoppingapplication.fragments.ModifiedPlaceOrderFragment"
+            android:label="ModifiedPlaceOrderFragment" >
+        <action
+                android:id="@+id/action_modifiedPlaceOrderFragment_to_ordersViewPagerFragment"
+                app:destination="@id/ordersViewPagerFragment"
+                app:popUpTo="@id/modifyOrderFragment"
+                app:popUpToInclusive="true" />
     </fragment>
 
 

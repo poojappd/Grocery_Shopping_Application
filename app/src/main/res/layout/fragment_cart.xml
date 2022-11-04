@@ -24,164 +24,163 @@
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/empty_cart_layout"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintBottom_toBottomOf="parent">
-
+            android:fillViewport="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/empty_cart_layout"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                android:id="@+id/circle"
-                android:layout_width="319dp"
-                android:layout_height="226dp"
-                android:background="@drawable/empty_cart_circle_bg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/full_line"
-                app:layout_constraintVertical_bias="0.964"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
 
-            <FrameLayout
-                    android:layout_width="5dp"
-                    android:layout_height="40dp"
-                    android:background="#A4BFF6"
-                    android:id="@+id/frameLayout"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout2"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                    android:id="@+id/circle"
+                    android:layout_width="319dp"
+                    android:layout_height="226dp"
+                    android:background="@drawable/empty_cart_circle_bg"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/imageFilterView"
-                    app:layout_constraintVertical_bias="0.805" />
-
-            <FrameLayout
-                    android:layout_marginTop="40dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="5dp"
-                    android:background="#A4BFF6"
-                    android:rotation="120"
-                    android:id="@+id/frameLayout3"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toEndOf="@+id/circle"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout" />
-
-            <FrameLayout
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_width="30dp"
-                    android:layout_height="5dp"
-                    android:background="#A4BFF6"
-                    android:rotation="50"
-                    android:id="@+id/frameLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/circle"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout" />
-
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center|bottom"
-                    android:tint="#A4BFF6"
-                    android:src="@drawable/app_cart_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/imageFilterView"
+                    app:layout_constraintBottom_toBottomOf="@+id/full_line"
+                    app:layout_constraintVertical_bias="0.964"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <FrameLayout
+                        android:layout_width="5dp"
+                        android:layout_height="40dp"
+                        android:background="#A4BFF6"
+                        android:id="@+id/frameLayout"
+                        app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/imageFilterView"
+                        app:layout_constraintVertical_bias="0.805" />
+
+                <FrameLayout
+                        android:layout_marginTop="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="5dp"
+                        android:background="#A4BFF6"
+                        android:rotation="120"
+                        android:id="@+id/frameLayout3"
+                        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="@+id/circle"
+                        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+                <FrameLayout
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="5dp"
+                        android:background="#A4BFF6"
+                        android:rotation="50"
+                        android:id="@+id/frameLayout2"
+                        app:layout_constraintStart_toStartOf="@+id/circle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center|bottom"
+                        android:tint="#A4BFF6"
+                        android:src="@drawable/app_cart_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/imageFilterView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                    android:id="@+id/full_line"
+                    android:layout_width="0dp"
+                    android:layout_marginHorizontal="90dp"
+                    android:layout_height="5dp"
+                    android:background="#A4BFF6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="5dp"
+                    android:background="#A4BFF6"
+                    app:layout_constraintStart_toEndOf="@id/full_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/full_line"
+                    app:layout_constraintBottom_toBottomOf="@+id/full_line" />
+
+            <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="5dp"
+                    android:background="#A4BFF6"
+                    app:layout_constraintEnd_toStartOf="@id/full_line"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/full_line"
+                    app:layout_constraintBottom_toBottomOf="@+id/full_line" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your cart is empty!"
+                    app:layout_constraintTop_toBottomOf="@id/circle"
+                    android:layout_marginTop="52dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/cabin"
+                    android:textColor="@color/black"
+                    android:id="@+id/textView2"
+                    app:layout_constraintHorizontal_bias="0.498" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/startShopping"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="15dp"
+                    android:background="@drawable/start_shopping_button_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textInverseBW"
+                    android:fontFamily="@font/noto_sans"
+                    android:textSize="16sp"
+                    android:text="Start Shopping!"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.283"
+                    app:layout_constraintHorizontal_bias="0.502" />
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-                android:id="@+id/full_line"
-                android:layout_width="0dp"
-                android:layout_marginHorizontal="90dp"
-                android:layout_height="5dp"
-                android:background="#A4BFF6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        <FrameLayout
-                android:layout_width="20dp"
-                android:layout_height="5dp"
-                android:background="#A4BFF6"
-                app:layout_constraintStart_toEndOf="@id/full_line"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/full_line"
-                app:layout_constraintBottom_toBottomOf="@+id/full_line" />
-
-        <FrameLayout
-                android:layout_width="20dp"
-                android:layout_height="5dp"
-                android:background="#A4BFF6"
-                app:layout_constraintEnd_toStartOf="@id/full_line"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/full_line"
-                app:layout_constraintBottom_toBottomOf="@+id/full_line" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your cart is empty!"
-                app:layout_constraintTop_toBottomOf="@id/circle"
-                android:layout_marginTop="52dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="20dp"
-                android:fontFamily="@font/cabin"
-                android:textColor="@color/black"
-                android:id="@+id/textView2"
-                app:layout_constraintHorizontal_bias="0.498" />
-
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/startShopping"
-                android:paddingHorizontal="30dp"
-                android:background="@drawable/start_shopping_button_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/noto_sans"
-                android:textSize="20sp"
-                android:text="Start Shopping!"
-                android:textAllCaps="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.283"
-                app:layout_constraintHorizontal_bias="0.502" />
-
-        <ImageView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@drawable/start_shopping_button_shadow_bg"
-                app:layout_constraintStart_toStartOf="@+id/startShopping"
-                app:layout_constraintEnd_toEndOf="@+id/startShopping"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/startShopping"
-                app:layout_constraintVertical_bias="0.374" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </ScrollView>
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/notEmptycart_layout"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

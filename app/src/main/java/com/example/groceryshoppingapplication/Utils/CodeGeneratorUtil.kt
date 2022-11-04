@@ -69,6 +69,15 @@ object CodeGeneratorUtil {
         return "$prefix$newOrderItemId"
     }
 
+    fun generateModifiedOrderedItemId(orderId:String):String{
+        val prefix = "$orderId/"
+        val lastOrderedItemId = idDAO.getLastModifiedOrderedItemId(orderId)
+        val newOrderItemId = lastOrderedItemId?.let {
+            it.substring(lastOrderedItemId.indexOf("/").plus(1)).trim().toInt()+1
+        } ?: 1
+        return "$prefix$newOrderItemId"
+    }
+
     fun generateWishListItemId(wishListId:Int):Int{
         return idDAO.getLastWishListItemId(wishListId)?.plus(1) ?: 1
     }

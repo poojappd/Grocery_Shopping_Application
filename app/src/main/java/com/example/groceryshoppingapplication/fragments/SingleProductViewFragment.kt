@@ -19,6 +19,7 @@ import com.example.groceryshoppingapplication.Utils.ProductUnavailabilityDialogG
 import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.adapters.ProductViewPagerAdapter
+import com.example.groceryshoppingapplication.adapters.SuggestionsAdapter.Companion.c
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,7 +35,7 @@ class SingleProductViewFragment : Fragment() {
     val userViewmodel: UserViewModel by activityViewModels {
         UserViewModelFactory(requireActivity().applicationContext)
     }
-    val modifyOrderViewModel:ModifyOrderViewModel by activityViewModels {
+    val modifyOrderViewModel: ModifyOrderViewModel by activityViewModels {
         ModifyOrderViewModelFactory(requireContext().applicationContext)
     }
     private val args: SingleProductViewFragmentArgs by navArgs()
@@ -43,7 +44,7 @@ class SingleProductViewFragment : Fragment() {
         override val userViewModelChild: UserViewModel,
         override val inventoryViewModelChild: InventoryViewModel,
         override var modifyOrderViewModel: ModifyOrderViewModel
-    ) :TaskAssigner(){
+    ) : TaskAssigner() {
     }
 
 
@@ -92,51 +93,62 @@ class SingleProductViewFragment : Fragment() {
                 product_image_viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 circle_indicator.setViewPager(product_image_viewPager)
 
-                if(it.productAvailability == ProductAvailability.OUT_OF_STOCK){
+                if (it.productAvailability == ProductAvailability.OUT_OF_STOCK) {
                     productUnAvailableLayout(view, true)
-                }
-                else{
+                } else {
                     productUnAvailableLayout(view, false)
 
                 }
-                userViewmodel.getCartItemQuantity(it.productCode)
+                taskAssigner.getCartItemQuantity(it.productCode)
                     ?.observe(viewLifecycleOwner) { qty ->
                         if (qty != null) {
                             val productAlertDialog =
                                 ProductUnavailabilityDialogGenerator(layoutInflater, context, true)
-                            if (it.productAvailability == ProductAvailability.OUT_OF_STOCK) {
+                            if (!modifyOrderViewModel.modifiedSessionEnabled && it.productAvailability == ProductAvailability.OUT_OF_STOCK) {
                                 productAlertDialog.buildDialog().show()
                                 userViewmodel.removeItemCompletely(it.productCode)
-                            } else if (it.availableQuantity < qty) {
+                            } else if (!modifyOrderViewModel.modifiedSessionEnabled && it.availableQuantity < qty) {
                                 productAlertDialog.buildDialog().show()
                                 while (qty == it.availableQuantity) {
                                     userViewmodel.removeFromCart(it.productCode)
                                 }
 
                             } else {
+                                Log.e(TAG, "IN MODIFIED, $qty")
                                 view.itemCount_textView_singleProductView.text = qty.toString()
                                 toggleAddToCartVisibility(true)
+                                val inventoryAvailablityCount: Int
+                                if (modifyOrderViewModel.modifiedSessionEnabled) {
+                                    inventoryAvailablityCount =
+                                        modifyOrderViewModel.getOriginalOrderItemQuantity(
+                                            productCode
+                                        )?.let { modifiedOrderQty ->
+                                            modifiedOrderQty + it.availableQuantity
+                                        } ?: it.availableQuantity
+                                } else
+                                    inventoryAvailablityCount = it.availableQuantity
+
                                 increaseQuantity_single_product.setOnClickListener { buttonview ->
-                                    if (qty < it.availableQuantity) {
-                                        if(qty<=5){
+                                    if (qty < inventoryAvailablityCount) {
+                                        if (qty < 5) {
                                             taskAssigner.addToCart(it.productCode)
-                                        }
-                                        else{
+                                        } else {
                                             toastMessageProvider.show("Maximum ordering quantity is 5")
                                         }
 
                                     } else {
-                                         toastMessageProvider.show("Only ${it.availableQuantity} left")
+                                        toastMessageProvider.show("Only ${it.availableQuantity} left")
                                     }
                                 }
 
 
 
                                 decreaseQuantity_single_product.setOnClickListener { buttonView ->
-                                    val removedFromCart = taskAssigner.removeFromCart(it.productCode)
-                                    val message = if(removedFromCart) "cart" else "modified orders"
-                                        if (qty == 1)
-                                            toastMessageProvider.show("Item removed from $message")
+                                    val removedFromCart =
+                                        taskAssigner.removeFromCart(it.productCode)
+                                    val message = if (removedFromCart) "cart" else "modified orders"
+                                    if (qty == 1)
+                                        toastMessageProvider.show("Item removed from $message")
                                 }
                             }
 
@@ -153,7 +165,7 @@ class SingleProductViewFragment : Fragment() {
                     toggleAddToCartVisibility(true)
                     val addedToCart = taskAssigner.addToCart(it.productCode)
 //                    userViewmodel.addToCart(it.productCode)
-                    val message = if(addedToCart) "Added to cart" else "Added to modify order"
+                    val message = if (addedToCart) "Added to cart" else "Added to modify order"
                     toastMessageProvider.show(message)
 
                 }

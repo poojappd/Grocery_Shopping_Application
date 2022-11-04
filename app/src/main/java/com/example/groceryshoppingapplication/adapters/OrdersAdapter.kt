@@ -1,5 +1,7 @@
 package com.example.groceryshoppingapplication.adapters
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,8 +49,8 @@ class OrdersAdapter(
         val date = SimpleDateFormat("dd MMM yyyy - hh:mma").parse(orderDetailItem.orderDate)
         val oneHourAfterOrderedDate = Calendar.getInstance()
         oneHourAfterOrderedDate.time = date
-        oneHourAfterOrderedDate.add(Calendar.HOUR, 1)
-
+        oneHourAfterOrderedDate.add(Calendar.SECOND, 10)
+        Log.e(TAG,"$date    ${oneHourAfterOrderedDate.time}")
         val deliveryDate =
             SimpleDateFormat("dd MMM yyyy - hh a").parse(orderDetailItem.deliverySlot)
 

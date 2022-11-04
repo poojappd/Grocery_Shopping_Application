@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="Categories"
         android:padding="10dp"
-        android:background="#F1EEF8"
+        android:background="@color/surfaceColorTintedLessAlpha"
 
         app:fontFamily="@font/cabin"
         android:textSize="20sp"

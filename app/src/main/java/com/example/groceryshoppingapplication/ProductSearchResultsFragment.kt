@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.fragments.ProductRefineFragment
@@ -40,7 +41,12 @@ class ProductSearchResultsFragment : Fragment() {
         InventoryViewModelFactory(requireContext())
     }
     private lateinit var items:List<GroceryItemEntity>
-
+    private val viewmodel: UserViewModel by activityViewModels {
+        UserViewModelFactory(requireActivity().applicationContext)
+    }
+    private val modifyOrderViewModel:ModifyOrderViewModel by activityViewModels {
+        ModifyOrderViewModelFactory(requireContext().applicationContext)
+    }
     companion object {
         fun newInstance(productCodes: IntArray): ProductSearchResultsFragment {
             val fragment = ProductSearchResultsFragment()
@@ -69,11 +75,11 @@ class ProductSearchResultsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         filterViewModel.getRefinedData()?.let {
             recyclerView.adapter =
-                ProductsInCategoriesAdapter(it, requireContext(), ProductListTouchListenerImpl())
+                ProductsInCategoriesAdapter(it, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
 
         } ?: run {
             recyclerView.adapter =
-                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
         }
         filterButton = view.filterButton
         filterButton.setOnClickListener {
@@ -85,22 +91,11 @@ class ProductSearchResultsFragment : Fragment() {
         return view
     }
 
-    private inner class ProductListTouchListenerImpl : ProductListTouchListener {
-        private val viewmodel: UserViewModel by activityViewModels {
-            UserViewModelFactory(requireActivity().applicationContext)
-        }
-
-        override fun addToCart(productCode: Int) {
-            viewmodel.addToCart(productCode)
-        }
-
-        override fun removeFromCart(productCode: Int) {
-            viewmodel.removeItemCompletely(productCode)
-        }
-
-        override fun checkItemInCart(productCode: Int): Response {
-            return viewmodel.checkItemInCart(productCode)
-        }
+    private inner class ProductListTouchListenerImpl(
+        override val userViewModelChild: UserViewModel,
+        override val inventoryViewModelChild: InventoryViewModel,
+        override var modifyOrderViewModel: ModifyOrderViewModel
+    ) : TaskAssigner() {
 
         override fun navigate(productCode: Int) {
             val action =
@@ -171,7 +166,7 @@ class ProductSearchResultsFragment : Fragment() {
                              sizeFilteredItems.reverse()
                      }
                      recyclerView.adapter =
-                         ProductsInCategoriesAdapter(sizeFilteredItems, requireContext(), ProductListTouchListenerImpl())
+                         ProductsInCategoriesAdapter(sizeFilteredItems, requireContext(), ProductListTouchListenerImpl(viewmodel, inventoryViewModel, modifyOrderViewModel))
                      filterViewModel.fixAsFinalConfiguration(sizeFilteredItems)
                 }
                 else{
@@ -187,7 +182,7 @@ class ProductSearchResultsFragment : Fragment() {
             toggleSearchResultVisibility(false)
 
             recyclerView.adapter =
-                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl())
+                ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel, inventoryViewModel, modifyOrderViewModel))
             filterViewModel.appliedFilterConfiguration = null
             filterViewModel.clearAllSavedFilter()
         }

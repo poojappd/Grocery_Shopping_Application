@@ -7,152 +7,156 @@ import android.system.Os.remove
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.data.AppDatabase
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
+import com.example.groceryshoppingapplication.models.ModifiedOrderItemEntity
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
+import kotlinx.coroutines.launch
 
-class ModifyOrderViewModel(application: Context) :ViewModel() {
+class ModifyOrderViewModel(application: Context) : ViewModel() {
 
     lateinit var orderedItems: List<OrderedItemEntity>
     lateinit var orderDetail: OrderDetail
     val inventoryDao = AppDatabase.getDatabase(application).getInventoryDao()
+    val ordersDao = AppDatabase.getDatabase(application).getOrdersDao()
     val modifiableOrderItems = MutableLiveData<MutableList<OrderedItemEntity>>()
+    lateinit var modifiedOrderDetail:OrderDetail
     var newPrice = MutableLiveData<Double>()
-    var newQty =  MutableLiveData<Int>()
+    var newQty = MutableLiveData<Int>()
     var modifiedSessionEnabled = false
 
-    fun setOrderDetails(orderedItems: List<OrderedItemEntity>, orderDetail: OrderDetail){
+    fun checkOrderDetailIsSet(): Boolean {
+        return (this@ModifyOrderViewModel::orderDetail.isInitialized)
+
+        }
+    fun setOrderDetails(orderedItems: List<OrderedItemEntity>, orderDetail: OrderDetail) {
+        MyGroceryApplication.setModifiedStateEnabled(true, orderDetail.orderId)
         this.orderedItems = orderedItems
         this.orderDetail = orderDetail
         modifiedSessionEnabled = true
         modifiableOrderItems.value = orderedItems.toMutableList()
         newPrice.value = orderDetail.subTotal
-        newQty.value =orderDetail.numberOfItems
+        newQty.value = orderDetail.numberOfItems
+        for (item in orderedItems){
+            addToModifiableOrders(item)
+        }
 
     }
 
-    fun haltModifyingOrder(){
+    fun haltModifyingOrder() =viewModelScope.launch{
         modifiedSessionEnabled = false
+        ordersDao.clearTableModifiedItems()
+        ordersDao.clearTableModifiedOrder()
+        MyGroceryApplication.setModifiedStateEnabled(false,"")
     }
 
     fun removeFromOrder(
-        orderedItemEntity: OrderedItemEntity,
-        removeCompletely: Boolean,
-    ): Double {
-        modifiableOrderItems.value = modifiableOrderItems.value!!.toMutableList().apply {
-            remove(orderedItemEntity)
-        }
-        if (removeCompletely) {
-            newQty.value = newQty.value!!.dec()
-            newPrice.value = newPrice.value!!.minus(
-                orderedItemEntity.quantity * inventoryDao.getItemDetailsSynchronously(orderedItemEntity.productCode).unitPrice
-            )
-        }
-
-        Log.e(ContentValues.TAG,"REMOVED ${orderedItemEntity.productCode}")
-        return newPrice.value!!
+        orderedItemEntity: OrderedItemEntity) = viewModelScope.launch {
+        ordersDao.removeFromModifiedOrderItems(
+            orderId = orderedItemEntity.orderId,
+            orderedItemEntity.productCode
+        )
+        newPrice.value = newPrice.value!!.minus(
+            orderedItemEntity.quantity * inventoryDao.getItemDetailsSynchronously(orderedItemEntity.productCode).unitPrice
+        )
+        refreshModifiedOrderItem()
     }
 
-    fun increaseQuantity(position: Int): Double {
-        val currentOrderedItem = modifiableOrderItems.value!!.get(position)
-        val currentQty = currentOrderedItem.quantity
-        val initialQty = getOriginalOrderItemQuantity(currentOrderedItem.id)!!
-        val inventoryItem = inventoryDao.getItemDetailsSynchronously(currentOrderedItem.productCode)
-        val countInInventory = inventoryItem.availableQuantity
-
-
-        val updatedOrderedItem: OrderedItemEntity
-        if (currentQty < 5) {
-            if (currentQty<initialQty || countInInventory>1) {
-                updatedOrderedItem = OrderedItemEntity(
-                    currentOrderedItem.orderId,
-                    currentOrderedItem.productCode,
-                    currentQty + 1,
-                    currentOrderedItem.id
-                )
-                removeFromOrder(currentOrderedItem,false)
-                modifiableOrderItems.value =
-                    modifiableOrderItems.value!!.toMutableList().apply {
-                        add(position, updatedOrderedItem)
-                    }
-                newPrice.value = newPrice.value!!.plus(
-                    inventoryItem.unitPrice
-                )
-                Log.e(ContentValues.TAG, "Increased qty -" + updatedOrderedItem.quantity.toString())
-
-                return newPrice.value!!
+    private fun refreshModifiedOrderItem() =
+        viewModelScope.launch {
+            if(this@ModifyOrderViewModel::orderDetail.isInitialized){
+                val modifiedItems = mutableListOf<OrderedItemEntity>()
+                var totapPrice = 0.0
+                ordersDao.getModifiedOrderItems(orderDetail.orderId).forEach {
+                    val equivalentOrderedItem =
+                        OrderedItemEntity(it.orderId, it.productCode, it.quantity, it.id)
+                    modifiedItems.add(equivalentOrderedItem)
+                    val inventoryItem =
+                        inventoryDao.getItemDetailsSynchronously(it.productCode)
+                    totapPrice+=(inventoryItem.unitPrice * it.quantity)
+                }
+                modifiableOrderItems.value = modifiedItems
+                newPrice.value = totapPrice
             }
         }
-        return (-1).toDouble()
-    }
 
 
-    fun addToModifiableOrders(orderedItemEntity: OrderedItemEntity){
-        modifiableOrderItems.value =
-            modifiableOrderItems.value!!.toMutableList().apply {
-                add(orderedItemEntity)
+    fun increaseQuantity(position: Int) {
+        viewModelScope.launch {
+            val currentOrderedItem = modifiableOrderItems.value!!.get(position)
+            val currentQty = currentOrderedItem.quantity
+            val initialQty = getOriginalOrderItemQuantity(currentOrderedItem.productCode)?:1
+            val inventoryItem =
+                inventoryDao.getItemDetailsSynchronously(currentOrderedItem.productCode)
+            val countInInventory = inventoryItem.availableQuantity
+
+            if (currentQty < 5) {
+                if (currentQty < initialQty || countInInventory > 1) {
+                    ordersDao.increaseQuantity(
+                        currentOrderedItem.productCode,
+                        currentOrderedItem.orderId
+                    )
+                    newPrice.value = newPrice.value!!.plus(
+                        inventoryItem.unitPrice
+                    )
+
+                }
+                refreshModifiedOrderItem()
             }
+        }
     }
 
-    fun decreaseQuantity(position: Int): Double {
+
+    fun addToModifiableOrders(orderedItemEntity: OrderedItemEntity)=viewModelScope.launch {
+        ordersDao.addModifiedOrderItem(
+            ModifiedOrderItemEntity(orderedItemEntity.productCode, orderedItemEntity.orderId, orderedItemEntity.quantity, orderedItemEntity.id)
+        )
+        refreshModifiedOrderItem()
+    }
+
+    fun decreaseQuantity(position: Int) = viewModelScope.launch {
         val currentOrderedItem = modifiableOrderItems.value!!.get(position)
         val currentQty = currentOrderedItem.quantity
         val updatedOrderedItem: OrderedItemEntity
         if (currentQty > 1) {
-            updatedOrderedItem = OrderedItemEntity(
-                currentOrderedItem.orderId,
-                currentOrderedItem.productCode,
-                currentQty - 1,
-                currentOrderedItem.id
-            )
-            modifiableOrderItems.value =modifiableOrderItems.value!!.toMutableList().apply {
-                remove(currentOrderedItem)
-            }
-
-            modifiableOrderItems.value = modifiableOrderItems.value!!.toMutableList().apply {
-                add(position, updatedOrderedItem)
-            }
             newPrice.value = newPrice.value!!.minus(
                 inventoryDao.getItemDetailsSynchronously(currentOrderedItem.productCode).unitPrice
             )
-            Log.e(ContentValues.TAG, "Decreased qty -"+updatedOrderedItem.quantity.toString())
+            ordersDao.decreaseQuantity(currentOrderedItem.productCode, currentOrderedItem.orderId)
 
-            return newPrice.value!!
         } else {
             if (modifiableOrderItems.value!!.size > 1) {
-                return removeFromOrder(currentOrderedItem, true)
+                removeFromOrder(currentOrderedItem)
             }
         }
-        return (-1).toDouble()
+        refreshModifiedOrderItem()
     }
 
-    fun getOriginalOrderItemQuantity(orderItemId:String): Int? {
+    fun getOriginalOrderItemQuantity(productCode: Int): Int? {
         orderedItems.forEach {
-            if(it.id == orderItemId)
+            if (it.productCode == productCode)
                 return it.quantity
         }
         return null
     }
 
-    fun getCurrentOrderItemQuantity(productCode:Int):LiveData<Int>?{
-        for (i in modifiableOrderItems.value!!){
-            if(i.productCode == productCode)
-                return MutableLiveData
+    fun getCurrentOrderItemQuantity(productCode: Int): LiveData<Int>? {
+        return ordersDao.getModifiedOrderItemQuantity(productCode, orderDetail.orderId)
+
+    }
+}
+    class ModifyOrderViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(
+            modelClass: Class<T>,
+            extras: CreationExtras
+        ): T {
+            return ModifyOrderViewModel(context) as T
         }
     }
 
-}
-
-class ModifyOrderViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(
-        modelClass: Class<T>,
-        extras: CreationExtras
-    ): T {
-        return ModifyOrderViewModel(context) as T
-    }
-}
 
 
 

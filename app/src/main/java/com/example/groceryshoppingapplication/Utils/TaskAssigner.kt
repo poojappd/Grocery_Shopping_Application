@@ -3,37 +3,53 @@ package com.example.groceryshoppingapplication.Utils
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.CartItemData
+import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.fragments.CartFragmentDirections
+import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
 import com.example.groceryshoppingapplication.viewmodels.ModifyOrderViewModel
 import com.example.groceryshoppingapplication.viewmodels.UserViewModel
 import java.text.DecimalFormat
 
-abstract class TaskAssigner() {
+abstract class TaskAssigner() : ProductListTouchListener {
 
     abstract val userViewModelChild: UserViewModel
     abstract val inventoryViewModelChild: InventoryViewModel
     abstract var modifyOrderViewModel: ModifyOrderViewModel
 
-    //Jesus be with me
-    fun addToCart(productCode: Int): Boolean {
+
+    override fun addToCart(productCode: Int): Boolean {
         if (modifyOrderViewModel.modifiedSessionEnabled) {
             val orderId = modifyOrderViewModel.orderDetail.orderId
-
-            modifyOrderViewModel.addToModifiableOrders(
-                OrderedItemEntity(
-                    orderId,
-                    productCode,
-                    1,
-                    CodeGeneratorUtil.generateOrderedItemId(orderId)
+            val position = getModifiableItemPositionIfExists(productCode)
+            if(position==null){
+                modifyOrderViewModel.addToModifiableOrders(
+                    OrderedItemEntity(
+                        orderId,
+                        productCode,
+                        1,
+                        CodeGeneratorUtil.generateModifiedOrderedItemId(orderId)
+                    )
                 )
-            )
+            }
+            else
+                modifyOrderViewModel.increaseQuantity(position)
             return false
+
         } else {
             userViewModelChild.addToCart(productCode)
             return true
         }
+    }
+
+    private fun getModifiableItemPositionIfExists(productCode: Int): Int? {
+        for (i in modifyOrderViewModel.modifiableOrderItems.value!!.indices) {
+            if (modifyOrderViewModel.modifiableOrderItems.value!![i].productCode == productCode) {
+                return i
+            }
+        }
+        return null
     }
 
     private fun getModifiableItemIfExists(productCode: Int): OrderedItemEntity? {
@@ -49,10 +65,7 @@ abstract class TaskAssigner() {
         if (modifyOrderViewModel.modifiedSessionEnabled) {
             val item = getModifiableItemIfExists(productCode)
             item?.let {
-                if (modifyOrderViewModel.modifiedSessionEnabled) {
-                    modifyOrderViewModel.removeFromOrder(it, true)
-                }
-                userViewModelChild.removeFromCart(productCode)
+                modifyOrderViewModel.decreaseQuantity(getModifiableItemPositionIfExists(productCode)!!)
             }
             return false
         } else {
@@ -61,30 +74,60 @@ abstract class TaskAssigner() {
         }
     }
 
+    override fun removeFromCartCompletely(productCode: Int): Boolean {
+        if (modifyOrderViewModel.modifiedSessionEnabled) {
+            val item = getModifiableItemIfExists(productCode)
+            item?.let {
+                if (modifyOrderViewModel.modifiedSessionEnabled) {
+                    modifyOrderViewModel.removeFromOrder(it)
+                }
+            }
+            return false
+        } else {
+            userViewModelChild.removeItemCompletely(productCode)
+            return true
+        }
+    }
+
     fun getCartItemQuantity(productCode: Int): LiveData<Int>? {
         if (modifyOrderViewModel.modifiedSessionEnabled) {
             return modifyOrderViewModel.getCurrentOrderItemQuantity(productCode)
-        } else {
+        } else
             return userViewModelChild.getCartItemQuantity(productCode)
 
-        }
-
-        fun getCartItemExtraData(productCode: Int): CartItemData {
-            val product = inventoryViewModelChild.getProductDetailsSynchronously(productCode)
-            val appendString =
-                if (product.capacity > 1 && product.capacityUnit.value.length > 2) "s" else ""
-
-            return CartItemData(
-                product.brandName + " " + product.itemName + " " + DecimalFormat("0.#").format(
-                    product.capacity
-                ) + " " + product.capacityUnit.value + appendString, product.unitPrice
-            )
-        }
-
-
-        fun getAvailableQuantity(productCode: Int): Int {
-            val product = inventoryViewModelChild.getProductDetailsSynchronously(productCode)
-            return product.availableQuantity
-
-        }
     }
+
+    fun getCartItemExtraData(productCode: Int): CartItemData {
+        val product = inventoryViewModelChild.getProductDetailsSynchronously(productCode)
+        val appendString =
+            if (product.capacity > 1 && product.capacityUnit.value.length > 2) "s" else ""
+
+        return CartItemData(
+            product.brandName + " " + product.itemName + " " + DecimalFormat("0.#").format(
+                product.capacity
+            ) + " " + product.capacityUnit.value + appendString, product.unitPrice
+        )
+    }
+
+    override fun navigate(productCode: Int) {
+    }
+
+    override fun checkItemInCart(productCode: Int): Response {
+        if (!modifyOrderViewModel.modifiedSessionEnabled) {
+            return userViewModelChild.checkItemInCart(productCode)
+        } else {
+            if (getModifiableItemIfExists(productCode) != null)
+                return Response.ITEM_PRESENT_IN_CART
+            else
+                return Response.NO_SUCH_ITEM_IN_CART
+        }
+        return Response.NOT_LOGGED_IN
+    }
+
+
+    fun getAvailableQuantity(productCode: Int): Int {
+        val product = inventoryViewModelChild.getProductDetailsSynchronously(productCode)
+        return product.availableQuantity
+
+    }
+}
