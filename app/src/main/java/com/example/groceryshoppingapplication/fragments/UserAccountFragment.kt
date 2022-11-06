@@ -34,17 +34,17 @@ class UserAccountFragment : Fragment() {
 
         val currentUser = userViewmodel.currentUser.value!!
         val userAddresses = userViewmodel.currentUserAddresses.value!!
-        val currentUserAddress  = if (userAddresses.isEmpty()) null else userAddresses.get(0)
+        val currentUserAddress = if (userAddresses.isEmpty()) null else userAddresses.get(0)
 
-        val userFullName = ((currentUser.firstName ) ?: "-") + (currentUser.lastName?:"")
+        val userFullName = ((currentUser.firstName) ?: "-") + (currentUser.lastName ?: "")
         view.textView20.text = userFullName
         view.textView21.text = currentUser.mobileNumber
         currentUserAddress?.let {
             view.textView9.text = it.areaDetails
-            view.cityPincode.text = StringBuilder().append(it.city+" - "+it.pincode)
-        } ?: run{
+            view.cityPincode.text = StringBuilder().append(it.city + " - " + it.pincode)
+        } ?: run {
             view.textView9.text = "-"
-            view.cityPincode.text =""
+            view.cityPincode.text = ""
         }
         view.textView17.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountFragment_to_addressesFragment)
@@ -74,16 +74,15 @@ class UserAccountFragment : Fragment() {
             }
             alertDialog.cancel()
 
-            findNavController().navigate(R.id.action_userAccountFragment_to_loginScreenFragment)
-
-
+            popBackStackAndGoToLoginPage()
         }
         noButtonDialog.setOnClickListener {
             alertDialog.cancel()
         }
 
         val deleteAccountDialogBuilder = AlertDialog.Builder(requireContext())
-        val deleteAccountDialogView = layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)
+        val deleteAccountDialogView =
+            layoutInflater.inflate(R.layout.mobilenumber_chage_alert_layout, null)
         deleteAccountDialogBuilder.setView(deleteAccountDialogView)
         val deleteAccountDialogMessage = deleteAccountDialogView.dialog_message
         val deletedAccountYesButtonDialog = deleteAccountDialogView.button
@@ -91,25 +90,26 @@ class UserAccountFragment : Fragment() {
 
         val deleteAccountAlertDialog = deleteAccountDialogBuilder.create()
         if (deleteAccountAlertDialog.getWindow() != null) {
-            deleteAccountAlertDialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            deleteAccountAlertDialog.getWindow()!!
+                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             deleteAccountAlertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
         }
-        deleteAccountDialogMessage.text = StringBuilder().append("Are you sure you want to delete your account?  This action can't be undone!")
+        deleteAccountDialogMessage.text =
+            StringBuilder().append("Are you sure you want to delete your account?  This action can't be undone!")
 
         deleteAccountNoButtonDialog.setOnClickListener {
             deleteAccountAlertDialog.cancel()
         }
 
         deletedAccountYesButtonDialog.setOnClickListener {
-            val sharedPref =MyGroceryApplication.preferences
+            val sharedPref = MyGroceryApplication.preferences
             sharedPref.edit().apply {
                 clear()
                 apply()
             }
             deleteAccountAlertDialog.cancel()
             userViewmodel.deleteUserAccount()
-            findNavController().navigate(R.id.action_userAccountFragment_to_loginScreenFragment)
-
+            popBackStackAndGoToLoginPage()
 
         }
 
@@ -129,5 +129,11 @@ class UserAccountFragment : Fragment() {
 
         }
         return view
+    }
+
+    fun popBackStackAndGoToLoginPage() {
+        findNavController().navigate(R.id.action_userAccountFragment_to_loginScreenFragment)
+
+        //findNavController().popBackStack(R.id.homePageFragment, true)
     }
 }

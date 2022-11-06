@@ -83,7 +83,7 @@ class ModifyOrderFragment : Fragment() {
             dialogView.productRecyclerVIew.visibility = View.GONE
 
             dialogMessage.text = StringBuilder("Sorry!\n The time limit for modifying thi order is out")
-            yesButtonDialog.setOnClickListener { view ->
+            yesButtonDialog.setOnClickListener {
                 alertDialog.cancel()
                 modifyOrderViewModel.haltModifyingOrder()
                 findNavController().popBackStack()

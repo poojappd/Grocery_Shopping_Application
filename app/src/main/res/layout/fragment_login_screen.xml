@@ -17,62 +17,57 @@
     >
 
     <ImageView
-        android:id="@+id/cart_icon_launching_page"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:rotation="-17"
-        android:layout_marginBottom="-25dp"
-        android:src="@drawable/app_cart_icon"
-        app:layout_constraintBottom_toTopOf="@id/white_shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/surface_color" />
+            android:id="@+id/cart_icon_launching_page"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="-17"
+            android:src="@drawable/app_cart_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/surface_color"
+            app:layout_constraintBottom_toTopOf="@+id/white_shape" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView_Gro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/montserrat_alternates"
-        android:includeFontPadding="true"
-        android:text="Gro"
-        android:layout_marginBottom="9dp"
-        android:textColor="#7584e7"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/cart_icon_launching_page"
-        app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+            android:id="@+id/textView_Gro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/montserrat_alternates"
+            android:includeFontPadding="true"
+            android:text="Gro"
+            android:textColor="#7584e7"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/montserrat_alternates"
-        android:layout_marginBottom="9dp"
-        android:text="cero"
+            android:id="@+id/materialTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_alternates"
+            android:text="cero"
             android:textColor="@color/textGrey"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/cart_icon_launching_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/textView_Gro"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textView_Gro"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_Gro" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/white_shape"
             android:layout_width="0dp"
             android:layout_height="460dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/launching_page_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Gro"
             app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.textview.MaterialTextView

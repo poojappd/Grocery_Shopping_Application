@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.filter_child_recylerview_single_row.view.*
 
 class FilterChildAdapter(private val filterTitle:List<String>,
                          private val selectedFilterTitles:List<Int>? = null,
-                         private val filterTouchListener:(Int)->Unit
+                         private val filterTouchListener:(Int, Boolean)->Unit
 ): RecyclerView.Adapter<FilterChildAdapter.FilterChildViewHolder>() {
 
     class FilterChildViewHolder(view:View):RecyclerView.ViewHolder(view){
@@ -30,7 +30,7 @@ class FilterChildAdapter(private val filterTitle:List<String>,
                 checkBox.isChecked = true
             }
             checkBox.setOnClickListener {
-                filterTouchListener(position)
+                filterTouchListener(position, checkBox.isChecked)
             }
         }
     }

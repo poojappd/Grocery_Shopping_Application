@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.GroceryShoppingApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#1E1940</item>
-        <item name="colorPrimaryVariant">#927BC5</item>
+        <item name="colorPrimary">@color/app_primaryColor</item>
+        <item name="colorPrimaryVariant">#8184D3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#A1C0FB</item>
@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:fontFamily">@font/cabin</item>
+        <item name="android:imeOptions">flagNoExtractUi</item>
         <item name="fontFamily">@font/cabin</item>
 
         <!-- Customize your theme here. -->
@@ -89,7 +90,6 @@
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <!--        <item name="searchIcon">@drawable/ic_search</item>-->
 
         <!-- Gets rid of the "underline" in the text -->
         <item name="android:textAppearance">@style/TextAppearance.App.Caption</item>
@@ -134,11 +134,17 @@
         <item name="fontFamily">@font/montserrat_alternates</item>
         <item name="android:fontFamily">@font/montserrat_alternates</item>
     </style>
+    <style name="OrderStatusAppearance" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/montserrat_alternates</item>
+        <item name="android:fontFamily">@font/montserrat_alternates</item>
+        <item name="android:textColor">@color/textInverseBW</item>
+    </style>
     <style name="collapsingToolbarOrderSummary" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="fontFamily">@font/montserrat_alternates</item>
         <item name="android:fontFamily">@font/montserrat_alternates</item>
-        <item name="titleTextColor">@color/white</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:background">@color/app_primaryColor</item>
         <item name="colorPrimary">@color/app_primaryColor</item>
         <item name="colorPrimaryVariant">@color/primary_color</item>

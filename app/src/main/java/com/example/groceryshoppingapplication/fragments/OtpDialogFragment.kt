@@ -49,7 +49,7 @@ class OtpDialogFragment(private val signingMode:Boolean) :DialogFragment() {
             }
         }, 1000)
         if(signingMode)
-            findNavController().navigate(R.id.homePageFragment)
+            findNavController().navigate(R.id.action_loginScreenFragment_to_homePageFragment)
         else
             findNavController().navigate(R.id.userNameFormFragment)
 

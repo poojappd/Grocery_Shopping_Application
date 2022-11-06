@@ -84,7 +84,7 @@ class ProductSearchResultsFragment : Fragment() {
         filterButton = view.filterButton
         filterButton.setOnClickListener {
 
-            val filterDialog = ProductRefineFragment(SetFilter())
+            val filterDialog = ProductRefineFragment.newInstance(SetFilter())
             filterDialog.show(childFragmentManager,"refine")
 
         }
@@ -108,7 +108,7 @@ class ProductSearchResultsFragment : Fragment() {
 
     }
 
-    inner class SetFilter{
+    inner class SetFilter :Serializable{
         fun applyFilter(){
             toggleSearchResultVisibility(false)
             val newItems = items.toMutableList()
@@ -185,6 +185,7 @@ class ProductSearchResultsFragment : Fragment() {
                 ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel, inventoryViewModel, modifyOrderViewModel))
             filterViewModel.appliedFilterConfiguration = null
             filterViewModel.clearAllSavedFilter()
+            filterViewModel.clearTemporaryConfiguration()
         }
         private fun toggleSearchResultVisibility(noResults:Boolean){
             if(noResults) {

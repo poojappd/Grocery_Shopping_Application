@@ -129,8 +129,9 @@
         <action
                 android:id="@+id/action_userAccountFragment_to_loginScreenFragment"
                 app:destination="@id/loginScreenFragment"
-                app:popUpTo="@id/loginScreenFragment"
-                app:popUpToInclusive="true"/>
+                app:launchSingleTop="false"
+                app:popUpTo="@id/homePageFragment"
+                app:popUpToInclusive="true" />
     </fragment>
     <fragment
             android:id="@+id/addressesFragment"

@@ -78,7 +78,6 @@ enum class SubCategory(val value:String) {
     SAUSAGES_BACON_AND_SALAMI("Sausages, Bacon & Salami"),
     MUTTON_AND_LAMB("Mutton & Lamb"),
     FISH_AND_SEAFOOD("Fish & Seafood"),
-    CHICKEN_AND_OTHER_MEATS("Chicken & Other Meats"),
 
     NONE("None")
 

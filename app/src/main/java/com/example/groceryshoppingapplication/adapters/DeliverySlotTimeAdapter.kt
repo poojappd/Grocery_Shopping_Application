@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.adapters
 
+import android.content.ContentValues
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,11 +29,15 @@ class DeliverySlotTimeAdapter(private val timeSlots: List<Date>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliverySlotTimeViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_timepicker_deliveryslot_layout, parent, false)
+        Log.e(ContentValues.TAG,"INSIDE TIME ADAPTER----${chosenPosition}")
+
         return DeliverySlotTimeViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DeliverySlotTimeViewHolder, position: Int) {
         holder.timeView.text = timeFormat.format(timeSlots[position])
+        Log.e(ContentValues.TAG,"TIME CHOOSEN POSITION----${chosenPosition}")
+
         if(position == chosenPosition){
             lastChosenTimeSlotVIew = holder.timeView
             lastChosenTimeSlotVIew.setTextColor(Color.WHITE)

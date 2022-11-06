@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class OrderSummaryFragment : Fragment() {
@@ -48,7 +50,7 @@ class OrderSummaryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(
-            com.example.groceryshoppingapplication.R.layout.fragment_order_summary,
+            R.layout.fragment_order_summary,
             container,
             false
         )
@@ -57,7 +59,7 @@ class OrderSummaryFragment : Fragment() {
 
             orderHistoryViewModel.getOrderDetail(args.orderId).observe(viewLifecycleOwner) {
                 val orderDetail = it
-                orderSummary_collapsingToolbar.title = "Order "+it.orderStatus.value
+                orderSummary_collapsingToolbar.title = "Order " + it.orderStatus.value
                 orderId_collapsingToolbar.text = orderDetail.orderId
                 val dialogBuilder = AlertDialog.Builder(requireContext())
                 val dialogView =
@@ -107,15 +109,14 @@ class OrderSummaryFragment : Fragment() {
                                 Toast.makeText(requireContext(), "Yes", Toast.LENGTH_SHORT).show()
                                 true
                             }
-                            R.id.removeItems_menu ->{
-                                if (modifyOrderViewModel.modifiedSessionEnabled)
-                                {
+                            R.id.removeItems_menu -> {
+                                if (modifyOrderViewModel.modifiedSessionEnabled) {
                                     modifyOrderViewModel.haltModifyingOrder()
                                 }
-                                        modifyOrderViewModel.setOrderDetails(
-                                            orderHistoryViewModel.getOrderItemsFromOrder(orderDetail.orderId),
-                                            orderHistoryViewModel.getOrderDetail(orderDetail.orderId).value!!,
-                                        )
+                                modifyOrderViewModel.setOrderDetails(
+                                    orderHistoryViewModel.getOrderItemsFromOrder(orderDetail.orderId),
+                                    orderHistoryViewModel.getOrderDetail(orderDetail.orderId).value!!,
+                                )
 
 
                                 findNavController().navigate(R.id.action_orderSummaryFragment_to_modifyOrderFragment)
@@ -128,6 +129,7 @@ class OrderSummaryFragment : Fragment() {
                 } else {
                     toolbar.menu.findItem(R.id.overFlowMenu_orderSummary).isVisible = false
                 }
+                paymentMethod.text = orderDetail.paymentMethod.capitalize()
 
                 totalItems_OrderDetail.text = orderDetail.numberOfItems.toString()
                 subTotal_OrderDetail.text = decimal.format(orderDetail.subTotal)
@@ -147,31 +149,58 @@ class OrderSummaryFragment : Fragment() {
                     findNavController().navigate(action)
                 }
 
-                val dateFormat = SimpleDateFormat("EEEE dd MMMM ", Locale.getDefault())
-                materialTextView21.text =
-                    orderDetail.deliverySlot
-                val timeFormat = SimpleDateFormat("h a", Locale.getDefault())
-                materialTextView22.text =
-                    orderDetail.deliverySlot
-                val deliveryDate =
-                    SimpleDateFormat("dd MMM yyyy - hh a").parse(orderDetail.deliverySlot)
 
-                order_date.text =StringBuilder("Ordered on: "+orderDetail.orderDate)
-                if (Date().after(deliveryDate)){
-                    if(it.orderStatus!=OrderStatus.CANCELLED) {
-                        order_status.text =StringBuilder("Status: "+ OrderStatus.COMPLETE.value)
+                val actualFormat = SimpleDateFormat("dd MMM yyyy - h a", Locale.getDefault())
+                val dayFormat = SimpleDateFormat("dd MMM yyyy")
+                val slotDateValue =
+                    dayFormat.parse(dayFormat.format(actualFormat.parse(orderDetail.deliverySlot)))
+                val today = dayFormat.parse(dayFormat.format(Date().time))
+                val diff: Long = slotDateValue.getTime() - today.getTime()
+                println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS))
+
+                when (orderDetail.orderStatus) {
+                    OrderStatus.COMPLETE -> arrivingOnTV.text = StringBuilder("Delivered on")
+                    OrderStatus.CANCELLED -> arrivingOnTV.text = StringBuilder("Delivery slot")
+                    else -> {
+                        when (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)) {
+                            0L -> {
+                                val time = SimpleDateFormat("ha").format(actualFormat.parse(orderDetail.deliverySlot))
+                                arrivingTime.text = StringBuilder("Today $time")
+                            }
+                            1L -> {
+                                val time = SimpleDateFormat("ha").format(actualFormat.parse(orderDetail.deliverySlot))
+                                arrivingTime.text = StringBuilder("Tomorrow $time")
+                            }
+                            else -> { arrivingTime.text = StringBuilder(orderDetail.deliverySlot)}
+                        }
                     }
-                    else{
-                        order_status.text = StringBuilder("Status: "+ it.orderStatus.value)
-                    }
-                    view.DeliverOnTextView.text = StringBuilder("Delivered on")
+
                 }
-                else{
-                    order_status.text =StringBuilder("Status: "+  it.orderStatus.value)
 
+
+
+
+
+            order_date.text = StringBuilder(orderDetail.orderDate)
+            when (orderDetail.orderStatus) {
+                OrderStatus.ORDERED -> {
+                    order_status_icon.setImageResource(R.drawable.time_icon1)
+                }
+                OrderStatus.COMPLETE -> {
+                    order_status_icon.setImageResource(R.drawable.complete_icon)
+                }
+                OrderStatus.CONFIRMED -> {
+                    order_status_icon.setImageResource(R.drawable.check_icon1)
+                }
+                OrderStatus.CANCELLED -> {
+                    order_status_icon.setImageResource(R.drawable.cancel_icon)
                 }
             }
+            order_status.text = orderDetail.orderStatus.value
+
         }
-        return view
     }
+
+    return view
+}
 }

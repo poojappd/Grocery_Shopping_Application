@@ -5,13 +5,13 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="textGrey">#59595E</color>
+    <color name="textGrey">#88888E</color>
     <color name="textGreyDarkTheme">#E2E2E6</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#d5c3fc</color>
     <color name="error_color">#FA7AAD</color>
-    <color name="primary_color">#868CFC</color>
-    <color name="app_primaryColor">#120A50</color>
+    <color name="primary_color">#AEB2FF</color>
+    <color name="app_primaryColor">#AEB2FF</color>
     <color name="primary_accent_textColor">#A2ACF1</color>
     <color name="grey_iconTint">#CDCDCF</color>
     <color name="grey_divider">#2DF5F6FF</color>
@@ -29,7 +29,8 @@
     <color name="fabColor">#7584e7</color>
     <color name="buttonColorBlueLight">#A5B2F8</color>
     <color name="surfaceColortintedGreyishSlightBlue">#212129</color>
-    <color name="buttonRippleColorBlueLight">#4E518E</color>
+    <color name="buttonRippleColorBlueLight">#565AB6</color>
     <color name="searchIconColor">#C1D1F6</color>
+    <color name="searchViewBackground">#400E1C9A</color>
 
 </resources>

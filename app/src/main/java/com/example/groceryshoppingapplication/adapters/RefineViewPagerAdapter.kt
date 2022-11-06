@@ -13,6 +13,7 @@ class RefineViewPagerAdapter(private val fragment: Fragment): FragmentStateAdapt
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
+
         Log.e(TAG,"INSIDE REFIN VIEWPAGER ADAPTER $position")
         return when(position){
             0-> SortViewPagerFragment()

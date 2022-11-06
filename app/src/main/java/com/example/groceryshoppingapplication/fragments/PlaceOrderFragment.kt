@@ -82,7 +82,7 @@ class PlaceOrderFragment : Fragment() {
                     val orderDate = Date()
                     val orderId = CodeGeneratorUtil.generateOrderId(orderDate)
                     val subTotal = decimal.format(orderDetailsViewModel.subTotal).toDouble()
-                    val orderDateString = SimpleDateFormat("dd MMM yyyy - h:mma", Locale.getDefault()).format(orderDate)
+                    val orderDateString = SimpleDateFormat("dd MMM yyyy - hh:mma", Locale.getDefault()).format(orderDate)
                     val numberOfItems = orderDetailsViewModel.totalItems!!
                     val deliverySlot = SimpleDateFormat("dd MMM yyyy - h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
 
@@ -113,23 +113,25 @@ class PlaceOrderFragment : Fragment() {
                             OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }
                         viewModel.createNewOrder(newOrder,orderedItems)
+                        val deliverySlotDate = SimpleDateFormat("h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
+                        val orderTimeString = SimpleDateFormat("h:mma", Locale.getDefault()).format(Date())
+
+                        val intent = Intent(requireActivity(), NotificationReceiver::class.java)
+                        intent.putExtra("deliveryTime", deliverySlotDate)
+                        val sevendayalarm: Calendar = Calendar.getInstance()
+
+                        sevendayalarm.add(Calendar.SECOND,3)
+                        val pendinIntent = PendingIntent.getBroadcast(requireActivity(),0,intent,0)
+                        val mgr = requireActivity().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+                        val timeforNotification = 1000.toLong()
+
+                        mgr.set(AlarmManager.RTC_WAKEUP,sevendayalarm.timeInMillis,pendinIntent)
                         orderDetailsViewModel.clearOrderDetails()
                         userViewmodel.emptyCart()
                         inventoryViewModel.reserveProducts(orderedItems)
 
                     }
-                    val orderTimeString = SimpleDateFormat("h:mma", Locale.getDefault()).format(Date())
 
-                    val intent = Intent(requireActivity(), NotificationReceiver::class.java)
-                    intent.putExtra("deliveryTime", orderTimeString)
-                    val sevendayalarm: Calendar = Calendar.getInstance()
-
-                    sevendayalarm.add(Calendar.SECOND,3)
-                    val pendinIntent = PendingIntent.getBroadcast(requireActivity(),0,intent,0)
-                    val mgr = requireActivity().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-                    val timeforNotification = 1000.toLong()
-
-                    mgr.set(AlarmManager.RTC_WAKEUP,sevendayalarm.timeInMillis,pendinIntent)
                     toastOrderplaced.show()
                     findNavController().navigate(R.id.action_placeOrderFragment_to_ordersViewPagerFragment)
                 } ?: toastChoosePayment.show()

@@ -27,18 +27,18 @@ class UserNameFormFragment : Fragment() {
         val userFromView = inflater.inflate(R.layout.fragment_username_form, container, false)
         userFromView.apply {
             proceedButton_signUp.setOnClickListener {
-                val firstName = this.fname_signUp
+                val firstName = fname_signUp_et
                 if (TextUtils.isEmpty(firstName.text)) {
-                    firstName.setError("First name is required!")
+                    fname_signUp.setError("First name is required!")
                     firstName.requestFocus()
 
                 } else if (firstName.text.toString().length < 3) {
-                    firstName.setError("First name is too short!")
+                    fname_signUp.setError("First name is too short!")
                     firstName.requestFocus()
                 } else if (!ValidationService.validateFirstName(firstName.text.toString())) {
-                    firstName.setError("Enter a valid first name")
+                    fname_signUp.setError("Enter a valid first name")
                     firstName.requestFocus()
-                } else if (!TextUtils.isEmpty(lName_signUp.text) && !ValidationService.validateFirstName(lName_signUp.text.toString())) {
+                } else if (!TextUtils.isEmpty(lName_signUp_et.text) && !ValidationService.validateFirstName(lName_signUp_et.text.toString())) {
                     lName_signUp.setError("Enter a valid last name")
                         lName_signUp.requestFocus()
 

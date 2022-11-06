@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity() {
 
         //setupWithNavController(bottomNavigationView, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            //Log.e(TAG, destination.toString())
+            Log.e(TAG,"----------------ENTRIES---------------------------")
+            controller.backQueue.forEach {
+                it.id
+                Log.e(TAG,it.destination.toString())
+            }
+            Log.e(TAG,"------------------------------------------------------")
             when (destination.id) {
                 R.id.userAccountFragment -> bottomNavigationView.menu.findItem(R.id.userAccountFragment)
                     .setChecked(true)
@@ -111,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigationView.removeBadge(R.id.cartFragment)
             }
         }
-        val snackBar = Snackbar.make(
+        var snackBar = Snackbar.make(
             snackBarView,
             "You are now modifying your order, items are saved to your cart",
             Snackbar.LENGTH_INDEFINITE
@@ -121,13 +126,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         MyGroceryApplication.modifiedStateEnabled.observe(this) {
+            Log.e(TAG,"----------------------------")
+
+            Log.e(TAG,"state: $it, orderID:${MyGroceryApplication.modifiedStateOrderId.value.toString()}")
+
+            Log.e(TAG,"----------------------------")
 
             if(it)
             {
                 snackBar.show()
+
             }
             else{
                 snackBar.dismiss()
+                snackBar = Snackbar.make(
+                    snackBarView,
+                    "You are now modifying your order, items are saved to your cart",
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snackBar.setAction("Got it") {
+                    snackBar.dismiss()
+                }
             }
 
         }
@@ -138,12 +157,12 @@ class MainActivity : AppCompatActivity() {
     private fun createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "LemubitReminderCHannel"
+            val name = "Delivery Reminders"
             Log.e(TAG,"$name NOtification creation processin. . .")
 
             val description = "This is a  notificatio channel"
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("channelsome", name, importance)
+            val channel = NotificationChannel("groceroChannel", name, importance)
             channel.description = description
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
 

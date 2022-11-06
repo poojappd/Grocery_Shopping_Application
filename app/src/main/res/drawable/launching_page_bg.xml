@@ -6,7 +6,7 @@
         android:color="@color/surface_color"/>
 
     <corners
-        android:topLeftRadius="350dp"
+        android:topLeftRadius="320dp"
         android:topRightRadius="100dp">
     </corners>
 </shape>

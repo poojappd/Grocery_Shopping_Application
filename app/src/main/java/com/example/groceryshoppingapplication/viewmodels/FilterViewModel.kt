@@ -94,9 +94,9 @@ class FilterViewModel : ViewModel() {
         val brandPositions: List<Int>
             get() = _brandPositions
 
-        fun setPackSize(position: Int) {
+        fun setPackSize(position: Int, isSelected:Boolean) {
             _temporaryFilterConfigurationCleared = false
-            if (selectedSizeFilters.contains(packSizesEnums[position])) {
+            if (!isSelected) {
                 selectedSizeFilters.remove(packSizesEnums[position])
                 _packSizePositions.remove(position)
             } else {
@@ -105,10 +105,10 @@ class FilterViewModel : ViewModel() {
             }
         }
 
-        fun setCategory(position: Int) {
+        fun setCategory(position: Int, isSelected:Boolean) {
             _temporaryFilterConfigurationCleared = false
 
-            if (selectedCategoryFilters.contains(categories[position])) {
+            if (!isSelected) {
                 selectedCategoryFilters.remove(categories[position])
                 _categPositions.remove(position)
             } else {
@@ -117,10 +117,10 @@ class FilterViewModel : ViewModel() {
             }
         }
 
-        fun setBrand(position: Int) {
+        fun setBrand(position: Int, isSelected:Boolean) {
             _temporaryFilterConfigurationCleared = false
-
-            if (selectedBrandFilters.contains(brands[position])) {
+            Log.e(TAG, selectedBrandFilters.toString())
+            if (!isSelected) {
                 Log.e(TAG, "BRAND CONTAINED ALREADY")
                 selectedBrandFilters.remove(brands[position])
                 _brandPositions.remove(position)

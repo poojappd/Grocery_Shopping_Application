@@ -50,6 +50,7 @@ class ModifiedPlaceOrderFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_modified_place_order, container, false)
         val toastOrderplaced = Toast.makeText(context,"Order placed successfully", Toast.LENGTH_SHORT)
         val toastChoosePayment = Toast.makeText(context,"Choose a payment method! ", Toast.LENGTH_SHORT)
+        orderDetailsViewModel.paymentOption = null
         view.apply {
             val modifiedOrderDetail = modifyOrderViewModel.modifiedOrderDetail
             val previousOrderDetail = modifyOrderViewModel.orderDetail
@@ -60,10 +61,10 @@ class ModifiedPlaceOrderFragment : Fragment() {
                 PaidAlready.text = decimal.format(previousOrderDetail.totalPrice)
                 if(previousOrderDetail.totalPrice >= modifiedOrderDetail.totalPrice){
                     yetToPayOrRefund.text = "Refund"
-                    yetToPay_Refund_value.text = (previousOrderDetail.totalPrice - modifiedOrderDetail.totalPrice).toString()
+                    yetToPay_Refund_value.text = decimal.format(previousOrderDetail.totalPrice - modifiedOrderDetail.totalPrice)
                 }
                 else{
-                    yetToPay_Refund_value.text = (modifiedOrderDetail.totalPrice - previousOrderDetail.totalPrice).toString()
+                    yetToPay_Refund_value.text = decimal.format(modifiedOrderDetail.totalPrice - previousOrderDetail.totalPrice)
                 }
             }
             else{
@@ -173,6 +174,10 @@ class ModifiedPlaceOrderFragment : Fragment() {
                             modifiedOrderDetail.totalPrice,
                             it
                         )
+                        val orderedItems = mutableListOf<OrderedItemEntity>()
+                        var number = 1
+
+                        inventoryViewModel.reserveProducts(modifyOrderViewModel.modifiableOrderItems.value!!)
                         modifyOrderViewModel.modifiedOrderDetail = newOrder
                         viewModel.updateOrderChanges(modifyOrderViewModel.modifiableOrderItems.value!!, newOrder)
                         modifyOrderViewModel.haltModifyingOrder()
@@ -199,15 +204,15 @@ class ModifiedPlaceOrderFragment : Fragment() {
         }
         when (it.id) {
             R.id.credit_card_option -> {
-                paymentOption = "credit card"
+                orderDetailsViewModel.paymentOption = "credit card"
                 checkView = it.creditCard_check
             }
             R.id.upi_option -> {
-                paymentOption = "UPI"
+                orderDetailsViewModel.paymentOption = "UPI"
                 checkView = it.upi_check
             }
             else -> {
-                paymentOption = "Cash on delivery"
+                orderDetailsViewModel.paymentOption = "Cash on delivery"
                 checkView = it.cod_check
             }
         }

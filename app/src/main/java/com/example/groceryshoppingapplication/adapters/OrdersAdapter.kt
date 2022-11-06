@@ -43,14 +43,14 @@ class OrdersAdapter(
         val orderDetailItem = orderDetailList.get(position)
         val simpleDateFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
         val deliverySlotPrefix =
-            if (orderDetailItem.orderStatus == OrderStatus.ORDERED) "Delivery on: " else if (orderDetailItem.orderStatus == OrderStatus.COMPLETE) "Delivered on: " else "Delivery slot: "
+            if (orderDetailItem.orderStatus == OrderStatus.ORDERED|| orderDetailItem.orderStatus == OrderStatus.CONFIRMED) "Delivery on: " else if (orderDetailItem.orderStatus == OrderStatus.COMPLETE) "Delivered on: " else "Delivery slot: "
         val itemCountSuffix = if (orderDetailItem.numberOfItems > 1) " Items" else " Item"
 
         val date = SimpleDateFormat("dd MMM yyyy - hh:mma").parse(orderDetailItem.orderDate)
         val oneHourAfterOrderedDate = Calendar.getInstance()
         oneHourAfterOrderedDate.time = date
-        oneHourAfterOrderedDate.add(Calendar.SECOND, 10)
-        Log.e(TAG,"$date    ${oneHourAfterOrderedDate.time}")
+        oneHourAfterOrderedDate.add(Calendar.MINUTE, 1)
+        Log.e(TAG,"$date    ${oneHourAfterOrderedDate.time} ++ ${Date().after(oneHourAfterOrderedDate.time)}")
         val deliveryDate =
             SimpleDateFormat("dd MMM yyyy - hh a").parse(orderDetailItem.deliverySlot)
 
@@ -102,7 +102,7 @@ class OrdersAdapter(
                     }
 
                     OrderStatus.ORDERED -> {
-                        if (oneHourAfterOrderedDate.after(Date())) {
+                        if (Date().after(oneHourAfterOrderedDate.time)) {
                             orderStatusUpdationListener(
                                 orderDetailItem.orderId,
                                 OrderStatus.CONFIRMED

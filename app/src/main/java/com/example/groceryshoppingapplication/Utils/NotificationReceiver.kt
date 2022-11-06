@@ -21,7 +21,7 @@ class NotificationReceiver: BroadcastReceiver() {
          context?.let {
              val date = intent?.extras?.getString("deliveryTime")
              Log.e(TAG,"RECEIVED context...")
-             val builder = NotificationCompat.Builder(it,"channelsome").apply {
+             val builder = NotificationCompat.Builder(it,"groceroChannel").apply {
             setSmallIcon(R.drawable.app_cart_icon)
             setContentTitle("Arriving Today @${if( date=="" ) Date() else date }")
                  setColor(Color.argb(100,101,172,255))

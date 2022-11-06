@@ -2,6 +2,7 @@ package com.example.groceryshoppingapplication.viewmodels
 
 import android.app.Application
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.system.Os.remove
 import android.util.Log
@@ -32,24 +33,28 @@ class ModifyOrderViewModel(application: Context) : ViewModel() {
 
         }
     fun setOrderDetails(orderedItems: List<OrderedItemEntity>, orderDetail: OrderDetail) {
-        MyGroceryApplication.setModifiedStateEnabled(true, orderDetail.orderId)
-        this.orderedItems = orderedItems
-        this.orderDetail = orderDetail
-        modifiedSessionEnabled = true
-        modifiableOrderItems.value = orderedItems.toMutableList()
-        newPrice.value = orderDetail.subTotal
-        newQty.value = orderDetail.numberOfItems
-        for (item in orderedItems){
-            addToModifiableOrders(item)
-        }
+
+            this@ModifyOrderViewModel.orderedItems = orderedItems
+            this@ModifyOrderViewModel.orderDetail = orderDetail
+            modifiedSessionEnabled = true
+            modifiableOrderItems.value = orderedItems.toMutableList()
+            newPrice.value = orderDetail.subTotal
+            newQty.value = orderDetail.numberOfItems
+            for (item in orderedItems) {
+                addToModifiableOrders(item)
+            }
+            MyGroceryApplication.setModifiedStateEnabled(true, orderDetail.orderId)
+
 
     }
 
-    fun haltModifyingOrder() =viewModelScope.launch{
-        modifiedSessionEnabled = false
-        ordersDao.clearTableModifiedItems()
-        ordersDao.clearTableModifiedOrder()
-        MyGroceryApplication.setModifiedStateEnabled(false,"")
+    fun haltModifyingOrder() {
+        viewModelScope.launch {
+            modifiedSessionEnabled = false
+            ordersDao.clearTableModifiedItems()
+            ordersDao.clearTableModifiedOrder()
+        }
+        MyGroceryApplication.setModifiedStateEnabled(false,"no id")
     }
 
     fun removeFromOrder(
@@ -84,7 +89,10 @@ class ModifyOrderViewModel(application: Context) : ViewModel() {
 
 
     fun increaseQuantity(position: Int) {
+        Log.e(TAG,"$position+ Inside increase qty")
+
         viewModelScope.launch {
+            Log.e(TAG,"$position+ Inside increase qty---lauch")
             val currentOrderedItem = modifiableOrderItems.value!!.get(position)
             val currentQty = currentOrderedItem.quantity
             val initialQty = getOriginalOrderItemQuantity(currentOrderedItem.productCode)?:1
@@ -144,8 +152,9 @@ class ModifyOrderViewModel(application: Context) : ViewModel() {
 
     fun getCurrentOrderItemQuantity(productCode: Int): LiveData<Int>? {
         return ordersDao.getModifiedOrderItemQuantity(productCode, orderDetail.orderId)
-
     }
+
+
 }
     class ModifyOrderViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")

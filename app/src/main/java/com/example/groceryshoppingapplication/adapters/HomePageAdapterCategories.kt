@@ -21,14 +21,15 @@ import kotlinx.android.synthetic.main.homepage_image_categories_layout.view.*
 class HomePageAdapterCategories(private val categoryTouchListener:HomePageFragment.CategoryItemTouchListenerImpl) :
     RecyclerView.Adapter<HomePageAdapterCategories.ViewHolder>() {
    // private val titles = enumValues<GeneralCategory>()
-    private val categoryNames = "Fruits Vegetables Dairy Meat_&_Eggs Beverages Snacks_&_Packed_foods Beauty_&_Hygiene Cleaning_&_Household Pets Gardening".split(" ")
-    private val categoryEnums = arrayOf(GeneralCategory.FRUITS,GeneralCategory.VEGETABLES, GeneralCategory.DAIRY_AND_BAKERY, GeneralCategory.MEAT_AND_EGGS, GeneralCategory.BEVERAGES, GeneralCategory.SNACKS_AND_BRANDED_FOODS, GeneralCategory.BEAUTY_AND_HYGIENE, GeneralCategory.CLEANING_AND_HOUSEHOLD, GeneralCategory.PETS, GeneralCategory.GARDENING)
+    private val categoryNames = "Fruits Vegetables Dairy Meat_&_Eggs Beverages Staples Snacks_&_Packed_foods Beauty_&_Hygiene Cleaning_&_Household Pets Gardening".split(" ")
+    private val categoryEnums = arrayOf(GeneralCategory.FRUITS,GeneralCategory.VEGETABLES, GeneralCategory.DAIRY_AND_BAKERY, GeneralCategory.MEAT_AND_EGGS, GeneralCategory.BEVERAGES, GeneralCategory.STAPLES, GeneralCategory.SNACKS_AND_BRANDED_FOODS, GeneralCategory.BEAUTY_AND_HYGIENE, GeneralCategory.CLEANING_AND_HOUSEHOLD, GeneralCategory.PETS, GeneralCategory.GARDENING)
     private val bgColorValues = arrayOf(
         "#FEE2FF",
-        "#C9E265",
+        "#E5FFA4",
         "#EBE6E0",
-        "#FFE3CF",
+        "#FFF1EA",
         "#D6F8E8",
+        "#F8FFF4",
         "#FFFAC3",
         "#237F82",
         "#F2E3F8",
@@ -41,6 +42,7 @@ class HomePageAdapterCategories(private val categoryTouchListener:HomePageFragme
         "#5E8E8C",
         "#A66054",
         "#678586",
+        "#3A4037",
         "#237F82",
         "#CBFDFF",
         "#613A69",

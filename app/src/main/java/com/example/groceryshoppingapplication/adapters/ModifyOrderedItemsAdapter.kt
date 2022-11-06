@@ -74,12 +74,10 @@ class ModifyOrderedItemsAdapter(
 
             increaseQtyButton.setOnClickListener {
                 modifyItemListener.increaseQuantity(position)
-                notifyItemChanged(adapterPosition)
             }
 
             decreaseQtyButton.setOnClickListener {
                 modifyItemListener.decreaseQuantity(position)
-                notifyItemChanged(adapterPosition)
             }
 
         }

@@ -43,7 +43,6 @@ data class CategoriesUtil(val context: Context) {
                 SubCategory.EGGS,
                 SubCategory.MUTTON_AND_LAMB,
                 SubCategory.FISH_AND_SEAFOOD,
-                SubCategory.CHICKEN_AND_OTHER_MEATS,
                 SubCategory.SAUSAGES_BACON_AND_SALAMI
             ),
             GeneralCategory.BEVERAGES to listOf(
