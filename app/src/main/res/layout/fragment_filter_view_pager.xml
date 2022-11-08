@@ -21,16 +21,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+
         <com.google.android.material.textview.MaterialTextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="Categories"
                 android:fontFamily="@font/cabin"
                 android:id="@+id/categories_filter_parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:text="9+"
+                android:paddingStart="1dp"
+                android:textSize="12sp"
+                android:visibility="visible"
+                android:textColor="@color/fabColor"
+                android:gravity="center"
+                android:background="@drawable/circle_outline"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/categ_badge"
+                app:layout_constraintTop_toTopOf="@+id/categories_filter_parent"
+                app:layout_constraintBottom_toBottomOf="@+id/categories_filter_parent"
+                app:layout_constraintStart_toEndOf="@+id/categories_filter_parent" />
 
         <ImageView
                 android:id="@+id/categ_drop_down"
@@ -78,15 +94,30 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-                android:layout_width="0dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:text="9+"
+                android:paddingStart="1dp"
+                android:textSize="12sp"
+                android:visibility="visible"
+                android:textColor="@color/fabColor"
+                android:gravity="center"
+                android:background="@drawable/circle_outline"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/brand_badge"
+                app:layout_constraintTop_toTopOf="@+id/Brand_filter_parent"
+                app:layout_constraintBottom_toBottomOf="@+id/Brand_filter_parent"
+                app:layout_constraintStart_toEndOf="@+id/Brand_filter_parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="Brands"
                 android:fontFamily="@font/cabin"
                 android:id="@+id/Brand_filter_parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
                 android:id="@+id/brand_drop_down"
@@ -133,16 +164,30 @@ android:id="@+id/packSizeContainer"
             app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="Pack size"
                 android:fontFamily="@font/cabin"
                 android:id="@+id/size_filter_parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:text="9+"
+                android:paddingStart="1dp"
+                android:textSize="12sp"
+                android:visibility="visible"
+                android:textColor="@color/fabColor"
+                android:gravity="center"
+                android:background="@drawable/circle_outline"
+                android:fontFamily="@font/cabin"
+                android:id="@+id/size_badge"
+                app:layout_constraintTop_toTopOf="@+id/size_filter_parent"
+                app:layout_constraintBottom_toBottomOf="@+id/size_filter_parent"
+                app:layout_constraintStart_toEndOf="@+id/size_filter_parent" />
         <ImageView
                 android:id="@+id/size_drop_down"
                 android:layout_width="40dp"

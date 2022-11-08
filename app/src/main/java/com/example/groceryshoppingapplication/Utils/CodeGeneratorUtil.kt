@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.Utils
 
+import android.content.ContentValues.TAG
 import android.text.TextUtils.substring
+import android.util.Log
 import com.example.groceryshoppingapplication.data.IdDAO
 import java.text.SimpleDateFormat
 import java.util.*
@@ -54,9 +56,9 @@ object CodeGeneratorUtil {
     fun generateCartItemId(cartId:Int):String{
         val prefix = "$cartId/"
         val lastCartItemId = idDAO.getLastCartItemId(cartId)
+        Log.e(TAG,"Last cart Id : $lastCartItemId")
         val newCartItemId = lastCartItemId?.let {
-            it.substring(lastCartItemId.indexOf("/").plus(1)).trim().toInt()+1
-        } ?: 1
+            it+1 } ?: 1
         return "$prefix$newCartItemId"
     }
 
@@ -72,9 +74,7 @@ object CodeGeneratorUtil {
     fun generateModifiedOrderedItemId(orderId:String):String{
         val prefix = "$orderId/"
         val lastOrderedItemId = idDAO.getLastModifiedOrderedItemId(orderId)
-        val newOrderItemId = lastOrderedItemId?.let {
-            it.substring(lastOrderedItemId.indexOf("/").plus(1)).trim().toInt()+1
-        } ?: 1
+        val newOrderItemId = lastOrderedItemId?.let { it+1 } ?: 1
         return "$prefix$newOrderItemId"
     }
 

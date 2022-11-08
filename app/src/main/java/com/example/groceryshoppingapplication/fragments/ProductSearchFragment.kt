@@ -73,7 +73,7 @@ class ProductSearchFragment : Fragment() {
                     searchView.setQuery(query, true)
                 }
         }
-        trendingSearchRecyclerView.adapter = TrendingSearchAdapter(listOf("Pineapple","Pepsi", "Coke", "Icecream", "Maggi", "masala")){ query: String ->
+        trendingSearchRecyclerView.adapter = TrendingSearchAdapter(listOf("Pineapple","Pepsi", "Coke", "Ice cream", "Maggi", "masala")){ query: String ->
             searchView.setQuery(query, true)}
 
         searchView = view.searchView
@@ -86,22 +86,13 @@ class ProductSearchFragment : Fragment() {
             searchView.clearFocus()
         }
         searchView.setOnQueryTextFocusChangeListener(OnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                //showInputMethod(view.findFocus())
-                requireActivity().bottomNavigationView.isVisible = false
-            } else {
-                //hideInputMethod(view)
-                requireActivity().bottomNavigationView.isVisible = true
-            }
+            requireActivity().bottomNavigationView.isVisible = !hasFocus
         })
         childFragmentContainer = view.search_Fragment
         childFragmentManager.addOnBackStackChangedListener {
             val backStackCount = childFragmentManager.backStackEntryCount
             Log.e(TAG, "BACK STACK CHANGED" + " $backStackCount")
-            if(backStackCount==0)
-                recentSearchContainer.isVisible = true
-            else
-                recentSearchContainer.isVisible = false
+            recentSearchContainer.isVisible = backStackCount==0
 
 
         }
@@ -131,6 +122,8 @@ class ProductSearchFragment : Fragment() {
     private inner class SearchQueryListener : SearchView.OnQueryTextListener {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
+            Log.e(TAG, "onquerySumbit $query")
+
             if (query != null// && (query != lastSubmittedQuery)
             ) {
                 searchProductInInventory(query)
@@ -143,7 +136,7 @@ class ProductSearchFragment : Fragment() {
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
-            Log.e(TAG, "Query - *$newText*")
+            Log.e(TAG, "QueryChange - *$newText*")
 
             if (newText != null) {
 
@@ -183,13 +176,12 @@ class ProductSearchFragment : Fragment() {
 
         private fun displaySuggestions(searchQuery: String) {
             //popLastChildBackStackEntry()
-            childFragmentManager.popBackStackImmediate("searchresultProduct",FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            //childFragmentManager.popBackStackImmediate("searchresultProduct",FragmentManager.POP_BACK_STACK_INCLUSIVE)
             if(childFragmentManager.backStackEntryCount==0) {
                 childFragmentManager.beginTransaction().apply {
                     add(R.id.search_Fragment, SearchSuggestionsFragment.newInstance(searchQuery))
                     addToBackStack("sugg")
                     lastSuggestionStackId = commit()
-
                 }
             }
             searchSuggestionViewModel.setSuggestion(searchQuery)
@@ -237,9 +229,9 @@ class ProductSearchFragment : Fragment() {
     }
 
     fun setSearchViewQuery(searchQuery: String) {
-        //searchView.setQuery(searchQuery, false)
-//        lastQuery = searchQuery
-//        searchView.clearFocus()
+        searchView.setQuery(searchQuery, false)
+        lastQuery = searchQuery
+        searchView.clearFocus()
     }
 
 }

@@ -98,7 +98,6 @@ class SearchSuggestionsFragment() : Fragment() {
                         findNavController().navigate(action)
                     } else {
                         val parentSearchFragment = parentFragment as ProductSearchFragment
-
                         parentSearchFragment.setSearchViewQuery(searchText)
                         parentSearchFragment.hideInputMethod()
                         val enumValue = categoriesEnum.get(index)

@@ -10,21 +10,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
-import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.fragments.ProductRefineFragment
-import com.example.groceryshoppingapplication.fragments.ProductSearchFragment
 import com.example.groceryshoppingapplication.fragments.ProductSearchFragmentDirections
-import com.example.groceryshoppingapplication.fragments.SignInFragment
-import com.example.groceryshoppingapplication.fragments.SignInFragment.Companion.SINGUP_CALLBACK_FUNCTION
-import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
 import com.example.groceryshoppingapplication.viewmodels.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.fragment_product_search_results.*
 import kotlinx.android.synthetic.main.fragment_product_search_results.view.*
 import java.io.Serializable
 import java.util.*
@@ -66,27 +62,39 @@ class ProductSearchResultsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_product_search_results, container, false)
         val mutableItems = mutableListOf<GroceryItemEntity>()
         val productCodes = arguments?.getIntArray("productCodes")!!
+        productCodes.forEach {
+            Log.e(TAG, "got from bundle: ${it}")
+        }
         for (i in productCodes){
             mutableItems.add(inventoryViewModel.getProductDetailsSynchronously(i))
         }
         items = mutableItems
-        filterViewModel.setOriginalResults(items)
+        filterViewModel.setInitialSearchResults(items)
         recyclerView = view.product_search_result_RV
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         filterViewModel.getRefinedData()?.let {
+            Log.e(TAG,"Refined data exists")
             recyclerView.adapter =
                 ProductsInCategoriesAdapter(it, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
-
         } ?: run {
+            Log.e(TAG,"Refined data doesn't exist passing ${items.toString()}")
             recyclerView.adapter =
                 ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
         }
-        filterButton = view.filterButton
-        filterButton.setOnClickListener {
 
+        filterButton = view.filterButton
+        filterViewModel.filterCount.observe(viewLifecycleOwner){
+            if(it>0) {
+                filterBadge.visibility = View.VISIBLE
+                filterBadge.text = it.toString()
+            }
+            else{
+                filterBadge.visibility = View.GONE
+            }
+        }
+        filterButton.setOnClickListener {
             val filterDialog = ProductRefineFragment.newInstance(SetFilter())
             filterDialog.show(childFragmentManager,"refine")
-
         }
         return view
     }
@@ -200,7 +208,7 @@ class ProductSearchResultsFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        Log.e(TAG, "SEARCH RESULT DESTROYED")
+        Log.e(TAG, "SEARCH RESULT NOT DESTROYED")
         filterViewModel.clearAllSavedFilter()
         super.onDestroy()
 

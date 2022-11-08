@@ -192,6 +192,8 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             } else {
                 val cartId = currentUserCart.value!!.cartId
                 val cartItemId = CodeGeneratorUtil.generateCartItemId(cartId)
+                Log.e(TAG,"NOT PRESENT, $cartItemId")
+
                 myCartRepo.addToCart(
                     CartItemEntity(
                         productCode,

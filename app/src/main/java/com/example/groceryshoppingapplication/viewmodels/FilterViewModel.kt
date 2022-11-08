@@ -22,18 +22,37 @@ class FilterViewModel : ViewModel() {
     val temporaryFilterConfigurationCleared: Boolean
         get() = _temporaryFilterConfigurationCleared
     private var _temporaryFilterConfigurationCleared: Boolean = false
+    val filterCount:LiveData<Int>
+    get() = _filterCount
+    private var _filterCount = MutableLiveData<Int>(0)
+    val sizeFilterCount:Int
+        get() = _sizeFilterCount
+    private var _sizeFilterCount = 0
+    val brandFilterCount
+        get() = _brandFilterCount
+    private var _brandFilterCount = 0
+    val categFilterCount
+        get() = _categFilterCount
+    private var _categFilterCount = 0
 
-    fun setOriginalResults(results: List<GroceryItemEntity>) {
+
+    fun setInitialSearchResults(results: List<GroceryItemEntity>) {
         originalResults = MutableLiveData(results)
         updateOriginalResults()
     }
 
     fun fixAsFinalConfiguration(appliedData: List<GroceryItemEntity>) {
         appliedFilterConfiguration = temporaryFilterConfiguration
+        appliedFilterConfiguration?.let {
+            val sortCount = it.temporarySortPriceLowToHigh?.let { 1 }?:0
+            _filterCount.value = (if(it.getBrandFilters().size >1) 1 else 0) + (if(it.getSelectedSizeFilters().size >1) 1 else 0)+ (if(it.getSelectedCategoryFilters().size >1) 1 else 0) +sortCount
+            _brandFilterCount = it.getBrandFilters().size
+            _categFilterCount = it.getSelectedCategoryFilters().size
+            _sizeFilterCount = it.getSelectedSizeFilters().size
+            Log.e(TAG, "$_brandFilterCount  $_categFilterCount   $_sizeFilterCount")
+        }
         clearTemporaryConfiguration()
         filterAppliedData = appliedData
-//        appliedFilterConfiguration  = null
-////        filterAppliedData = null
     }
 
     fun clearTemporaryConfiguration() {
@@ -46,13 +65,15 @@ class FilterViewModel : ViewModel() {
         temporaryFilterConfiguration = null
         appliedFilterConfiguration = null
         filterAppliedData = null
+        _filterCount.value = 0
+        _brandFilterCount  = 0
+        _sizeFilterCount = 0
+        _categFilterCount = 0
     }
-
 
     fun getRefinedData() = filterAppliedData
 
-
-    fun updateOriginalResults() {
+    private fun updateOriginalResults() {
         brands.clear()
         packSizes.clear()
         categories.clear()
@@ -74,7 +95,6 @@ class FilterViewModel : ViewModel() {
             }
 
         }
-
         temporaryFilterConfiguration =
             FilterConfiguration(brands.size, packSizes.size, categories.size)
     }

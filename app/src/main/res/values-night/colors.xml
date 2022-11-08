@@ -32,5 +32,7 @@
     <color name="buttonRippleColorBlueLight">#565AB6</color>
     <color name="searchIconColor">#C1D1F6</color>
     <color name="searchViewBackground">#400E1C9A</color>
+    <color name="dialogBg">#212129</color>
+
 
 </resources>

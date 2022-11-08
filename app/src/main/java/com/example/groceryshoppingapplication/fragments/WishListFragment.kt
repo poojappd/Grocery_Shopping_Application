@@ -39,7 +39,7 @@ class WishListFragment : Fragment() {
         userViewModel.allWishListItems.observe(viewLifecycleOwner){
             recyclerView.adapter = WishListItemsAdapter(it, WishListTouchListenerImpl())
         }
-        recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
         return view
     }
 

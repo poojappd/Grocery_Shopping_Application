@@ -64,22 +64,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.homePageFragment -> navController.navigate(R.id.homePageFragment)
-                R.id.allCategoriesFragment -> navController.navigate(R.id.allCategoriesFragment)
-                R.id.userAccountFragment -> navController.navigate(R.id.userAccountFragment)
-                R.id.productSearchFragment -> navController.navigate(R.id.productSearchFragment)
-                else -> {
-                    MyGroceryApplication.modifiedStateEnabled.value?.let {
-                        if(it == true)
-                            navController.navigate(R.id.modifyOrderFragment)
-                        else
+            if(it.itemId!=navController.currentDestination?.id) {
+                when (it.itemId) {
+                    R.id.homePageFragment -> navController.navigate(R.id.homePageFragment)
+                    R.id.allCategoriesFragment -> navController.navigate(R.id.allCategoriesFragment)
+                    R.id.userAccountFragment -> navController.navigate(R.id.userAccountFragment)
+                    R.id.productSearchFragment -> navController.navigate(R.id.productSearchFragment)
+                    else -> {
+                        MyGroceryApplication.modifiedStateEnabled.value?.let {
+                            if (it == true)
+                                navController.navigate(R.id.modifyOrderFragment)
+                            else
+                                navController.navigate(R.id.cartFragment)
+                        } ?: run {
                             navController.navigate(R.id.cartFragment)
-                    }?: run {
-                    navController.navigate(R.id.cartFragment)}
+                        }
+                    }
                 }
+                return@setOnItemSelectedListener true
             }
-            return@setOnItemSelectedListener true
+            return@setOnItemSelectedListener false
         }
 
         val bottomNavCartMenu = bottomNavigationView.getChildAt(4)

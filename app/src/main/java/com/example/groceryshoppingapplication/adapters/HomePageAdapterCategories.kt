@@ -29,7 +29,7 @@ class HomePageAdapterCategories(private val categoryTouchListener:HomePageFragme
         "#EBE6E0",
         "#FFF1EA",
         "#D6F8E8",
-        "#F8FFF4",
+        "#F0FAEB",
         "#FFFAC3",
         "#237F82",
         "#F2E3F8",

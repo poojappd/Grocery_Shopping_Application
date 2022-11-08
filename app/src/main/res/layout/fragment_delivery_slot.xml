@@ -24,11 +24,11 @@
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/delSlot_Scrollview"
             android:fillViewport="true"
+            android:id="@+id/delSlot_Scrollview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +36,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -146,7 +146,7 @@
 
             <LinearLayout
                     android:layout_width="150dp"
-                    android:layout_height="320dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/otp_dialog_bg"
                     android:backgroundTint="@color/whiteLessAlpha"
                     android:orientation="vertical"
@@ -160,7 +160,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/dateChoose_rv"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="240dp"
                         tools:listitem="@layout/custom_datepicker_deliveryslot_layout" />
             </LinearLayout>
 
@@ -178,7 +178,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:id="@+id/invisible_time_picker"
                     android:animateLayoutChanges="true"
@@ -199,7 +199,7 @@
 
                 <LinearLayout
                         android:layout_width="150dp"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/otp_dialog_bg"
                         android:backgroundTint="@color/whiteLessAlpha"
                         android:orientation="vertical"
@@ -213,10 +213,8 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/timeChoose_rv"
-
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
+                            android:layout_height="180dp"
                             tools:listitem="@layout/custom_timepicker_deliveryslot_layout" />
                 </LinearLayout>
 
@@ -235,7 +233,6 @@
                     android:paddingStart="40dp"
                     android:paddingEnd="10dp"
                     style="@style/blueButtonTheme"
-                    app:layout_constraintStart_toEndOf="@+id/chosenSlotTV"
                     android:background="@drawable/otp_dialog_bg"
                     android:layout_marginBottom="36dp"
                     android:layout_height="wrap_content"
@@ -248,7 +245,7 @@
                     android:drawableTint="@color/textInverseBW"
                     android:drawableEnd="@drawable/continue_icon"
                     android:id="@+id/continue_button_deliverySlot"
-                    />
+                    android:layout_marginEnd="16dp" />
 
             <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -262,5 +259,5 @@
                     app:layout_constraintEnd_toStartOf="@+id/continue_button_deliverySlot"
                     android:id="@+id/chosenSlotTV" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

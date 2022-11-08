@@ -47,6 +47,7 @@
                     android:id="@+id/product_image_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:background="@color/white"
                     app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator"
                     />
 
@@ -221,49 +222,25 @@ Blackcurrant and Mocha cookies. These Cookie Gift tins are the ideal option for 
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/saveForLater_single_product_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/heart_icon1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:drawableTint="#A7ABED"
+                android:textColor="#4A4A4E"
+                android:text="Save for Later"
+                android:textSize="20dp"
+                android:textAllCaps="false"
                 android:background="#E6E2F6"
                 android:orientation="horizontal">
 
 
-            <ImageView
-                    android:id="@+id/wishlistIcon"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:gravity="center"
-                    android:padding="7dp"
-                    android:background="@drawable/heart_icon1"
-                    android:backgroundTint="#A7ABED"
-                    app:layout_constraintVertical_bias="0.7"
-                    app:layout_constraintTop_toTopOf="@+id/saveForLater_textView"
-                    app:layout_constraintBottom_toBottomOf="@+id/saveForLater_textView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/saveForLater_textView" />
 
-            <TextView
-                    android:id="@+id/saveForLater_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/cabin"
-                    android:text="Save for later"
-                    android:layout_marginStart="6dp"
-                    android:textColor="@color/textGrey"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toEndOf="@+id/wishlistIcon"
-                    app:layout_constraintHorizontal_bias="0.5" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.AppCompatButton>
 
         <FrameLayout
                 android:id="@+id/addToCart_single_product_view"

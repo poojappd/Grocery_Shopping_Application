@@ -63,22 +63,25 @@
                     android:textSize="16sp"
                     android:text="Filter"
                     android:layout_marginEnd="10dp"
+
                     android:layout_gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:id="@+id/materialTextView5"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
+
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="9+"
+                android:paddingStart="1dp"
                 android:layout_marginEnd="10dp"
                 android:textSize="12sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textColor="@color/white"
-                android:backgroundTint="#B7ADFF"
+                android:backgroundTint="@color/fabColor"
                 android:gravity="center"
                 android:background="@drawable/circle_bg"
                 android:fontFamily="@font/cabin"
@@ -86,7 +89,8 @@
                 android:id="@+id/filterBadge"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.59" />
+                app:layout_constraintVertical_bias="0.59"
+                />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView

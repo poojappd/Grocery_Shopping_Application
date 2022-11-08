@@ -6,8 +6,8 @@ import androidx.room.Query
 @Dao
 interface IdDAO {
 
-    @Query("SELECT id FROM CartItemEntity where cartId = :cartId ORDER BY id DESC LIMIT 1")
-    fun getLastCartItemId(cartId: Int): String?
+    @Query("SELECT  CAST(substr(id ,6) AS UNSIGNED) AS idDesc FROM cartitementity where cartId = :cartId ORDER BY idDesc DESC\n")
+    fun getLastCartItemId(cartId: Int): Int?
 
     @Query("SELECT id FROM OrderedItemEntity where orderId = :orderId ORDER BY id DESC LIMIT 1")
     fun getLastOrderedItemId(orderId: String): String?
@@ -33,8 +33,8 @@ interface IdDAO {
     @Query("select id from DefaultAddressEntity order by id desc limit 1")
     fun getLastDefaultAddressId():Int?
 
-    @Query("SELECT id FROM ModifiedOrderItemEntity where orderId = :orderId ORDER BY id DESC LIMIT 1")
-    fun getLastModifiedOrderedItemId(orderId: String): String?
+    @Query("SELECT CAST(substr(id ,6) AS UNSIGNED) AS idDesc FROM ModifiedOrderItemEntity where orderId = :orderId ORDER BY idDesc DESC")
+    fun getLastModifiedOrderedItemId(orderId: String): Int?
 
 
 

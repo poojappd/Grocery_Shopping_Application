@@ -6,13 +6,17 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
@@ -26,6 +30,9 @@ import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.viewmodels.*
 import kotlinx.android.synthetic.main.fragment_place_order.*
 import kotlinx.android.synthetic.main.fragment_place_order.view.*
+import kotlinx.android.synthetic.main.mobilenumber_chage_alert_layout.view.*
+import kotlinx.android.synthetic.main.product_not_available_dialog_layout.view.*
+import kotlinx.android.synthetic.main.product_not_available_dialog_layout.view.button
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -131,8 +138,10 @@ class PlaceOrderFragment : Fragment() {
                         inventoryViewModel.reserveProducts(orderedItems)
 
                     }
-
+                    showOrderPlacedDialog()
                     toastOrderplaced.show()
+
+
                     findNavController().navigate(R.id.action_placeOrderFragment_to_ordersViewPagerFragment)
                 } ?: toastChoosePayment.show()
 
@@ -142,6 +151,31 @@ class PlaceOrderFragment : Fragment() {
         }
 
         return view
+
+    }
+
+    private fun showOrderPlacedDialog(){
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val dialogView =
+            layoutInflater.inflate(R.layout.order_placed_dialog, null)
+
+        dialogBuilder.setView(dialogView)
+        val alertDialog = dialogBuilder.create()
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow()!!
+                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            alertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
+        }
+        alertDialog.show()
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                alertDialog.dismiss()
+                timer.cancel()
+
+            }
+        }, 3000)
+
 
     }
 

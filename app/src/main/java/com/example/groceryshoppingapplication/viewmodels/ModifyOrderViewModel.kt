@@ -27,6 +27,8 @@ class ModifyOrderViewModel(application: Context) : ViewModel() {
     var newPrice = MutableLiveData<Double>()
     var newQty = MutableLiveData<Int>()
     var modifiedSessionEnabled = false
+    var refundAmount:String? = null
+
 
     fun checkOrderDetailIsSet(): Boolean {
         return (this@ModifyOrderViewModel::orderDetail.isInitialized)
@@ -53,6 +55,7 @@ class ModifyOrderViewModel(application: Context) : ViewModel() {
             modifiedSessionEnabled = false
             ordersDao.clearTableModifiedItems()
             ordersDao.clearTableModifiedOrder()
+            refundAmount = null
         }
         MyGroceryApplication.setModifiedStateEnabled(false,"no id")
     }

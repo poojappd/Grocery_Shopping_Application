@@ -2,12 +2,16 @@ package com.example.groceryshoppingapplication.fragments
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -20,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_modified_place_order.*
 import kotlinx.android.synthetic.main.fragment_modified_place_order.view.*
 import kotlinx.android.synthetic.main.fragment_modified_place_order.yetToPayOrRefund
 import kotlinx.android.synthetic.main.fragment_modified_place_order.yetToPay_Refund_value
+import kotlinx.android.synthetic.main.order_placed_dialog.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,7 +66,9 @@ class ModifiedPlaceOrderFragment : Fragment() {
                 PaidAlready.text = decimal.format(previousOrderDetail.totalPrice)
                 if(previousOrderDetail.totalPrice >= modifiedOrderDetail.totalPrice){
                     yetToPayOrRefund.text = "Refund"
-                    yetToPay_Refund_value.text = decimal.format(previousOrderDetail.totalPrice - modifiedOrderDetail.totalPrice)
+                    val refundAmount = previousOrderDetail.totalPrice - modifiedOrderDetail.totalPrice
+                    modifyOrderViewModel.refundAmount = decimal.format(refundAmount)
+                    yetToPay_Refund_value.text = decimal.format(refundAmount)
                 }
                 else{
                     yetToPay_Refund_value.text = decimal.format(modifiedOrderDetail.totalPrice - previousOrderDetail.totalPrice)
@@ -183,6 +190,7 @@ class ModifiedPlaceOrderFragment : Fragment() {
                         modifyOrderViewModel.haltModifyingOrder()
                         action = R.id.action_modifiedPlaceOrderFragment_to_ordersViewPagerFragment
                     }
+                    showOrderPlacedDialog()
                     toastOrderplaced.show()
                     findNavController().navigate(action)
                 } ?: toastChoosePayment.show()
@@ -196,8 +204,35 @@ class ModifiedPlaceOrderFragment : Fragment() {
 
     }
 
+    private fun showOrderPlacedDialog(){
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val dialogView =
+            layoutInflater.inflate(R.layout.order_placed_dialog, null)
+        dialogBuilder.setView(dialogView)
+        modifyOrderViewModel.refundAmount?.let {
+            dialogView.refundContainer.visibility = View.VISIBLE
+            dialogView.refundAmount.text = modifyOrderViewModel.refundAmount
+        }
+        val alertDialog = dialogBuilder.create()
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow()!!
+                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            alertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
+        }
+        alertDialog.show()
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                alertDialog.dismiss()
+                timer.cancel()
+
+            }
+        }, 3000)
+
+
+    }
+
     private fun activateOption(it: View) {
-        var paymentOption: String? = null
         var checkView: View? = null
         scrollView_placeOrder.post {
             scrollView_placeOrder.fullScroll(View.FOCUS_DOWN)
@@ -219,8 +254,6 @@ class ModifiedPlaceOrderFragment : Fragment() {
 
         it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#838ED5"))
         checkView.visibility = View.VISIBLE
-
-        orderDetailsViewModel.paymentOption = paymentOption
 
         if (this@ModifiedPlaceOrderFragment::lastView.isInitialized && lastView.id!=it.id) {
             lastView.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#C7C9D6"))

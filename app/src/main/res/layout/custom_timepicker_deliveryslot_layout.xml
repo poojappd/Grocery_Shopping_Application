@@ -9,12 +9,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout10"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
           >
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/time_delSlot"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

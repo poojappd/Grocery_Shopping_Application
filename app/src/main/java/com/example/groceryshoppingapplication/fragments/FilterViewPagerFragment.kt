@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,8 +49,16 @@ class FilterViewPagerFragment : Fragment() {
             packSizePositions = it.packSizePositions
             categPositions = it.categPositions
             brandPositions = it.brandPositions
-
         }
+
+        view.apply {
+            setBadge(brand_badge, viewmodel.brandFilterCount)
+            setBadge(categ_badge, viewmodel.categFilterCount)
+            setBadge(size_badge, viewmodel.sizeFilterCount)
+        }
+
+
+
 
         categRV = view.categ_child_recyclerView_ViewPager
         categRV.layoutManager = LinearLayoutManager(requireContext())
@@ -56,21 +66,23 @@ class FilterViewPagerFragment : Fragment() {
             viewmodel.categoryString,
             selectedFilterTitles = categPositions
         ) { position, isSelected ->
-            viewmodel.temporaryFilterConfiguration?.setCategory(position,isSelected)
+            viewmodel.temporaryFilterConfiguration?.setCategory(position, isSelected)
         }
 
         brandRV = view.brand_child_recyclerView_ViewPager
         brandRV.layoutManager = LinearLayoutManager(requireContext())
-        brandRV.adapter = FilterChildAdapter(viewmodel.brands, brandPositions) { position, isSelected ->
-            viewmodel.temporaryFilterConfiguration?.setBrand(position,isSelected)
-            Log.e(TAG,"CHANGING BRAND")
-        }
+        brandRV.adapter =
+            FilterChildAdapter(viewmodel.brands, brandPositions) { position, isSelected ->
+                viewmodel.temporaryFilterConfiguration?.setBrand(position, isSelected)
+                Log.e(TAG, "CHANGING BRAND")
+            }
 
         sizeRV = view.size_child_recyclerView_ViewPager
         sizeRV.layoutManager = LinearLayoutManager(requireContext())
-        sizeRV.adapter = FilterChildAdapter(viewmodel.packSizes, packSizePositions) { position, isSelected ->
-            viewmodel.temporaryFilterConfiguration?.setPackSize(position,isSelected)
-        }
+        sizeRV.adapter =
+            FilterChildAdapter(viewmodel.packSizes, packSizePositions) { position, isSelected ->
+                viewmodel.temporaryFilterConfiguration?.setPackSize(position, isSelected)
+            }
         view.constraintLayout8.setOnClickListener {
             expandDropDownList(categRV, view.categ_drop_down)
         }
@@ -111,5 +123,14 @@ class FilterViewPagerFragment : Fragment() {
         lastExpandedRecyclerView = targetRecyclerView
 
     }
+
+    fun setBadge(badgeView: TextView, badgeCount: Int) {
+        if (badgeCount > 0) {
+            badgeView.text = badgeCount.toString()
+        } else
+            badgeView.isVisible = false
+    }
+
 }
+
 

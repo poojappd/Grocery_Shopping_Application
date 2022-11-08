@@ -44,6 +44,7 @@ class DeliverySlotFragment : Fragment() {
     lateinit var mainView:View
 
     override fun onResume() {
+        Log.e(TAG,"ONRESUME")
         requireActivity().bottomNavigationView.visibility = View.GONE
         super.onResume()
         val view = mainView
@@ -64,9 +65,9 @@ class DeliverySlotFragment : Fragment() {
 
         val dateRecycerView = view.dateChoose_rv
         val timeRv = view.timeChoose_rv
-        deliverySlotViewModel.timePosition?.let {
-            view.invisible_time_picker.visibility = View.VISIBLE
-        }
+//        deliverySlotViewModel.timePosition?.let {
+//            view.invisible_time_picker.visibility = View.VISIBLE
+//        }
 
         dateRecycerView.adapter = DeliverySlotDateAdapter(dateArray, { date: Date, position:Int ->
             deliverySlotViewModel.chosenDate = date
@@ -97,9 +98,11 @@ class DeliverySlotFragment : Fragment() {
                 view.delSlot_Scrollview.post {
                     view.delSlot_Scrollview.fullScroll(View.FOCUS_DOWN)
                 }
+
                 view.chosenSlotTV.text = StringBuilder().append(date.formatDate("dd EEEE")+" "+time.formatDate("hh a"))
                 view.chosenSlotTV.visibility = View.VISIBLE
             },deliverySlotViewModel.timePosition)
+            Log.e(TAG,"LINE BELOW TIME ADAPTER DATE, ${deliverySlotViewModel.timePosition}")
             view.invisible_time_picker.visibility = View.VISIBLE
 
             val timeSNapHelper = PagerSnapHelper()
@@ -143,10 +146,13 @@ class DeliverySlotFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.e(TAG,"ONCREATE")
+
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_delivery_slot, container, false)
-        mainView = view
-            return view
+        if(!this::mainView.isInitialized) {
+            mainView = inflater.inflate(R.layout.fragment_delivery_slot, container, false)
+        }
+            return mainView
         }
     }
 

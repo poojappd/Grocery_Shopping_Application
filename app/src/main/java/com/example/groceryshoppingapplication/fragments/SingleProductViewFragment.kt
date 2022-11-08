@@ -169,18 +169,21 @@ class SingleProductViewFragment : Fragment() {
                     toastMessageProvider.show(message)
 
                 }
+                userViewmodel.checkProductInWishList((productCode)).value?.let {
+                    if(it)
+                        saveForLater_single_product_view.text = "Saved"
+                }
                 saveForLater_single_product_view.setOnClickListener { buttonView ->
-
                     userViewmodel.checkProductInWishList(productCode)
                         .observe(viewLifecycleOwner) { isInWishList ->
                             if (!isInWishList) {
                                 userViewmodel.addProductToWishList(it.productCode)
                                 toastMessageProvider.show("Added to wishList!")
-                                buttonView.saveForLater_textView.text = "Saved"
+                                saveForLater_single_product_view.text = "Saved"
 
                             } else {
                                 userViewmodel.removeFromWishListByProductCode(it.productCode)
-                                buttonView.saveForLater_textView.text = "Save for later"
+                                saveForLater_single_product_view.text = "Save for later"
                                 toastMessageProvider.show("Removed From wishList!")
                             }
                         }
@@ -194,6 +197,7 @@ class SingleProductViewFragment : Fragment() {
 
         return view
     }
+
 
     private fun toggleAddToCartVisibility(inCart: Boolean) {
         if (!inCart) {
