@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.adapters.ProductsInCategoriesAdapter
@@ -40,7 +41,7 @@ class ProductsListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         view.toolbar_productList.setNavigationOnClickListener { requireActivity().onBackPressed() }
         val recyclerView = view.products_list_recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context,2)
         if (args.subCategory != SubCategory.NONE) {
             val subCategory = args.subCategory
             view.toolbar_productList.title = subCategory.value

@@ -171,7 +171,7 @@ class EditAddressFragment : Fragment() {
                 validationPassed = false
             }
             //landmark
-            if (!TextUtils.isEmpty(landmark.text)) {
+            if (!TextUtils.isEmpty(landmark.text ) && landmark.text.toString().trim()!="") {
                 if (!ValidationService.validateArea(landmark.text.toString().trim())) {
                     view.landmark.setError(Response.LANDMARK_INVALID.message)
                     view.landmark.requestFocus()

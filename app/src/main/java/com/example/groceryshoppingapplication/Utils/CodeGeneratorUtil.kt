@@ -78,8 +78,8 @@ object CodeGeneratorUtil {
         return "$prefix$newOrderItemId"
     }
 
-    fun generateWishListItemId(wishListId:Int):Int{
-        return idDAO.getLastWishListItemId(wishListId)?.plus(1) ?: 1
+    fun generateWishListItemId():Int{
+        return idDAO.getLastWishListItemId()?.plus(1) ?: 1
     }
 
     fun generateWishListId():Int{

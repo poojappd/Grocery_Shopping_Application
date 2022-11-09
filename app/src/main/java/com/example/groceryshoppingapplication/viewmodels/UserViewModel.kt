@@ -13,7 +13,6 @@ import com.example.groceryshoppingapplication.repositories.CartRepository
 import com.example.groceryshoppingapplication.repositories.UserRepository
 import com.example.groceryshoppingapplication.repositories.WishListRepository
 import kotlinx.coroutines.launch
-import java.util.*
 
 class UserViewModel(applicationContext: Context) : ViewModel() {
 
@@ -291,7 +290,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
     fun addProductToWishList(productCode: Int) {
         viewModelScope.launch {
             val wishListId = _currentUserWishList.value!!.wishListId
-            val wishListItemId = CodeGeneratorUtil.generateWishListItemId(wishListId)
+            val wishListItemId = CodeGeneratorUtil.generateWishListItemId()
             myWishListRepo.addToWishList(
                 WishListItemEntity(
                     productCode, wishListId, wishListItemId

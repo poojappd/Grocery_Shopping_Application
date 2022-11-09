@@ -6,13 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
@@ -24,7 +22,10 @@ import java.lang.StringBuilder
 import java.util.*
 import com.example.groceryshoppingapplication.Utils.ValidationService
 import com.example.groceryshoppingapplication.enums.Response
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.error_snackbar_layout.view.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
+import kotlinx.android.synthetic.main.fragment_username_form.view.*
 
 class UserDetailsEditFragment : Fragment() {
 
@@ -38,6 +39,22 @@ class UserDetailsEditFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_details_edit, container, false)
+        val snackBarCustomLayout = layoutInflater.inflate(R.layout.error_snackbar_layout, null)
+        var snackBar = Snackbar.make(
+            view.rootLayout_userdetailsEdit,
+            "",
+            5000
+        )
+        val snackView: View = snackBar.getView()
+        val params = snackView.layoutParams as CoordinatorLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        snackView.layoutParams = params
+        val snackbarLayout = snackBar.getView() as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 0, 0, 0)
+        snackbarLayout.addView(snackBarCustomLayout, 0);
+        snackbarLayout.snackBarDismissButton.setOnClickListener {
+            snackBar.dismiss()
+        }
         val firstNameEditText = view.textView10_et
         val lastNameEditText = view.textView11_et
         val mobileNumberEditText = view.textView13_et
@@ -125,16 +142,18 @@ class UserDetailsEditFragment : Fragment() {
                         view.textView10.setError(Response.FNAME_INVALID.message)
                         view.textView10.requestFocus()
                         validationPassed = false
+                        snackBar.show()
                     }
                 }
 
             val lname =lastNameEditText.text
 
-            if(!TextUtils.isEmpty(lname) || lname.toString().trim() != ""){
+            if(!TextUtils.isEmpty(lname) && lname.toString().trim() != ""){
                 if (!ValidationService.validateLastName(lname.toString().trim())) {
                     view.textView11.setError(Response.LNAME_INVALID.message)
                     view.textView11.requestFocus()
                     validationPassed = false
+                    snackBar.show()
                 }
             }
 

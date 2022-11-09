@@ -7,4 +7,5 @@ interface WishListListener {
     fun removeFromWishList(wishListItemId:Int)
     fun getWishListItemExtras(productCode: Int): WishListItemData
     fun getContext():Context
+    fun navigate(productCode: Int)
 }

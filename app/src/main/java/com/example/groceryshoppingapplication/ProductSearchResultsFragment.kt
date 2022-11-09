@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.Utils.TaskAssigner
@@ -71,7 +72,7 @@ class ProductSearchResultsFragment : Fragment() {
         items = mutableItems
         filterViewModel.setInitialSearchResults(items)
         recyclerView = view.product_search_result_RV
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         filterViewModel.getRefinedData()?.let {
             Log.e(TAG,"Refined data exists")
             recyclerView.adapter =

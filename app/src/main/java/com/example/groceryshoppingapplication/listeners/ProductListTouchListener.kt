@@ -7,5 +7,7 @@ interface ProductListTouchListener {
     fun removeFromCartCompletely(productCode: Int): Boolean
     fun checkItemInCart(productCode: Int):Response
     fun navigate(productCode: Int)
+    fun addToWishList(productCode: Int):Boolean
+    fun checkInWishList(productCode:Int):Boolean
 
 }

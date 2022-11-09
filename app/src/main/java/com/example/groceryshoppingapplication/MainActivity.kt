@@ -10,12 +10,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.Utils.AssetManagerUtil
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
@@ -116,6 +113,8 @@ class MainActivity : AppCompatActivity() {
                     val badge = bottomNavigationView.getOrCreateBadge(R.id.cartFragment)
                     badge.backgroundColor = Color.parseColor("#7584e7")
                     badge.number = it
+                    badge.maxCharacterCount = 2
+
                 } else
                     bottomNavigationView.removeBadge(R.id.cartFragment)
             }

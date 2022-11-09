@@ -14,7 +14,7 @@ import com.example.groceryshoppingapplication.relations.UserAndOrders
 interface OrdersDAO {
 
     @Insert
-    suspend fun createOrder(order: OrderDetail)
+    suspend fun  createOrder(order: OrderDetail)
 
     @Insert
     suspend fun addOrderedItem(orderItem:OrderedItemEntity)

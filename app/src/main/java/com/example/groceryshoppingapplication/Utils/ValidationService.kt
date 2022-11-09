@@ -2,14 +2,14 @@ package com.example.groceryshoppingapplication.Utils
 
 object ValidationService {
     fun validateFirstName(name:String): Boolean {
-        if(name.matches(Regex("^[^&!@#$%^\\[*()< >\\]~`/{}|=_+:\";]*$")) && name[0].toString().matches(Regex("[a-zA-z]"))){
+        if(name.matches(Regex("^[^&!@#$%^\\[*()<>\\]~`/{}|=_+:\";]*$")) && name[0].toString().matches(Regex("[a-zA-z]"))){
             if(name.count { " ".contains(it) }  >3)
                 return false
             if(name.count { "'".contains(it) }  >2)
                 return false
             if(name.count { ".".contains(it) }  >3)
                 return false
-            if(name.count { "-".contains(it) }  >1)
+            if(name.count { "-".contains(it) }  >2)
                 return false
             return true
         }
@@ -17,7 +17,7 @@ object ValidationService {
     }
 
     fun validateLastName(name:String): Boolean {
-        if(name.matches(Regex("^[^&!@#$%^\\[*()< >\\]~`/{}|=_+:\";]*$"))){
+        if(name.matches(Regex("^[^&!@#$%^\\[*()<>\\]~`/{}|=_+:\";]*$"))){
             if(!name.any { c -> c.isLetter() })
                 return false
             if(name.count { " ".contains(it) }  >3)

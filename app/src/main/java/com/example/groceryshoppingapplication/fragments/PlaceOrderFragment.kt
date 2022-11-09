@@ -122,7 +122,6 @@ class PlaceOrderFragment : Fragment() {
                         viewModel.createNewOrder(newOrder,orderedItems)
                         val deliverySlotDate = SimpleDateFormat("h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
                         val orderTimeString = SimpleDateFormat("h:mma", Locale.getDefault()).format(Date())
-
                         val intent = Intent(requireActivity(), NotificationReceiver::class.java)
                         intent.putExtra("deliveryTime", deliverySlotDate)
                         val sevendayalarm: Calendar = Calendar.getInstance()

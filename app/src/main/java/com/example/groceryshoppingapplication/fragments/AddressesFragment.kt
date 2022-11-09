@@ -1,5 +1,6 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.ContentValues
 import android.content.ContentValues.TAG
@@ -9,6 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -77,13 +80,28 @@ class AddressesFragment : Fragment() {
             if (it.isEmpty()) {
                 recyclerView.visibility = View.GONE
                 emptyAddressLayout.isVisible = true
-                val path = Path().apply {
-                    arcTo(200f, 550f, 400f, 750f, 0f, 359f, true)
-                }
-                    ObjectAnimator.ofFloat(view.search_icon_addresses, View.X, View.Y, path).apply {
-                        duration = 2000
-                        start()
-                    }
+
+                val animZoomIn = AnimationUtils.loadAnimation(requireContext(), R.anim.magnifier_zoom)
+                view.search_icon_addresses.startAnimation(animZoomIn)
+                val zoomOut = AnimationUtils.loadAnimation(requireContext(), R.anim.magnifier_shrink)
+                //view.search_icon_addresses.startAnimation(zoomOut)
+
+                    animZoomIn.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation) {}
+                        override fun onAnimationRepeat(animation: Animation) {}
+                        override fun onAnimationEnd(animation: Animation) {
+                            view.search_icon_addresses.startAnimation(zoomOut)
+
+                        }
+                    })
+
+//                val path = Path().apply {
+//                    arcTo(200f, 550f, 400f, 750f, 0f, 359f, true)
+//                }
+//                    ObjectAnimator.ofFloat(view.search_icon_addresses, View.X, View.Y, path).apply {
+//                        duration = 2000
+//                        start()
+//                    }
             } else {
                 recyclerView.visibility = View.VISIBLE
                 emptyAddressLayout.visibility = View.GONE

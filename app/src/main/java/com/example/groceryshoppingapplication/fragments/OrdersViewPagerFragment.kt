@@ -81,7 +81,7 @@ constructor(applicationContext: Context) : this() {
 
                     }
                     val moveUp: ObjectAnimator =
-                        ObjectAnimator.ofFloat(targetView, "translationY", -200f)
+                        ObjectAnimator.ofFloat(targetView, "translationY", -100f)
                     moveUp.setRepeatCount(0)
                     moveUp.setDuration(1000)
 

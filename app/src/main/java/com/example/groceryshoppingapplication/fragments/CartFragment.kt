@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,6 @@ import com.example.groceryshoppingapplication.CartItemData
 import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.ProductUnavailabilityDialogGenerator
-import com.example.groceryshoppingapplication.Utils.TaskAssigner
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.adapters.CartItemsAdapter
 import com.example.groceryshoppingapplication.enums.ProductAvailability
@@ -117,7 +118,9 @@ class CartFragment : Fragment() {
                     CartItemTouchListenerImplementation(),
                     toastMessageProvider
                 )
-                recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+                val layoutManager = LinearLayoutManager(this.requireContext())
+
+                recyclerView.layoutManager =  layoutManager
                 recyclerView.adapter = adapter
                 view.extFloatingActionButton.setOnClickListener { fabView ->
                     orderDetailsViewModel.subTotal = totalPrice
@@ -163,21 +166,23 @@ class CartFragment : Fragment() {
         private val floatingActionButton: ExtendedFloatingActionButton
     ) : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             if (newState == RecyclerView.SCROLL_STATE_IDLE
-                && !floatingActionButton.isExtended
-
             ) {
-                floatingActionButton.extend()
+                recyclerView.adapter?.let {
+                    Log.e(TAG,"com vis ${layoutManager.findLastVisibleItemPosition()} vis ${layoutManager.findLastVisibleItemPosition()}")
+                    if(layoutManager.findLastCompletelyVisibleItemPosition() == it.itemCount -1)
+                        floatingActionButton.extend()
+
+                }
             }
             super.onScrollStateChanged(recyclerView, newState)
         }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            if (dy > 0 && floatingActionButton.isExtended) {
+            //scroll up
+            if ((dy > 0 || dy < 0) && floatingActionButton.isExtended) {
                 floatingActionButton.shrink()
-            }
-            if (dy < 0 && !floatingActionButton.isExtended) {
-                floatingActionButton.extend()
             }
 
             super.onScrolled(recyclerView, dx, dy)

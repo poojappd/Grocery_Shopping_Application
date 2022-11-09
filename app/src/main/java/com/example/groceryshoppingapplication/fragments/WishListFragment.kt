@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.WishListItemData
@@ -55,6 +56,11 @@ class WishListFragment : Fragment() {
 
          override fun getContext(): Context {
              return requireContext()
+         }
+
+         override fun navigate(productCode: Int) {
+             val action = WishListFragmentDirections.actionWishListFragmentToSingleProductViewFragment(productCode)
+             findNavController().navigate(action)
          }
 
     }

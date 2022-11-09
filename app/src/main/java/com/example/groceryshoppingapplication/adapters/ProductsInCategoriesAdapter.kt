@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.enums.Response
 import com.example.groceryshoppingapplication.models.GroceryItemEntity
+import kotlinx.android.synthetic.main.fragment_single_product_view.view.*
 import kotlinx.android.synthetic.main.single_product_row_item_in_list.view.*
-import java.lang.StringBuilder
 import java.text.DecimalFormat
+import kotlin.text.StringBuilder
 
 class ProductsInCategoriesAdapter(
     private val products: List<GroceryItemEntity>,
@@ -28,9 +30,11 @@ class ProductsInCategoriesAdapter(
 ) :
     RecyclerView.Adapter<ProductsInCategoriesAdapter.ProductViewHolder>() {
     private val buttonClickedStates = mutableMapOf<Int, Boolean>()
-
+    private val toastMessageProvider= ToastMessageProvider(context)
     class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val brandName = view.product_brand_textView
+        val wishListButton = view.addToWishList_container
+        val wishListIcon = view.addToWishList_Icon
+        val netQty = view.netQtyTv
         val productName = view.product_name_textView
         val price = view.product_price_textView
         val image = view.product_image_in_list
@@ -51,10 +55,16 @@ class ProductsInCategoriesAdapter(
         val decimal = DecimalFormat("0.##")
 
         holder.apply {
-            brandName.text = products.get(position).brandName
-            productName.text = products.get(position).itemName
-
+            val theProduct = products.get(position)
+            productName.text =StringBuilder().append(products.get(position).brandName+" "+ products.get(position).itemName)
             price.text = StringBuilder().append("Rs. "+decimal.format(products.get(position).unitPrice))
+            netQty.text = products.get(position).capacityUnit.value
+            val capacityValue = theProduct.capacity
+            val appendString =
+                if (capacityValue > 1 && theProduct.capacityUnit.value.length > 2) "s" else ""
+            netQty.text = StringBuilder().append(
+                decimal.format(capacityValue) + " " + theProduct.capacityUnit.value + appendString
+            ).toString()
             Log.e(
                 TAG,
                 "position - ${products.get(position).brandName}  ${
@@ -71,10 +81,24 @@ class ProductsInCategoriesAdapter(
                productListTouchListener.navigate(products.get(position).productCode)
             }
 
+
+
             val productCode = products.get(position).productCode
+            wishListButton.setOnClickListener {
+                productListTouchListener.addToWishList(productCode)
+            }
             var response = productListTouchListener.checkItemInCart(productCode)
             var buttonState = response != Response.NO_SUCH_ITEM_IN_CART
             toggleAddToCartButton(buttonState, addToCartButton)
+            val itemInCart = productListTouchListener.checkInWishList(productCode)
+            toggleAddToWishListButton(itemInCart, wishListIcon)
+            wishListButton.setOnClickListener {
+                val inWishList = productListTouchListener.addToWishList(productCode)
+                toggleAddToWishListButton(inWishList,wishListIcon)
+                val message =  if(inWishList) "Added To WishList" else "Removed from Wishlist"
+                toastMessageProvider.show(message)
+
+            }
             if(products[position].productAvailability==ProductAvailability.OUT_OF_STOCK) {
                 notAvailableBanner.visibility = View.VISIBLE
                 addToCartButton.isEnabled = false
@@ -111,6 +135,15 @@ class ProductsInCategoriesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    private fun toggleAddToWishListButton(isInWishList:Boolean, wishListImageView:ImageView){
+        if(isInWishList){
+            wishListImageView.setImageResource(R.drawable.heart_icon_selected)
+        }
+        else{
+            wishListImageView.setImageResource(R.drawable.heart_not_chosen)
+        }
     }
 
     private fun toggleAddToCartButton(state:Boolean, addToCartButton:ImageView, productCode:Int=-1){

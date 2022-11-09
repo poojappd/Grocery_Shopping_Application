@@ -77,6 +77,7 @@ class OrderHistoryViewModel(applicationContext: Context) : ViewModel() {
     //JCWMJSWMJGM+
     fun updateOrderChanges(orderItems: List<OrderedItemEntity>, order: OrderDetail) {
     viewModelScope.launch {
+        Log.e(TAG, order.orderDate.toString())
         removeOrderedItemsFromOrder(order.orderId)
         updateOrderDetail(order)
         orderItems.forEach {

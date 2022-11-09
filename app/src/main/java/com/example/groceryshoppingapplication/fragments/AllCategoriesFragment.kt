@@ -30,7 +30,7 @@ class AllCategoriesFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_all_categories, container, false)
         val recyclerViewParent = view.findViewById<RecyclerView>(R.id.category_list)
-
+        var isChecked = false
         recyclerViewParent.layoutManager = LinearLayoutManager(context)
         val generalCategories = CategoriesUtil(requireContext())
         val parentAndChildCategory = generalCategories.categoryMap
@@ -41,17 +41,24 @@ class AllCategoriesFragment : Fragment() {
             false,
             CategoryItemTouchListenerImpl()
         )
-        view.expand_collapse_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+        view.expandCollapse_Button.setOnClickListener {
             TransitionManager.beginDelayedTransition(recyclerViewParent)
            // recyclerViewParent.adapter?.notifyDataSetChanged()
-            if (isChecked) {
+            if (!isChecked) {
                 recyclerViewParent.adapter = ParentCategoryAdapter(
                     parentAndChildCategory,
                     parentImages,
                     true,
                     CategoryItemTouchListenerImpl()
                 )
-                view.Expand_Collapse_TV.text = "Collapse all"
+                view.expandCollapse_Button.text = "Collapse all"
+                view.expandCollapse_Button.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.collapse_all_icon,
+                    0,
+                    0,
+                    0
+                )
+                isChecked = true
             }
             else {
                 recyclerViewParent.adapter = ParentCategoryAdapter(
@@ -60,8 +67,15 @@ class AllCategoriesFragment : Fragment() {
                     false,
                     CategoryItemTouchListenerImpl()
                 )
-                view.Expand_Collapse_TV.text = "Expand all"
-
+                view.expandCollapse_Button.apply {
+                    text = "Expand all"
+                    setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.expand_all_icon,
+                            0,
+                            0,
+                            0
+                        )}
+            isChecked = false
 
             }
         }

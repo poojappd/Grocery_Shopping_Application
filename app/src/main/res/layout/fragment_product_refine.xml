@@ -30,7 +30,7 @@
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/sortFilter_viewpager"
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/refine_tabLayout"
@@ -42,10 +42,10 @@
             android:text="apply"
             android:id="@+id/applyFilter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/clearFilter"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clearFilter"
             app:layout_constraintHorizontal_bias="0.331"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
@@ -53,9 +53,9 @@
             android:text="Clear"
             android:id="@+id/clearFilter"
             app:layout_constraintBottom_toBottomOf="@+id/applyFilter"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.684"
             app:layout_constraintTop_toTopOf="@+id/applyFilter"
-            app:layout_constraintStart_toEndOf="@+id/applyFilter" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/applyFilter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

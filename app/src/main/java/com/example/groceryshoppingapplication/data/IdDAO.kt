@@ -18,8 +18,8 @@ interface IdDAO {
     @Query("select wishListId from WishListEntity order by wishListId desc limit 1")
     fun getLastWishListId():Int
 
-    @Query("SELECT id FROM WishListItemEntity where wishListId = :wishListId ORDER BY id DESC LIMIT 1")
-    fun getLastWishListItemId(wishListId: Int): Int?
+    @Query("SELECT id FROM WishListItemEntity ORDER BY id DESC LIMIT 1")
+    fun getLastWishListItemId(): Int?
 
     @Query("select addressId from Address where userId=:userId order by addressId desc limit 1 ")
     fun getLastAddressId(userId:String): String?
@@ -33,7 +33,7 @@ interface IdDAO {
     @Query("select id from DefaultAddressEntity order by id desc limit 1")
     fun getLastDefaultAddressId():Int?
 
-    @Query("SELECT CAST(substr(id ,6) AS UNSIGNED) AS idDesc FROM ModifiedOrderItemEntity where orderId = :orderId ORDER BY idDesc DESC")
+    @Query("SELECT CAST(substr(id ,18) AS UNSIGNED) AS idDesc FROM ModifiedOrderItemEntity where orderId = :orderId ORDER BY idDesc DESC")
     fun getLastModifiedOrderedItemId(orderId: String): Int?
 
 

@@ -27,7 +27,7 @@ class LoginScreenFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.e(TAG,"CONTEXT ATTACHED> . . ${activity?.packageName?:"no activity"}")
+        Log.e(TAG,"CONTEXT ATTACHED> . .${context.javaClass} ${activity?.packageName?:"no activity"}")
     }
 
 
@@ -71,7 +71,7 @@ class LoginScreenFragment : Fragment() {
 
         }
 
-        val signUpButtn = loginScreenFragmentView.findViewById<Button>(R.id.signUpButton).setOnClickListener {
+        loginScreenFragmentView.findViewById<Button>(R.id.signUpButton).setOnClickListener {
             refActivity?.supportFragmentManager?.apply {
                 beginTransaction().apply {
                     setCustomAnimations(
@@ -96,8 +96,9 @@ class LoginScreenFragment : Fragment() {
     }
 
     fun skipToSignup(){
-        parentFragmentManager.popBackStack()
-        parentFragmentManager.apply {
+
+        requireActivity().supportFragmentManager.popBackStack()
+        requireActivity().supportFragmentManager.apply {
             beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.slide_in,
@@ -110,7 +111,7 @@ class LoginScreenFragment : Fragment() {
 
                 Log.e(
                     ContentValues.TAG,
-                    parentFragmentManager.backStackEntryCount.toString()
+                    requireActivity().supportFragmentManager.backStackEntryCount.toString()
                 )
                commit()
 

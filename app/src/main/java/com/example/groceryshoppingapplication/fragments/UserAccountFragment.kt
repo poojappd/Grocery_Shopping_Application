@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
@@ -132,8 +133,11 @@ class UserAccountFragment : Fragment() {
     }
 
     fun popBackStackAndGoToLoginPage() {
-        findNavController().navigate(R.id.action_userAccountFragment_to_loginScreenFragment)
+        while (findNavController().backQueue.size>1){
+                findNavController().popBackStack(R.id.homePageFragment,true)
+        }
 
+        findNavController().navigate(R.id.loginScreenFragment )
         //findNavController().popBackStack(R.id.homePageFragment, true)
     }
 }

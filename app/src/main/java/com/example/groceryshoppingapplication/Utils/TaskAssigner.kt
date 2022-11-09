@@ -1,10 +1,8 @@
 package com.example.groceryshoppingapplication.Utils
 
 import androidx.lifecycle.LiveData
-import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.CartItemData
 import com.example.groceryshoppingapplication.enums.Response
-import com.example.groceryshoppingapplication.fragments.CartFragmentDirections
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.viewmodels.InventoryViewModel
@@ -74,6 +72,19 @@ abstract class TaskAssigner() : ProductListTouchListener {
         }
     }
 
+    override fun addToWishList(productCode: Int): Boolean {
+        val isInWishList = userViewModelChild.checkProductInWishList(productCode).value ?:false
+
+        if (!isInWishList) {
+            userViewModelChild.addProductToWishList(productCode)
+            return true
+        }
+        else{
+        userViewModelChild.removeFromWishListByProductCode(productCode)
+            return false
+        }
+    }
+
     override fun removeFromCartCompletely(productCode: Int): Boolean {
         if (modifyOrderViewModel.modifiedSessionEnabled) {
             val item = getModifiableItemIfExists(productCode)
@@ -112,6 +123,10 @@ abstract class TaskAssigner() : ProductListTouchListener {
     override fun navigate(productCode: Int) {
     }
 
+    override fun checkInWishList(productCode:Int):Boolean{
+        return userViewModelChild.checkProductInWishList(productCode).value?:false
+    }
+
     override fun checkItemInCart(productCode: Int): Response {
         if (!modifyOrderViewModel.modifiedSessionEnabled) {
             return userViewModelChild.checkItemInCart(productCode)
@@ -121,7 +136,6 @@ abstract class TaskAssigner() : ProductListTouchListener {
             else
                 return Response.NO_SUCH_ITEM_IN_CART
         }
-        return Response.NOT_LOGGED_IN
     }
 
 

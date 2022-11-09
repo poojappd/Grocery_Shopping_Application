@@ -46,6 +46,7 @@ class SignInFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val signInFragmentView = inflater.inflate(R.layout.fragment_sign_in, container, false)
         val signUpListener: (Boolean) -> Unit = (arguments?.getSerializable(SINGUP_CALLBACK_FUNCTION) as (Boolean) -> Unit)
         val signingMode = arguments?.getBoolean("signingMode",false)

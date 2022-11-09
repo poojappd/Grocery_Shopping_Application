@@ -45,7 +45,7 @@ class FilterViewModel : ViewModel() {
         appliedFilterConfiguration = temporaryFilterConfiguration
         appliedFilterConfiguration?.let {
             val sortCount = it.temporarySortPriceLowToHigh?.let { 1 }?:0
-            _filterCount.value = (if(it.getBrandFilters().size >1) 1 else 0) + (if(it.getSelectedSizeFilters().size >1) 1 else 0)+ (if(it.getSelectedCategoryFilters().size >1) 1 else 0) +sortCount
+            _filterCount.value = (if(it.getBrandFilters().size >0) 1 else 0) + (if(it.getSelectedSizeFilters().size >0) 1 else 0)+ (if(it.getSelectedCategoryFilters().size >0) 1 else 0) +sortCount
             _brandFilterCount = it.getBrandFilters().size
             _categFilterCount = it.getSelectedCategoryFilters().size
             _sizeFilterCount = it.getSelectedSizeFilters().size

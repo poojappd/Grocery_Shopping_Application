@@ -41,9 +41,10 @@ class AddressesAdapter(private val addresses: List<Address>, private val user: U
             if(chosenAddressPosition == position){
                 activateOption(holder.chosenCheckBox)
             }
-            nickname.text = currentAddress.addressTag
+            nickname.text = currentAddress.addressTag?: ""
+            val lastNameText =" "+( user.lastName?:"")
             userFullName.text =
-                StringBuilder().append("${user.firstName} ${user.lastName}").toString()
+                StringBuilder().append("${user.firstName}$lastNameText").toString()
             address.text = StringBuilder().append(
                 "${currentAddress.houseNo}, ${currentAddress.streetDetails}, ${currentAddress.areaDetails}, ${currentAddress.city} - ${currentAddress.pincode}"
             ).toString()

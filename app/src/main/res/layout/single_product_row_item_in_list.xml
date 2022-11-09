@@ -13,9 +13,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="20dp"
-
-            android:orientation="horizontal">
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout
                 android:id="@+id/productt_image_container"
@@ -23,9 +24,9 @@
                 android:layout_height="0dp"
                 android:layout_margin="3dp"
                 android:background="@drawable/product_image_list_container_shape"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                     android:padding="7dp"
@@ -37,14 +38,15 @@
 
 
                     />
+
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/notAvailableBAnner_productList"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/frameLayout_circle_indicator"
-                    android:background="#77CDCDCF"
-                    >
+                    android:background="#77CDCDCF">
+
                 <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -53,7 +55,7 @@
                         android:padding="10dp"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:backgroundTint="#AB59595E"/>
+                        android:backgroundTint="#AB59595E" />
 
 
             </FrameLayout>
@@ -61,33 +63,39 @@
 
 
         <TextView
-                android:layout_marginTop="12dp"
-                android:id="@+id/product_brand_textView"
+
+                android:id="@+id/netQtyTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
-                android:text="Maaza"
-                android:layout_marginStart="15dp"
-                android:textColor="@color/textBlack"
-                android:textSize="14sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/product_name_textView"
-                app:layout_constraintStart_toEndOf="@+id/productt_image_container" />
+                android:textColor="@color/textGrey"
+                android:maxWidth="159dp"
+                android:maxHeight="50dp"
+                android:text="100 ml"
+
+                android:textSize="13sp"
+                android:maxLines="2"
+                app:layout_constraintTop_toBottomOf="@+id/product_name_textView"
+                app:layout_constraintBottom_toTopOf="@+id/product_price_textView"
+                app:layout_constraintStart_toStartOf="@+id/product_name_textView" />
 
         <TextView
                 android:id="@+id/product_name_textView"
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cabin"
-
+                android:textColor="@color/textBlack"
                 android:maxWidth="159dp"
-                android:maxHeight="50dp"
-                android:text="Soft Drink that exceeds\nihihf\n eiuhiu\skjbfjbjhbjkbjkbkbkjbbj"
-                android:textSize="12sp"
+                android:text="Grocero Coconut - Large"
+                android:textSize="14sp"
+                android:maxEms="7"
+                android:lines="2"
                 android:maxLines="2"
-                app:layout_constraintTop_toBottomOf="@+id/product_brand_textView"
-                app:layout_constraintBottom_toTopOf="@+id/product_price_textView"
-                app:layout_constraintStart_toStartOf="@+id/product_brand_textView" />
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@+id/productt_image_container"
+                app:layout_constraintBottom_toTopOf="@+id/netQtyTv"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
                 android:id="@+id/product_price_textView"
@@ -96,20 +104,35 @@
                 android:fontFamily="@font/cabin"
                 android:text="Rs. 109.23"
                 android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                android:layout_marginBottom="15dp"
+                android:textSize="15sp"
+                        android:textColor="@color/textBlack"
+                app:layout_constraintTop_toBottomOf="@+id/netQtyTv"
+                app:layout_constraintStart_toStartOf="@+id/product_name_textView"
+                app:layout_constraintBottom_toTopOf="@+id/product_count_container" />
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_name_textView"
-                app:layout_constraintStart_toStartOf="@+id/product_name_textView" />
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addToWishList_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/heart_not_chosen"
+                    android:tint="@color/app_primaryColor"
+                    android:layout_margin="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/addToWishList_Icon"
+                    />
+        </FrameLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/product_count_container"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/product_list_item_container"
                 app:layout_constraintEnd_toEndOf="parent">
 

@@ -23,34 +23,30 @@
                 android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+
+    <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
-
+            android:text="Expand all"
+            android:textSize="10sp"
+            android:button="@color/white"
+            android:textColor="@color/black"
+            android:drawablePadding="10dp"
+            app:iconTint="@color/fabColor"
+            android:drawableStart="@drawable/expand_collapse_state"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:backgroundTint="@color/white"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            android:shadowRadius="10"
             android:id="@+id/expandCollapse_Button"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-<com.google.android.material.switchmaterial.SwitchMaterial
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/expand_collapse_switch"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
-
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Expand all"
-                android:layout_marginHorizontal="10dp"
-                android:gravity="center"
-                android:id="@+id/Expand_Collapse_TV" />
-
-    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

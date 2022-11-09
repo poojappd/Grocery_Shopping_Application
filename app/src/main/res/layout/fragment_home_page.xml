@@ -27,7 +27,7 @@ android:background="@color/app_primaryColor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:contentScrim="#C6B3FD"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:layout_scrollFlags="scroll|enterAlways"
                     app:expandedTitleMarginEnd="64dp"
                     app:title="@string/app_name"
 >

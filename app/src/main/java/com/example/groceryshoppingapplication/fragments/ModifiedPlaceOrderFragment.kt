@@ -1,5 +1,8 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,11 +15,14 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
+import com.example.groceryshoppingapplication.Utils.NotificationReceiver
+import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.models.OrderDetail
 import com.example.groceryshoppingapplication.models.OrderedItemEntity
 import com.example.groceryshoppingapplication.viewmodels.*
@@ -166,11 +172,17 @@ class ModifiedPlaceOrderFragment : Fragment() {
                         val viewModel: OrderHistoryViewModel by viewModels {
                             OrderHistoryViewModelFactory(requireContext().applicationContext)
                         }
+                        val orderDate = Date()
+                        val orderDateString =
+                            SimpleDateFormat("dd MMM yyyy - hh:ma", Locale.getDefault()).format(
+                                orderDate
+                            )
+
                         val newOrder = OrderDetail(
                             modifiedOrderDetail.orderId,
                             modifiedOrderDetail.userId,
                             modifiedOrderDetail.subTotal,
-                            modifiedOrderDetail.orderDate,
+                            orderDateString,
                             modifiedOrderDetail.numberOfItems,
                             SimpleDateFormat("dd MMM yyyy - h a", Locale.getDefault()).format(
                                 orderDetailsViewModel.deliverySlot!!
@@ -179,7 +191,8 @@ class ModifiedPlaceOrderFragment : Fragment() {
                             modifiedOrderDetail.mobileNumber,
                             0.0,
                             modifiedOrderDetail.totalPrice,
-                            it
+                            it,
+                            OrderStatus.ORDERED
                         )
                         val orderedItems = mutableListOf<OrderedItemEntity>()
                         var number = 1
@@ -189,6 +202,17 @@ class ModifiedPlaceOrderFragment : Fragment() {
                         viewModel.updateOrderChanges(modifyOrderViewModel.modifiableOrderItems.value!!, newOrder)
                         modifyOrderViewModel.haltModifyingOrder()
                         action = R.id.action_modifiedPlaceOrderFragment_to_ordersViewPagerFragment
+                        val deliverySlotDate = SimpleDateFormat("h a", Locale.getDefault()).format(orderDetailsViewModel.deliverySlot!!)
+                        val intent = Intent(requireActivity(), NotificationReceiver::class.java)
+                        intent.putExtra("deliveryTime", deliverySlotDate)
+                        val sevendayalarm: Calendar = Calendar.getInstance()
+
+                        sevendayalarm.add(Calendar.SECOND,3)
+                        val pendinIntent = PendingIntent.getBroadcast(requireActivity(),0,intent,0)
+                        val mgr = requireActivity().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+                        val timeforNotification = 1000.toLong()
+
+                        mgr.set(AlarmManager.RTC_WAKEUP,sevendayalarm.timeInMillis,pendinIntent)
                     }
                     showOrderPlacedDialog()
                     toastOrderplaced.show()

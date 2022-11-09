@@ -56,6 +56,9 @@ class WishListItemsAdapter(val wishListItems: List<WishListItemEntity>, val wish
                   wishListRemoveAnim
                 )
             }
+            imageView.setOnClickListener {
+                wishListListener.navigate(wishListItems[position].productCode)
+            }
         }
 
     }
