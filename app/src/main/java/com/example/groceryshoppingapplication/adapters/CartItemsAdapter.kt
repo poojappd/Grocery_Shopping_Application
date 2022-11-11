@@ -1,13 +1,16 @@
 package com.example.groceryshoppingapplication.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.groceryshoppingapplication.listeners.CartItemTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductImageUri
 import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.fragments.CartFragment
@@ -42,12 +45,8 @@ class CartItemsAdapter(
             price.text = decimal.format(extras.productPrice * qty)
 
             count.text = qty.toString()
-            image.setImageBitmap(
-                getProductBitmapFromAsset(
-                    cartItems.get(position).productCode.toString(),
-                    0
-                )
-            )
+            Glide.with(itemView).load(Uri.parse(getProductImageUri(productCode.toString(),0))).into(image)
+
             image.setOnClickListener {
                 cartItemTouchListener.navigateToProduct(productCode)
             }

@@ -1,6 +1,8 @@
 package com.example.groceryshoppingapplication.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +43,7 @@ class ProductsListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_products_list, container, false)
         view.toolbar_productList.setNavigationOnClickListener { requireActivity().onBackPressed() }
         val recyclerView = view.products_list_recyclerView
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(context,2)
         if (args.subCategory != SubCategory.NONE) {
             val subCategory = args.subCategory
@@ -61,6 +64,7 @@ class ProductsListFragment : Fragment() {
             val items = inventoryViewModel.getProductsUnderGeneralCategory(category)
             productsInCategoriesAdapter =
                 ProductsInCategoriesAdapter(items, requireContext(), ProductListTouchListenerImpl(viewmodel,inventoryViewModel,modifyOrderViewModel))
+            Log.e(TAG, "Items in ths Category = ${items.size}")
             recyclerView.adapter = productsInCategoriesAdapter
         }
 
@@ -78,7 +82,9 @@ class ProductsListFragment : Fragment() {
                 ProductsListFragmentDirections.actionProductsListFragmentToSingleProductViewFragment(
                     productCode
                 )
-            findNavController().navigate(action)
+            if(findNavController().currentDestination?.id == R.id.productsListFragment) {
+                findNavController().navigate(action)
+            }
         }
 
     }

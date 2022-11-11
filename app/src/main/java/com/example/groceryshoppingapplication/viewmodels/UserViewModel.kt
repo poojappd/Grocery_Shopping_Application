@@ -114,6 +114,9 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
         return (_recentSearches.value!!.contains(query))
     }
 
+    fun clearRecentSearches(){
+        _recentSearches.value = mutableListOf()
+    }
 
     fun updateDefaultAddress(addressId: String) {
         viewModelScope.launch {
@@ -173,6 +176,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
 
 
     fun addToCart(productCode: Int) {
+
         viewModelScope.launch {
             val items = myCartRepo.getCartItemsFromCart(currentUserCart.value!!.cartId)
             val response = checkItemInCart(productCode)
@@ -204,6 +208,7 @@ class UserViewModel(applicationContext: Context) : ViewModel() {
             }
             refreshCart()
         }
+
 
     }
 

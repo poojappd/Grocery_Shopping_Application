@@ -133,6 +133,7 @@ class UserAccountFragment : Fragment() {
     }
 
     fun popBackStackAndGoToLoginPage() {
+        userViewmodel.clearRecentSearches()
         while (findNavController().backQueue.size>1){
                 findNavController().popBackStack(R.id.homePageFragment,true)
         }

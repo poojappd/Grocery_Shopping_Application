@@ -10,7 +10,6 @@ enum class GeneralCategory(val value: String) {
     BEAUTY_AND_HYGIENE("Beauty & Hygiene"),
     SNACKS_AND_BRANDED_FOODS("Snacks & Branded Foods"),
     CLEANING_AND_HOUSEHOLD("Cleaning & Household"),
-    GARDENING("Gardening"),
     PETS("Pets"),
     NONE("None")
 

@@ -1,6 +1,7 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,10 @@ import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import java.io.Serializable
 
 class SignInFragment() : Fragment() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e(TAG,"SIGNIN FRAGMENT ATTACHED TO ${context.javaClass}")
+    }
     companion object {
         const val SINGUP_CALLBACK_FUNCTION: String = "SINGUP_CALLBACK_FUNCTION"
 
@@ -46,11 +51,9 @@ class SignInFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val signInFragmentView = inflater.inflate(R.layout.fragment_sign_in, container, false)
         val signUpListener: (Boolean) -> Unit = (arguments?.getSerializable(SINGUP_CALLBACK_FUNCTION) as (Boolean) -> Unit)
         val signingMode = arguments?.getBoolean("signingMode",false)
-
         signInFragmentView.isClickable = true
         if (!signingMode!!)
             signInFragmentView.signInButton2.setText("Sign Up")
@@ -74,19 +77,13 @@ class SignInFragment() : Fragment() {
             "Account already exists!\n Sign In to continue",
             Toast.LENGTH_SHORT
         )
-
         signInFragmentView.findViewById<Button>(R.id.signInButton2).setOnClickListener {
             val sharedPref = MyGroceryApplication.preferences
-
-
             val mobileNumberCheckResponse = checkMobileNumber(mobileNumberInput)
-
             if (mobileNumberCheckResponse == Response.MOBILE_NUMBER_VALID) {
                 if (!signingMode) {//sign up
-
                     val mobileNum = mobileNumberInput.text.toString()
                     val loginResponse = userViewModel.loginUser(mobileNum)
-
                     if (loginResponse == Response.NO_SUCH_USER) {
                         val newUserId = CodeGeneratorUtil.generateUserId()
                         val newUserCartId = CodeGeneratorUtil.generateCartId()
@@ -111,10 +108,8 @@ class SignInFragment() : Fragment() {
                             requireActivity().supportFragmentManager,
                             "otp fragment tag"
                         )
-
                     } else {
                         accountExistsToast.show()
-
                     }
 
                 } else {//signIn
@@ -141,12 +136,8 @@ class SignInFragment() : Fragment() {
                             requireActivity().supportFragmentManager,
                             "otp fragment tag"
                         )
-
-
                     }
-
                 }
-
             } else {
                 if (mobileNumberInput.text.toString().isEmpty()) {
                     mobileNumNotEnteredToast.show()
@@ -158,8 +149,6 @@ class SignInFragment() : Fragment() {
             }
         }
         return signInFragmentView
-
-
     }
 
     private fun checkMobileNumber(mobileNumberInputField: EditText): Response {

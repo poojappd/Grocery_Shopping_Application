@@ -62,7 +62,7 @@ class HomePageFragment : Fragment() {
         recyclerView.setNestedScrollingEnabled(false)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2);
         recyclerView.adapter = HomePageAdapterCategories(CategoryItemTouchListenerImpl())
-
+        view.homePg_circInd.setViewPager(adViewPager)
         view.searchView.setOnClickListener {
             val action = HomePageFragmentDirections.actionHomePageFragmentToProductSearchFragment(true)
             findNavController().navigate(action)
@@ -80,7 +80,9 @@ class HomePageFragment : Fragment() {
             val action = HomePageFragmentDirections.actionHomePageFragmentToProductsListFragment(
                 generalCategory = generalCategory
             )
-            findNavController().navigate(action)
+            if(findNavController().currentDestination?.id == R.id.homePageFragment) {
+                findNavController().navigate(action)
+            }
         }
     }
 

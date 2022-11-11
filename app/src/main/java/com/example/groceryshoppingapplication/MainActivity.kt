@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
 
         //setupWithNavController(bottomNavigationView, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            Log.e(TAG,"----------------ENTRIES---------------------------")
+            Log.e(TAG, "----------------ENTRIES---------------------------")
             controller.backQueue.forEach {
                 it.id
-                Log.e(TAG,it.destination.toString())
+                Log.e(TAG, it.destination.toString())
             }
-            Log.e(TAG,"------------------------------------------------------")
+            Log.e(TAG, "------------------------------------------------------")
             when (destination.id) {
                 R.id.userAccountFragment -> bottomNavigationView.menu.findItem(R.id.userAccountFragment)
                     .setChecked(true)
@@ -61,20 +61,36 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bottomNavigationView.setOnItemSelectedListener {
-            if(it.itemId!=navController.currentDestination?.id) {
+            if (it.itemId != navController.currentDestination?.id) {
                 when (it.itemId) {
-                    R.id.homePageFragment -> navController.navigate(R.id.homePageFragment)
-                    R.id.allCategoriesFragment -> navController.navigate(R.id.allCategoriesFragment)
-                    R.id.userAccountFragment -> navController.navigate(R.id.userAccountFragment)
-                    R.id.productSearchFragment -> navController.navigate(R.id.productSearchFragment)
+                    R.id.homePageFragment -> {
+                        if (!navController.popBackStack(R.id.homePageFragment, false))
+                            navController.navigate(R.id.homePageFragment)
+                    }
+                    R.id.allCategoriesFragment -> {
+                        if (!navController.popBackStack(R.id.allCategoriesFragment, false))
+                            navController.navigate(R.id.allCategoriesFragment)
+                    }
+                    R.id.userAccountFragment -> {
+                        if (!navController.popBackStack(R.id.userAccountFragment, false))
+                            navController.navigate(R.id.userAccountFragment)
+                    }
+                    R.id.productSearchFragment -> {
+                        if (!navController.popBackStack(R.id.productSearchFragment, false))
+                            navController.navigate(R.id.productSearchFragment)
+                    }
                     else -> {
                         MyGroceryApplication.modifiedStateEnabled.value?.let {
-                            if (it == true)
-                                navController.navigate(R.id.modifyOrderFragment)
-                            else
-                                navController.navigate(R.id.cartFragment)
+                            if (it == true) {
+                                if (!navController.popBackStack(R.id.modifyOrderFragment, false))
+                                    navController.navigate(R.id.modifyOrderFragment)
+                            } else {
+                                if (!navController.popBackStack(R.id.cartFragment, false))
+                                    navController.navigate(R.id.cartFragment)
+                            }
                         } ?: run {
-                            navController.navigate(R.id.cartFragment)
+                            if (!navController.popBackStack(R.id.cartFragment, false))
+                                navController.navigate(R.id.cartFragment)
                         }
                     }
                 }
@@ -129,18 +145,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         MyGroceryApplication.modifiedStateEnabled.observe(this) {
-            Log.e(TAG,"----------------------------")
+            Log.e(TAG, "----------------------------")
 
-            Log.e(TAG,"state: $it, orderID:${MyGroceryApplication.modifiedStateOrderId.value.toString()}")
+            Log.e(
+                TAG,
+                "state: $it, orderID:${MyGroceryApplication.modifiedStateOrderId.value.toString()}"
+            )
 
-            Log.e(TAG,"----------------------------")
+            Log.e(TAG, "----------------------------")
 
-            if(it)
-            {
+            if (it) {
                 snackBar.show()
 
-            }
-            else{
+            } else {
                 snackBar.dismiss()
                 snackBar = Snackbar.make(
                     snackBarView,
@@ -161,7 +178,7 @@ class MainActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Delivery Reminders"
-            Log.e(TAG,"$name NOtification creation processin. . .")
+            Log.e(TAG, "$name NOtification creation processin. . .")
 
             val description = "This is a  notificatio channel"
             val importance = NotificationManager.IMPORTANCE_HIGH
@@ -169,9 +186,8 @@ class MainActivity : AppCompatActivity() {
             channel.description = description
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
 
-        }
-        else
-            Log.e(TAG,"Build problem hey")
+        } else
+            Log.e(TAG, "Build problem hey")
 
     }
 

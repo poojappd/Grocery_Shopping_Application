@@ -63,22 +63,17 @@ enum class SubCategory(val value:String) {
     FRESHENERS_AND_REPELLENTS("Fresheners & Repellents"),
     MOPS_BRUSHES_AND_SCRUBS("Mops, Brushes & Scrubs"),
     STATIONERY("Stationery"),
-    KITCHEN_ACCESSORIES("Kitchen Accessories"),
 
     //garden, pets
-    GARDENING_TOOLS("Gardening Tools"),
-    SEEDS("Seeds"),
     DOG_FOOD("Dog Food"),
     CAT_FOOD("Cat Food"),
-    OTHER_PET_FOOD("Other Pet Food"),
-    PET_ACCESSORIES("Pet Food & Accessories"),
+    PET_ACCESSORIES("Pet Accessories"),
 
     //meat and eggs
     EGGS("Eggs"),
     SAUSAGES_BACON_AND_SALAMI("Sausages, Bacon & Salami"),
     MUTTON_AND_LAMB("Mutton & Lamb"),
     FISH_AND_SEAFOOD("Fish & Seafood"),
-
     NONE("None")
 
 }

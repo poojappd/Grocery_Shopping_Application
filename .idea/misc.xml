@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/cancel_icon.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/categ_image_veggie.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/checkout_button_shape_drawable.xml" value="0.181" />
+        <entry key="app/src/main/res/drawable/ci_drawable_selected_homepg.xml" value="0.208" />
         <entry key="app/src/main/res/drawable/circle_bg.xml" value="0.241" />
         <entry key="app/src/main/res/drawable/circle_outline.xml" value="0.253" />
         <entry key="app/src/main/res/drawable/collapse_all_icon.xml" value="0.1" />
@@ -31,6 +32,7 @@
         <entry key="app/src/main/res/drawable/empty_map_address.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/expand_all_icon.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/expand_collapse_state.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/frui.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/fruits_backdrop_background.xml" value="0.187" />
         <entry key="app/src/main/res/drawable/garden.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/heart_icon_selected.xml" value="0.1" />
@@ -99,7 +101,7 @@
         <entry key="app/src/main/res/layout/fragment_delivery_slot.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_edit_address.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_filter_view_pager.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.18406729341909944" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.403035413153457" />
         <entry key="app/src/main/res/layout/fragment_login_screen.xml" value="0.18667602539062497" />
         <entry key="app/src/main/res/layout/fragment_modified_place_order.xml" value="0.14035087719298245" />

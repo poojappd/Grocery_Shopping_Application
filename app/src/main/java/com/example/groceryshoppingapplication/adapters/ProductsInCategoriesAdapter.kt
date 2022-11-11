@@ -3,6 +3,7 @@ package com.example.groceryshoppingapplication.adapters
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.groceryshoppingapplication.listeners.ProductListTouchListener
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductBitmapFromAsset
+import com.example.groceryshoppingapplication.Utils.BitmapFactory.getProductImageUri
 import com.example.groceryshoppingapplication.Utils.ToastMessageProvider
 import com.example.groceryshoppingapplication.enums.ProductAvailability
 import com.example.groceryshoppingapplication.enums.Response
@@ -73,10 +76,10 @@ class ProductsInCategoriesAdapter(
                     )
                 }"
             )
-
-            image.setImageBitmap(
-                getProductBitmapFromAsset(products.get(position).productCode.toString(),0)
-            )
+//            image.setImageBitmap(
+                Glide.with(holder.itemView.context).load(Uri.parse(getProductImageUri(theProduct.productCode.toString(), 0))).into(image)
+                //getProductBitmapFromAsset(products.get(position).productCode.toString(),0)
+//            )
             container.setOnClickListener {
                productListTouchListener.navigate(products.get(position).productCode)
             }
