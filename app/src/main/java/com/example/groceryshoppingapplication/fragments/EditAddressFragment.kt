@@ -1,14 +1,15 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.Utils.CodeGeneratorUtil
 import com.example.groceryshoppingapplication.Utils.MyGroceryApplication
 import com.example.groceryshoppingapplication.Utils.ValidationService
@@ -27,6 +29,7 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_address.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
+import kotlinx.android.synthetic.main.fragment_home_page.view.*
 
 
 class EditAddressFragment : Fragment() {
@@ -60,6 +63,13 @@ class EditAddressFragment : Fragment() {
             container,
             false
         )
+        view.street_detail_et.imeOptions = (EditorInfo.IME_ACTION_NEXT or EditorInfo.IME_FLAG_NO_EXTRACT_UI)
+        view.street_detail_et.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        view.area_detail_et.imeOptions = (EditorInfo.IME_ACTION_NEXT or EditorInfo.IME_FLAG_NO_EXTRACT_UI)
+        view.area_detail_et.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        view.landmark_et.imeOptions = (EditorInfo.IME_ACTION_NEXT or EditorInfo.IME_FLAG_NO_EXTRACT_UI)
+        view.landmark_et.setRawInputType(InputType.TYPE_CLASS_TEXT);
+
         val cities =
             requireContext().resources.getStringArray(com.example.groceryshoppingapplication.R.array.cities)
         val adapter = ArrayAdapter(
@@ -210,7 +220,7 @@ class EditAddressFragment : Fragment() {
             } else {
                 if (!ValidationService.validateHouseNumber(houseNo.text.toString().trim())) {
                     validationPassed = false
-                    view.house_no_layout.error = Response.HOUSE_NO_INVALID.message
+                    view.house_no_layout.error = Response.HOUSE_NO_INVALID.message+"\n"+resources.getString(R.string.house_no_allowed_characters)
                     view.house_no_layout.requestFocus()
                 }
             }

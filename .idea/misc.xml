@@ -99,7 +99,7 @@
         <entry key="app/src/main/res/layout/fragment_all_categories.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.29318181818181815" />
         <entry key="app/src/main/res/layout/fragment_delivery_slot.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_edit_address.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_edit_address.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_filter_view_pager.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.18406729341909944" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.403035413153457" />

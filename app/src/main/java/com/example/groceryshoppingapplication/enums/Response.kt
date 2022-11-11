@@ -24,6 +24,7 @@ enum class Response(val message:String) {
 LANDMARK_INVALID("landmark is invalid"),
     CITY_NOT_VALID("Choose a city from the drop down"),
     HOUSE_NO_INVALID("House no. is invalid"),
+    HOUSE_NO_NOT_FOUND("Atleast one number should be r=present"),
     STREET_INVALID("Street detail is invalid"),
     AREA_INVALID("Area detail is invalid"),
     FNAME_INVALID("First name is invalid"),
