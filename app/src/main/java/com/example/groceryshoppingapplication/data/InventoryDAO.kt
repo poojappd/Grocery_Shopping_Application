@@ -32,8 +32,11 @@ interface InventoryDAO {
     @Query("select * from Inventory where productCode = :productCode")
     fun getItemDetailsSynchronously(productCode: Int): GroceryItemEntity
 
-    @Query("select * from Inventory where brandName like :searchQuery or itemName like :searchQuery limit 5")
+    @Query("select * from Inventory where brandName like :searchQuery or itemName like :searchQuery")
     fun searchInventory(searchQuery:String):LiveData<List<GroceryItemEntity>>
+
+    @Query("select * from Inventory where brandName like :searchQuery or itemName like :searchQuery limit 5")
+    fun searchInventoryLimit5(searchQuery:String):LiveData<List<GroceryItemEntity>>
 
     @Query("select productAvailability from Inventory where productCode = :productCode")
     suspend fun checkStockAvailability(productCode: Int): ProductAvailability

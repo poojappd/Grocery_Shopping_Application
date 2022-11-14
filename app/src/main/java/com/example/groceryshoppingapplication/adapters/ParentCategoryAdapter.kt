@@ -47,25 +47,17 @@ class ParentCategoryAdapter(
 
         //onclick listener for category dropdown
         categoryViewHolder.pressedLayout.setOnClickListener {
-            val slideUp: Animation = AnimationUtils.loadAnimation(categoryViewHolder.itemView.context, com.example.groceryshoppingapplication.R.anim.slide_in_vertical)
-//            slideUp.setAnimationListener(object : Animation.AnimationListener {
-//                override fun onAnimationStart(animation: Animation) {}
-//                override fun onAnimationRepeat(animation: Animation) {}
-//                override fun onAnimationEnd(animation: Animation) {
-//
-//                }
-//            })
-
-            TransitionManager.beginDelayedTransition(categoryViewHolder.pressedLayout)
+            val slideUp = AnimationUtils.loadAnimation(categoryViewHolder.itemView.context, com.example.groceryshoppingapplication.R.anim.slide_in_vertical)
             when (categoryViewHolder.nestedRV.visibility) {
                 View.GONE -> {
                     categoryViewHolder.nestedRV.visibility = View.VISIBLE
                     categoryViewHolder.dropDownIcon.setImageResource(com.example.groceryshoppingapplication.R.drawable.dropup_icon)
                 }
                 else -> {
+                    //TransitionManager.endTransitions(categoryViewHolder.pressedLayout)
                     categoryViewHolder.nestedRV.visibility = View.GONE
                     categoryViewHolder.dropDownIcon.setImageResource(R.drawable.dropdown_icon)
-                    //notifyDataSetChanged()
+notifyItemChanged(position)
                 }
             }
 

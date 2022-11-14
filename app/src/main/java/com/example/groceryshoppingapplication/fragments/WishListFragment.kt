@@ -38,7 +38,15 @@ class WishListFragment : Fragment() {
 
         val recyclerView = view.wishlist_recyclerView
         userViewModel.allWishListItems.observe(viewLifecycleOwner){
-            recyclerView.adapter = WishListItemsAdapter(it, WishListTouchListenerImpl())
+            if(it.size>0) {
+                view.wishlist_empty.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                recyclerView.adapter = WishListItemsAdapter(it, WishListTouchListenerImpl())
+            }
+            else{
+                recyclerView.visibility = View.GONE
+                view.wishlist_empty.visibility = View.VISIBLE
+            }
         }
         recyclerView.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
         return view

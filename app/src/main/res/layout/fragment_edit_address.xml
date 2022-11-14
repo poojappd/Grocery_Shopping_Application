@@ -91,6 +91,7 @@
                     app:counterEnabled="true"
                     app:counterMaxLength="60"
 app:errorEnabled="true"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintStart_toStartOf="@+id/house_no_layout"
                     app:layout_constraintTop_toBottomOf="@+id/house_no_layout"
                     app:layout_constraintEnd_toEndOf="@+id/house_no_layout">
@@ -120,6 +121,8 @@ app:errorEnabled="true"
                     app:layout_constraintTop_toBottomOf="@+id/street_detail"
                     android:hint="@string/hint_area"
                     app:counterEnabled="true"
+                    android:layout_marginTop="5dp"
+
                     app:counterMaxLength="80"
                     >
 
@@ -130,7 +133,7 @@ app:errorEnabled="true"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cabin"
                         android:maxLength="80"
-                        android:inputType="text|textMultiLine|textCapSentences"
+                        android:inputType="textMultiLine"
                         app:layout_constraintHorizontal_bias="0.0" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +146,8 @@ app:errorEnabled="true"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="@string/hint_lmk"
                     app:counterEnabled="true"
+                    android:layout_marginTop="5dp"
+
                     app:layout_constraintStart_toStartOf="@+id/house_no_layout"
                     app:layout_constraintEnd_toEndOf="@+id/area_detail"
                     app:layout_constraintTop_toBottomOf="@+id/area_detail"
@@ -151,7 +156,6 @@ app:errorEnabled="true"
                 <com.google.android.material.textfield.TextInputEditText
                         android:padding="10dp"
                         android:textSize="15dp"
-                        android:imeOptions="actionNext"
                         android:maxLines="2"
                         android:id="@+id/landmark_et"
                         android:layout_width="match_parent"
@@ -168,6 +172,7 @@ app:errorEnabled="true"
                     app:endIconDrawable="@drawable/dropdown_icon"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintEnd_toStartOf="@id/pincode"
@@ -181,6 +186,7 @@ app:errorEnabled="true"
                         android:fontFamily="@font/cabin"
                         android:layout_width="match_parent"
                         android:textSize="15dp"
+                        android:inputType="text"
                         android:layout_height="match_parent"
                         android:text="Chennai" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -191,6 +197,7 @@ app:errorEnabled="true"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginTop="5dp"
 
                     android:hint="@string/hint_pincode"
                     app:counterEnabled="true"

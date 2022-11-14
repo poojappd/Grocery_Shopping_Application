@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.groceryshoppingapplication.R
@@ -45,7 +46,10 @@ class UserDetailsEditFragment : Fragment() {
             "",
             5000
         )
+        snackBar.getView().setBackgroundColor(Color.TRANSPARENT)
+
         val snackView: View = snackBar.getView()
+
         val params = snackView.layoutParams as CoordinatorLayout.LayoutParams
         params.gravity = Gravity.TOP
         snackView.layoutParams = params
@@ -65,16 +69,29 @@ class UserDetailsEditFragment : Fragment() {
         val yesButtonDialog = dialogView.button
         val noButtonDialog = dialogView.no
         var mobileNumberChangeInvoked = false
-        var pressedYes = false
+
+            firstNameEditText.doOnTextChanged { text, start, before, count ->
+                if (view.textView10.isErrorEnabled()) {
+                    view.textView10.setErrorEnabled(false)
+                }
+            }
+
+        lastNameEditText.doOnTextChanged { text, start, before, count ->
+            if (view.textView11.isErrorEnabled()) {
+                view.textView11.setErrorEnabled(false)
+            }
+        }
+
 
         val alertDialog = dialogBuilder.create()
         if (alertDialog.getWindow() != null) {
             alertDialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             alertDialog.getWindow()!!.requestFeature(Window.FEATURE_NO_TITLE);
         }
+
+
         yesButtonDialog.setOnClickListener {
             mobileNumberChangeInvoked = true
-            pressedYes = true
             alertDialog.cancel()
             mobileNumberEditText.isFocusableInTouchMode = true
             mobileNumberEditText.requestFocus()
@@ -147,7 +164,6 @@ class UserDetailsEditFragment : Fragment() {
                 }
 
             val lname =lastNameEditText.text
-
             if(!TextUtils.isEmpty(lname) && lname.toString().trim() != ""){
                 if (!ValidationService.validateLastName(lname.toString().trim())) {
                     view.textView11.setError(Response.LNAME_INVALID.message)

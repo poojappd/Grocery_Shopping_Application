@@ -139,6 +139,5 @@ class UserAccountFragment : Fragment() {
         }
 
         findNavController().navigate(R.id.loginScreenFragment )
-        //findNavController().popBackStack(R.id.homePageFragment, true)
     }
 }

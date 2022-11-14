@@ -31,7 +31,6 @@ constructor(applicationContext: Context) : this() {
     override fun onResume() {
         requireActivity().bottomNavigationView.visibility = View.GONE
         super.onResume()
-        Log.e(ContentValues.TAG, "ONResumE CART FRAGMENT")
 
     }
 

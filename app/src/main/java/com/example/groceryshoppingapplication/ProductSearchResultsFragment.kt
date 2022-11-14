@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -27,13 +28,15 @@ import java.io.Serializable
 import java.util.*
 
 
-class ProductSearchResultsFragment : Fragment() {
+class ProductSearchResultsFragment : Fragment(), Serializable {
 
     private lateinit var filterButton:View
     private lateinit var recyclerView: RecyclerView
+    private lateinit var nothingFound_tv:TextView
     private val filterViewModel:FilterViewModel by activityViewModels {
         FilterViewModelFactory()
     }
+    val filterListener = SetFilter()
     private val inventoryViewModel:InventoryViewModel by viewModels {
         InventoryViewModelFactory(requireContext())
     }
@@ -72,6 +75,7 @@ class ProductSearchResultsFragment : Fragment() {
         items = mutableItems
         filterViewModel.setInitialSearchResults(items)
         recyclerView = view.product_search_result_RV
+        nothingFound_tv = view.nothingFound_tv
         recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         filterViewModel.getRefinedData()?.let {
             Log.e(TAG,"Refined data exists")
@@ -94,7 +98,7 @@ class ProductSearchResultsFragment : Fragment() {
             }
         }
         filterButton.setOnClickListener {
-            val filterDialog = ProductRefineFragment.newInstance(SetFilter())
+            val filterDialog = ProductRefineFragment()
             filterDialog.show(childFragmentManager,"refine")
         }
         return view
@@ -182,8 +186,6 @@ class ProductSearchResultsFragment : Fragment() {
                    toggleSearchResultVisibility(true)
                  }
 
-
-
             }
 
         }
@@ -199,11 +201,11 @@ class ProductSearchResultsFragment : Fragment() {
         private fun toggleSearchResultVisibility(noResults:Boolean){
             if(noResults) {
                 recyclerView.visibility = View.GONE
-                view?.nothingFound_tv?.visibility = View.VISIBLE
+                nothingFound_tv.visibility = View.VISIBLE
             }
             else{
                 recyclerView.visibility = View.VISIBLE
-                view?.nothingFound_tv?.visibility = View.GONE
+                nothingFound_tv.visibility = View.GONE
             }
         }
     }

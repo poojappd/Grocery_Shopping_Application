@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.groceryshoppingapplication.R
 import com.example.groceryshoppingapplication.enums.OrderStatus
 import com.example.groceryshoppingapplication.viewmodels.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 import kotlinx.android.synthetic.main.fragment_order_summary.view.*
 import kotlinx.android.synthetic.main.fragment_place_order.view.*
@@ -42,6 +43,18 @@ class OrderSummaryFragment : Fragment() {
     private val args: OrderSummaryFragmentArgs by navArgs()
     private val modifyOrderViewModel: ModifyOrderViewModel by activityViewModels {
         ModifyOrderViewModelFactory(requireContext().applicationContext)
+    }
+
+    override fun onResume() {
+        requireActivity().bottomNavigationView.visibility = View.GONE
+        super.onResume()
+
+    }
+
+    override fun onStop() {
+        requireActivity().bottomNavigationView.visibility = View.VISIBLE
+        super.onStop()
+
     }
 
     override fun onCreateView(

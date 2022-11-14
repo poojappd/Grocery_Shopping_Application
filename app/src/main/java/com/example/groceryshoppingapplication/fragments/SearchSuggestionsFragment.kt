@@ -1,7 +1,9 @@
 package com.example.groceryshoppingapplication.fragments
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.text.TextUtils.split
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,7 +55,7 @@ class SearchSuggestionsFragment() : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         searchSuggestionViewModel.searchQuery.observe(viewLifecycleOwner) { searchQuery ->
 
-            inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {
+            inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
                 Log.e(ContentValues.TAG, "  change observed---$searchQuery  ${it?.size}")
 
                 val matchingCategories = mutableListOf<String>()
@@ -69,19 +71,50 @@ class SearchSuggestionsFragment() : Fragment() {
                     }
                 }
                 it?.forEach { it2 ->
-                    titles.add(it2.brandName + " " + it2.itemName)
-                    productCodes.add(it2.productCode)
-                    val category = it2.subCategory.value
-                    if (!matchingCategories.contains(category)) {
-                        matchingCategories.add(category)
-                        categoriesEnum.add(it2.subCategory)
+                    Log.e(TAG,"${it2.brandName} ${it2.itemName.uppercase()}")
+
+                    if(titles.size<=7) {
+                        if (
+                            it2.brandName.uppercase().split(" ").any { string ->
+                                Log.e(TAG, string)
+                                (searchQuery.uppercase().split(" ").any { splitQuery ->
+                                    Log.e(TAG, splitQuery)
+                                    string.startsWith(splitQuery)
+                                })
+                            }
+                        ) {
+                            titles.add(it2.brandName + " " + it2.itemName)
+                            productCodes.add(it2.productCode)
+                            val category = it2.subCategory.value
+                            if (!matchingCategories.contains(category)) {
+                                matchingCategories.add(category)
+                                categoriesEnum.add(it2.subCategory)
+                            }
+                        } else if (
+                            it2.itemName.uppercase().split(" ").any { string ->
+                                (searchQuery.uppercase().split(" ")
+                                    .any { splitQuery -> string.startsWith(splitQuery) })
+                            }
+
+                        ) {
+                            titles.add(it2.brandName + " " + it2.itemName)
+                            productCodes.add(it2.productCode)
+                            val category = it2.subCategory.value
+                            if (!matchingCategories.contains(category)) {
+                                matchingCategories.add(category)
+                                categoriesEnum.add(it2.subCategory)
+                            }
+                        }
                     }
                 }
+
                 SubCategory.values().forEach { sub ->
                     val upperCasedValue = sub.value.uppercase()
                     if (upperCasedValue.contains(searchQuery.uppercase())) {
-                        categoriesEnum.add(sub)
-                        matchingCategories.add(sub.value)
+                        if(!categoriesEnum.contains(sub)) {
+                            categoriesEnum.add(sub)
+                            matchingCategories.add(sub.value)
+                        }
                     }
                 }
                 recyclerView.adapter = SuggestionsAdapter(

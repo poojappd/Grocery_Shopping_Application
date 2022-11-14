@@ -1,5 +1,10 @@
 package com.example.groceryshoppingapplication.Utils
 
+import android.content.ContentValues.TAG
+import android.util.Log
+import com.example.groceryshoppingapplication.enums.Response
+import java.util.regex.Pattern
+
 object ValidationService {
     fun validateFirstName(name:String): Boolean {
         if(name.matches(Regex("^[^&!@#$%^\\[*()<>\\]~`/{}|=_+:\";]*$")) && name[0].toString().matches(Regex("[a-zA-z]"))){
@@ -35,31 +40,30 @@ object ValidationService {
         return false
     }
 
-    fun validateHouseNumber(houseNo:String): Boolean {
-        if(houseNo.matches(Regex("^[a-zA-Z0-9 .\\-\\\\/]*$")) &&houseNo[0].toString().matches(Regex("^[^\\-/]*$"))){
-            if (houseNo.count{ "/".contains(it) } <=2 && houseNo.count{ "\\".contains(it) } <=2 && houseNo.count{ "-".contains(it) } <=2 && (houseNo.any { c -> c.isDigit()})){
-                return true
-            }
-        }
-        return false
+    fun validateHouseNumber(houseNo:String): Response {
+        if (!(houseNo.any { c -> c.isDigit()}))
+            return Response.NO_NOT_FOUND
+        if(!houseNo.matches(Regex("^[a-zA-Z0-9 .\\-\\\\/]*$")))
+            return Response.HOUSE_NO_ALLOWED_SPL_CHARACTERS
+        if(!Pattern.compile("^(?!.*[\\- ./]{4}).+$").matcher(houseNo).matches())
+            return Response.CONSECUTIVE_SPECIAL_CHARACTERS
+        return Response.VALIDATION_PASSED
     }
 
-    fun validateArea(area:String):Boolean{
-        if (area.matches(Regex("^[a-zA-Z0-9 \\-\\\\/,.&]*$"))) {
-            if (area.count { "/".contains(it) } <= 2 && area.count { "\\".contains(it) } <= 2 && area.count {
-                    "-".contains(
-                        it
-                    )
-                } <= 2 && area.count { "&".contains(it) } <= 2 && area.any { c -> c.isLetter() }) {
-                return true
-            }
-        }
-        return false
 
+    fun validateArea(area:String):Response{
+        Log.e(TAG,area+" "+ area.any { c -> c.isLetter()})
+        if (!area.any { c -> c.isLetter()})
+            return Response.LETTER_NOT_FOUND
+        if (!area.matches(Regex("^[a-zA-Z0-9 \\-\\\\/,.&']*$")))
+            return Response.AREA_ALLOWED_SPL_CHARACTERS
+        if(!Pattern.compile("^(?!.*[\\- ./]{4}).+$").matcher(area).matches())
+            return Response.CONSECUTIVE_SPECIAL_CHARACTERS
+        return Response.VALIDATION_PASSED
     }
 
     fun validateMobileNumber(mobile:String):Boolean{
-        if( mobile.any { c -> c.isLetter() } || mobile.length !=10 )
+        if( mobile.any { c -> c.isLetter() } || mobile.length != 10 )
             return false
         return true
     }

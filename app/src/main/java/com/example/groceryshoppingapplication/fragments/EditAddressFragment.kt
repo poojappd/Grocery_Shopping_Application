@@ -29,7 +29,6 @@ import com.example.groceryshoppingapplication.viewmodels.UserViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_address.*
 import kotlinx.android.synthetic.main.fragment_edit_address.view.*
-import kotlinx.android.synthetic.main.fragment_home_page.view.*
 
 
 class EditAddressFragment : Fragment() {
@@ -58,8 +57,7 @@ class EditAddressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(
-            com.example.groceryshoppingapplication.R.layout.fragment_edit_address,
+        val view = inflater.inflate(R.layout.fragment_edit_address,
             container,
             false
         )
@@ -182,8 +180,9 @@ class EditAddressFragment : Fragment() {
             }
             //landmark
             if (!TextUtils.isEmpty(landmark.text ) && landmark.text.toString().trim()!="") {
-                if (!ValidationService.validateArea(landmark.text.toString().trim())) {
-                    view.landmark.setError(Response.LANDMARK_INVALID.message)
+                val areaValidationResponse = ValidationService.validateArea(landmark.text.toString().trim())
+                if (areaValidationResponse != Response.VALIDATION_PASSED) {
+                    view.landmark.setError(areaValidationResponse.message)
                     view.landmark.requestFocus()
                     validationPassed = false
                 }
@@ -194,8 +193,10 @@ class EditAddressFragment : Fragment() {
                 view.area_detail.requestFocus()
                 validationPassed = false
             } else {
-                if (!ValidationService.validateArea(areaDetail.text.toString().trim())) {
-                    view.area_detail.setError(Response.AREA_INVALID.message)
+                val areaValidationResponse = ValidationService.validateArea(areaDetail.text.toString().trim())
+                Log.e(TAG, areaValidationResponse.message)
+                if (areaValidationResponse != Response.VALIDATION_PASSED) {
+                    view.area_detail.setError(areaValidationResponse.message)
                     view.area_detail.requestFocus()
                     validationPassed = false
                 }
@@ -206,9 +207,10 @@ class EditAddressFragment : Fragment() {
                 view.street_detail.requestFocus()
                 validationPassed = false
             } else {
-                if (!ValidationService.validateArea(streetDetail.text.toString().trim())) {
+                val areaValidationResponse = ValidationService.validateArea(streetDetail.text.toString().trim())
+                if ( areaValidationResponse != Response.VALIDATION_PASSED) {
                     validationPassed = false
-                    view.street_detail.setError(Response.STREET_INVALID.message)
+                    view.street_detail.setError(areaValidationResponse.message)
                     view.street_detail.requestFocus()
                 }
             }
@@ -218,9 +220,10 @@ class EditAddressFragment : Fragment() {
                 house_no_layout.requestFocus()
                 validationPassed = false
             } else {
-                if (!ValidationService.validateHouseNumber(houseNo.text.toString().trim())) {
+                val houseValidationResponse = ValidationService.validateHouseNumber(houseNo.text.toString().trim())
+                if (houseValidationResponse != Response.VALIDATION_PASSED) {
                     validationPassed = false
-                    view.house_no_layout.error = Response.HOUSE_NO_INVALID.message+"\n"+resources.getString(R.string.house_no_allowed_characters)
+                    view.house_no_layout.error = houseValidationResponse.message
                     view.house_no_layout.requestFocus()
                 }
             }

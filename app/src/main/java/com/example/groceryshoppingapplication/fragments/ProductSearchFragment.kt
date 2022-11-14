@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.groceryshoppingapplication.ProductSearchResultsFragment
@@ -160,11 +161,62 @@ class ProductSearchFragment : Fragment() {
 
         fun searchProductInInventory(searchQuery: String) {
             popLastChildBackStackEntry()
-            inventoryViewModel.searchProducts("%$searchQuery%").observe(viewLifecycleOwner) {
+            inventoryViewModel.searchProducts(searchQuery).observe(viewLifecycleOwner) {
                 if (it.size > 0) {
-                    val productCodes = getProductCodesFromProduct(it)
+
+                    val matchingCategories = mutableListOf<String>()
+                    val titles = mutableListOf<String>()
+                    val categoriesEnum = mutableListOf<Enum<*>>()
+                    val productCodes = mutableListOf<Int>()
+
+                    GeneralCategory.values().forEach {
+                        val upperCasedValue = it.value.uppercase()
+                        if (upperCasedValue.contains(searchQuery.uppercase())) {
+                            matchingCategories.add(it.value)
+                            categoriesEnum.add(it)
+                        }
+                    }
+                    it?.forEach { it2 ->
+                        Log.e(TAG,"${it2.brandName} ${it2.itemName.uppercase()}")
+
+                        if(titles.size<=7) {
+                            if (
+                                it2.brandName.uppercase().split(" ").any { string ->
+                                    Log.e(TAG, string)
+                                    (searchQuery.uppercase().split(" ").any { splitQuery ->
+                                        Log.e(TAG, splitQuery)
+                                        string.startsWith(splitQuery)
+                                    })
+                                }
+                            ) {
+                                titles.add(it2.brandName + " " + it2.itemName)
+                                productCodes.add(it2.productCode)
+                                val category = it2.subCategory.value
+                                if (!matchingCategories.contains(category)) {
+                                    matchingCategories.add(category)
+                                    categoriesEnum.add(it2.subCategory)
+                                }
+                            } else if (
+                                it2.itemName.uppercase().split(" ").any { string ->
+                                    (searchQuery.uppercase().split(" ")
+                                        .any { splitQuery -> string.startsWith(splitQuery) })
+                                }
+
+                            ) {
+                                titles.add(it2.brandName + " " + it2.itemName)
+                                productCodes.add(it2.productCode)
+                                val category = it2.subCategory.value
+                                if (!matchingCategories.contains(category)) {
+                                    matchingCategories.add(category)
+                                    categoriesEnum.add(it2.subCategory)
+                                }
+                            }
+                        }
+                    }
+
+
                     childFragmentManager.beginTransaction().apply {
-                        add(R.id.search_Fragment, ProductSearchResultsFragment.newInstance(productCodes))
+                        add(R.id.search_Fragment, ProductSearchResultsFragment.newInstance(productCodes.toIntArray()))
                         addToBackStack("searchresultProduct")
                         lastSuggestionStackId = commit()
                     }
@@ -175,8 +227,6 @@ class ProductSearchFragment : Fragment() {
 
 
         private fun displaySuggestions(searchQuery: String) {
-            //popLastChildBackStackEntry()
-            //childFragmentManager.popBackStackImmediate("searchresultProduct",FragmentManager.POP_BACK_STACK_INCLUSIVE)
             if(childFragmentManager.backStackEntryCount==0) {
                 childFragmentManager.beginTransaction().apply {
                     add(R.id.search_Fragment, SearchSuggestionsFragment.newInstance(searchQuery))

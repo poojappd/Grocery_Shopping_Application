@@ -18,25 +18,26 @@ import com.example.groceryshoppingapplication.viewmodels.FilterViewModel
 import com.example.groceryshoppingapplication.viewmodels.FilterViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_product_refine.*
 import kotlinx.android.synthetic.main.fragment_product_refine.view.*
 
 
-class ProductRefineFragment() : BottomSheetDialogFragment() {
+class ProductRefineFragment : BottomSheetDialogFragment() {
     private val filterViewModel: FilterViewModel by activityViewModels {
         FilterViewModelFactory()
     }
 
-    companion object {
-        const val FILTER_CALLBACK_FUNCTION: String = "FILTER_CALLBACK_FUNCTION"
-
-        fun newInstance(filterListener: ProductSearchResultsFragment.SetFilter): ProductRefineFragment {
-            val fragment = ProductRefineFragment()
-            val bundle = Bundle()
-            bundle.putSerializable(FILTER_CALLBACK_FUNCTION, filterListener)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+//    companion object {
+//        const val FILTER_CALLBACK_FUNCTION: String = "FILTER_CALLBACK_FUNCTION"
+//
+//        fun newInstance(filterListener: ProductSearchResultsFragment.SetFilter): ProductRefineFragment {
+//            val fragment = ProductRefineFragment()
+//            val bundle = Bundle()
+//            bundle.putSerializable(FILTER_CALLBACK_FUNCTION, filterListener)
+//            fragment.arguments = bundle
+//            return fragment
+//        }
+//    }
 
     override fun getTheme(): Int {
         return R.style.CustomBottomSheetDialogTheme
@@ -54,7 +55,8 @@ class ProductRefineFragment() : BottomSheetDialogFragment() {
         }
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_refine, container, false)
-        val filterListener = arguments?.getSerializable(FILTER_CALLBACK_FUNCTION) as ProductSearchResultsFragment.SetFilter
+        val filterListener = (parentFragment as ProductSearchResultsFragment).filterListener
+            //arguments?.getSerializable(FILTER_CALLBACK_FUNCTION) as ProductSearchResultsFragment.SetFilter
         val viewPager = view.sortFilter_viewpager
         viewPager.adapter = RefineViewPagerAdapter(this)
         TabLayoutMediator(view.refine_tabLayout, viewPager) { tab, position ->

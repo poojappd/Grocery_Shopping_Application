@@ -32,7 +32,7 @@ class InventoryViewModel(applicationContext: Context): ViewModel() {
     fun getProductsUnderGeneralCategory(category: GeneralCategory) =
         repo.getProductsUnderGeneralCategory(category)
 
-    fun searchProducts(query: String) = repo.searchProducts(query)
+    fun searchProducts(query: String) = repo.searchProducts("%$query%")
 
     fun reserveProducts(orderItems: List<OrderedItemEntity>) {
         viewModelScope.launch {

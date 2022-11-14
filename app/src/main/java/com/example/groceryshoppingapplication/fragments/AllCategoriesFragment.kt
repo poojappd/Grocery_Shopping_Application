@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.transition.TransitionManager
 import com.example.groceryshoppingapplication.adapters.ParentCategoryAdapter
 import com.example.groceryshoppingapplication.R
@@ -30,6 +31,7 @@ class AllCategoriesFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_all_categories, container, false)
         val recyclerViewParent = view.findViewById<RecyclerView>(R.id.category_list)
+        (recyclerViewParent?.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         var isChecked = false
         recyclerViewParent.layoutManager = LinearLayoutManager(context)
         val generalCategories = CategoriesUtil(requireContext())
@@ -41,6 +43,7 @@ class AllCategoriesFragment : Fragment() {
             false,
             CategoryItemTouchListenerImpl()
         )
+
         view.expandCollapse_Button.setOnClickListener {
             TransitionManager.beginDelayedTransition(recyclerViewParent)
            // recyclerViewParent.adapter?.notifyDataSetChanged()
